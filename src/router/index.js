@@ -5,6 +5,7 @@ import home from '../pages/home/index.vue'
 import result from '../pages/result/index.vue'
 import test from '../pages/test/index.vue'
 import server from '../pages/server/index.vue'
+import map from '../pages/map/index.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,13 @@ export default new Router({
     name: 'server',
     component: server,
     alias: '/pages/server/main'
+  },
+
+  {
+    path: '/map',
+    name: 'map',
+    component: map,
+    alias: '/pages/map/main'
   },
 
 
