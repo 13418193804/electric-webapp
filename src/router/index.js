@@ -5,12 +5,9 @@ import home from '../pages/home/index.vue'
 import result from '../pages/result/index.vue'
 import test from '../pages/test/index.vue'
 import server from '../pages/server/index.vue'
-<<<<<<< HEAD
 import map from '../pages/map/index.vue'
-=======
 import login from '../pages/login/login.vue'
 import myTask from '../pages/myTask/taskList.vue'
->>>>>>> 0e60a24f9aa01ea796aab18c4bdc5053e6ec9d85
 
 Vue.use(Router)
 
