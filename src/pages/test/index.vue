@@ -36,7 +36,7 @@
 
 <script>
 import mqtt from 'mqtt'
-import {sendMessage} from './builder'
+// import {sendMessage} from './builder'
 
 
 
@@ -113,8 +113,7 @@ export default {
 
 
 // })
-console.log('------')
-console.log(this.service)
+
 
   }
   }

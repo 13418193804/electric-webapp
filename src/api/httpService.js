@@ -1,6 +1,6 @@
 
 import {base_url}  from "./conf"
-import axios from 'axios'
+// import axios from 'axios'
 export default {
     //ajax请求
     async httpRequest(option = {}) {

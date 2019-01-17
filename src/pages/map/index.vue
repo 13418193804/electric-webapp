@@ -1,6 +1,7 @@
 <template>
     <div class="amap-page-container">
     <div class="amap-wrapper">
+     
       <!-- <el-amap class="amap-box" vid="map" 
         :zoom="zoom"
         :center="center">
@@ -8,7 +9,6 @@
   <el-amap-ground-image v-for="groundimage in groundimages" :url="groundimage.url" :bounds="groundimage.bounds" :events="groundimage.events"></el-amap-ground-image>
 
       </el-amap> -->
-      123
     </div>
 
     </div>
@@ -31,19 +31,19 @@
       data: function() {
         return {
           // amapManager,
-      //         zoom:12,
-      // center:[113.928902,22.520294],
-      //    groundimages: [
-      //       {
-      //         url: require('./dx.png'),
-      //         bounds: [[113.928902,22.520294], [113.928902,22.520294]],
-      //         events: {
-      //           click() {
-      //             alert('click groundimage');
-      //           }
-      //         }
-      //       }
-      //     ]
+              zoom:12,
+      center:[113.928902,22.520294],
+         groundimages: [
+            {
+              url: require('./dx.png'),
+              bounds: [[113.928902,22.520294], [113.928902,22.520294]],
+              events: {
+                click() {
+                  alert('click groundimage');
+                }
+              }
+            }
+          ]
 
 
         };

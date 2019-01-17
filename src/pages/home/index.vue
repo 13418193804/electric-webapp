@@ -2,7 +2,7 @@
   <div class="homePage">
     <div class="wraps">
    
-   
+   134
 
       <!-- gotoGame('pages/test/main?path=four') -->
        
@@ -32,15 +32,15 @@ export default {
   },
   mounted() {
 
-    this.service
-      .httpRequest({
-        url: "/address/queryprovince",
-        methods: "post",
-        data: {}
-      })
-      .then(res => {
-        console.log(res);
-      });
+    // this.service
+    //   .httpRequest({
+    //     url: "/address/queryprovince",
+    //     methods: "post",
+    //     data: {}
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //   });
     // console.log('home999', this.$root, this.$root.$mp)
   }
 };
