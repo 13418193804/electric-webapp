@@ -86,33 +86,35 @@ export default {
   if(this.os == 'wx'){
     this.mapCtx = wx.createMapContext("myMap");
   }else{
-1
-var client  = mqtt.connect('mqtt://120.78.135.69:9000');
+
+// var client  = mqtt.connect('mqtt://120.78.135.69:9000');
 
 
-client.on('connect', function () {
-   console.log('>>> connected')
-  // 发布主题
-  //  setInterval(
-  //  		()=>{client.publish('mqtt', '30');},
-  //  		3000
-  //  	);
+// client.on('connect', function () {
+//    console.log('>>> connected')
+//   // 发布主题
+//   //  setInterval(
+//   //  		()=>{client.publish('mqtt', '30');},
+//   //  		3000
+//   //  	);
 
 
-  // 订阅主题/temperature  在message 处接收
-     client.subscribe('/temperature');
-})
+//   // 订阅主题/temperature  在message 处接收
+//      client.subscribe('/temperature');
+// })
 
-client.on('message',  (topic, message)=> {
-  var data = JSON.parse(message.toString());
+// client.on('message',  (topic, message)=> {
+//   var data = JSON.parse(message.toString());
 
-  this.messageList.push(message.toString())
-sendMessage(message.toString())
-
-
+//   this.messageList.push(message.toString())
+// sendMessage(message.toString())
 
 
-})
+
+
+// })
+console.log('------')
+console.log(this.service)
 
   }
   }
