@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/home/main",
+    "pages/game/main",
+    "pages/result/main",
+    "pages/server/main",
+    "pages/test/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "数独小游戏",
+    "navigationBarTextStyle": "black"
+  }
+}
