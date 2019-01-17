@@ -21,6 +21,7 @@ body {
     height: 100%;
     width: auto;
     // margin: 0;
+    background: #25487e;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%!important;
     text-size-adjust: 100%!important;
@@ -45,7 +46,6 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   width: 100%;
   height: 100%;
@@ -70,6 +70,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font: inherit;
+  color: #fff;
 }
 body{
   font-family:Arial,"STHeiti", Helvetica, sans-serif;
@@ -117,8 +118,11 @@ a{
 }
 html{-webkit-text-size-adjust:none;width:100%;height:100% } /*????iphone??safari????????????*/
 input[type="text"], input[type="button"], input[type="submit"], input[type="search"]{
+                
   -webkit-appearance:none;
   border-radius:0;
+  outline: none;
+  color: #fff;
 }
 
 html, body {
@@ -240,6 +244,12 @@ html, body {
   height:105/7.5vw;
   position: absolute;
   top: 0;
+}
+// denglei
+/* flex */
+.flex{
+  display: -webkit-flex; /* Safari */
+  display: flex;
 }
 
 </style>

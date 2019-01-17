@@ -110,6 +110,8 @@ html, body {
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%!important;
     text-size-adjust: 100%!important;
+  background: #25487e;
+
   }
   .bg{
   width: 100%;
@@ -223,5 +225,9 @@ html, body {
   height:105/7.5vw;
   position: absolute;
   top: 0;
+}
+// denglei
+body{
+  background: #25487e;
 }
 </style>

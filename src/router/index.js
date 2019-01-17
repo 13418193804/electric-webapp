@@ -5,6 +5,8 @@ import home from '../pages/home/index.vue'
 import result from '../pages/result/index.vue'
 import test from '../pages/test/index.vue'
 import server from '../pages/server/index.vue'
+import login from '../pages/login/login.vue'
+import myTask from '../pages/myTask/taskList.vue'
 
 Vue.use(Router)
 
@@ -37,7 +39,18 @@ export default new Router({
     component: server,
     alias: '/pages/server/main'
   },
-
+  {
+    path: '/login',
+    name: 'login',
+    component: login,
+    alias: '/pages/login/login'
+  },
+  {
+    path: '/myTask',
+    name: 'myTask',
+    component: myTask,
+    alias: '/pages/myTask/taskList'
+  },
 
 ]
 })
