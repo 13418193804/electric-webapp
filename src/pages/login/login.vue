@@ -56,7 +56,7 @@ export default {
         }
     }
     h1{
-        font-size: 40px*@rpx;margin-top: 20px*@rpx;
+        font-size: 40px*@rpx;margin-top: 20px*@rpx;text-align: center;
     }
     .loginForm{
         text-align: left;padding:30px*@rpx 60px*@rpx;position:relative;
@@ -73,7 +73,7 @@ export default {
         }
     }
     .loginCode{
-        margin-top: 60px*@rpx;
+        margin-top: 60px*@rpx;text-align: center;
         span{
             display: block;margin: 0 auto;margin-bottom: 30px*@rpx;
             width: 160px*@rpx;height: 160px*@rpx;border: 2px*@rpx solid #fff;
