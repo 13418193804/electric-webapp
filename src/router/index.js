@@ -5,6 +5,7 @@ import home from '../pages/home/index.vue'
 import result from '../pages/result/index.vue'
 import test from '../pages/test/index.vue'
 import server from '../pages/server/index.vue'
+import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
 import myTask from '../pages/myTask/taskList.vue'
 
@@ -16,7 +17,8 @@ export default new Router({
     name: 'home',
     component: home,
     alias: '/pages/home/main'
-  }, {
+  },
+   {
     path: '/game',
     name: 'game',
     component: game,
@@ -39,6 +41,14 @@ export default new Router({
     component: server,
     alias: '/pages/server/main'
   },
+
+  {
+    path: '/map',
+    name: 'map',
+    component: map,
+    alias: '/pages/map/main'
+  },
+
   {
     path: '/login',
     name: 'login',

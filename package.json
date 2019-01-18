@@ -15,13 +15,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "flyio": "^0.6.9",
     "mand-mobile": "^1.6.7",
     "mpvue": "^1.0.11",
     "mqtt": "^2.18.8",
     "net": "^1.0.2",
     "stompjs": "^2.3.3",
     "vue": "^2.5.16",
+    "vue-amap": "^0.5.8",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
