@@ -6,10 +6,7 @@
     </ul>
     <!-- 已报价 -->
     <div class="taskList" v-if="active == 0">
-        <!-- <view class="page__hd">
-            <view class="page__title">Button</view>
-            <view class="page__desc">按钮</view>
-        </view> -->
+        
         <ul>
             <li v-for="(item,index) in 3 " :key="index">
                 <div>

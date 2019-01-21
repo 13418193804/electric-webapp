@@ -5,7 +5,7 @@
       <!-- <img src="" alt=""> -->
     </div>
     <div class="flex menus">
-        <div>我的任务</div>
+        <div @click="getTask()">我的任务</div>
         <div>设备管理</div>
         <div>物料管理</div>
         <div>消息</div>
@@ -37,6 +37,9 @@ export default {
     // 事件处理方法
     gotoGame(path) {
       this.reLaunchPageTo(this.router + path);
+    },
+    getTask(){
+      this.$router.push({name:'myTask'})
     }
   },
   created() {
