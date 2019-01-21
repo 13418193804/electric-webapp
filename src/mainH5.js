@@ -9,6 +9,7 @@ import httpService from './api/httpService'
 import store from './store'
 import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
+import BScroll from 'better-scroll'
 
 // import VueAMap from "vue-amap";
 // VueAMap.initAMapApiLoader({

@@ -6,18 +6,15 @@
     </ul>
     <!-- 已报价 -->
     <div class="taskList" v-if="active == 0">
+        <!-- <view class="page__hd">
+            <view class="page__title">Button</view>
+            <view class="page__desc">按钮</view>
+        </view> -->
         <ul>
-            <li>
+            <li v-for="(item,index) in 3 " :key="index">
                 <div>
                     <p> 2018年8月10日 12:00:00</p>
                     <h4> 报警：深南达到香蜜</h4>
-                    <span>自动排单</span>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <p> 2018年8月10日 12:00:00</p>
-                    <h4> 报警：深南达到香蜜报警：深南达到香蜜报警：深南达到香蜜</h4>
                     <span>自动排单</span>
                 </div>
             </li>
@@ -35,6 +32,8 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
+
 export default {
   name: 'HelloWorld',
   data () {
@@ -50,7 +49,7 @@ export default {
     }
   },
   mounted () {
-    this.quoteData = this.quoteList[0].beenQuote
+      
   },
   methods: {
     handelClick (index) {
@@ -76,36 +75,47 @@ export default {
     width: 100%;height: 80px*@rpx;background: #fff;text-align: center;line-height: 80px*@rpx;color: #25487e;font-size: 32px*@rpx;
     font-weight: bold;
 }
+
+.taskTabs{
+    display: flex;
+    position: fixed;
+    right: 0;
+    left: 0;
+    height: 100%;
+    background: #25487e;
+    height: 80px*@rpx;border-bottom:2px solid #e7e7e7;line-height: 80px*@rpx;z-index: 999;
+//    padding: 0 3%;
+    li{
+        flex: 1;text-align: center;color: #fff;
+    }
+    .titilebCur{
+        border-bottom:2px solid #fff; color: #284b7c;background: #fff;
+    }
+}
 .taskBox{
-    .taskTabs{
-       height: 80px*@rpx;border-bottom:2px solid #e7e7e7;line-height: 80px*@rpx;
-    //    padding: 0 3%;
-       li{
-            flex: 1;text-align: center;
-        }
-        .titilebCur{
-            border-bottom:2px solid #fff; color: #284b7c;background: #fff;
-        }
-    }
-}
-.taskList{
-    padding: 5%;
-    ul{
-        li{
-            position: relative;padding:30px*@rpx 0;border-top: 2px*@rpx solid #eee;
-            p{
-                font-size: 26px*@rpx;width: 80%;height: 40px*@rpx;
-            }
-            h4{
-                font-size: 24px*@rpx;width: 80%;height: 40px*@rpx;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-            span{
-                font-size: 24px*@rpx;    position: absolute;right: 0;top: 30px*@rpx;
+    .taskList{
+        padding: 5%;padding-top:100px*@rpx;
+        ul{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            li{
+                position: relative;padding:30px*@rpx 0;border-top: 2px*@rpx solid #eee;
+                p{
+                    font-size: 26px*@rpx;width: 80%;height: 40px*@rpx;
+                }
+                h4{
+                    font-size: 24px*@rpx;width: 80%;height: 40px*@rpx;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                span{
+                    font-size: 24px*@rpx;    position: absolute;right: 0;top: 30px*@rpx;
+                }
             }
         }
     }
 }
+
 </style>

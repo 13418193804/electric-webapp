@@ -21,7 +21,7 @@ body {
     height: 100%;
     width: auto;
     // margin: 0;
-    background: #25487e;
+    // background: #25487e;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%!important;
     text-size-adjust: 100%!important;
@@ -70,7 +70,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font: inherit;
-  color: #fff;
+  // color: #fff;
 }
 body{
   font-family:Arial,"STHeiti", Helvetica, sans-serif;

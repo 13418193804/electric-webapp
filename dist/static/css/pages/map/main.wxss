@@ -1,0 +1,9 @@
+
+.amap-demo {
+  height: 600rpx;
+}
+@charset "utf-8";
+.amap-box.data-v-07d7791e {
+  width: 700rpx;
+  height: 700rpx;
+}
