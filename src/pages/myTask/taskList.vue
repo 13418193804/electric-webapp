@@ -1,12 +1,11 @@
 <template>
   <div class="taskBox">
-    <!-- <header>我的任务</header> -->
+    <!-- <header><div class="back"><i class="icon"></i></div>我的任务</header> -->
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
     <!-- 已报价 -->
     <div class="taskList" v-if="active == 0">
-        
         <ul>
             <li v-for="(item,index) in 3 " :key="index">
                 <div>
@@ -67,26 +66,20 @@ export default {
 
 <style lang="less">
 @import '../../../static/css/common.less';
-/* header */
-  header{
-    width: 100%;height: 80px*@rpx;background: #fff;text-align: center;line-height: 80px*@rpx;color: #25487e;font-size: 32px*@rpx;
-    font-weight: bold;
-}
-
 .taskTabs{
     display: flex;
     position: fixed;
     right: 0;
     left: 0;
     height: 100%;
-    background: #25487e;
-    height: 80px*@rpx;border-bottom:2px solid #e7e7e7;line-height: 80px*@rpx;z-index: 999;
+    background: #fff;
+    height: 80px*@rpx;line-height: 80px*@rpx;z-index: 999;
 //    padding: 0 3%;
     li{
-        flex: 1;text-align: center;color: #fff;
+        flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
     }
     .titilebCur{
-        border-bottom:2px solid #fff; color: #284b7c;background: #fff;
+         color: #fff;background: #284b7c;
     }
 }
 .taskBox{

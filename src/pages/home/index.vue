@@ -16,9 +16,9 @@
       </div>
       <div class="chat"></div>
     </div>
-    <div class="footNav">
-      <!-- <div>首页</div>
-      <div></div> -->
+    <div class="flex footNav">
+      <div class="footCur">首页</div>
+      <div @click="goMine()">我的</div>
     </div>
   </div>
 </template>
@@ -39,7 +39,11 @@ export default {
       this.reLaunchPageTo(this.router + path);
     },
     getTask(){
-      this.$router.push({name:'myTask'})
+    
+      this.$router.push({name:'myTask'}) // 我的任务
+    },
+    goMine() {
+      this.$router.push({name: 'my'}) // 我的
     }
   },
   created() {
@@ -47,7 +51,7 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-
+    
     // this.service
     //   .httpRequest({
     //     url: "/address/queryprovince",

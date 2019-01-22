@@ -8,6 +8,7 @@ import server from '../pages/server/index.vue'
 import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
 import myTask from '../pages/myTask/taskList.vue'
+import my from '../pages/mine/my.vue'
 
 Vue.use(Router)
 
@@ -60,6 +61,12 @@ export default new Router({
     name: 'myTask',
     component: myTask,
     alias: '/pages/myTask/taskList'
+  },
+  {
+    path: '/my',
+    name: 'my',
+    component: my,
+    alias: '/pages/mine/my'
   },
 
 ]
