@@ -4,6 +4,7 @@
         <img src="" alt="">
     </div>
     <h1>智 能 电 源 箱 管 理</h1>
+    <h3>监控不当机 只选ONY</h3>
     <div class="loginForm">
         <div>
             <input type="text" name="" placeholder="请输入账号"> 
@@ -16,7 +17,7 @@
     <div class="loginCode">
         <!-- <img src="" alt=""> -->
         <span></span>
-        <button>登陆</button>
+        <button @click="getTask()">登陆</button>
     </div>
 
   </div>
@@ -33,7 +34,9 @@ export default {
 
   },
   methods: { // 事件处理方法
-
+    getTask(){
+        this.$router.push({name: 'myTask'})
+    }
   },
   created () { // 生命周期函数
 
@@ -47,7 +50,7 @@ export default {
 <style lang="less">
 @import '../../../static/css/common.less';
 .loginBox{
-    padding: 12% 5%;
+    padding: 12% 5%;background: #25487e;
     .logoImg{
         width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;border: 2px*@rpx solid #fff;
         text-align: center;margin:0 auto;
@@ -56,7 +59,11 @@ export default {
         }
     }
     h1{
-        font-size: 40px*@rpx;margin-top: 20px*@rpx;
+        font-size: 40px*@rpx;margin-top: 20px*@rpx;text-align: center;color: #fff;
+    }
+    h3{
+        color: #fff;
+        border: 2px*@rpx solid #fff;line-height: 60px*@rpx;padding: 0 10*@rpx;text-align: center;width: 300*@rpx;margin: 20*@rpx auto;
     }
     .loginForm{
         text-align: left;padding:30px*@rpx 60px*@rpx;position:relative;
@@ -73,14 +80,14 @@ export default {
         }
     }
     .loginCode{
-        margin-top: 60px*@rpx;
+        margin-top: 60px*@rpx;text-align: center;
         span{
             display: block;margin: 0 auto;margin-bottom: 30px*@rpx;
             width: 160px*@rpx;height: 160px*@rpx;border: 2px*@rpx solid #fff;
         }
         button{
             width: 210px*@rpx;height: 70px*@rpx;border-radius: 100px*@rpx;background: #fff;
-            color: blue;
+            color: blue;outline: none;
         }
     }
 }

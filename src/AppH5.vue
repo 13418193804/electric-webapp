@@ -16,15 +16,17 @@ export default {
 </script>
 
 <style lang="less">
+@import '../static/css/common.less';
 //// "out": true
 body {
     height: 100%;
     width: auto;
     // margin: 0;
-    background: #25487e;
+    // background: #25487e;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%!important;
     text-size-adjust: 100%!important;
+    margin: 0;
 }
 .container {
   height: 100%;
@@ -70,7 +72,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font: inherit;
-  color: #fff;
+  // color: #fff;
 }
 body{
   font-family:Arial,"STHeiti", Helvetica, sans-serif;
@@ -251,5 +253,22 @@ html, body {
   display: -webkit-flex; /* Safari */
   display: flex;
 }
-
+/* header */
+header{
+  line-height: 100*@rpx;background: #000;color: #fff;position: relative;text-align:center;
+  .back{
+    position: absolute;left: 5%;top: 10px;
+  }
+}
+/* foot */
+.footNav{
+  position: fixed;bottom: 0;width: 100%;left: 0;line-height: 90*@rpx;
+  div{
+    width: 50%;font-size: 34*@rpx;text-align: center;line-height: 90*@rpx;background: #409EFF;height: 90*@rpx;color: #fff;
+    background: linear-gradient(#6DB2F9,#409EFF);
+  }
+  .footCur{
+    background: linear-gradient(#409EFF,#6DB2F9)
+  }
+}
 </style>

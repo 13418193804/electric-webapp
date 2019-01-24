@@ -2,6 +2,8 @@
   "pages": [
     "pages/home/main",
     "pages/game/main",
+    "pages/map/main",
+    "pages/mqttpush/main",
     "pages/result/main",
     "pages/server/main",
     "pages/test/main"

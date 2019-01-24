@@ -1,0 +1,5 @@
+<template name="map$41c0cf86">
+  <view class="_div data-v-07d7791e amap-page-container">
+    <view class="_div data-v-07d7791e amap-wrapper"></view>
+  </view>
+</template>
