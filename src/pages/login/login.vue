@@ -35,7 +35,7 @@ export default {
   },
   methods: { // 事件处理方法
     getTask(){
-        this.$router.push({name: 'myTask'})
+        this.$router.push({name: 'home'})
     }
   },
   created () { // 生命周期函数
