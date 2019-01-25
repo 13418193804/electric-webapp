@@ -93,6 +93,19 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   data: function data() {
@@ -108,6 +121,13 @@ if (false) {(function () {
     // 事件处理方法
     gotoGame: function gotoGame(path) {
       this.reLaunchPageTo(this.router + path);
+    },
+    getTask: function getTask() {
+
+      this.$router.push({ name: 'myTask' }); // 我的任务
+    },
+    goMine: function goMine() {
+      this.$router.push({ name: 'my' }); // 我的
     }
   },
   created: function created() {
@@ -136,14 +156,46 @@ if (false) {(function () {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-}
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "homePage"
   }, [_c('div', {
-    staticClass: "wraps"
-  }, [_vm._v("\n \n 134\n\n    ")])])
+    staticClass: "homeTitle"
+  }, [_c('h1', [_vm._v("智能运维管理系统")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "banner"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "flex menus"
+  }, [_c('div', {
+    attrs: {
+      "eventid": '0'
+    },
+    on: {
+      "click": function($event) {
+        _vm.getTask()
+      }
+    }
+  }, [_vm._v("我的任务")]), _vm._v(" "), _c('div', [_vm._v("设备管理")]), _vm._v(" "), _c('div', [_vm._v("物料管理")]), _vm._v(" "), _c('div', [_vm._v("消息")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "flex footNav"
+  }, [_c('div', {
+    staticClass: "footCur"
+  }, [_vm._v("首页")]), _vm._v(" "), _c('div', {
+    attrs: {
+      "eventid": '1'
+    },
+    on: {
+      "click": function($event) {
+        _vm.goMine()
+      }
+    }
+  }, [_vm._v("我的")])])])
+}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "cartogram"
+  }, [_c('div', {
+    staticClass: "catTop"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "chat"
+  })])
 }]
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }

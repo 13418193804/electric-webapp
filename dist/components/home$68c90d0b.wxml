@@ -1,5 +1,22 @@
 <template name="home$68c90d0b">
   <view class="_div data-v-0e37d300 homePage">
-    <view class="_div data-v-0e37d300 wraps"> 134 </view>
+    <view class="_div data-v-0e37d300 homeTitle">
+      <view class="_h1 data-v-0e37d300">智能运维管理系统</view>
+    </view>
+    <view class="_div data-v-0e37d300 banner"></view>
+    <view class="_div data-v-0e37d300 flex menus">
+      <view bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300">我的任务</view>
+      <view class="_div data-v-0e37d300">设备管理</view>
+      <view class="_div data-v-0e37d300">物料管理</view>
+      <view class="_div data-v-0e37d300">消息</view>
+    </view>
+    <view class="_div data-v-0e37d300 cartogram">
+      <view class="_div data-v-0e37d300 catTop"></view>
+      <view class="_div data-v-0e37d300 chat"></view>
+    </view>
+    <view class="_div data-v-0e37d300 flex footNav">
+      <view class="_div data-v-0e37d300 footCur">首页</view>
+      <view bindtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300">我的</view>
+    </view>
   </view>
 </template>

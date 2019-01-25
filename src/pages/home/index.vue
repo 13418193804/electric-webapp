@@ -2,12 +2,12 @@
   <div class="homePage">
     <div class="homeTitle"> <h1>智能运维管理系统</h1> </div>
     <div class="banner">
-      <!-- <img src="" alt=""> -->
+      <img src="../../assets/homebanner.png" alt="">
     </div>
     <div class="flex menus">
         <div @click="getTask()">我的任务</div>
         <div>设备管理</div>
-        <div>物料管理</div>
+        <div @click="getMaterial()"> 物料管理</div>
         <div>消息</div>
     </div>
     <div class="cartogram">
@@ -39,8 +39,10 @@ export default {
       this.reLaunchPageTo(this.router + path);
     },
     getTask(){
-    
       this.$router.push({name:'myTask'}) // 我的任务
+    },
+    getMaterial(){
+      this.$router.push({name:'material'}) // 我的任务
     },
     goMine() {
       this.$router.push({name: 'my'}) // 我的
@@ -76,6 +78,9 @@ export default {
   }
   .banner{
     width: 70%;margin: 0 auto;height: 150*@rpx;background: #409eff;margin-bottom: 20*@rpx;
+    img{
+      width: 100%;height: 100%;
+    }
   }
   .menus{
     width: 70%;margin: 0 auto;flex-wrap: wrap;padding: 30*@rpx;

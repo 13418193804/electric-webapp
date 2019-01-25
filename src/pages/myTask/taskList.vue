@@ -8,21 +8,39 @@
     <div class="taskList" v-if="active == 0">
         <ul>
             <li v-for="(item,index) in 3 " :key="index">
+                <span class="dots"></span>
                 <div>
                     <p> 2018年8月10日 12:00:00</p>
-                    <h4> 报警：深南达到香蜜</h4>
-                    <span>自动排单</span>
+                    <h4> 报警：<span>深南达到香蜜</span></h4>
+                    <span class="tag">自动排单</span>
                 </div>
             </li>
         </ul>
     </div>
     <!-- 处理中 -->
     <div class="taskList" v-if="active == 1">
-     2
+        <ul>
+            <li v-for="(item,index) in 1 " :key="index">
+                <div>
+                    <p> 订单时间</p>
+                    <h4> 报警：深南达到香蜜</h4>
+                    <h4> 备注：<span>回公司</span></h4>
+                </div>
+            </li>
+        </ul>
     </div>
     <!-- 处理完毕 -->
     <div class="taskList" v-if="active == 2">
-     3
+     <ul>
+            <li v-for="(item,index) in 5 " :key="index">
+                <div>
+                    <p> 订单时间</p>
+                    <h4> 报警：<span>深南达到香蜜</span></h4>
+                    <h4> 问腿：<span>线路问题</span></h4>
+                    <h4> 备注：<span>回公司</span></h4>
+                </div>
+            </li>
+        </ul>
     </div>
   </div>
 </template>
@@ -70,6 +88,8 @@ export default {
     display: flex;
     position: fixed;
     right: 0;
+    top:0;
+    width: 100%;
     left: 0;
     height: 100%;
     background: #fff;
@@ -79,7 +99,7 @@ export default {
         flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
     }
     .titilebCur{
-         color: #fff;background: #284b7c;
+         color: #fff;background: #0f91ef;
     }
 }
 .taskBox{
@@ -90,18 +110,27 @@ export default {
             height: 100%;
             overflow: hidden;
             li{
-                position: relative;padding:30px*@rpx 0;border-top: 2px*@rpx solid #eee;
-                p{
-                    font-size: 26px*@rpx;width: 80%;height: 40px*@rpx;
+                position: relative;padding:30px*@rpx 0;border-top: 2px*@rpx solid #eee;padding-left:5%;
+                div{
+                    p{
+                        font-size: 26px*@rpx;width: 80%;height: 40px*@rpx;
+                    }
+                    h4{
+                        font-size: 24px*@rpx;width: 80%;height: 40px*@rpx;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        
+                    }
+                    span.tag{
+                            font-size: 20px*@rpx;position: absolute;right: 0;top: 30px*@rpx;
+                            border: 1px solid #0f91ef;border-radius: 50px; padding: 0 6px;
+                        }
+                    
                 }
-                h4{
-                    font-size: 24px*@rpx;width: 80%;height: 40px*@rpx;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
-                span{
-                    font-size: 24px*@rpx;    position: absolute;right: 0;top: 30px*@rpx;
+                .dots{
+                    width: 5px;height: 5px;border-radius: 50%;background: #0f91ef;position: absolute;
+                    left: 0;top:44*@rpx;
                 }
             }
         }

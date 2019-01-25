@@ -9,6 +9,7 @@ import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
 import myTask from '../pages/myTask/taskList.vue'
 import my from '../pages/mine/my.vue'
+import material from '../pages/material/materialApply.vue'
 
 Vue.use(Router)
 
@@ -61,6 +62,12 @@ export default new Router({
     name: 'myTask',
     component: myTask,
     alias: '/pages/myTask/taskList'
+  },
+  {
+    path: '/material',
+    name: 'material',
+    component: material,
+    alias: '/pages/material/materialApply'
   },
   {
     path: '/my',
