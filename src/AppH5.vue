@@ -271,4 +271,12 @@ header{
     background: linear-gradient(#409EFF,#6DB2F9)
   }
 }
+// 第三方ui
+.md-scroll-view-refresh{
+  padding: 50*@rpx 0;
+}
+.md-scroll-view-refresh .refresh-tip{
+  margin-left: 15*@rpx;
+    font-size: 24*@rpx;
+}
 </style>
