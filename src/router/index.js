@@ -16,7 +16,7 @@ export default new Router({
   routes: [{
     path: '/',
     name: 'home',
-    component: home,
+    component: map,
     alias: '/pages/home/main'
   },
    {
