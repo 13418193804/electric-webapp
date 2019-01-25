@@ -1,7 +1,7 @@
 <template>
   <div class="loginBox">
     <div class="logoImg">
-        <img src="" alt="">
+        <img src="../../assets/user.jpg" alt="">
     </div>
     <h1>智 能 电 源 箱 管 理</h1>
     <h3>监控不当机 只选ONY</h3>
@@ -35,7 +35,7 @@ export default {
   },
   methods: { // 事件处理方法
     getTask(){
-        this.$router.push({name: 'myTask'})
+        this.$router.push({name: 'home'})
     }
   },
   created () { // 生命周期函数
@@ -50,9 +50,9 @@ export default {
 <style lang="less">
 @import '../../../static/css/common.less';
 .loginBox{
-    padding: 12% 5%;background: #25487e;
+    padding: 12% 5%;background: #0f91ef;height: 100%;
     .logoImg{
-        width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;border: 2px*@rpx solid #fff;
+        width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;
         text-align: center;margin:0 auto;
         img{
             width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;border: 2px*@rpx solid #fff;
@@ -66,17 +66,17 @@ export default {
         border: 2px*@rpx solid #fff;line-height: 60px*@rpx;padding: 0 10*@rpx;text-align: center;width: 300*@rpx;margin: 20*@rpx auto;
     }
     .loginForm{
-        text-align: left;padding:30px*@rpx 60px*@rpx;position:relative;
+        text-align: left;padding:40px*@rpx 60px*@rpx;position:relative;
         div{
             margin-bottom: 20px*@rpx;
             input{
                 border:none; border-bottom: 2px*@rpx solid #fff;
                 height: 70px*@rpx;padding-left: 10px*@rpx;width: 100%;
-                background: #25487e;color: #fff;
+                background: #0f91ef;color: #fff;font-size: 28*@rpx;
             }
         }
         .forget{
-            position: absolute;font-size: 24px*@rpx;right: 60*@rpx;
+            position: absolute;font-size: 24px*@rpx;right: 60*@rpx;color: #fff;
         }
     }
     .loginCode{
@@ -91,4 +91,16 @@ export default {
         }
     }
 }
+input::-webkit-input-placeholder{
+            color:#fff;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+            color:#fff;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+            color:#fff;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+            color:#fff;
+        }
 </style>

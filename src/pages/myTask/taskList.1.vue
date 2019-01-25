@@ -6,31 +6,16 @@
     </ul>
     <!-- 已报价 -->
     <div class="taskList" v-if="active == 0">
-        <div class="md-example-child md-example-child-scroll-view md-example-child-scroll-view-1">
-            <md-scroll-view
-                ref="scrollView"
-                :scrolling-x="false"
-                @refreshing="$_onRefresh"
-            >
-            <md-scroll-view-refresh
-                slot="refresh"
-                slot-scope="{ scrollTop, isRefreshActive, isRefreshing }"
-                :scroll-top="scrollTop"
-                :is-refreshing="isRefreshing"
-                :is-refresh-active="isRefreshActive"
-            ></md-scroll-view-refresh>
-            <ul>
-                <li v-for="(item,index) in list " :key="index" class="scroll-view-list">
-                    <span class="dots"></span>
-                    <div>
-                        <p> 2018年8月10日 12:00:00</p>
-                        <h4> 报警：<span>深南达到香蜜</span></h4>
-                        <span class="tag">自动排单</span>
-                    </div>
-                </li>
-            </ul>
-            </md-scroll-view>
-        </div>
+        <ul>
+            <li v-for="(item,index) in 10 " :key="index">
+                <span class="dots"></span>
+                <div>
+                    <p> 2018年8月10日 12:00:00</p>
+                    <h4> 报警：<span>深南达到香蜜</span></h4>
+                    <span class="tag">自动排单</span>
+                </div>
+            </li>
+        </ul>
     </div>
     <!-- 处理中 -->
     <div class="taskList" v-if="active == 1">
@@ -61,14 +46,10 @@
 </template>
 
 <script>
-import {ScrollView, ScrollViewRefresh} from 'mand-mobile'
+import BScroll from 'better-scroll'
 
 export default {
-  name: 'scroll-view-demo-0',
-  components: {
-    [ScrollView.name]: ScrollView,
-    [ScrollViewRefresh.name]: ScrollViewRefresh,
-  },
+  name: 'HelloWorld',
   data () {
     return {
       active: 0,
@@ -78,14 +59,11 @@ export default {
         beenQuote: [{text: '新任务'}, {text: '2019男装潮流冷帽'}],
         noQuote: [{text: '处理中'}],
         prohibituote: [{text: '处理完毕'}, {text: '潮流潮流潮流潮流潮流潮流潮流潮流潮流'}]
-      }],
-      list: 3,
+      }]
     }
   },
   mounted () {
-    window.ScrollViewTrigger1 = () => {
-      this.$refs.scrollView.triggerRefresh()
-    }
+      
   },
   methods: {
     handelClick (index) {
@@ -99,14 +77,7 @@ export default {
       if (this.active === 2) {
         this.quoteData = this.quoteList[0].prohibituote
       }
-    },
-    $_onRefresh() {
-      // async data
-      setTimeout(() => {
-        this.list += 5
-        this.$refs.scrollView.finishRefresh()
-      }, 2000)
-    },
+    }
   }
 }
 </script>

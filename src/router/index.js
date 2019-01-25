@@ -8,7 +8,10 @@ import server from '../pages/server/index.vue'
 import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
 import myTask from '../pages/myTask/taskList.vue'
+import demo from '../pages/myTask/demo.vue'
 import my from '../pages/mine/my.vue'
+import material from '../pages/material/materialApply.vue'
+import equipment from '../pages/equipment/equipmentList.vue'
 
 Vue.use(Router)
 
@@ -61,6 +64,24 @@ export default new Router({
     name: 'myTask',
     component: myTask,
     alias: '/pages/myTask/taskList'
+  },
+  {
+    path: '/demo',
+    name: 'demo',
+    component: demo,
+    alias: '/pages/myTask/demo'
+  },
+  {
+    path: '/material',
+    name: 'material',
+    component: material,
+    alias: '/pages/material/materialApply'
+  },
+  {
+    path: '/equipment',
+    name: 'equipment',
+    component: equipment,
+    alias: '/pages/equipment/equipmentList'
   },
   {
     path: '/my',

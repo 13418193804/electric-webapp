@@ -1,0 +1,36 @@
+
+@charset "utf-8";
+.homeTitle {
+  text-align: center;
+  padding: 5% 0;
+}
+.homeTitle h1 {
+  font-size: 36rpx;
+}
+.banner {
+  width: 70%;
+  margin: 0 auto;
+  height: 150rpx;
+  background: #409eff;
+  margin-bottom: 20rpx;
+}
+.menus {
+  width: 70%;
+  margin: 0 auto;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 30rpx;
+}
+.menus > div {
+  width: 50%;
+  text-align: center;
+  height: 150rpx;
+}
+.cartogram {
+  height: 600rpx;
+  background: #eee;
+}
+.cartogram .catTop {
+  background: #ccc;
+  height: 80rpx;
+}
