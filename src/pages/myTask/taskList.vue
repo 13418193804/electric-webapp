@@ -1,5 +1,6 @@
 <template>
   <div class="taskBox">
+      <cheader title="我的任务" @leftClick="leftClick"></cheader>
     <!-- <header><div class="back"><i class="icon"></i></div>我的任务</header> -->
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
@@ -62,10 +63,12 @@
 
 <script>
 import {ScrollView, ScrollViewRefresh} from 'mand-mobile'
+import cheader from '../../components/header'
 
 export default {
   name: 'scroll-view-demo-0',
   components: {
+      cheader,
     [ScrollView.name]: ScrollView,
     [ScrollViewRefresh.name]: ScrollViewRefresh,
   },
@@ -107,17 +110,22 @@ export default {
         this.$refs.scrollView.finishRefresh()
       }, 2000)
     },
+    leftClick(){
+        this.$router.push('/')
+    }
   }
 }
 </script>
 
+
 <style lang="less">
 @import '../../../static/css/common.less';
+
 .taskTabs{
     display: flex;
     position: fixed;
     right: 0;
-    top:0;
+    top:82px*@rpx;
     width: 100%;
     left: 0;
     height: 100%;

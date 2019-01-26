@@ -13,6 +13,7 @@ import my from '../pages/mine/my.vue'
 import material from '../pages/material/materialApply.vue'
 import equipment from '../pages/equipment/equipmentList.vue'
 
+// #0f91ef
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +23,7 @@ export default new Router({
     component: home,
     alias: '/pages/home/main'
   },
+
    {
     path: '/game',
     name: 'game',

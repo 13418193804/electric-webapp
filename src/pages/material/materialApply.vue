@@ -1,5 +1,7 @@
 <template>
   <div>
+            <cheader title="我的物料" @leftClick="leftClick"></cheader>
+
     <!-- <header><div class="back"><i class="icon"></i></div>我的任务</header> -->
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
@@ -29,9 +31,13 @@
 
 <script>
 import BScroll from 'better-scroll'
+import cheader from '../../components/header'
 
 export default {
   name: 'HelloWorld',
+    components: {
+      cheader,
+  },
   data () {
     return {
       active: 0,
@@ -52,6 +58,9 @@ export default {
       }
       if (this.active === 2) {
       }
+    },
+        leftClick(){
+        this.$router.push('/')
     }
   }
 }
@@ -62,7 +71,7 @@ export default {
 .taskTabs{
     display: flex;
     position: fixed;
-    top:0;
+    top:82px*@rpx;
     left: 0;
     width: 100%;
     height: 100%;
