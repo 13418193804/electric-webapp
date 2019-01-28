@@ -47,6 +47,9 @@ module.exports = {
     aliasFields: ['mpvue', 'weapp', 'browser'],
     mainFields: ['browser', 'module', 'main']
   },
+  externals: {
+    "BMap": "BMap"
+  },
   module: {
     rules: [
       {

@@ -336,6 +336,28 @@ header{
     position: absolute;left: 5%;top: 10px;
   }
 }
+/* tabs */
+.taskTabs{
+    display: flex;
+    position: fixed;
+    right: 0;
+    top:82px*@rpx;
+    // width: 100%;
+    left: 0;
+    height: 100%;
+    background: #fff;
+    height: 80px*@rpx;line-height: 80px*@rpx;z-index: 999;
+    padding: 0 5%;
+    li{
+        flex: 1;text-align: center;
+        // border-right:1px solid #eee;
+        border-bottom:1px solid #eee;
+    }
+    .titilebCur{
+         color: #4699ff;border-bottom: 2px solid #4699ff;
+        //  background: #4699ff;
+    }
+}
 /* foot */
 .footNav{
   position: fixed;bottom: 0;width: 100%;left: 0;line-height: 90*@rpx;
@@ -372,5 +394,11 @@ header{
 }
 .md-switch.active{
   background-color: #4699ff;
+}
+.md-input-item,.md-input-item .md-input-item-control{
+  min-height: 30px;
+}
+.md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
+  height: 30px;font-size: 14px;
 }
 </style>

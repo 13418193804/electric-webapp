@@ -1,8 +1,6 @@
 <template>
   <div>
-            <cheader title="我的物料" @leftClick="leftClick"></cheader>
-
-    <!-- <header><div class="back"><i class="icon"></i></div>我的任务</header> -->
+    <cheader title="我的物料" @leftClick="leftClick"></cheader>
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
@@ -59,7 +57,7 @@ export default {
       if (this.active === 2) {
       }
     },
-        leftClick(){
+    leftClick(){
         this.$router.push('/')
     }
   }
@@ -68,22 +66,6 @@ export default {
 
 <style lang="less">
 @import '../../../static/css/common.less';
-.taskTabs{
-    display: flex;
-    position: fixed;
-    top:82px*@rpx;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    height: 80px*@rpx;line-height: 80px*@rpx;z-index: 999;
-    li{
-        flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
-    }
-    .titilebCur{
-         color: #fff;background: #4699ff;
-    }
-}
 .material{
     padding: 5%;margin-top:100*@rpx;
     &-list{

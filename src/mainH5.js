@@ -10,6 +10,7 @@ import store from './store'
 import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
 import BScroll from 'better-scroll'
+// import BMap from 'BMap'
 
 // import VueAMap from "vue-amap";
 // VueAMap.initAMapApiLoader({
@@ -32,6 +33,7 @@ import BScroll from 'better-scroll'
 // Vue.use(VueAMap)
 
 Vue.use(mandMobile)
+// Vue.use(BMap)
 
 Vue.config.productionTip = false
 Vue.use(Vuex)

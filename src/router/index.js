@@ -9,11 +9,13 @@ import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
 import myTask from '../pages/myTask/taskList.vue' //我的任务
 import taskDetails from '../pages/myTask/taskDetails.vue' 
+import taskProgress from '../pages/myTask/taskProgress.vue' 
 
 import demo from '../pages/myTask/demo.vue'
 import my from '../pages/mine/my.vue' //我的
 import material from '../pages/material/materialApply.vue' //我的物料
 import equipment from '../pages/equipment/equipmentList.vue' //我的设备
+import equipmentDetails from '../pages/equipment/equipmentDetails.vue' 
 
 // #0f91ef
 Vue.use(Router)
@@ -76,6 +78,12 @@ export default new Router({
     alias: '/pages/myTask/taskDetails'
   },
   {
+    path: '/taskProgress',
+    name: 'taskProgress',
+    component: taskProgress,
+    alias: '/pages/myTask/taskProgress'
+  },
+  {
     path: '/demo',
     name: 'demo',
     component: demo,
@@ -92,6 +100,12 @@ export default new Router({
     name: 'equipment',
     component: equipment,
     alias: '/pages/equipment/equipmentList'
+  },
+  {
+    path: '/equipmentDetails',
+    name: 'equipmentDetails',
+    component: equipmentDetails,
+    alias: '/pages/equipment/equipmentDetails'
   },
   {
     path: '/my',

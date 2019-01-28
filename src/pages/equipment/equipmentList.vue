@@ -1,26 +1,37 @@
 <template>
-  <div>
-    <!-- <header><div class="back"><i class="icon"></i></div>我的任务</header> -->
-    <ul class="flex taskTabs">
+  <div class="equipment">
+    <cheader title="我的设备" @leftClick="leftClick"></cheader>
+    <!-- 扫一扫 -->
+    <div class="flex equipment-top">
+        <div class="equipment-top-search">
+            <md-input-item
+            ref="input0"
+            type="textarea"
+            :maxlength="200"
+            ></md-input-item>
+        </div>
+        <div>扫一扫</div>
+    </div>
+    <ul class="flex taskTabs" style="top:100px">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-    <!-- 物料申请 -->
+    <!-- 设备申请 -->
     <div class="material" v-if="active == 0">
-        <div class="material-list">
+        <div class="material-list" @click="getDetails()">
             <div class="material-list-dots"><i></i> 2018-12-11 12:22:22</div>
             <div>关联任务单：<span>2018297836263</span></div>
             <div class="flex material-list-btn">A0997-C征集上海市；保护卡个</div>
             <div class="flex material-list-operation">
-                <div class="tag">申请物料</div>
+                <div class="tag">申请设备</div>
                 <div>状态：<span>等待领取</span></div>
             </div>
         </div>
     </div>
-    <!-- 物料备用 -->
+    <!-- 设备备用 -->
     <div class="material" v-if="active == 1">
        2
     </div>
-    <!-- 物料使用记录 -->
+    <!-- 设备使用记录 -->
     <div class="material" v-if="active == 2">
         3
     </div>
@@ -28,10 +39,13 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
+import cheader from '../../components/header'
 
 export default {
   name: 'HelloWorld',
+  components: {
+      cheader
+  },
   data () {
     return {
       active: 0,
@@ -44,6 +58,9 @@ export default {
       
   },
   methods: {
+    leftClick(){
+        this.$router.push('/')
+    },
     handelClick (index) {
       this.active = index
       if (this.active === 0) {
@@ -52,6 +69,9 @@ export default {
       }
       if (this.active === 2) {
       }
+    },
+    getDetails(){
+        this.$router.push({name: 'equipmentDetails'})
     }
   }
 }
@@ -59,22 +79,6 @@ export default {
 
 <style lang="less">
 @import '../../../static/css/common.less';
-.taskTabs{
-    display: flex;
-    position: fixed;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    height: 80px*@rpx;line-height: 80px*@rpx;z-index: 999;
-    li{
-        flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
-    }
-    .titilebCur{
-         color: #fff;background: #4699ff;
-    }
-}
 .material{
     padding: 5%;margin-top:100*@rpx;
     &-list{
@@ -96,6 +100,19 @@ export default {
             }
         }
 
+    }
+}
+// 设备
+.equipment{
+    &-top{
+        width: 90%; margin: 30*@rpx auto;height: 80*@rpx;justify-content:space-between;
+        &-search{
+            width: 75%;
+            .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
+                border:1px solid #eee;border-radius: 5px;height: 35px;
+            }
+        }
+        
     }
 }
 

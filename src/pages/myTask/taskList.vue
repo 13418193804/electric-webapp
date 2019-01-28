@@ -5,7 +5,7 @@
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-    <!-- 已报价 -->
+    <!-- 新任务 -->
     <div class="taskList" v-if="active == 0">
         <div class="md-example-child md-example-child-scroll-view md-example-child-scroll-view-1">
             <md-scroll-view
@@ -21,7 +21,7 @@
                 :is-refresh-active="isRefreshActive"
             ></md-scroll-view-refresh>
             <ul>
-                <li v-for="(item,index) in list " :key="index" class="scroll-view-list">
+                <li v-for="(item,index) in list " :key="index" class="scroll-view-list" @click="getDetails()">
                     <span class="dots"></span>
                     <div>
                         <p> 2018年8月10日 12:00:00</p>
@@ -91,6 +91,9 @@ export default {
     }
   },
   methods: {
+    leftClick(){
+        this.$router.push('/')
+    },
     handelClick (index) {
       this.active = index
       if (this.active === 0) {
@@ -110,8 +113,8 @@ export default {
         this.$refs.scrollView.finishRefresh()
       }, 2000)
     },
-    leftClick(){
-        this.$router.push('/')
+    getDetails(){
+        this.$router.push({name:'taskDetails'})
     }
   }
 }
@@ -120,25 +123,6 @@ export default {
 
 <style lang="less">
 @import '../../../static/css/common.less';
-
-.taskTabs{
-    display: flex;
-    position: fixed;
-    right: 0;
-    top:82px*@rpx;
-    width: 100%;
-    left: 0;
-    height: 100%;
-    background: #fff;
-    height: 80px*@rpx;line-height: 80px*@rpx;z-index: 999;
-//    padding: 0 3%;
-    li{
-        flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
-    }
-    .titilebCur{
-         color: #fff;background: #4699ff;
-    }
-}
 .taskBox{
     .taskList{
         padding: 5%;padding-top:100px*@rpx;
