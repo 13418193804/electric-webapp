@@ -178,7 +178,11 @@ global.webpackJsonp([1],{
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return base_url; });
+
+
 // export const base_url = "https://pbms.onv.com.cn/api"
+
+
 var base_url = "http://203.195.236.254:8886/yidekuai";
 
 /***/ }),

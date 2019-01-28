@@ -72,7 +72,7 @@ export default {
         flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
     }
     .titilebCur{
-         color: #fff;background: #0f91ef;
+         color: #fff;background: #4699ff;
     }
 }
 .material{
@@ -83,7 +83,7 @@ export default {
         }
         &-dots{
             i{
-                 width: 5px;height: 5px;border-radius: 50%;background: #0f91ef;display: inline-block;
+                 width: 5px;height: 5px;border-radius: 50%;background: #4699ff;display: inline-block;
             }
         }
         &-btn{
@@ -92,7 +92,7 @@ export default {
         &-operation{
             justify-content:space-between;align-items:center;
             .tag{
-                font-size: 20px*@rpx;border: 1px solid #0f91ef;border-radius: 50px; padding: 0 6px;
+                font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
             }
         }
 

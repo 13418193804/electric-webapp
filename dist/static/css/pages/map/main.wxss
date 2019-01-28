@@ -1,9 +1,13 @@
 
-.amap-demo {
-  height: 600rpx;
-}
 @charset "utf-8";
 .amap-box.data-v-07d7791e {
   width: 700rpx;
   height: 700rpx;
+}
+#l-map.data-v-07d7791e {
+  height: 600rpx;
+  width: 100%;
+}
+#r-result.data-v-07d7791e {
+  width: 100%;
 }

@@ -50,7 +50,7 @@ export default {
 <style lang="less">
 @import '../../../static/css/common.less';
 .loginBox{
-    padding: 12% 5%;background: #0f91ef;height: 100%;
+    padding: 12% 5%;background: #4699ff;height: 100%;
     .logoImg{
         width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;
         text-align: center;margin:0 auto;
@@ -72,7 +72,7 @@ export default {
             input{
                 border:none; border-bottom: 2px*@rpx solid #fff;
                 height: 70px*@rpx;padding-left: 10px*@rpx;width: 100%;
-                background: #0f91ef;color: #fff;font-size: 28*@rpx;
+                background: #4699ff;color: #fff;font-size: 28*@rpx;
             }
         }
         .forget{

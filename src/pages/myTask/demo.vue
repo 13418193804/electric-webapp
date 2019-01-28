@@ -1,7 +1,7 @@
 <template>
   <div class="taskBox">
     <h1>demo</h1>
-     <div class="md-example-child md-example-child-scroll-view md-example-child-scroll-view-1">
+    <!-- <div class="md-example-child md-example-child-scroll-view md-example-child-scroll-view-1">
         <md-scroll-view
         ref="scrollView"
         :scrolling-x="false"
@@ -22,17 +22,45 @@
             <p class="scroll-view-item">{{i}}</p>
         </div>
         </md-scroll-view>
-    </div>
+    </div> -->
+     <div class="md-example-child md-example-child-scroll-view md-example-child-scroll-view-2">
+        <md-scroll-view
+          ref="scrollView"
+          :scrolling-x="false"
+          @endReached="$_onEndReached"
+        >
+          <div
+            v-for="i in list"
+            :key="i"
+            class="scroll-view-list"
+          >
+            <p class="scroll-view-item">{{i}}</p>
+          </div>
+          <md-scroll-view-more
+            slot="more"
+            :is-finished="isFinished"
+          >
+          </md-scroll-view-more>
+        </md-scroll-view>
+      </div>
+    <!--  -->
+    
   </div>
 </template>
 
 <script>
-import {ScrollView, ScrollViewRefresh} from 'mand-mobile'
+// import {ScrollView, ScrollViewRefresh} from 'mand-mobile'
+import {ScrollView, ScrollViewMore} from 'mand-mobile'
 export default {
-  name: 'scroll-view-demo-0',
+  // name: 'scroll-view-demo-0',
+  // components: {
+  //   [ScrollView.name]: ScrollView,
+  //   [ScrollViewRefresh.name]: ScrollViewRefresh,
+  // },
+  name: 'scroll-view-demo-2',
   components: {
     [ScrollView.name]: ScrollView,
-    [ScrollViewRefresh.name]: ScrollViewRefresh,
+    [ScrollViewMore.name]: ScrollViewMore,
   },
   data () {
     return {
@@ -46,12 +74,25 @@ export default {
     }
   },
   methods: {
-     $_onRefresh() {
+    //  $_onRefresh() {
+    //   setTimeout(() => {
+    //     this.list += 5
+    //     this.$refs.scrollView.finishRefresh()
+    //   }, 2000)
+    // },
+     $_onEndReached() {
+      if (this.isFinished) {
+        return
+      }
       // async data
       setTimeout(() => {
+        console.log('下拉')
         this.list += 5
-        this.$refs.scrollView.finishRefresh()
-      }, 2000)
+        if (this.list >= 20) {
+          this.isFinished = true
+        }
+        this.$refs.scrollView.finishLoadMore()
+      }, 1000)
     },
   }
 }

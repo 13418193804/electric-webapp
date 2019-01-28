@@ -3,20 +3,42 @@
     <view class="_div data-v-0e37d300 homeTitle">
       <view class="_h1 data-v-0e37d300">智能运维管理系统</view>
     </view>
-    <view class="_div data-v-0e37d300 banner"></view>
+    <view class="_div data-v-0e37d300 banner">
+      <image src="/copy-asset/assets/homebanner.png" alt class="_img data-v-0e37d300"></image>
+    </view>
     <view class="_div data-v-0e37d300 flex menus">
       <view bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300">我的任务</view>
-      <view class="_div data-v-0e37d300">设备管理</view>
-      <view class="_div data-v-0e37d300">物料管理</view>
+      <view bindtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300">设备管理</view>
+      <view bindtap="handleProxy" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300"> 物料管理</view>
       <view class="_div data-v-0e37d300">消息</view>
     </view>
     <view class="_div data-v-0e37d300 cartogram">
-      <view class="_div data-v-0e37d300 catTop"></view>
-      <view class="_div data-v-0e37d300 chat"></view>
+      <view class="_div data-v-0e37d300 flex catTop">
+        <view class="_div data-v-0e37d300">
+          <view class="_i data-v-0e37d300 dots"></view>离线设备
+          <label class="_span data-v-0e37d300">2</label>台</view>
+        <view class="_div data-v-0e37d300">
+          <view class="_i data-v-0e37d300 dots"></view>未处理任务
+          <label class="_span data-v-0e37d300">2</label>条</view>
+        <view class="_div data-v-0e37d300">
+          <view class="_i data-v-0e37d300 dots"></view>在线设备
+          <label class="_span data-v-0e37d300">2</label>台</view>
+        <view class="_div data-v-0e37d300">
+          <view class="_i data-v-0e37d300 dots"></view>以处理任务
+          <label class="_span data-v-0e37d300">2</label>条</view>
+      </view>
+      <view class="_div data-v-0e37d300 flex chat catTop ">
+        <view class="_div data-v-0e37d300">
+          <canvas id="canvas_circle" width="120" height="120" class="_canvas data-v-0e37d300"></canvas>
+        </view>
+        <view class="_div data-v-0e37d300">
+          <canvas id="canvas_circle1" width="120" height="120" class="_canvas data-v-0e37d300"></canvas>
+        </view>
+      </view>
     </view>
     <view class="_div data-v-0e37d300 flex footNav">
       <view class="_div data-v-0e37d300 footCur">首页</view>
-      <view bindtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300">我的</view>
+      <view bindtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_div data-v-0e37d300">我的</view>
     </view>
   </view>
 </template>

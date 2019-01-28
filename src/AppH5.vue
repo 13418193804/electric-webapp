@@ -102,6 +102,7 @@ body {
     -webkit-text-size-adjust: 100%!important;
     text-size-adjust: 100%!important;
     margin: 0;
+    box-sizing: border-box;
 }
 .container {
   height: 100%;
@@ -356,6 +357,20 @@ header{
 }
 .md-scroll-view{
     height: -webkit-fill-available;
-
+}
+.md-switch{
+  width: 40px;height: 22px;border-radius: 22px;
+}
+.md-switch:before{
+  width: 40px;height: 22px;border-radius: 22px;
+}
+.md-switch:after{
+  top: 2px;left: 2px;width: 20px;height: 18px;
+}
+.active:after{
+  left: -12px;
+}
+.md-switch.active{
+  background-color: #4699ff;
 }
 </style>

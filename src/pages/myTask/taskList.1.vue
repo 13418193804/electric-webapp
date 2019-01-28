@@ -99,7 +99,7 @@ export default {
         flex: 1;text-align: center;border-right:1px solid #eee;border-bottom:1px solid #eee;
     }
     .titilebCur{
-         color: #fff;background: #0f91ef;
+         color: #fff;background: #4699ff;
     }
 }
 .taskBox{
@@ -124,12 +124,12 @@ export default {
                     }
                     span.tag{
                             font-size: 20px*@rpx;position: absolute;right: 0;top: 30px*@rpx;
-                            border: 1px solid #0f91ef;border-radius: 50px; padding: 0 6px;
+                            border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
                         }
                     
                 }
                 .dots{
-                    width: 5px;height: 5px;border-radius: 50%;background: #0f91ef;position: absolute;
+                    width: 5px;height: 5px;border-radius: 50%;background: #4699ff;position: absolute;
                     left: 0;top:44*@rpx;
                 }
             }

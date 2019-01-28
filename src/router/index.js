@@ -7,11 +7,13 @@ import test from '../pages/test/index.vue'
 import server from '../pages/server/index.vue'
 import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
-import myTask from '../pages/myTask/taskList.vue'
+import myTask from '../pages/myTask/taskList.vue' //我的任务
+import taskDetails from '../pages/myTask/taskDetails.vue' 
+
 import demo from '../pages/myTask/demo.vue'
-import my from '../pages/mine/my.vue'
-import material from '../pages/material/materialApply.vue'
-import equipment from '../pages/equipment/equipmentList.vue'
+import my from '../pages/mine/my.vue' //我的
+import material from '../pages/material/materialApply.vue' //我的物料
+import equipment from '../pages/equipment/equipmentList.vue' //我的设备
 
 // #0f91ef
 Vue.use(Router)
@@ -66,6 +68,12 @@ export default new Router({
     name: 'myTask',
     component: myTask,
     alias: '/pages/myTask/taskList'
+  },
+  {
+    path: '/taskDetails',
+    name: 'taskDetails',
+    component: taskDetails,
+    alias: '/pages/myTask/taskDetails'
   },
   {
     path: '/demo',
