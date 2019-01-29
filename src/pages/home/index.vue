@@ -5,10 +5,10 @@
       <img src="../../assets/homebanner.png" alt="">
     </div>
     <div class="flex menus">
-        <div @click="getTask()">我的任务</div>
-        <div @click="getEquipment()">设备管理</div>
-        <div @click="getMaterial()"> 物料管理</div>
-        <div>消息</div>
+        <div @click="getTask()"><img src="../../assets/task.png" alt=""><h3>我的任务</h3></div>
+        <div @click="getEquipment()"><img src="../../assets/equipment.png" alt=""><h3>设备管理</h3></div>
+        <div @click="getMaterial()"> <img src="../../assets/material.png" alt=""><h3>物料管理</h3></div>
+        <div> <img src="../../assets/messge.png" alt=""><h3>消息</h3></div>
     </div>
     <div class="cartogram">
       <div class="flex catTop">
@@ -125,6 +125,9 @@ export default {
     width: 50%;
     text-align: center;
     height: 150 * @rpx;
+    img{
+      width: 64*@rpx;height: 66*@rpx;
+    }
   }
 }
 .cartogram {

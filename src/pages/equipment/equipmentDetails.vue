@@ -19,7 +19,10 @@
       <div class="details-type-titile"><h4>IO状态</h4></div>
       <div class="details-type-content">
           <div class="details-type-content-list">
-            <span>A1</span> <span>A3</span> <span>A3</span>
+            <span v-for="(item,index) in typeData" :key="index" @click="handelType(index)">
+              <i class="iconfont icon-danxuan-weixuan" :class="{'icon-danxuanxuanzhong':index == isCheack}"></i>{{item.name}}</span>
+             
+            <!-- <span>A3 <i class="iconfont icon-danxuan-weixuan"></i></span> -->
           </div>
           <div class="details-type-content-list">
             <span>B1</span> <span>B2</span> <span>B3</span>
@@ -48,7 +51,7 @@
       <div class="details-type-set">设置</div>
     </div>
     <!-- button -->
-    <div class="footBtb">
+    <div class="footBtb" @click="getRecord()">
       设备维护记录
     </div>
   </div>
@@ -64,7 +67,9 @@ export default {
     return {
       isActive:'',
       active: 0,
-      checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}]
+      isCheack: 0,
+      checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
+      typeData: [{name: 'A1'},{name:'A2'}]
     };
   },
   name: 'switch-demo',
@@ -79,8 +84,12 @@ export default {
     leftClick(){
         this.$router.push('/')
     },
-    handelCheck(index){
-      this.active = index
+    handelType(index){
+      this.isCheack = index
+      console.log('index',index,'ischeack', this.isCheack)
+    },
+    getRecord(){
+      this.$router.push({name: 'equimentRecord'})
     }
   },
   created() {

@@ -369,6 +369,22 @@ header{
     background: linear-gradient(#409EFF,#6DB2F9)
   }
 }
+// icon 
+.icon-xianshi_jinggao{
+  color: #409EFF;margin-right: 3px;
+}
+.icon-yigouxuan{
+  font-size: 14px!important;
+}
+.icon-weigouxuan{
+  margin-right: 3px;
+}
+.icon-saoyisao{
+  font-size: 28px!important;color: #777;
+}
+.icon-danxuan-weixuan{
+  color: #409EFF;
+}
 // 第三方ui
 .md-scroll-view-refresh{
   padding: 50*@rpx 0;

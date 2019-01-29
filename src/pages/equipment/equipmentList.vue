@@ -10,7 +10,9 @@
             :maxlength="200"
             ></md-input-item>
         </div>
-        <div>扫一扫</div>
+        <div>
+            <i class="iconfont icon-saoyisao"></i>
+        </div>
     </div>
     <ul class="flex taskTabs" style="top:100px">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>

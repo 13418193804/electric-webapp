@@ -15,7 +15,8 @@ import demo from '../pages/myTask/demo.vue'
 import my from '../pages/mine/my.vue' //我的
 import material from '../pages/material/materialApply.vue' //我的物料
 import equipment from '../pages/equipment/equipmentList.vue' //我的设备
-import equipmentDetails from '../pages/equipment/equipmentDetails.vue' 
+import equipmentDetails from '../pages/equipment/equipmentDetails.vue'
+import equipmentRecord from '../pages/equipment/equipmentRecord.vue' 
 
 // #0f91ef
 Vue.use(Router)
@@ -106,6 +107,12 @@ export default new Router({
     name: 'equipmentDetails',
     component: equipmentDetails,
     alias: '/pages/equipment/equipmentDetails'
+  },
+  {
+    path: '/equipmentRecord',
+    name: 'equipmentRecord',
+    component: equipmentRecord,
+    alias: '/pages/equipment/equipmentRecord'
   },
   {
     path: '/my',
