@@ -18,7 +18,22 @@
     </div>
     <!-- 物料备用 -->
     <div class="material" v-if="active == 1">
-       2
+       <div class="material-reserve">
+           <!-- 扫一扫 -->
+            <div class="flex material-top">
+                <div class="material-top-search">
+                    <md-input-item
+                    ref="input0"
+                    type="textarea"
+                    :maxlength="200"
+                    ></md-input-item>
+                    <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                </div>
+                <div class="material-top-button">
+                    <div class="tag">申请物料</div>
+                </div>
+            </div>
+       </div>
     </div>
     <!-- 物料使用记录 -->
     <div class="material" v-if="active == 2">
@@ -58,7 +73,7 @@ export default {
       }
     },
     leftClick(){
-        this.$router.push('/')
+        this.$router.go(-1)
     }
   }
 }
@@ -88,6 +103,23 @@ export default {
         }
 
     }
+    // 扫一扫
+    &-top{
+        width: 90%; margin: 0*@rpx auto;height: 80*@rpx;justify-content:space-between;
+    &-search{
+        width: 75%;position: relative;
+        .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
+            border:1px solid #eee;border-radius: 5px;height: 35px;
+        }
+        &-icon{
+            position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
+        }
+    }
+    &-button{
+        padding-top:15*@rpx;
+    }
+    
+}
 }
 
 </style>

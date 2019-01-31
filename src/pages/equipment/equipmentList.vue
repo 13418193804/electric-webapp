@@ -9,6 +9,7 @@
             type="textarea"
             :maxlength="200"
             ></md-input-item>
+            <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
         </div>
         <div>
             <i class="iconfont icon-saoyisao"></i>
@@ -97,9 +98,7 @@ export default {
         }
         &-operation{
             justify-content:space-between;align-items:center;
-            .tag{
-                font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
-            }
+            
         }
 
     }
@@ -109,10 +108,13 @@ export default {
     &-top{
         width: 90%; margin: 30*@rpx auto;height: 80*@rpx;justify-content:space-between;
         &-search{
-            width: 75%;
+            width: 75%;position: relative;
             .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
                 border:1px solid #eee;border-radius: 5px;height: 35px;
             }
+        }
+        &-icon{
+            position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
         }
         
     }

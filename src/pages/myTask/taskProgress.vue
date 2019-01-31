@@ -22,12 +22,15 @@
          <div class="flex details-declare-list">
             <div class="div div1"><i class="iconfont icon-xianshi_jinggao"></i>报警：</div>
             <div class="div">深圳大道故障</div>
+        </div>
+        <div class="flex details-declare-list">
             <div class="div div1">紧急：</div>
             <div class="div">XXX</div>
+        </div>
+        <div class="flex details-declare-list">
             <div class="div div1">位置：</div>
             <div class="div">深圳22坐标：xx</div>
         </div>
-        
     </div>
     <div class="details-result">
         <div class="flex details-result-cause">
@@ -110,9 +113,9 @@ export default {
     width: 90%;margin: 60*@rpx auto 0*@rpx;
     &-list{
       flex-wrap: wrap;background:#eee;padding:0 5px;position: relative;
-      font-size:24*@rpx;
+      font-size:24*@rpx;border-bottom: 1px solid #fff;
       .div{
-        width:69%;border-bottom: 1px solid #fff;line-height: 30px;
+        width:69%;line-height: 30px;
       }
       .div1{
         width: 19%;text-align: right;

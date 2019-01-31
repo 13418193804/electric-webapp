@@ -385,6 +385,12 @@ header{
 .icon-danxuan-weixuan{
   color: #409EFF;
 }
+.icon-sousuo{
+  font-size: 24px!important;
+}
+.tag{
+    font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
+}
 // 第三方ui
 .md-scroll-view-refresh{
   padding: 50*@rpx 0;
