@@ -33,6 +33,19 @@
                     <div class="tag">申请物料</div>
                 </div>
             </div>
+            <div class="material-table">
+                <div class="flex material-table-box">
+                    <div class="material-table-box-list">编号</div>
+                    <div class="material-table-box-list">名称</div>
+                    <div class="material-table-box-list">单位</div>
+                    <div class="material-table-box-list">剩余数量</div>
+                    <div class="material-table-box-list"></div>
+                </div>
+            </div>            
+            <!-- 物料列表 -->
+            <div class="material-reserve-table">
+                <div class=""></div>
+            </div>
        </div>
     </div>
     <!-- 物料使用记录 -->
@@ -103,23 +116,29 @@ export default {
         }
 
     }
+
     // 扫一扫
     &-top{
         width: 90%; margin: 0*@rpx auto;height: 80*@rpx;justify-content:space-between;
-    &-search{
-        width: 75%;position: relative;
-        .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
-            border:1px solid #eee;border-radius: 5px;height: 35px;
+        &-search{
+            width: 75%;position: relative;
+            .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
+                border:1px solid #eee;border-radius: 5px;height: 35px;
+            }
+            &-icon{
+                position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
+            }
         }
-        &-icon{
-            position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
+        &-button{
+            padding-top:15*@rpx;
         }
     }
-    &-button{
-        padding-top:15*@rpx;
+    // table
+    &-reserve{
+        &-table{
+
+        }
     }
-    
-}
 }
 
 </style>

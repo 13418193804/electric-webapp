@@ -8,7 +8,7 @@
         <div @click="getTask()"><img src="../../assets/task.png" alt=""><h3>我的任务</h3></div>
         <div @click="getEquipment()"><img src="../../assets/equipment.png" alt=""><h3>设备管理</h3></div>
         <div @click="getMaterial()"> <img src="../../assets/material.png" alt=""><h3>物料管理</h3></div>
-        <div> <img src="../../assets/messge.png" alt=""><h3>消息</h3></div>
+        <div @click="getMessage()"> <img src="../../assets/messge.png" alt=""><h3>消息</h3></div>
     </div>
     <div class="cartogram">
       <div class="flex catTop">
@@ -61,6 +61,9 @@ export default {
     },
     getEquipment() {
       this.$router.push({ name: "equipment" }); // 我的设备
+    },
+    getMessage() {
+      this.$router.push({name: 'message'})
     },
     goMine() {
       this.$router.push({ name: "my" }); // 我的

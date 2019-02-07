@@ -9,7 +9,7 @@
             type="textarea"
             :maxlength="200"
             ></md-input-item>
-            <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+            <div class="equipment-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
         </div>
         <div>
             <i class="iconfont icon-saoyisao"></i>
@@ -32,11 +32,11 @@
     </div>
     <!-- 设备备用 -->
     <div class="material" v-if="active == 1">
-       2
+       邓员峰
     </div>
     <!-- 设备使用记录 -->
     <div class="material" v-if="active == 2">
-        3
+        潘兰华
     </div>
   </div>
 </template>
@@ -112,10 +112,11 @@ export default {
             .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
                 border:1px solid #eee;border-radius: 5px;height: 35px;
             }
+            &-icon{
+                position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
+            }
         }
-        &-icon{
-            position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
-        }
+        
         
     }
 }

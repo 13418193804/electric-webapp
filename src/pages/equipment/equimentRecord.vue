@@ -9,7 +9,7 @@
         <div class="flex details-declare-list">
             <div class="div">位置：<span>深圳大道啥事吧</span></div>
         </div>
-         <div class="flex details-declare-list">
+        <div class="flex details-declare-list">
             <div class="div">坐标：<span>62.3434.232</span></div>
         </div>
     </div>
