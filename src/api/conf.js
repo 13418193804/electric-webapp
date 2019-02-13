@@ -22,4 +22,4 @@
 
 
 
-export const base_url = "http://203.195.236.254:8886/yidekuai"
+export const base_url = "http://onv.96ba.com:442"

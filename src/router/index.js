@@ -13,6 +13,7 @@ import taskProgress from '../pages/myTask/taskProgress.vue'
 
 import demo from '../pages/myTask/demo.vue'
 import my from '../pages/mine/my.vue' //我的
+import sign from '../pages/mine/sign.vue' 
 import inform from '../pages/mine/inform.vue' 
 import message from '../pages/mine/message.vue' 
 import material from '../pages/material/materialApply.vue' //我的物料
@@ -74,6 +75,7 @@ export default new Router({
     component: myTask,
     alias: '/pages/myTask/taskList'
   },
+  
   {
     path: '/taskDetails',
     name: 'taskDetails',
@@ -121,6 +123,12 @@ export default new Router({
     name: 'my',
     component: my,
     alias: '/pages/mine/my'
+  },
+  {
+    path: '/sign',
+    name: 'sign',
+    component: sign,
+    alias: '/pages/mine/sign'
   },
   {
     path: '/inform',
