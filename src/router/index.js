@@ -13,9 +13,13 @@ import taskProgress from '../pages/myTask/taskProgress.vue'
 
 import demo from '../pages/myTask/demo.vue'
 import my from '../pages/mine/my.vue' //我的
+import sign from '../pages/mine/sign.vue' 
+import inform from '../pages/mine/inform.vue' 
+import message from '../pages/mine/message.vue' 
 import material from '../pages/material/materialApply.vue' //我的物料
 import equipment from '../pages/equipment/equipmentList.vue' //我的设备
-import equipmentDetails from '../pages/equipment/equipmentDetails.vue' 
+import equipmentDetails from '../pages/equipment/equipmentDetails.vue'
+import equimentRecord from '../pages/equipment/equimentRecord.vue' 
 
 // #0f91ef
 Vue.use(Router)
@@ -71,6 +75,7 @@ export default new Router({
     component: myTask,
     alias: '/pages/myTask/taskList'
   },
+  
   {
     path: '/taskDetails',
     name: 'taskDetails',
@@ -108,10 +113,34 @@ export default new Router({
     alias: '/pages/equipment/equipmentDetails'
   },
   {
+    path: '/equimentRecord',
+    name: 'equimentRecord',
+    component: equimentRecord,
+    alias: '/pages/equipment/equimentRecord'
+  },
+  {
     path: '/my',
     name: 'my',
     component: my,
     alias: '/pages/mine/my'
+  },
+  {
+    path: '/sign',
+    name: 'sign',
+    component: sign,
+    alias: '/pages/mine/sign'
+  },
+  {
+    path: '/inform',
+    name: 'inform',
+    component: inform,
+    alias: '/pages/mine/inform'
+  },
+  {
+    path: '/message',
+    name: 'message',
+    component: message,
+    alias: '/pages/mine/message'
   },
 
 ]

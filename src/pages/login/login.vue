@@ -7,10 +7,10 @@
     <h3>监控不当机 只选ONY</h3>
     <div class="loginForm">
         <div>
-            <input type="text" name="" placeholder="请输入账号"> 
+            <input type="text" name="username" v-model="loginForm.username" placeholder="请输入账号"> 
         </div>
         <div>
-            <input type="text" name="" placeholder="请输入密码"> 
+            <input type="text" name="password" v-model="loginForm.password" placeholder="请输入密码"> 
         </div>
         <span class="forget">忘记密码</span>
     </div>
@@ -27,7 +27,7 @@
 export default {
   data () { // 选项 数据
     return {
-
+        loginForm:{}
     }
   },
   components: { // 定义组件
@@ -35,7 +35,18 @@ export default {
   },
   methods: { // 事件处理方法
     getTask(){
-        this.$router.push({name: 'home'})
+        this.service.httpRequest({
+            url: "/api/login",
+            methods: "post",
+            data: this.loginForm
+        }).then(res => {
+            if(res.data.status === '00'){
+             this.$router.push({name: 'home'})
+            }
+            console.log('login--',res);
+
+        });
+        // console.log('home999', this.$root, this.$root.$mp)
     }
   },
   created () { // 生命周期函数

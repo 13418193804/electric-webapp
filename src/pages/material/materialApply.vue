@@ -18,11 +18,81 @@
     </div>
     <!-- 物料备用 -->
     <div class="material" v-if="active == 1">
-       2
+       <div class="material-reserve">
+           <!-- 扫一扫 -->
+            <div class="flex material-top">
+                <div class="material-top-search">
+                    <md-input-item
+                    ref="input0"
+                    type="textarea"
+                    :maxlength="200"
+                    ></md-input-item>
+                    <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                </div>
+                <div class="material-top-button">
+                    <div class="tag">申请物料</div>
+                </div>
+            </div>
+            <div class="material-table">
+                <div class="flex material-table-box">
+                    <div class="material-table-box-list">编号</div>
+                    <div class="material-table-box-list">名称</div>
+                    <div class="material-table-box-list">单位</div>
+                    <div class="material-table-box-list">剩余数量</div>
+                    <div class="material-table-box-list"></div>
+                </div>
+                <div class="flex material-table-box" v-for="(item,index) in tableData.length" :key="index">
+                   <div class="material-table-box-list">{{tableData[index].no}}</div>
+                    <div class="material-table-box-list">{{tableData[index].name}}</div>
+                    <div class="material-table-box-list">{{tableData[index].danwei}}</div>
+                    <div class="material-table-box-list">{{tableData[index].no}}</div>
+                    <div class="material-table-box-list"></div>
+                </div>
+            </div>            
+            <!-- 物料列表 -->
+            <div class="material-reserve-table">
+                <div class=""></div>
+            </div>
+       </div>
     </div>
     <!-- 物料使用记录 -->
     <div class="material" v-if="active == 2">
-        3
+        <div class="material-reserve">
+           <!-- 扫一扫 -->
+            <div class="flex material-top">
+                <div class="material-top-search">
+                    <md-input-item
+                    ref="input0"
+                    type="textarea"
+                    :maxlength="200"
+                    ></md-input-item>
+                    <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                </div>
+                <div class="material-top-button">
+                    <div class="tag">申请物料</div>
+                </div>
+            </div>
+            <div class="material-table">
+                <div class="flex material-table-box">
+                    <div class="material-table-box-list">编号</div>
+                    <div class="material-table-box-list">名称</div>
+                    <div class="material-table-box-list">单位</div>
+                    <div class="material-table-box-list">剩余数量</div>
+                    <div class="material-table-box-list">使用情况</div>
+                </div>
+                <div class="flex material-table-box" v-for="(item,index) in tableData.length" :key="index">
+                   <div class="material-table-box-list">{{tableData[index].no}}</div>
+                    <div class="material-table-box-list">{{tableData[index].name}}</div>
+                    <div class="material-table-box-list">{{tableData[index].danwei}}</div>
+                    <div class="material-table-box-list">{{tableData[index].no}}</div>
+                    <div class="material-table-box-list"></div>
+                </div>
+            </div>            
+            <!-- 物料列表 -->
+            <div class="material-reserve-table">
+                <div class=""></div>
+            </div>
+       </div>
     </div>
   </div>
 </template>
@@ -40,7 +110,8 @@ export default {
     return {
       active: 0,
       tabs: [{titile: '物料申请单'}, {titile: '我的备用物料'}, {titile: '物料使用记录'}],
-      quoteData: [] // data
+      quoteData: [], // data
+      tableData: [{no:'001',name:'物料1',danwei:'艾斯'},{no:'002',name:'物料2',danwei:'艾斯2'}]
       
     }
   },
@@ -58,7 +129,7 @@ export default {
       }
     },
     leftClick(){
-        this.$router.push('/')
+        this.$router.go(-1)
     }
   }
 }
@@ -88,6 +159,37 @@ export default {
         }
 
     }
+
+    // 扫一扫
+    &-top{
+        width: 90%; margin: 0*@rpx auto;height: 80*@rpx;justify-content:space-between;
+        &-search{
+            width: 75%;position: relative;
+            .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
+                border:1px solid #eee;border-radius: 5px;height: 35px;
+            }
+            &-icon{
+                position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
+            }
+        }
+        &-button{
+            padding-top:15*@rpx;
+        }
+    }
+    // table
+    &-table{
+        width: 90%;margin:20*@rpx auto 0;
+        &-box{
+            border-top:1px solid #999;
+            border-left:1px solid #999;
+            &-list{
+                width: 20%;text-align: center;border-right: 1px solid #999;padding: 3px 0;
+            }
+        }
+    }
+}
+.material-table-box:last-child{
+    border-bottom: 1px solid #999;
 }
 
 </style>

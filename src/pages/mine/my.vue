@@ -10,7 +10,7 @@
        <p>操作人:龙添</p>
     </div> 
     <div class="mine-operation">
-        <div>签 到</div>
+        <div @click="getSgin()">签 到</div>
         <div>签 到 日 期</div>
     </div>
   </div>
@@ -27,7 +27,9 @@ export default {
   },
 
   methods: {
-    // 事件处理方法
+    getSgin(){
+      this.$router.push({name: 'sign'})
+    },
    goHome(){
      this.$router.push({name: 'home'})
    }

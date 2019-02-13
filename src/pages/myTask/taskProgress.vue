@@ -3,7 +3,7 @@
     <cheader title="我的任务" @leftClick="leftClick"></cheader>
     <div class="details-declare">
         <div class="flex details-declare-list">
-            <div class="div div1">报警：</div>
+            <div class="div div1"><i class="iconfont icon-xianshi_jinggao"></i>报警：</div>
             <div class="div">深圳大道</div>
             <div class="details-declare-list-swich">
               <!-- <button @click="getProgress()">处理</button> -->
@@ -20,14 +20,17 @@
             <div class="div">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
         </div>
          <div class="flex details-declare-list">
-            <div class="div div1">报警：</div>
+            <div class="div div1"><i class="iconfont icon-xianshi_jinggao"></i>报警：</div>
             <div class="div">深圳大道故障</div>
+        </div>
+        <div class="flex details-declare-list">
             <div class="div div1">紧急：</div>
             <div class="div">XXX</div>
+        </div>
+        <div class="flex details-declare-list">
             <div class="div div1">位置：</div>
             <div class="div">深圳22坐标：xx</div>
         </div>
-        
     </div>
     <div class="details-result">
         <div class="flex details-result-cause">
@@ -42,7 +45,7 @@
             <div class="flex details-result-cause-check">
                 <span v-for="(item,index) in checkData" :key="index" 
                 @click="handelCheck(index)" :class="{cur:index == active}">
-                <i class="iconfont icon-choose-line"></i>{{item.name}}</span>
+                <i class="iconfont icon-weigouxuan" :class="{'icon-yigouxuan':index == active}"></i>{{item.name}}</span>
             </div>
         </div>
         <div class="flex details-result-cause">
@@ -110,12 +113,12 @@ export default {
     width: 90%;margin: 60*@rpx auto 0*@rpx;
     &-list{
       flex-wrap: wrap;background:#eee;padding:0 5px;position: relative;
-      font-size:24*@rpx;
+      font-size:24*@rpx;border-bottom: 1px solid #fff;
       .div{
-        width:69%;border-bottom: 1px solid #fff;line-height: 24px;
+        width:69%;line-height: 30px;
       }
       .div1{
-        width: 20%;text-align: right;
+        width: 19%;text-align: right;
       }
       &-swich{
         // position: absolute;right: 2px;top: 2px;
@@ -134,7 +137,7 @@ export default {
       }
       &-check{
         span{
-          display: inline-block;width: 50%;flex-wrap: wrap;
+          display: inline-block;width: 50%;flex-wrap: wrap;line-height: 64*@rpx;
         }
         .cur{
           color: #409EFF;
