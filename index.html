@@ -1,88 +1,116 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>智能电源箱管理</title>
-    <meta name="description" content="小游戏" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,shrink-to-fit=no">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta content="telephone=no" name="format-detection">
-    <meta name="msapplication-tap-highlight" content="no">
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=dgZgeGbi4T9aO7k4k0fbdxe0PPYGKid9"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
-  </head>
-  <body>
-    <div id="app"></div>
 
-    <!-- built files will be auto injected -->
-  </body>
-  <script>
-    function plusReady(){
-        console.log('触发',this.ctrl)
-        // myvue.$router.push('/')
-        //监听键按下事件
-        plus.key.addEventListener("keydown",function(e){
-          if(e.keyCode == 4){
-            myvue.$router.push('/')
-            return
-          }
-        },false);
-    }
-  </script>
-  <style>
-  
+<head>
+  <meta charset="utf-8">
+  <title>智能电源箱管理</title>
+  <meta name="description" content="小游戏" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="msapplication-tap-highlight" content="no">
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=dgZgeGbi4T9aO7k4k0fbdxe0PPYGKid9"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <!-- built files will be auto injected -->
+</body>
+<script>
+  function plusReady() {
+    //监听键按下事件
+    plus.key.addEventListener("keydown", function (e) {
 
 
-  @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1548771434248'); /* IE9 */
-  src: url('iconfont.eot?t=1548771434248#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAXUAAsAAAAAC5QAAAWGAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDegqJCIdfATYCJAMkCxQABCAFhG0HgRQbDwoRFaSVkf08MG6cx3rVSH34Izgu3YVf1Eh6z8HDP26v9+Ul/GBBKmYWWg/t5vyq0j8zqIggM4X1wFRJgIC5q7kEANlZVReUb4sabUN7l03ytzl88JW+1iBsA5hk/z/HjFfPB5Z/bRMaWnbgKHCUQAOKukxKOsEgwFvEc8mlajD/MATgoCy1EZ279h6Mjgo5JAAxe8a0Ceg2PWoIVqCrbD4Xqohn0NCVbcod4Gn170WGhkIHBU1CHtV/apfJtE/p6ag0c6ZGSxMzPytwvQwkUBtQQVi+9o1IPV4bieP9NpXhgIGOgi2lp5ypaqkmqV7paC4HO7pHJ3ELDPpvnh+wIchDQ0eiooCwAXLXCTM/qEOKM2GDlJMJAalqTORBqgkTGqR68NMpeoIWCYpewIQK6WgdCgB2+QI/UAzEaBB/Q5StVauCdsJKBFf/+KKuIkUKF3Z5i/u8/uIuw5Aet7C7XCuGXk4OSySGxmKD4/EhyWS/IS8G8wMrk8lhVq7HjROJVaFwUREIORxWOHDa6XzrbBnMk8ulCiEOnG/mDJ56c721L4DKFcGeYL4Q6r7gKdh7Ybbj7UtlbXbzRWdc/SJvHJnP/M5xV2Ll1UPxLp7ryUra4UTXiZ5g/GEc1Yw9iDkMK/EoIbRA8nFy1eShoeMndxYZcupqrWn5u8NHRxk1k6oVlHrq+UotkVhxMNbZsG6de11oR5LdPFfjFVbkB4pODQWKTVO3Fw1ZhSe/YBaZ8mKw2KhGdjWYZ2qt2E3cZI2VIE+bNcM7yzpZeHrBxSa+dy7XnBkKj7bCrfqZeXKwwzwVPB0IWycn5PSCRGpoMj0s/s2Q2Net5pfMZC82WE13uf/Rw/3CKx8+lIrm4SN4bXdWNyidzUz1fORv0iCjWNGopQSVSFRaMhiJBOFDohHa+stf8LmyelTPGL7SPiNT/3uZdfta/yguVHBn5ff1LbbSPncgRw9VaPbzIbv9nCMNzWntp6dk63+hPe2Oc3qw/bnPzt+1541fJblc/6fuGpow90dfmcup3L5kxZLtK1MZJBVf/Srb34EGj4ZusvYUbJnvLbpi90vCV37rjm15vvm28iNHiKVLxYiRjKMMjRC2c+TjWuUGD/5p5PXU8NSyI++Sf3HrcjQwp92uePvlnUN8Q145Eq0Q/SRSPpL5RFudeRgpF+HOOmV9QcF6kCiXAWW9mdlxvdz34ME+lEg0yH14Qs8tzaZPb7alXQ/57m+/faFEomH9XfyyYfs7rFzZYT+5O58Lbete93zRZ/NCWbK8bUGZeesW9vnCcHnwXPBQFmzGwPIdIy3FK8mVflk+eSJfppwTV3SYGe1uqA6HCpIbJy6IT+tZZgLkLq2fk+3VLDMVaVKmb/1N2djO5io0IG9Jd/KEP5AjDpFdnOXSt+M8rX/Tnf+aifeXBmaqovz427mC2IIDQq7aufIIATHY1V2E56/G7MX5KYh2xqJFFcBBB+BQcPv5NF9lkdhREOg2wRUU8igDEp3KCBVTGzScNAYbOu3AQS26Xe6kEAuRCNUO1GSTBAIvr4CCwXmQeLmLUDGfAH7TlW/YctI67Hnv/Ib7bqK9W4OlwwaqBVDNSjCT29NKn1H6oTRWkYp7R2MpBFmcOlOPqNDkcYoNMndOgDA8hQfpcTgMDKPhDmsXt86NkyQRfl8U1zxd2XPLQCUHNUBlAZAaU4Q83tlz/f4zJHmDkgnp+WZ9hwyLlgeZWBoD8ShXsXrWpdoKpJzDqADEtZhNgQe0ooHGGRj9t3VQzYm1KaKjiQT7ibjyuHzldFovID3y+iswSdEMy/Hamr31vGNLXpA4vDdDkuznvlS7C33TlihV6+mkKZWVxx+5bFnJ4zmVyrb00ZGSsuTjQGmUAe+uW1kBAA==') format('woff2'),
-  url('iconfont.woff?t=1548771434248') format('woff'),
-  url('iconfont.ttf?t=1548771434248') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url('iconfont.svg?t=1548771434248#iconfont') format('svg'); /* iOS 4.1- */
-}
+      if (e.keyCode == 4 && myvue.$route.path == '/') {
+        if (!myvue.historyClickTime || (new Date().getTime() - myvue.historyClickTime > 2000)) {
+          myvue.historyClickTime = new Date();
+          myvue.backMessageModel = true
+          setTimeout(() => {
+            myvue.backMessageModel = false
+          }, 2000)
+          return
+        }
+        plus.runtime.quit();
+      }
 
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-sousuo:before {
-  content: "\e60b";
-}
-
-.icon-saoyisao:before {
-  content: "\e7bb";
-}
-
-.icon-weigouxuan:before {
-  content: "\e64a";
-}
-
-.icon-yigouxuan:before {
-  content: "\e64b";
-}
-
-.icon-fanhui:before {
-  content: "\e635";
-}
-
-.icon-danxuanxuanzhong:before {
-  content: "\e608";
-}
-
-.icon-xianshi_jinggao:before {
-  content: "\e627";
-}
-
-.icon-danxuan-weixuan:before {
-  content: "\e649";
-}
+      if (e.keyCode == 4 && myvue.$route.path !== '/') {
+        if (titleHeaderDoback) {
+          titleHeaderDoback()
+        } else {
+          myvue.$router.go(-1);
+        }
+        return
+      }
 
 
-  </style>
+    }, false);
+
+  }
+
+
+  if (window.plus) {
+    plusReady();
+  } else {
+    document.addEventListener("plusready", plusReady, false);
+  }
+
+</script>
+<style>
+  @font-face {
+    font-family: "iconfont";
+    src: url('iconfont.eot?t=1548771434248');
+    /* IE9 */
+    src: url('iconfont.eot?t=1548771434248#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAXUAAsAAAAAC5QAAAWGAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDegqJCIdfATYCJAMkCxQABCAFhG0HgRQbDwoRFaSVkf08MG6cx3rVSH34Izgu3YVf1Eh6z8HDP26v9+Ul/GBBKmYWWg/t5vyq0j8zqIggM4X1wFRJgIC5q7kEANlZVReUb4sabUN7l03ytzl88JW+1iBsA5hk/z/HjFfPB5Z/bRMaWnbgKHCUQAOKukxKOsEgwFvEc8mlajD/MATgoCy1EZ279h6Mjgo5JAAxe8a0Ceg2PWoIVqCrbD4Xqohn0NCVbcod4Gn170WGhkIHBU1CHtV/apfJtE/p6ag0c6ZGSxMzPytwvQwkUBtQQVi+9o1IPV4bieP9NpXhgIGOgi2lp5ypaqkmqV7paC4HO7pHJ3ELDPpvnh+wIchDQ0eiooCwAXLXCTM/qEOKM2GDlJMJAalqTORBqgkTGqR68NMpeoIWCYpewIQK6WgdCgB2+QI/UAzEaBB/Q5StVauCdsJKBFf/+KKuIkUKF3Z5i/u8/uIuw5Aet7C7XCuGXk4OSySGxmKD4/EhyWS/IS8G8wMrk8lhVq7HjROJVaFwUREIORxWOHDa6XzrbBnMk8ulCiEOnG/mDJ56c721L4DKFcGeYL4Q6r7gKdh7Ybbj7UtlbXbzRWdc/SJvHJnP/M5xV2Ll1UPxLp7ryUra4UTXiZ5g/GEc1Yw9iDkMK/EoIbRA8nFy1eShoeMndxYZcupqrWn5u8NHRxk1k6oVlHrq+UotkVhxMNbZsG6de11oR5LdPFfjFVbkB4pODQWKTVO3Fw1ZhSe/YBaZ8mKw2KhGdjWYZ2qt2E3cZI2VIE+bNcM7yzpZeHrBxSa+dy7XnBkKj7bCrfqZeXKwwzwVPB0IWycn5PSCRGpoMj0s/s2Q2Net5pfMZC82WE13uf/Rw/3CKx8+lIrm4SN4bXdWNyidzUz1fORv0iCjWNGopQSVSFRaMhiJBOFDohHa+stf8LmyelTPGL7SPiNT/3uZdfta/yguVHBn5ff1LbbSPncgRw9VaPbzIbv9nCMNzWntp6dk63+hPe2Oc3qw/bnPzt+1541fJblc/6fuGpow90dfmcup3L5kxZLtK1MZJBVf/Srb34EGj4ZusvYUbJnvLbpi90vCV37rjm15vvm28iNHiKVLxYiRjKMMjRC2c+TjWuUGD/5p5PXU8NSyI++Sf3HrcjQwp92uePvlnUN8Q145Eq0Q/SRSPpL5RFudeRgpF+HOOmV9QcF6kCiXAWW9mdlxvdz34ME+lEg0yH14Qs8tzaZPb7alXQ/57m+/faFEomH9XfyyYfs7rFzZYT+5O58Lbete93zRZ/NCWbK8bUGZeesW9vnCcHnwXPBQFmzGwPIdIy3FK8mVflk+eSJfppwTV3SYGe1uqA6HCpIbJy6IT+tZZgLkLq2fk+3VLDMVaVKmb/1N2djO5io0IG9Jd/KEP5AjDpFdnOXSt+M8rX/Tnf+aifeXBmaqovz427mC2IIDQq7aufIIATHY1V2E56/G7MX5KYh2xqJFFcBBB+BQcPv5NF9lkdhREOg2wRUU8igDEp3KCBVTGzScNAYbOu3AQS26Xe6kEAuRCNUO1GSTBAIvr4CCwXmQeLmLUDGfAH7TlW/YctI67Hnv/Ib7bqK9W4OlwwaqBVDNSjCT29NKn1H6oTRWkYp7R2MpBFmcOlOPqNDkcYoNMndOgDA8hQfpcTgMDKPhDmsXt86NkyQRfl8U1zxd2XPLQCUHNUBlAZAaU4Q83tlz/f4zJHmDkgnp+WZ9hwyLlgeZWBoD8ShXsXrWpdoKpJzDqADEtZhNgQe0ooHGGRj9t3VQzYm1KaKjiQT7ibjyuHzldFovID3y+iswSdEMy/Hamr31vGNLXpA4vDdDkuznvlS7C33TlihV6+mkKZWVxx+5bFnJ4zmVyrb00ZGSsuTjQGmUAe+uW1kBAA==') format('woff2'),
+    url('iconfont.woff?t=1548771434248') format('woff'),
+    url('iconfont.ttf?t=1548771434248') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url('iconfont.svg?t=1548771434248#iconfont') format('svg');
+    /* iOS 4.1- */
+  }
+
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-sousuo:before {
+    content: "\e60b";
+  }
+
+  .icon-saoyisao:before {
+    content: "\e7bb";
+  }
+
+  .icon-weigouxuan:before {
+    content: "\e64a";
+  }
+
+  .icon-yigouxuan:before {
+    content: "\e64b";
+  }
+
+  .icon-fanhui:before {
+    content: "\e635";
+  }
+
+  .icon-danxuanxuanzhong:before {
+    content: "\e608";
+  }
+
+  .icon-xianshi_jinggao:before {
+    content: "\e627";
+  }
+
+  .icon-danxuan-weixuan:before {
+    content: "\e649";
+  }
+</style>
+
 </html>

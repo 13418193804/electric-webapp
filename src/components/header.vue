@@ -1,6 +1,6 @@
 <template>
 <div>
-<div class="cheader flex  flex-align-center">
+<div class="cheader flex  flex-align-center" ref="titleHeader">
     <div>
         <div class="flex  flex-align-center flex-pack-center doback" @click="doback">
                 <i class="iconfont icon-fanhui" ></i>
@@ -21,7 +21,12 @@ export default {
   data: function() {
     return {};
   },
-  mounted() {},
+  beforeDestroy() {
+    window.titleHeaderDoback =null
+  },
+  mounted() {
+    window.titleHeaderDoback = this.doback;
+  },
   methods: {
     doback() {
       if (typeof this.$emit("leftClick").$listeners["leftClick"]) {

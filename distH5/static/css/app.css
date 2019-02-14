@@ -66,10 +66,10 @@ body {
   height: 100%;
   width: auto;
   overflow-x: hidden;
-  -webkit-text-size-adjust: 100%!important;
-  -moz-text-size-adjust: 100%!important;
-   -ms-text-size-adjust: 100%!important;
-       text-size-adjust: 100%!important;
+  -webkit-text-size-adjust: 100% !important;
+  -moz-text-size-adjust: 100% !important;
+   -ms-text-size-adjust: 100% !important;
+       text-size-adjust: 100% !important;
   margin: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -95,7 +95,7 @@ body {
 }
 /* this rule will be remove */
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -191,7 +191,7 @@ video {
 body {
   font-family: Arial, "STHeiti", Helvetica, sans-serif;
   font-size: 14px;
-  color: #444!important;
+  color: #444 !important;
   width: 100%;
   overflow-x: hidden;
   -webkit-overflow-x: hidden;
@@ -227,7 +227,7 @@ h6 {
 }
 q:before,
 q:after {
-  content: '';
+  content: "";
 }
 abbr,
 acronym {
@@ -256,10 +256,10 @@ body {
   height: 100%;
   width: auto;
   overflow-x: hidden;
-  -webkit-text-size-adjust: 100%!important;
-  -moz-text-size-adjust: 100%!important;
-   -ms-text-size-adjust: 100%!important;
-       text-size-adjust: 100%!important;
+  -webkit-text-size-adjust: 100% !important;
+  -moz-text-size-adjust: 100% !important;
+   -ms-text-size-adjust: 100% !important;
+       text-size-adjust: 100% !important;
 }
 .bg {
   width: 100%;
@@ -461,35 +461,35 @@ header .back {
   font-size: 17px;
   text-align: center;
   line-height: 45px;
-  background: #409EFF;
+  background: #409eff;
   height: 45px;
   color: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#6DB2F9), to(#409EFF));
-  background: linear-gradient(#6DB2F9, #409EFF);
+  background: -webkit-gradient(linear, left top, left bottom, from(#6db2f9), to(#409eff));
+  background: linear-gradient(#6db2f9, #409eff);
 }
 .footNav .footCur {
-  background: -webkit-gradient(linear, left top, left bottom, from(#409EFF), to(#6DB2F9));
-  background: linear-gradient(#409EFF, #6DB2F9);
+  background: -webkit-gradient(linear, left top, left bottom, from(#409eff), to(#6db2f9));
+  background: linear-gradient(#409eff, #6db2f9);
 }
 .icon-xianshi_jinggao {
-  color: #409EFF;
+  color: #409eff;
   margin-right: 3px;
 }
 .icon-yigouxuan {
-  font-size: 14px!important;
+  font-size: 14px !important;
 }
 .icon-weigouxuan {
   margin-right: 3px;
 }
 .icon-saoyisao {
-  font-size: 28px!important;
+  font-size: 28px !important;
   color: #777;
 }
 .icon-danxuan-weixuan {
-  color: #409EFF;
+  color: #409eff;
 }
 .icon-sousuo {
-  font-size: 24px!important;
+  font-size: 24px !important;
 }
 .tag {
   font-size: 10px;
@@ -537,6 +537,22 @@ header .back {
 .md-input-item .md-input-item-control .md-input-item-input {
   height: 30px;
   font-size: 14px;
+}
+.backMessage {
+  z-index: 999;
+  position: fixed;
+  bottom: 15%;
+  width: 100%;
+}
+.backMessage div {
+  margin: 0 auto;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 15px;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+  color: #fff;
 }
 
 .sudoFourBox {

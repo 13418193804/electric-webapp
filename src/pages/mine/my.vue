@@ -21,8 +21,6 @@ import Vue from 'vue'
 const $vue = new Vue()
 export default {
   data() {
-    console.log('my=',this)
-    window.myvue = this
     // 选项 数据
     return {
     };
@@ -31,14 +29,13 @@ export default {
     // 定义组件
   },
   beforeCreate(){
-      var myVue = this
+     
   },
   methods: {
     getSgin(){
       this.$router.push({name: 'sign'})
     },
     handelBack(){
-      console.log('hahha')
       window.plusReady()
     }
   },
