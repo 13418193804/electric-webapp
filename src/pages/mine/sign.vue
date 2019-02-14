@@ -6,11 +6,11 @@
         <source src="../../assets/mp4.mp4" type="video/mp4">
       </video> -->
         <div class="flex flex-pack-justify sign-list">
-            <div><span class="dots"></span>2018年8月10日</div>
+            <div class="dots">2018年8月10日</div>
             <div>签到时间</div>
         </div>
         <div class="flex flex-pack-justify sign-list">
-            <div><span class="dots"></span>2018年8月10日</div>
+            <div class="dots">2018年8月10日</div>
             <div>签到时间</div>
         </div>
     </div>
@@ -52,9 +52,5 @@ export default {
      position: relative;padding-left: 20*@rpx;
     }
   }
-}
-.dots{
-  width: 5px;height: 5px;border-radius: 50%;background: #4699ff;position: absolute;
-  top:13*@rpx;left: 0;
 }
 </style>

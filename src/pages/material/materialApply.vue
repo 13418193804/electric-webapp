@@ -7,11 +7,11 @@
     <!-- 物料申请 -->
     <div class="material" v-if="active == 0">
         <div class="material-list">
-            <div class="material-list-dots"><i></i> 2018-12-11 12:22:22</div>
+            <div class="material-list-dots">2018-12-11 12:22:22</div>
             <div>关联任务单：<span>2018297836263</span></div>
             <div class="flex material-list-btn">A0997-C征集上海市；保护卡个</div>
             <div class="flex material-list-operation">
-                <div class="tag">申请物料</div>
+                <div class="tag" @click="getApply()">申请物料</div>
                 <div>状态：<span>等待领取</span></div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
                 </div>
                 <div class="material-top-button">
-                    <div class="tag">申请物料</div>
+                    <div class="tag"  @click="getApply()">申请物料</div>
                 </div>
             </div>
             <div class="material-table">
@@ -119,6 +119,9 @@ export default {
       
   },
   methods: {
+    leftClick(){
+        this.$router.go(-1)
+    },
     handelClick (index) {
       this.active = index
       if (this.active === 0) {
@@ -128,8 +131,8 @@ export default {
       if (this.active === 2) {
       }
     },
-    leftClick(){
-        this.$router.go(-1)
+    getApply(){
+        this.$router.push({name:'materialList'})
     }
   }
 }
@@ -166,7 +169,7 @@ export default {
         &-search{
             width: 75%;position: relative;
             .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
-                border:1px solid #eee;border-radius: 5px;height: 35px;
+                border:1px solid #eee;border-radius: 5px;height: 35px;padding-left:10px;
             }
             &-icon{
                 position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;

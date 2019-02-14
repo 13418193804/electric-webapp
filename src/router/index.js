@@ -17,6 +17,7 @@ import sign from '../pages/mine/sign.vue'
 import inform from '../pages/mine/inform.vue' 
 import message from '../pages/mine/message.vue' 
 import material from '../pages/material/materialApply.vue' //我的物料
+import materialList from '../pages/material/materialList.vue'
 import equipment from '../pages/equipment/equipmentList.vue' //我的设备
 import equipmentDetails from '../pages/equipment/equipmentDetails.vue'
 import equimentRecord from '../pages/equipment/equimentRecord.vue' 
@@ -99,6 +100,12 @@ export default new Router({
     name: 'material',
     component: material,
     alias: '/pages/material/materialApply'
+  },
+  {
+    path: '/materialList',
+    name: 'materialList',
+    component: materialList,
+    alias: '/pages/material/materialList'
   },
   {
     path: '/equipment',

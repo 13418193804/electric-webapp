@@ -5,7 +5,7 @@
     </div>
     <div class="mine-user">
       <div>
-         <img src="../../assets/user.jpg" alt="">
+         <img src="../../assets/logo.png" alt="">
       </div>
        <p>操作人:龙添</p>
     </div> 
@@ -67,7 +67,7 @@ export default {
     text-align: center;
     div{
       img{
-        width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;
+        width: 200px*@rpx;height: 200px*@rpx;border-radius: 50%;
       }
     }
     p{

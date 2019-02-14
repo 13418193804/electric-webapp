@@ -373,7 +373,7 @@ header{
 .icon-xianshi_jinggao{
   color: #409EFF;margin-right: 3px;
 }
-.icon-yigouxuan{
+.icon-yigouxuan,.icon-weigouxuan{
   font-size: 14px!important;
 }
 .icon-weigouxuan{
@@ -388,8 +388,24 @@ header{
 .icon-sousuo{
   font-size: 24px!important;
 }
+.icon-shangchuantupian{
+  font-size: 50px!important;
+}
+.icon{
+  margin-right: 5px;
+}
+.icon img{
+  width:22px;height: 16px;    vertical-align: middle;
+}
+.icon .A{
+  width: 18px;height: 18px;
+}
 .tag{
     font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
+}
+.dots{
+    background: url(./assets/dots.png) no-repeat left center;background-size: 7px 7px;
+    padding-left: 12px;
 }
 // 第三方ui
 .md-scroll-view-refresh{
