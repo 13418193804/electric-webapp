@@ -18,8 +18,17 @@
     <!-- built files will be auto injected -->
   </body>
   <script>
-
-  
+    function plusReady(){
+        console.log('触发',this.ctrl)
+        // myvue.$router.push('/')
+        //监听键按下事件
+        plus.key.addEventListener("keydown",function(e){
+          if(e.keyCode == 4){
+            myvue.$router.push('/')
+            return
+          }
+        },false);
+    }
   </script>
   <style>
   

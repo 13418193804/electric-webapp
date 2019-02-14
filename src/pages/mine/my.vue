@@ -1,7 +1,7 @@
 <template>
-  <div class="mine">
+  <div id="my" class="mine">
     <div class="mine-titile">
-        <h2>我的</h2>
+        <h2 @click="handelBack()">我的</h2>
     </div>
     <div class="mine-user">
       <div>
@@ -17,22 +17,30 @@
 </template>
 
 <script>
+import Vue from 'vue'
+const $vue = new Vue()
 export default {
   data() {
+    console.log('my=',this)
+    window.myvue = this
     // 选项 数据
-    return {};
+    return {
+    };
   },
   components: {
     // 定义组件
   },
-
+  beforeCreate(){
+      var myVue = this
+  },
   methods: {
     getSgin(){
       this.$router.push({name: 'sign'})
     },
-   goHome(){
-     this.$router.push({name: 'home'})
-   }
+    handelBack(){
+      console.log('hahha')
+      window.plusReady()
+    }
   },
   created() {
     // 生命周期函数

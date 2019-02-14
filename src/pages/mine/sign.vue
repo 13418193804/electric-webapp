@@ -2,6 +2,9 @@
   <div>
     <cheader title="签到记录" @leftClick="leftClick"></cheader>
     <div class="sign">
+      <!-- <video class="video" controls width="100%" height="300">
+        <source src="../../assets/mp4.mp4" type="video/mp4">
+      </video> -->
         <div class="flex flex-pack-justify sign-list">
             <div><span class="dots"></span>2018年8月10日</div>
             <div>签到时间</div>
