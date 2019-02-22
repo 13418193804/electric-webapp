@@ -13,6 +13,31 @@
             <div class="dots">2018年8月10日</div>
             <div>签到时间</div>
         </div>
+         <div class="flex flex-pack-justify sign-list">
+            <div class="dots">2018年8月10日</div>
+            <div>签到时间</div>
+        </div>
+         <div class="flex flex-pack-justify sign-list">
+            <div class="dots">2018年8月10日</div>
+            <div>签到时间</div>
+        </div>
+         <div class="flex flex-pack-justify sign-list">
+            <div class="dots">2018年8月10日</div>
+            <div>签到时间</div>
+        </div>
+         <div class="flex flex-pack-justify sign-list">
+            <div class="dots">2018年8月10日</div>
+            <div>签到时间</div>
+        </div>
+
+         <div class="flex flex-pack-justify sign-list">
+            <div class="dots">2018年8月10日</div>
+            <div>签到时间</div>
+        </div>
+         <div class="flex flex-pack-justify sign-list">
+            <div class="dots">2018年8月10日</div>
+            <div>签到时间</div>
+        </div>
     </div>
   </div>
 </template>

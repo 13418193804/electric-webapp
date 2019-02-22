@@ -1,11 +1,11 @@
 <template>
   <div class="loginBox">
     <div class="logoImg">
-        <img src="../../assets/user.jpg" alt="">
+        <img src="../../assets/logo1.png" alt="">
     </div>
     <h1>智 能 电 源 箱 管 理</h1>
     <h3>监控不当机 只选ONY</h3>
-    <div class="loginForm">
+    <div class="loginForm"> 
         <div>
             <input type="text" name="username" v-model="loginForm.username" placeholder="请输入账号"> 
         </div>
@@ -15,36 +15,43 @@
         <span class="forget">忘记密码</span>
     </div>
     <div class="loginCode">
-        <!-- <img src="" alt=""> -->
-        <span></span>
-        <button @click="getTask()">登陆</button>
+        <img src="../../assets/code.png" alt="">
+        <div @click="getTask()">登陆</div>
     </div>
 
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
   data () { // 选项 数据
     return {
-        loginForm:{}
+        loginForm:{
+            token:'0d273991b2efdc04'
+        }
     }
   },
   components: { // 定义组件
 
   },
   methods: { // 事件处理方法
+  ...mapMutations(['changeLogin']),
     getTask(){
         this.service.httpRequest({
-            url: "/api/login",
+            url: "/aapi/login",
             methods: "post",
             data: this.loginForm
         }).then(res => {
             if(res.data.status === '00'){
-             this.$router.push({name: 'home'})
+                this.userToken = 'Bearer ' + res.data.token;
+                // 将用户token保存到vuex中
+                this.changeLogin({ Authorization: this.userToken });
+                this.$router.push({name: 'home'})
+            } else{
+                console.log('账号或密码错误')
             }
-            console.log('login--',res);
-
+            console.log('login--',res.data.token);
         });
         // console.log('home999', this.$root, this.$root.$mp)
     }
@@ -63,18 +70,17 @@ export default {
 .loginBox{
     padding: 12% 5%;background: #4699ff;height: 100%;
     .logoImg{
-        width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;
-        text-align: center;margin:0 auto;
+        border-radius: 50%;text-align: center;margin:0 auto;
         img{
-            width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;border: 2px*@rpx solid #fff;
+           width: 200px*@rpx;height: 200px*@rpx;border-radius: 50%;
         }
     }
     h1{
-        font-size: 40px*@rpx;margin-top: 20px*@rpx;text-align: center;color: #fff;
+        font-size: 40px*@rpx;margin-top: 40px*@rpx;text-align: center;color: #fff;
     }
     h3{
         color: #fff;
-        border: 2px*@rpx solid #fff;line-height: 60px*@rpx;padding: 0 10*@rpx;text-align: center;width: 300*@rpx;margin: 20*@rpx auto;
+        border: 2px*@rpx solid #fff;line-height: 60px*@rpx;padding: 0 10*@rpx;text-align: center;width: 300*@rpx;margin: 30*@rpx auto;
     }
     .loginForm{
         text-align: left;padding:40px*@rpx 60px*@rpx;position:relative;
@@ -92,13 +98,16 @@ export default {
     }
     .loginCode{
         margin-top: 60px*@rpx;text-align: center;
+        img{
+            width: 180px*@rpx;height: 180px*@rpx;
+        }
         span{
             display: block;margin: 0 auto;margin-bottom: 30px*@rpx;
             width: 160px*@rpx;height: 160px*@rpx;border: 2px*@rpx solid #fff;
         }
-        button{
-            width: 210px*@rpx;height: 70px*@rpx;border-radius: 100px*@rpx;background: #fff;
-            color: blue;outline: none;
+        div{
+            width: 210px*@rpx;height: 70px*@rpx;border-radius: 100px*@rpx;background: #fff;margin: 0 auto;margin-top:30*@rpx;
+            color: blue;text-align: center;line-height:  70px*@rpx;font-size: 16px;
         }
     }
 }

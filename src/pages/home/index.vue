@@ -1,6 +1,6 @@
 <template>
   <div class="homePage">
-    <div class="homeTitle"> <h1>智能运维管理系统</h1> </div>
+    <div class="flex flex-pack-center homeTitle"><img src="../../assets/onv.png" alt=""><h1>智能运维管理系统</h1> </div>
     <div class="banner">
       <img src="../../assets/homebanner.png" alt="">
     </div>
@@ -12,10 +12,10 @@
     </div>
     <div class="cartogram">
       <div class="flex catTop">
-          <div><i class="dots"></i>离线设备 <span>2</span>台</div>
-          <div><i class="dots"></i>未处理任务 <span>2</span>条</div>
-          <div><i class="dots"></i>在线设备 <span>2</span>台</div>
-          <div><i class="dots"></i>以处理任务 <span>2</span>条</div>
+          <div><i class="dot"></i>离线设备 <span>222</span>台</div>
+          <div><i class="dot"></i>未处理任务 <span>2</span>条</div>
+          <div><i class="dot"></i>在线设备 <span>2</span>台</div>
+          <div><i class="dot"></i>以处理任务 <span>22</span>条</div>
       </div>
       <div class="flex chat catTop ">
          <div>
@@ -104,14 +104,17 @@ export default {
 .homeTitle {
   text-align: center;
   padding: 5% 0;
+  img{
+    width: 70px;height: 35px;
+  }
   h1 {
-    font-size: 36 * @rpx;
+    font-size: 36 * @rpx;line-height: 35px;
   }
 }
 .banner {
   width: 70%;
   margin: 0 auto;
-  height: 150 * @rpx;
+  height: 180 * @rpx;
   background: #409eff;
   margin-bottom: 20 * @rpx;
   img {
@@ -147,15 +150,16 @@ export default {
     div {
       width: 50%;
       line-height: 50 * @rpx;
-      text-align: center;
-      color: #fff;
-      .dots {
+      padding-left:35px;
+      color: #fff;position: relative;font-size:13px;
+      .dot {
         width: 5px;
         height: 5px;
         border-radius: 50%;
         background: #fff;
         display: inline-block;
         margin-right: 5px;
+        position: absolute;left:25px;top:9px;
       }
     }
   }

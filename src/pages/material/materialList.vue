@@ -138,7 +138,7 @@ export default {
             width: 30%;margin-right: 3%;text-align: center;
         }
         &-box:nth-of-type(2){
-            padding: 30*@rpx;height: 170px;
+            padding: 30*@rpx;
         }
     }
     &-form{

@@ -125,11 +125,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  width: 100%;
-  height: 100%;
   position: relative;
 }
-
+html,body,#app{
+  width: 100%;
+  height: 100%;
+}
 /******reset********/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -148,6 +149,9 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font: inherit;
+  box-sizing:border-box;
+-moz-box-sizing:border-box; /* Firefox */
+-webkit-box-sizing:border-box; /* Safari */
   // color: #fff;
 }
 body{
