@@ -7,10 +7,10 @@
     <h3>监控不当机 只选ONY</h3>
     <div class="loginForm"> 
         <div>
-            <input type="text" name="username" v-model="loginForm.username" placeholder="请输入账号"> 
+            <input type="text" name="username" v-model="loginForm.username" value="18603050282" placeholder="请输入账号"> 
         </div>
         <div>
-            <input type="text" name="password" v-model="loginForm.password" placeholder="请输入密码"> 
+            <input type="text" name="password" v-model="loginForm.password" value="123456" placeholder="请输入密码"> 
         </div>
         <span class="forget">忘记密码</span>
     </div>
@@ -24,6 +24,8 @@
 
 <script>
 import { mapMutations } from 'vuex';
+
+
 export default {
   data () { // 选项 数据
     return {
@@ -43,15 +45,21 @@ export default {
             methods: "post",
             data: this.loginForm
         }).then(res => {
-            if(res.data.status === '00'){
+
+            if(res.returnStatus){
                 this.userToken = 'Bearer ' + res.data.token;
                 // 将用户token保存到vuex中
                 this.changeLogin({ Authorization: this.userToken });
                 this.$router.push({name: 'home'})
             } else{
-                console.log('账号或密码错误')
+                    //  this.$set(res.msg, 'top', true)
+  this.$dialog.alert({
+        // title: '提示',
+        content:res.msg,
+        confirmText: '确定',
+      })
             }
-            console.log('login--',res.data.token);
+            // console.log('login--',res.data.token);
         });
         // console.log('home999', this.$root, this.$root.$mp)
     }

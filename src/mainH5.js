@@ -10,6 +10,7 @@ import store from './store'
 import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
 import BScroll from 'better-scroll'
+
 // import BMap from 'BMap'
 
 // import VueAMap from "vue-amap";
