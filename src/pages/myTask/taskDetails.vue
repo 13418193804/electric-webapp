@@ -3,26 +3,19 @@
     <cheader title="我的任务" @leftClick="leftClick"></cheader>
     <div class="details-declare">
         <div class="flex details-declare-list">
-            <div class="div div1"><i class="iconfont icon-xianshi_jinggao"></i>报警：</div>
-            <div class="div">深圳大道</div>
+            <div class="div div1"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
+            <div class="div">深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道</div>
             <div class="details-declare-list-swich">
               <button @click="getProgress()">处理</button>
-              <!-- <div class="md-example-child md-example-child-switch md-example-child-switch-0">
-                <md-switch
-                    v-model="isActive"
-                    @change="handler('switch0', isActive, $event)"
-                  ></md-switch>
-                </div> -->
             </div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1">A</div>
+            <div class="div div1"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
             <div class="div">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
         </div>
          <div class="flex details-declare-list">
-            <div class="div div1"><i class="iconfont icon-xianshi_jinggao"></i>报警：</div>
+            <div class="div div1"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
             <div class="div">深圳大道故障</div>
-            
         </div>
         <div class="flex details-declare-list">
             <div class="div div1">紧急：</div>
@@ -91,18 +84,18 @@ export default {
   &-declare{
     width: 90%;margin: 60*@rpx auto 0*@rpx;
     &-list{
-      flex-wrap: wrap;background:#eee;padding:0 5px;position: relative;
+      flex-wrap: wrap;background:#eeeeef;padding:0 5px;position: relative;
       font-size:24*@rpx;border-bottom: 1px solid #fff;
       .div{
         width:69%;line-height: 30px;
       }
       .div1{
-        width: 19%;text-align: right;
+        width: 20%;text-align: right;
       }
       &-swich{
         position: absolute;right: 3px;top: 6px;
         button{
-          background: #409EFF;color: #fff;border: none;border-radius: 5px;
+          background: #2680f0;color: #fff;border: none;border-radius: 5px;
         }
       }
     }

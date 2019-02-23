@@ -22,9 +22,8 @@
             ></md-scroll-view-refresh>
             <ul>
                 <li v-for="(item,index) in list " :key="index" class="scroll-view-list" @click="getDetails()">
-                    <span class="dots"></span>
                     <div>
-                        <p> 2018年8月10日 12:00:00</p>
+                        <p class="dots"> 2018年8月10日 12:00:00</p>
                         <h4> 报警：<span>深南达到香蜜</span></h4>
                         <span class="tag">自动排单</span>
                     </div>
@@ -148,10 +147,6 @@ export default {
                             border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
                         }
                     
-                }
-                .dots{
-                    width: 5px;height: 5px;border-radius: 50%;background: #4699ff;position: absolute;
-                    left: 0;top:44*@rpx;
                 }
             }
         }

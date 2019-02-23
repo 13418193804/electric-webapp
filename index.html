@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
 <head>
   <meta charset="utf-8">
@@ -114,3 +115,100 @@
 </style>
 
 </html>
+=======
+  <head>
+    <meta charset="utf-8">
+    <title>智能电源箱管理</title>
+    <meta name="description" content="小游戏" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,shrink-to-fit=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="msapplication-tap-highlight" content="no">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=dgZgeGbi4T9aO7k4k0fbdxe0PPYGKid9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- built files will be auto injected -->
+  </body>
+  <script>
+    function plusReady(){
+        console.log('触发',this.ctrl)
+        // myvue.$router.push('/')
+        //监听键按下事件
+        plus.key.addEventListener("keydown",function(e){
+          if(e.keyCode == 4){
+            myvue.$router.push('/')
+            return
+          }
+        },false);
+    }
+  </script>
+  <style>
+  
+
+
+  @font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1550127226616'); /* IE9 */
+  src: url('iconfont.eot?t=1550127226616#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),
+  url('iconfont.woff?t=1550127226616') format('woff'),
+  url('iconfont.ttf?t=1550127226616') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1550127226616#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sousuo:before {
+  content: "\e60b";
+}
+
+.icon-saoyisao:before {
+  content: "\e7bb";
+}
+
+.icon-weigouxuan:before {
+  content: "\e64a";
+}
+
+.icon-yigouxuan:before {
+  content: "\e64b";
+}
+
+.icon-fanhui:before {
+  content: "\e635";
+}
+
+.icon-danxuanxuanzhong:before {
+  content: "\e608";
+}
+
+.icon-shangchuantupian:before {
+  content: "\e6a9";
+}
+
+.icon-xianshi_jinggao:before {
+  content: "\e627";
+}
+
+.icon-close:before {
+  content: "\e600";
+}
+
+.icon-danxuan-weixuan:before {
+  content: "\e649";
+}
+
+
+
+  </style>
+</html>
+>>>>>>> f1293eb348c073280f1cededb81f026ea274366a

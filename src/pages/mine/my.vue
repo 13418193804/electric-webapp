@@ -5,7 +5,7 @@
     </div>
     <div class="mine-user">
       <div>
-         <img src="../../assets/user.jpg" alt="">
+         <img src="../../assets/logo1.png" alt=""> 
       </div>
        <p>操作人:龙添</p>
     </div> 
@@ -23,6 +23,7 @@ export default {
   data() {
     // 选项 数据
     return {
+      imgInfo: {} // 存图片的宽高信息
     };
   },
   components: {
@@ -32,6 +33,16 @@ export default {
      
   },
   methods: {
+    getImgInfo () {
+      let img = new Image()
+      img.src = this.myImg
+      const vm = this
+      img.onload = function () {
+        vm.$set(vm.imgInfo, 'width', img.width)
+        vm.$set(vm.imgInfo, 'height', img.height)
+        console.log('img',vm.imgInfo) // 打印图片信息
+      }
+    },
     getSgin(){
       this.$router.push({name: 'sign'})
     },
@@ -44,7 +55,7 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-
+    this.getImgInfo()
   }
 };
 </script>
@@ -64,7 +75,7 @@ export default {
     text-align: center;
     div{
       img{
-        width: 150px*@rpx;height: 150px*@rpx;border-radius: 50%;
+        width: 200px*@rpx;height: 200px*@rpx;border-radius: 50%;
       }
     }
     p{

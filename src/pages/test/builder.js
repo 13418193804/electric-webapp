@@ -18,7 +18,6 @@ export const sendMessage = (message) => {
 	mNotification.setNumber(10)
 	var mNb = mNotification.build()
 	nm.notify(NotifyID, mNb);
-
 }
 
 

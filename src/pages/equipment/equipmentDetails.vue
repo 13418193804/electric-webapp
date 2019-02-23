@@ -7,7 +7,7 @@
             <div class="div">设备编号：<span>100101001</span></div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1">位置：<span>深圳大道啥事吧</span></div>
+            <div class="div">位置：<span>深圳大道啥事吧</span></div>
         </div>
          <div class="flex details-declare-list">
             <div class="div">坐标：<span>62.3434.232</span></div>
@@ -19,10 +19,8 @@
       <div class="details-type-titile"><h4>IO状态</h4></div>
       <div class="details-type-content">
           <div class="details-type-content-list">
-            <span v-for="(item,index) in typeData" :key="index" @click="handelType(index)">
-              <i class="iconfont icon-danxuan-weixuan" :class="{'icon-danxuanxuanzhong':index == isCheack}"></i>{{item.name}}</span>
-             
-            <!-- <span>A3 <i class="iconfont icon-danxuan-weixuan"></i></span> -->
+            <span v-for="(item,index) in typeData" :key="index" @click="handelType(item,index)">{{item.name}}
+              <i class="iconfont icon-danxuan-weixuan" :class="[item.auto==true?'icon-danxuanxuanzhong':'']"></i></span>
           </div>
           <div class="details-type-content-list">
             <span>B1</span> <span>B2</span> <span>B3</span>
@@ -69,7 +67,7 @@ export default {
       active: 0,
       isCheack: 0,
       checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
-      typeData: [{name: 'A1'},{name:'A2'}]
+      typeData: [{name: 'A1',auto:false},{name:'A2',auto:true}]
     };
   },
   name: 'switch-demo',
@@ -84,9 +82,12 @@ export default {
     leftClick(){
         this.$router.push('/')
     },
-    handelType(index){
-      this.isCheack = index
-      console.log('index',index,'ischeack', this.isCheack)
+    handelType(item,index){
+      if (item.auto === true) {
+        item.auto = false
+      } else {
+        item.auto = true
+      }
     },
     getRecord(){
       this.$router.push({name: 'equimentRecord'})
@@ -112,7 +113,7 @@ export default {
       flex-wrap: wrap;background:#eee;padding:0 5px;position: relative;
       font-size:24*@rpx;
       .div{
-        width:50%;border-bottom: 1px solid #fff;line-height: 24px;
+        width:50%;line-height: 24px;
       }
       &-swich{
         // position: absolute;right: 2px;top: 2px;

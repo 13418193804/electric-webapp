@@ -21,7 +21,7 @@
     <!-- 设备申请 -->
     <div class="material" v-if="active == 0">
         <div class="material-list" @click="getDetails()">
-            <div class="material-list-dots"><i></i> 2018-12-11 12:22:22</div>
+            <div class="material-list-dots">2018-12-11 12:22:22</div>
             <div>关联任务单：<span>2018297836263</span></div>
             <div class="flex material-list-btn">A0997-C征集上海市；保护卡个</div>
             <div class="flex material-list-operation">
@@ -89,9 +89,8 @@ export default {
             margin-bottom: 10*@rpx;
         }
         &-dots{
-            i{
-                 width: 5px;height: 5px;border-radius: 50%;background: #4699ff;display: inline-block;
-            }
+            background: url(../../assets/dots.png) no-repeat left center;background-size: 7px 7px;
+            padding-left: 15px;
         }
         &-btn{
             border:1px solid #7e7e7e;line-height: 56*@rpx; padding: 0 5px;border-radius: 5px;margin-bottom: 15*@rpx!important;

@@ -1,6 +1,7 @@
 
 import {base_url}  from "./conf"
 import axios from 'axios'
+import querystring from 'querystring';
 export default {
     //ajax请求
     async httpRequest(option = {}) {
@@ -12,7 +13,7 @@ export default {
           )
         } else if (option.methods == 'POST' || option.methods == 'post') {
           return await axios.post(
-            base_url+  option.url, option.data,{
+            base_url+  option.url, querystring.stringify(option.data),{
               headers: option.headers ||  {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -22,4 +23,5 @@ export default {
           console.log('method not allow!')
         }
     }
+
 }

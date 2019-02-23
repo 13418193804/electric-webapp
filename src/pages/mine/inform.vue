@@ -8,13 +8,11 @@
       <div class="messages-content">
         <div class="messages-content-box">
           <div class="messages-content-box-list">
-            <span class="dots"></span>
-            <p>2018年10月22日 12:00:00</p>
+            <p class="dots">2018年10月22日 12:00:00</p>
             <p>你有一条消息</p>
           </div>
           <div class="messages-content-box-list">
-            <span class="dots"></span>
-            <p>2018年10月22日 12:00:00</p>
+            <p class="dots">2018年10月22日 12:00:00</p>
             <p>你有一条消息</p>
           </div>
         </div>
@@ -73,9 +71,6 @@ export default {
      width: 90%;margin: 10*@rpx auto;
      &-list{
        position: relative;
-       .dots{
-         position: absolute;left: 0;top:8px;width: 5px;height: 5px;border-radius: 50%;background: #409EFF;
-       }
        p{
          font-size: 24*@rpx;padding-left: 20*@rpx;line-height: 24px;
        }
