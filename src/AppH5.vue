@@ -150,7 +150,9 @@ body {
   color: #2c3e50;
   position: relative;
 }
-html,body,#app{
+html,
+body,
+#app {
   width: 100%;
   height: 100%;
 }
@@ -238,9 +240,9 @@ video {
   padding: 0;
   border: 0;
   font: inherit;
-  box-sizing:border-box;
--moz-box-sizing:border-box; /* Firefox */
--webkit-box-sizing:border-box; /* Safari */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; /* Firefox */
+  -webkit-box-sizing: border-box; /* Safari */
   // color: #fff;
 }
 body {
@@ -504,13 +506,12 @@ header {
   color: #409eff;
   margin-right: 3px;
 }
-<<<<<<< HEAD
 .icon-yigouxuan {
   font-size: 14px !important;
-=======
-.icon-yigouxuan,.icon-weigouxuan{
-  font-size: 14px!important;
->>>>>>> f1293eb348c073280f1cededb81f026ea274366a
+}
+.icon-yigouxuan,
+.icon-weigouxuan {
+  font-size: 14px !important;
 }
 .icon-weigouxuan {
   margin-right: 3px;
@@ -525,32 +526,37 @@ header {
 .icon-sousuo {
   font-size: 24px !important;
 }
-<<<<<<< HEAD
 .tag {
   font-size: 20px * @rpx;
   border: 1px solid #4699ff;
   border-radius: 50px;
   padding: 0 6px;
-=======
-.icon-shangchuantupian{
-  font-size: 50px!important;
 }
-.icon{
+.icon-shangchuantupian {
+  font-size: 50px !important;
+}
+.icon {
   margin-right: 5px;
 }
-.icon img{
-  width:22px;height: 16px;    vertical-align: middle;
+.icon img {
+  width: 22px;
+  height: 16px;
+  vertical-align: middle;
 }
-.icon .A{
-  width: 18px;height: 18px;
+.icon .A {
+  width: 18px;
+  height: 18px;
 }
-.tag{
-    font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
->>>>>>> f1293eb348c073280f1cededb81f026ea274366a
+.tag {
+  font-size: 20px * @rpx;
+  border: 1px solid #4699ff;
+  border-radius: 50px;
+  padding: 0 6px;
 }
-.dots{
-    background: url(./assets/dots.png) no-repeat left center;background-size: 7px 7px;
-    padding-left: 12px;
+.dots {
+  background: url(./assets/dots.png) no-repeat left center;
+  background-size: 7px 7px;
+  padding-left: 12px;
 }
 // 第三方ui
 .md-scroll-view-refresh {

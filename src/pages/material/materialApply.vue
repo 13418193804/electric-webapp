@@ -131,13 +131,11 @@ export default {
       if (this.active === 2) {
       }
     },
-<<<<<<< HEAD
     leftClick(){
         this.$router.push('/')
-=======
+    },
     getApply(){
         this.$router.push({name:'materialList'})
->>>>>>> f1293eb348c073280f1cededb81f026ea274366a
     }
   }
 }
