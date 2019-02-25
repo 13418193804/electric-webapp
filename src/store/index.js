@@ -8,7 +8,10 @@ Vue.use(Vuex)
 /** 状态定义 */
 export const state = {
     result: '',
-    os:''
+    os:'',
+    userInfo: {
+        token:null
+    }
 }
 
 
@@ -18,19 +21,13 @@ const mutations = {
     SETOS(state,os) {
         state.os=os
     },
+    setUserInfo (state,userInfo){
+        state.userInfo = userInfo
+    }
 }
 const store = new Vuex.Store({
-    state: {
-        // 存储token
-        Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
-    },
-    mutations: {
-        // 修改token，并将token存入localStorage
-        changeLogin (state, user) {
-            state.Authorization = user.Authorization;
-            localStorage.setItem('Authorization', user.Authorization);
-        }
-    }
+    state,
+  mutations
 });
 // service.interceptors.request.use(
 //     config => {

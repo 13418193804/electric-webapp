@@ -25,10 +25,10 @@
 <script>
 import { mapMutations } from 'vuex';
 
-
 export default {
   data () { // 选项 数据
     return {
+  ...mapMutations(['setUserInfo']),
         loginForm:{
             token:'0d273991b2efdc04'
         }
@@ -38,7 +38,7 @@ export default {
 
   },
   methods: { // 事件处理方法
-  ...mapMutations(['changeLogin']),
+
     getTask(){
         this.service.httpRequest({
             url: "/aapi/login",
@@ -49,8 +49,12 @@ export default {
             if(res.returnStatus){
                 this.userToken = 'Bearer ' + res.data.token;
                 // 将用户token保存到vuex中
-                this.changeLogin({ Authorization: this.userToken });
-                this.$router.push({name: 'home'})
+                // this.changeLogin({ Authorization: this.userToken });
+                // this.$router.push({name: 'home'})
+
+                  localStorage.setItem('packageToken', res.data.token)
+                this.setUserInfo({token:res.data.token})
+                console.log(this.$store.getters.getToken)
             } else{
                     //  this.$set(res.msg, 'top', true)
   this.$dialog.alert({
