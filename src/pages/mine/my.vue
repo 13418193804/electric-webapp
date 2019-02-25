@@ -10,8 +10,8 @@
        <p>操作人:龙添</p>
     </div> 
     <div class="mine-operation">
-        <div @click="getSgin()">签 到</div>
-        <div>签 到 日 期</div>
+        <div @click="getSign()">签 到</div>
+        <div @click="getData()">签 到 日 期</div>
     </div>
   </div>
 </template>
@@ -33,6 +33,29 @@ export default {
      
   },
   methods: {
+    getSign(){
+      this.service.httpRequest({
+            url: "/aapi/sign",
+            methods: "post",
+            data: {token:this.$store.getters.getToken}
+        }).then(res => {
+            if(res.returnStatus){
+               this.signData = res.data
+               this.$dialog.alert({
+                 content:'签到成功',
+                 confirmText: '确定'
+               })
+            } else{
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
+            }
+        });
+    },
+    getData(){
+      this.$router.push({name: 'sign'})
+    },
     getImgInfo () {
       let img = new Image()
       img.src = this.myImg
@@ -42,9 +65,6 @@ export default {
         vm.$set(vm.imgInfo, 'height', img.height)
         console.log('img',vm.imgInfo) // 打印图片信息
       }
-    },
-    getSgin(){
-      this.$router.push({name: 'sign'})
     },
     handelBack(){
       window.plusReady()

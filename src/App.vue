@@ -113,7 +113,7 @@ html, body {
   background: #25487e;
 
   }
-  .bg{
+.bg{
   width: 100%;
   height: 100%;
 }
