@@ -49,11 +49,12 @@ export default {
                 this.userToken = 'Bearer ' + res.data.token;
                 // 将用户token保存到vuex中
                 // this.changeLogin({ Authorization: this.userToken });
-                // this.$router.push({name: 'home'})
                 localStorage.setItem('packageToken', res.data.token)
                 this.setUserInfo({token:res.data.token})
                 this.$router.push({name: 'home'})
                 console.log(this.$store.getters.getToken)
+                this.$router.push({name: 'home'})
+                
             } else{
                 this.$dialog.alert({
                     content:res.msg,
