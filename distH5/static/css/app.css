@@ -587,10 +587,10 @@ header .back {
 }
 .backMessage div {
   margin: 0 auto;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  height: 3rem;
+  line-height: 2rem;
   border-radius: 1.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   background: rgba(0, 0, 0, 0.7);
   font-size: 1.4rem;
   color: #fff;

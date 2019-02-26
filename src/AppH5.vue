@@ -609,10 +609,10 @@ header {
   width: 100%;
   div {
     margin: 0 auto;
-    height: 25px;
-    line-height: 25px;
+    height: 30px;
+    line-height: 20px;
     border-radius: 15px;
-    padding: 5px;
+    padding: 5px 10px;
     background: rgba(0, 0, 0, 0.7);
     font-size: 14px;
     color: #fff;
