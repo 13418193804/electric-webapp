@@ -11,8 +11,8 @@ module.exports = {
     },
     pxtorem: {
       // If you modify rootValue, you also need to modify rem in static/responsive.js
-      rootValue: 11, // 1rem=100px
-      propWhiteList: []
+      rootValue: 54, // 1rem=100px
+      propWhiteList: ["*"]
     }
   },
   dev: {
