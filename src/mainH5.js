@@ -10,6 +10,8 @@ import store from './store'
 import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
 import BScroll from 'better-scroll'
+import * as FastClick from "fastclick"
+FastClick.attach(document.body)
 
 // import BMap from 'BMap'
 

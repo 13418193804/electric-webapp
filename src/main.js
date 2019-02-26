@@ -3,6 +3,7 @@ import App from './App'
 import store from './store'
 import wxService from './api/wxService'
 import httpService from './api/httpService'
+import "normalize.css";
 
 Vue.config.productionTip = false
 App.mpType = 'app'

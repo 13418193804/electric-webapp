@@ -5,15 +5,11 @@ export const getOs = state => {
 
 
 export const getToken = state => {
-    console.log('------',state)
-    
     if ((localStorage['packageToken'] || '') !== '') {
         state.userInfo.token = localStorage['packageToken'];
         return state.userInfo.token;
     } else {
-        
         return state.userInfo.token;
     }
-
 }
 

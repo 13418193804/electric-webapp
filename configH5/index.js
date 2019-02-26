@@ -5,6 +5,16 @@
 const path = require('path')
 
 module.exports = {
+  mand: {
+    theme: {
+      // path: resolve('src/styles/theme.styl')
+    },
+    pxtorem: {
+      // If you modify rootValue, you also need to modify rem in static/responsive.js
+      rootValue: 10, // 1rem=100px
+      propWhiteList: []
+    }
+  },
   dev: {
 
     // Paths
