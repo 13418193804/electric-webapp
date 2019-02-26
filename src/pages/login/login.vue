@@ -60,6 +60,8 @@ export default {
                 this.$router.push({name: 'home'})
                 store.state.bAuth = true
                 console.log(this.$store.getters.getToken)
+                this.$router.push({name: 'home'})
+                
             } else{
                 this.$dialog.alert({
                     content:res.msg,

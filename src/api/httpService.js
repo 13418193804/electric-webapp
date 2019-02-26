@@ -32,6 +32,11 @@ export default {
         }
       }).then(res => {
         return res
+      }).catch(()=>{
+        return {
+          returnStatus: false,
+          msg: "网络中断，请稍后重试"
+        }
       })
     } else {
       console.log('method not allow!')
