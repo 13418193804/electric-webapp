@@ -14,8 +14,6 @@ export const state = {
     }
 }
 
-
-
 // 定义所需的 mutations
 const mutations = {
     SETOS(state,os) {

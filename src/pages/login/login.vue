@@ -16,7 +16,7 @@
     </div>
     <div class="loginCode">
         <img src="../../assets/code.png" alt="">
-        <div @click="getTask()">登陆</div>
+        <div @click="goLogin()">登陆</div>
     </div>
 
   </div>
@@ -38,34 +38,29 @@ export default {
 
   },
   methods: { // 事件处理方法
-
-    getTask(){
+  ...mapMutations(['changeLogin']),
+    goLogin(){
         this.service.httpRequest({
             url: "/aapi/login",
             methods: "post",
             data: this.loginForm
         }).then(res => {
-
             if(res.returnStatus){
                 this.userToken = 'Bearer ' + res.data.token;
                 // 将用户token保存到vuex中
                 // this.changeLogin({ Authorization: this.userToken });
                 // this.$router.push({name: 'home'})
-
-                  localStorage.setItem('packageToken', res.data.token)
+                localStorage.setItem('packageToken', res.data.token)
                 this.setUserInfo({token:res.data.token})
+                this.$router.push({name: 'home'})
                 console.log(this.$store.getters.getToken)
             } else{
-                    //  this.$set(res.msg, 'top', true)
-  this.$dialog.alert({
-        // title: '提示',
-        content:res.msg,
-        confirmText: '确定',
-      })
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
             }
-            // console.log('login--',res.data.token);
         });
-        // console.log('home999', this.$root, this.$root.$mp)
     }
   },
   created () { // 生命周期函数

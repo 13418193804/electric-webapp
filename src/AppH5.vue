@@ -235,6 +235,7 @@ summary,
 time,
 mark,
 audio,
+a,
 video {
   margin: 0;
   padding: 0;
@@ -243,6 +244,7 @@ video {
   box-sizing: border-box;
   -moz-box-sizing: border-box; /* Firefox */
   -webkit-box-sizing: border-box; /* Safari */
+  font-size: 14px;
   // color: #fff;
 }
 body {
@@ -615,5 +617,18 @@ header {
     font-size: 14px;
     color: #fff;
   }
+}
+// 弹窗
+.md-dialog .md-dialog-content{
+  border-radius: 5px;width: 200px;
+}
+.md-dialog .md-dialog-body{
+  padding: 25px 15px 20px;
+}
+.md-dialog .md-dialog-actions a{
+  font-size: 16px;
+}
+.md-dialog .md-dialog-actions a{
+  height: 40px!important;
 }
 </style>
