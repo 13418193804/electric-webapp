@@ -9,9 +9,10 @@ module.exports = {
     theme: {
       // path: resolve('src/styles/theme.styl')
     },
+  
     pxtorem: {
       // If you modify rootValue, you also need to modify rem in static/responsive.js
-      rootValue: 54, // 1rem=100px
+      rootValue: 10, // 1rem=100px
       propWhiteList: ["*"]
     }
   },

@@ -17,12 +17,11 @@
   color: #2c3e50;
 }
 
-<<<<<<< HEAD
 #nav {
   padding: 30px;
   font-size: 32px;
   line-height: 1.2;
-=======
+}
 html, body {
     height: 100%;
     width: auto;
@@ -45,7 +44,6 @@ html, body {
   padding: 200/7.5vw 10/7.5vw;
   box-sizing: border-box;
   width: 100%;
->>>>>>> f2f9ea93222bbb49cc09685370032188f59214a2
 }
 
 #nav a {

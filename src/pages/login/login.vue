@@ -68,7 +68,8 @@ export default {
 
   },
   mounted () {
-      
+      const pxtorem = require('postcss-pxtorem');
+console.log(pxtorem)
   }
 }
 </script>
