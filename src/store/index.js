@@ -11,7 +11,7 @@ export const state = {
     os:'',
     userInfo: {
         token:null
-    }
+    },    
 }
 
 // 定义所需的 mutations
@@ -27,16 +27,6 @@ const store = new Vuex.Store({
     state,
   mutations
 });
-// service.interceptors.request.use(
-//     config => {
-//         if (localStorage.getItem('Authorization')) {
-//         config.headers.Authorization = localStorage.getItem('Authorization');
-//         }
-//         return config;
-//     },
-//     error => {
-//         return Promise.reject(error);
-// });
 
 export default new Vuex.Store({
     actions,

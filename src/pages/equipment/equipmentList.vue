@@ -20,7 +20,7 @@
     </ul>
     <!-- 设备列表 -->
     <div class="equipment-list" v-if="active == 0" >
-        <div class="equipment-list-box" v-for="(item,index) in eqData" :key="index" @click="getDetails()">
+        <div class="equipment-list-box" v-for="(item,index) in eqData" :key="index" @click="getDetails(item,index)">
             <div class="flex flex-pack-justify">
                 <div class="equipment-list-bold">设备名称：{{item.device_name}}</div>
                 <div>设备编号：{{item.device_sn}}</div>
@@ -28,7 +28,7 @@
             <div>最后一次维护时间：{{item.last_maintenance_time}}</div>
             <div>维护次数：{{item.maintenance_count}}</div>
             <div>位置：{{item.location}}</div>
-            <div>坐标：深蓝色</div>
+            <div>坐标：{{item.latitude+' '+item.longitude}}</div>
             <div>扫码</div>
         </div>
         
@@ -94,8 +94,14 @@ export default {
             }
         });
     },
-    getDetails(){
-        this.$router.push({name: 'equipmentDetails'})
+    getDetails(item,index){
+        console.log(item.device_id)
+        this.$router.push({
+            name: 'equipmentDetails',
+            query:{
+                deviceId: item.device_id
+            }
+        })
     }
   }
 }

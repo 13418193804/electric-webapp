@@ -24,6 +24,7 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import store from '../../store/index'
 
 export default {
   data () { // 选项 数据
@@ -37,6 +38,12 @@ export default {
   components: { // 定义组件
 
   },
+  created () { // 生命周期函数
+
+  },
+  mounted () {
+      store.state.bAuth = false
+  },
   methods: { // 事件处理方法
   ...mapMutations(['changeLogin']),
     goLogin(){
@@ -48,10 +55,10 @@ export default {
             if(res.returnStatus){
                 this.userToken = 'Bearer ' + res.data.token;
                 // 将用户token保存到vuex中
-                // this.changeLogin({ Authorization: this.userToken });
                 localStorage.setItem('packageToken', res.data.token)
                 this.setUserInfo({token:res.data.token})
                 this.$router.push({name: 'home'})
+                store.state.bAuth = true
                 console.log(this.$store.getters.getToken)
                 this.$router.push({name: 'home'})
                 
@@ -63,13 +70,6 @@ export default {
             }
         });
     }
-  },
-  created () { // 生命周期函数
-
-  },
-  mounted () {
-      const pxtorem = require('postcss-pxtorem');
-console.log(pxtorem)
   }
 }
 </script>

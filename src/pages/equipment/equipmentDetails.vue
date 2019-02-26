@@ -3,14 +3,14 @@
     <cheader title="我的设备" @leftClick="leftClick"></cheader>
     <div class="details-declare">
         <div class="flex details-declare-list">
-            <div class="div">设备名称：<span>主控电源</span></div>
-            <div class="div">设备编号：<span>100101001</span></div>
+            <div class="div">设备名称：<span>{{detailsData.device_info.device_name}}</span></div>
+            <div class="div">设备编号：<span>{{detailsData.device_info.device_sn}}</span></div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div">位置：<span>深圳大道啥事吧</span></div>
+            <div class="div">位置：<span>{{detailsData.device_info.location}}</span></div>
         </div>
          <div class="flex details-declare-list">
-            <div class="div">坐标：<span>62.3434.232</span></div>
+            <div class="div">坐标：<span>{{detailsData.device_info.longitude}}</span></div>
             <div class="div">调用手机</div>
         </div>
     </div>
@@ -67,7 +67,9 @@ export default {
       active: 0,
       isCheack: 0,
       checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
-      typeData: [{name: 'A1',auto:false},{name:'A2',auto:true}]
+      typeData: [{name: 'A1',auto:false},{name:'A2',auto:true}],
+      deviceId:'',
+      detailsData:[]
     };
   },
   name: 'switch-demo',
@@ -76,7 +78,13 @@ export default {
     // 定义组件
     cheader
   },
-
+  created() {
+    // 生命周期函数
+    // console.log('homeroot', this.$root, this.$root.$mp)
+    this.getDataList()
+  },
+  mounted() {
+  },
   methods: {
     // 事件处理方法
     leftClick(){
@@ -89,16 +97,31 @@ export default {
         item.auto = true
       }
     },
+     /* api */
+    getDataList(){
+      let deviceId = this.$route.query.deviceId
+        this.service.httpRequest({
+            url: "/aapi/devicedetail",
+            methods: "get",
+            data: {
+              token:this.$store.getters.getToken,
+              id: deviceId
+            }
+        }).then(res => {
+            if(res.data.status === '00'){
+               this.detailsData = res.data
+               console.log('设备详情',this.detailsData)
+            } else{
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
+            }
+        });
+    },
     getRecord(){
       this.$router.push({name: 'equimentRecord'})
     }
-  },
-  created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
-  },
-  mounted() {
-    
   }
 };
 </script>

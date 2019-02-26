@@ -30,14 +30,14 @@ export default new Router({
     path: '/',
     name: 'home',
     component: home,
-    alias: '/pages/home/main'
+    alias: '/pages/home/main',
   },
 
    {
     path: '/game',
     name: 'game',
     component: game,
-    alias: '/pages/game/main'
+    alias: '/pages/game/main',
   }, {
     path: '/result',
     name: 'result',

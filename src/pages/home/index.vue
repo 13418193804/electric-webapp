@@ -42,7 +42,8 @@ import { init } from "./pie.js";
 export default {
   data() {
     // 选项 数据
-    return {};
+    return {
+    };
   },
   components: {
     // 定义组件
