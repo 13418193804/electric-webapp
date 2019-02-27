@@ -1,5 +1,0 @@
-<template name="index$4bcabd98"><view class="_div data-v-4cb94e2a homePage"><button bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_button data-v-4cb94e2a">订阅消息</button> <view id="index" class="_div data-v-4cb94e2a">字体16号</view> <view wx:for="{{messageList}}" wx:for-index="index" wx:for-item="item" class="_div data-v-4cb94e2a">
-
-  {{item}}
-  
-</view> <view wx:if="{{os == 'wx'}}" class="_div data-v-4cb94e2a"><map id="myMap" style="width: 100%; height: 300px;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" covers="{{covers}}" show-location class="_map data-v-4cb94e2a"></map></view> <view class="_div data-v-4cb94e2a"></view></view></template>

@@ -1,1 +1,0 @@
-<import src="../../components/mqttpush$6b0a1d2a" /><template is="mqttpush$6b0a1d2a" data="{{ ...$root['0'], $root }}"/>

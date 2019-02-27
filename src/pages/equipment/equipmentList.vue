@@ -5,12 +5,6 @@
 
 
 
-
-    <ul class="flex taskTabs" >
-      <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
-    </ul>
-
-
     <!-- 设备列表 -->
 <!--     
     <div class="equipment-list" v-if="active == 0" >
@@ -33,7 +27,41 @@
     <div class="material" v-if="active == 2">
         潘兰华
     </div> -->
+<div class="equipment-while">
+   <md-button type="warning" size="small"  @click='initScan()' inline>创建扫码控件</md-button>
 
+
+      <md-button type="warning" size="small"  @click='cancelScan()' inline>取消扫码</md-button>
+
+         <md-button type="warning" size="small" @click='setFlash()' inline>开启闪光灯</md-button>
+
+
+		<div id= "bcid" style="background:#0F0;
+	height:800px;
+	width:100%;"></div>
+<div id="info"></div>
+
+
+            <!-- 扫一扫 -->
+    <div class="flex flex-pack-center equipment-top ">
+        <div class="equipment-top-search flex flex-align-center ">
+            <md-input-item
+            ref="input0" v-model="keyword"
+            type="textarea"
+            :maxlength="200"
+            ></md-input-item>
+            <div class="equipment-top-search-icon flex flex-align-center"  @click="doSearch"><i class="iconfont icon-sousuo"></i></div>
+        </div>
+        <div class="flex  flex-align-center equipment-top-search-code">
+            <i class="iconfont icon-saoyisao"></i>
+        </div>
+    </div>
+    
+    <ul class="flex taskTabs bottom-search" >
+      <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
+    </ul>
+
+</div>
 
 
 
@@ -45,28 +73,14 @@
       :scrolling-x="false"
       @endReached="$_onEndReached"
     >
-<div style="height:180px"></div>
+<div style="height:240px"></div>
 
     <!-- 这组件一定要数据出来后再显示  否则卡顿  -->
     <div class="scroll-view-list equipment-list">
 
 
-            <!-- 扫一扫 -->
-    <div class="flex equipment-top">
-        <div class="equipment-top-search flex flex-align-center">
-            <md-input-item
-            ref="input0"
-            type="textarea"
-            :maxlength="200"
-            ></md-input-item>
-            <div class="equipment-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
-        </div>
-        <div>
-            <i class="iconfont icon-saoyisao"></i>
-        </div>
-    </div>
     
-     <div class="  equipment-list-box" v-for="(item,index) in eqData" :key="index" @click="getDetails(item,index)">
+     <div class="  equipment-list-box" v-for="(item,index) in eqData[active]" :key="index" @click="getDetails(item,index)">
             <div class="flex flex-pack-justify">
                 <div class="equipment-list-box-bold">设备名称：{{item.device_name}}</div>
                 <div>设备编号：{{item.device_sn}}</div>
@@ -110,6 +124,7 @@
 <script>
 import cheader from "../../components/header";
 import { ScrollView, ScrollViewMore } from "mand-mobile";
+import {  startRecognize } from "./barcode";
 
 export default {
   name: "HelloWorld",
@@ -129,17 +144,15 @@ export default {
       eqData: [], // 设备列表
       list: 10,
       isFinished: false,
-
-
-
+      keyword: "",
+      onlineActiveList: [null, 1, 0],
+        scan: null
 
     };
   },
 
-
-
   mounted() {
-    this.getDataList();
+    this.getDataList(0);
   },
   methods: {
     $_onEndReached() {
@@ -148,11 +161,11 @@ export default {
       }
       // async data
       setTimeout(() => {
-        this.eqData.forEach((item,index)=>{
-                if(index<5){
-            this.eqData.push(item)
-                }
-        })
+        this.eqData.forEach((item, index) => {
+          if (index < 5) {
+            this.eqData.push(item);
+          }
+        });
         if (this.eqData.length >= 20) {
           this.isFinished = true;
         }
@@ -164,28 +177,52 @@ export default {
       this.$router.push("/");
     },
     handelClick(index) {
-      this.active = index;
-      if (this.active === 0) {
-      }
-      if (this.active === 1) {
-      }
-      if (this.active === 2) {
-      }
+      //   this.active = index;
+      this.getDataList(index);
     },
+    doSearch() {
+      this.getDataList(this.active);
+    },
+    
+
+    /**
+     * 扫码
+     */
+    initScan() {
+      startRecognize("bcid", scan => {
+        this.scan = scan;
+      });
+    },
+    cancelScan() {
+      this.scan.close();
+    },
+    setFlash() {
+      this.scan.setFlash();
+    },
+
     /* api */
-    getDataList() {
+    getDataList(active) {
+      this.eqData[active] = [];
+      let data = {
+        token: this.$store.getters.getToken,
+        keyword: this.keyword
+      };
+      if (this.onlineActiveList[active] != null) {
+        Object.assign(data, {
+          online: this.onlineActiveList[active]
+        });
+      }
       this.service
         .httpRequest({
           url: "/aapi/device",
           methods: "get",
-          data: { token: this.$store.getters.getToken }
+          data: data
         })
         .then(res => {
           if (res.returnStatus) {
-            this.eqData = res.data.data;
-                this.active = 0
-
-            console.log("设备列表", res.data);
+            this.eqData[active] = res.data.data;
+            this.active = active;
+            this.eqData.push()
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -210,20 +247,32 @@ export default {
 @import "../../../static/css/common.less";
 // 设备
 .equipment {
+  &-while {
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    background: #fff;
+
+    background-color: #fff;
+  }
   &-top {
-    width: 90%;
-    margin-top: 82px * @rpx;
+    margin-top: 42px * @rpx;
     height: 80 * @rpx;
-    justify-content: space-between;
+    width: 100%;
+
     &-search {
       width: 75%;
       position: relative;
+      border: 1px solid #e5e5e5;
+      padding: 5px;
+
       .md-input-item .md-input-item-control .md-input-item-fake,
       .md-input-item .md-input-item-control .md-input-item-input {
         border: 1px solid #eee;
         border-radius: 5px;
         height: 35px;
       }
+
       &-icon {
         position: absolute;
         right: 0;
@@ -231,6 +280,9 @@ export default {
         height: 30px;
         top: 0;
         line-height: 35px;
+      }
+      &-code {
+        padding: 0 20px;
       }
     }
   }
@@ -242,8 +294,9 @@ export default {
     &-box {
       border-bottom: 1px solid #4699ff;
       padding-bottom: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
       margin-bottom: 10px;
-//   padding: 30px 0;
       &-bold {
         font-weight: bold;
       }
@@ -255,6 +308,10 @@ export default {
       border: none;
     }
   }
+}
+.bottom-search {
+  // top:110px;
+  position: static;
 }
 .md-example-child-scroll-view-3 {
   height: -webkit-fill-available;

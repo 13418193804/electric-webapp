@@ -12,7 +12,6 @@
 		<div id= "bcid" style="background:#0F0;
 	height:480px;
 	width:360px;"></div>
-
 <div id="info"></div>
 <div v-for="item in messageList">
 
