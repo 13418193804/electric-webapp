@@ -64,12 +64,8 @@ Vue.mixin({
     },
     // 判断是否登陆
     beforeCreate(to, form, next){
-        // localStorage['packageToken'] = ''
-        console.log('to==', localStorage['packageToken'])
-        // this.$store.getters.getToken
-        if(localStorage['packageToken'] === ''){
-            console.log('')
-            this.$router.push({name:'login'})
+        if((this.$store.getters.getToken||'') ==''){
+            this.$router.replace('/login')
         } 
     }
 })

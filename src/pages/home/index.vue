@@ -19,10 +19,10 @@
       </div>
       <div class="flex chat catTop ">
          <div>
-             <canvas id="canvas_circle" width="120" height="120"></canvas>  
+             <canvas id="canvas_circle" width="270" height="270"></canvas>  
           </div>
          <div>
-             <canvas id="canvas_circle1" width="120" height="120"></canvas>  
+             <canvas id="canvas_circle1" width="270" height="270"></canvas>  
           </div>
       </div>
     </div>
