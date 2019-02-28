@@ -117,7 +117,6 @@ export default {
 }
 //// "out": true
 body {
-  height: 100%;
   width: auto;
   // margin: 0;
   // background: #25487e;
@@ -153,8 +152,8 @@ body {
 html,
 body,
 #app {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
 }
 /******reset********/
 html,
@@ -303,7 +302,7 @@ a {
 html {
   -webkit-text-size-adjust: none;
   width: 100%;
-  height: 100%;
+  // height: 100%;
 } /*????iphone??safari????????????*/
 input[type="text"],
 input[type="button"],
@@ -317,7 +316,7 @@ input[type="search"] {
 
 html,
 body {
-  height: 100%;
+  // height: 100%;
   width: auto;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100% !important;
@@ -596,6 +595,12 @@ header {
 .md-input-item,
 .md-input-item .md-input-item-control {
   min-height: 30px;
+}
+.md-field-item{
+  width: 100%!important;
+}
+.md-field-item-content:before{
+  background-color:#fff!important;
 }
 .md-input-item .md-input-item-control .md-input-item-fake,
 .md-input-item .md-input-item-control .md-input-item-input {
