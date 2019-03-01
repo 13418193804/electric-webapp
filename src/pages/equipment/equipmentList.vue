@@ -11,7 +11,7 @@
       </div>
 
     <!-- 设备列表 -->
-<!--     
+    <!--     
     <div class="equipment-list" v-if="active == 0" >
         <div class="equipment-list-box" v-for="(item,index) in eqData" :key="index" @click="getDetails(item,index)">
             <div class="flex flex-pack-justify">
@@ -281,7 +281,7 @@ export default {
         right: 0;
         width: 30px;
         height: 30px;
-        top: 0;
+        top: 6px;
         line-height: 35px;
       }
       &-code {
@@ -290,7 +290,6 @@ export default {
     }
   }
   &-list {
-    height: 100%;
     width: 100%;
     padding: 0 5%;
     margin-top: 50px;
@@ -320,7 +319,7 @@ export default {
 .md-example-child-scroll-view-3 {
   height: -webkit-fill-available;
   background: #fff;
-  position: fixed;
+  // position: fixed;
   top: 0;
   left: 0;
   width: 100%;

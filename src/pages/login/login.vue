@@ -55,6 +55,8 @@ export default {
       if (this.loginForm.password == "q") {
         this.loginForm.password = "123456";
       }
+      this.loginForm.username = "18603050282";
+      this.loginForm.password = "123456";
       this.service
         .httpRequest({
           url: "/aapi/login",
