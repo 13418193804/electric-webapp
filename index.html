@@ -39,6 +39,7 @@
 
       if (e.keyCode == 4 && myvue.$route.path !== '/') {
         if (titleHeaderDoback) {
+          alert('触发index')
           titleHeaderDoback()
         } else {
           myvue.$router.go(-1);

@@ -11,13 +11,13 @@
     <meta name="msapplication-tap-highlight" content="no">
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=dgZgeGbi4T9aO7k4k0fbdxe0PPYGKid9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
-  <link href="./static/css/app.css?v=9e36966bf21debbf56554977c16cae67" rel="stylesheet"></head>
+  <link href="./static/css/app.css?v=47e00af3cac0171916bb375ebb80e615" rel="stylesheet"></head>
   <body>
     <div id="app"></div>
     <script src="./static/responsive.js"></script>
     
     <!-- built files will be auto injected -->
-  <script type="text/javascript" src="./static/js/manifest.js?v=733548dfbe1afec19624"></script><script type="text/javascript" src="./static/js/vendor.js?v=b2a015c25002a305d823"></script><script type="text/javascript" src="./static/js/app.js?v=d7f9ed8e30c08a0d1b4d"></script></body>
+  <script type="text/javascript" src="./static/js/manifest.js?v=733548dfbe1afec19624"></script><script type="text/javascript" src="./static/js/vendor.js?v=b2a015c25002a305d823"></script><script type="text/javascript" src="./static/js/app.js?v=392dd70f67ca636016de"></script></body>
   <script>
 
   function plusReady() {
@@ -39,6 +39,7 @@
 
       if (e.keyCode == 4 && myvue.$route.path !== '/') {
         if (titleHeaderDoback) {
+          alert('触发index')
           titleHeaderDoback()
         } else {
           myvue.$router.go(-1);

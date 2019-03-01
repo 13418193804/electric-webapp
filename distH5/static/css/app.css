@@ -1811,6 +1811,7 @@ input:-ms-input-placeholder {
   margin-top: 5rem;
 }
 .equipment-list-box {
+  text-align: left;
   border-bottom: 0.1rem solid #4699ff;
   padding-bottom: 1rem;
   padding-left: 1rem;
@@ -1842,6 +1843,20 @@ input:-ms-input-placeholder {
   text-align: center;
   font-size: 3.2rem;
   border-bottom: 0.05rem solid #efefef;
+}
+.background-bcid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+#bcid {
+  margin-top: 2rem;
+  background: #0f0;
+  z-index: 999;
+  height: 24rem;
+  width: 16rem;
 }
 
 @charset "utf-8";

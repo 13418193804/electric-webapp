@@ -17,7 +17,7 @@ export default {
             returnStatus: true,
             data: res.data
           }
-        } else if(res.data.status === '08'){
+        } else if(res.data.status === '08'|| res.data.status === '02'){
           window.myvue.$toast.info(res.data.msg)
           window.myvue.$router.replace('/login')
         }else{
@@ -47,7 +47,7 @@ export default {
             returnStatus: true,
             data: res.data
           }
-        }else if(res.data.status === '08'){
+        }else if(res.data.status === '08'|| res.data.status === '02'){
           window.myvue.$toast.info(res.data.msg)
           window.myvue.$router.replace('/login')
         } else {
