@@ -55,8 +55,8 @@ export default {
       if (this.loginForm.password == "q") {
         this.loginForm.password = "123456";
       }
-      this.loginForm.username = "18603050282";
-      this.loginForm.password = "123456";
+      // this.loginForm.username = "18603050282";
+      // this.loginForm.password = "123456";
       this.service
         .httpRequest({
           url: "/aapi/login",
@@ -70,8 +70,8 @@ export default {
             localStorage.setItem("packageToken", res.data.token);
             this.setUserInfo({ token: res.data.token });
             this.$router.push({ name: "home" });
-            store.state.bAuth = true;
-            this.$router.push({ name: "home" });
+            // store.state.bAuth = true;
+            // this.$router.push({ name: "home" });
           } else {
             this.$dialog.alert({
               content: res.msg,

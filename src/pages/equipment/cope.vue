@@ -4,59 +4,91 @@
     <div class="background-bcid" @click.stop="()=>{return}">
       <div id="bcid" ></div>
     </div>
-     <!-- flex  flex-align-center flex-pack-center -->
+  <!-- 设备列表 -->
+  <!--     
+  <div class="equipment-list" v-if="active == 0" >
+      <div class="equipment-list-box" v-for="(item,index) in eqData" :key="index" @click="getDetails(item,index)">
+          <div class="flex flex-pack-justify">
+              <div class="equipment-list-bold">设备名称：{{item.device_name}}</div>
+              <div>设备编号：{{item.device_sn}}</div>
+          </div>
+          <div>最后一次维护时间：{{item.last_maintenance_time}}</div>
+          <div>维护次数：{{item.maintenance_count}}</div>
+          <div>位置：{{item.location}}</div>
+          <div>坐标：{{item.latitude+' '+item.longitude}}</div>
+          <div>扫码</div>
+      </div>
+      
+  </div>
+  <div class="material" v-if="active == 1">
+      邓员峰
+  </div>
+  <div class="material" v-if="active == 2">
+      潘兰华
+  </div> -->
     <div class="equipment-while" v-show="scanStatus !== 'opening'">
                 <!-- 扫一扫 -->
-      <div class="flex flex-pack-center equipment-top ">
-        <div class="equipment-top-search flex flex-align-center ">
-          <md-input-item ref="input0" v-model="keyword" type="textarea" :maxlength="200" ></md-input-item>
-          <div class="equipment-top-search-icon flex flex-align-center"  @click="doSearch"><i class="iconfont icon-sousuo"></i></div>
+        <div class="flex flex-pack-center equipment-top ">
+          <div class="equipment-top-search flex flex-align-center ">
+            <md-input-item ref="input0" v-model="keyword" type="textarea" :maxlength="200" ></md-input-item>
+            <div class="equipment-top-search-icon flex flex-align-center"  @click="doSearch"><i class="iconfont icon-sousuo"></i></div>
+          </div>
+          <div class="flex  flex-align-center equipment-top-search-code" @click="initScan()">
+            <i class="iconfont icon-saoyisao"></i>
+          </div>
         </div>
-        <div class="flex  flex-align-center equipment-top-search-code" @click="initScan()">
-          <i class="iconfont icon-saoyisao"></i>
-        </div>
-      </div>
-      <ul class="flex taskTabs bottom-search" >
-        <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
-      </ul>
+        <ul class="flex taskTabs bottom-search" >
+          <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
+        </ul>
     </div>
 
     <div v-for="(tab,index) in tabs" v-if="active == index " v-show="scanStatus !== 'opening'">
-      <!-- mainStyle="top: 250px;"
-      :pullDownRefreshObj="{ threshold: 90, stop: 40 }" -->
-      <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"  >
-        <template slot="list-content">
-          <div class="scroll-view-list equipment-list">
-            <div class="  equipment-list-box" v-for="(item,index) in eqData[active]" :key="index" @click="getDetails(item.device_id)">
-              <div class="flex flex-pack-justify">
-                <div class="equipment-list-box-bold">设备名称：{{item.device_name}}</div>
-                <div>设备编号：{{item.device_sn}}</div>
-              </div>
-              <div>最后一次维护时间：{{item.last_maintenance_time}}</div>
-              <div>维护次数：{{item.maintenance_count}}</div>
-              <div>位置：{{item.location}}</div>
-              <div>坐标：{{item.latitude+' '+item.longitude}}</div>
-              <div>扫码</div>
+      <div class="md-example-child md-example-child-scroll-view md-example-child-scroll-view-3" v-show="scanStatus !== 'opening'">
+        <md-scroll-view ref="scrollView" :scrolling-x="false" @endReached="$_onEndReached">
+          <div style="height:240px;width:100%;"></div>
+          <!-- 这组件一定要数据出来后再显示  否则卡顿  -->
+          <!-- <div class="scroll-view-list equipment-list">
+          <div class="  equipment-list-box" v-for="(item,index) in eqData[active]" :key="index" @click="getDetails(item.device_id)">
+                  <div class="flex flex-pack-justify">
+                      <div class="equipment-list-box-bold">设备名称：{{item.device_name}}</div>
+                      <div>设备编号：{{item.device_sn}}</div>
+                  </div>
+                  <div>最后一次维护时间：{{item.last_maintenance_time}}</div>
+                  <div>维护次数：{{item.maintenance_count}}</div>
+                  <div>位置：{{item.location}}</div>
+                  <div>坐标：{{item.latitude+' '+item.longitude}}</div>
+                  <div>扫码</div>
             </div>
-          </div>
-        </template>
-      </better-scroll>
+          </div> -->
+
+
+            <div
+        v-for="i in list"
+        :key="i"
+        class="scroll-view-list"
+      >
+        <p class="scroll-view-item">{{i}}</p>
+      </div>
+
+      
+          <md-scroll-view-more slot="more" :is-finished="isFinished">
+          </md-scroll-view-more>
+        </md-scroll-view>
+      </div>
     </div>
-   </div>
+  </div>
 </template>
 
 <script>
 import cheader from "../../components/header";
 import { ScrollView, ScrollViewMore } from "mand-mobile";
 import { startRecognize } from "./barcode";
-import betterScroll from "../../components/better-scroll";
 
 export default {
   name: "HelloWorld",
   components: {
     [ScrollView.name]: ScrollView,
     [ScrollViewMore.name]: ScrollViewMore,
-    betterScroll,
     cheader
   },
   data() {
@@ -69,7 +101,7 @@ export default {
       ],
       eqData: [], // 设备列表 [所以,在线,离线 ]
       list: 10,
-      isFinished: true,
+      isFinished: false,
       keyword: "",
       onlineActiveList: [null, 1, 0],
       scan: null, //扫码实例对象
@@ -95,8 +127,8 @@ export default {
     // this.initScan();
   },
   methods: {
-    onPullingUp() {
-      if (!this.isFinished) {
+    $_onEndReached() {
+      if (this.isFinished) {
         return;
       }
       // async data
@@ -105,7 +137,6 @@ export default {
         this.getDataList(this.active);
       }, 1000);
     },
-
     leftClick() {
       if (this.scanStatus == "opening") {
         this.cancelScan();
@@ -122,25 +153,13 @@ export default {
         this.$router.push("/");
       }
     },
-    forceUpdate(status) {
-      //  isFinished   判断当前是否可以继续加载
-      //  然后设置子组件可否加载的状态
-      this.isFinished = status;
-      this.$refs.betterScroll[0].forceUpdate(status);
-    },
     handelClick(index) {
-      if (this.active === index) {
-        return;
-      }
+      //   this.active = index;1
       this.pageindex = 1;
-      this.forceUpdate(true);
+      this.isFinished = false;
       this.getDataList(index);
     },
     doSearch() {
-      // 重置页数
-      // 重置list
-      this.pageindex = 1;
-      this.eqData[this.active] = [];
       this.getDataList(this.active);
     },
 
@@ -184,7 +203,7 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             if (res.data.data.length !== this.pagesize) {
-              this.forceUpdate(false);
+              this.isFinished = true;
             }
             res.data.data.forEach(item => {
               list.push(item);
@@ -263,7 +282,7 @@ export default {
   &-list {
     width: 100%;
     padding: 0 5%;
-    margin-top: 40px;
+    margin-top: 50px;
     &-box {
       text-align: left;
       border-bottom: 1px solid #4699ff;
@@ -308,15 +327,15 @@ export default {
   top: 0;
   left: 0;
   // background: #fff;
-  width: 100%;
-  height: 100vh;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
 }
 #bcid {
   margin-top: 20px;
   // background: #0f0;
   z-index: 999;
   height: 260px;
-  // width: -webkit-fill-available;
-  width: 160px;
+  width: -webkit-fill-available;
+  // width: 160px;
 }
 </style>
