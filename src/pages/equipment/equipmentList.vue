@@ -137,6 +137,9 @@ export default {
       this.getDataList(index);
     },
     doSearch() {
+      if((this.keyword||'') === ''){
+        return
+      }
       // 重置页数
       // 重置list
       this.pageindex = 1;
@@ -162,6 +165,9 @@ export default {
 
     /* api */
     getDataList(active) {
+
+      this.$toast.loading('加载中...');
+
       let list = this.eqData[active] || [];
       this.eqData[active] = [];
       let data = {
@@ -182,6 +188,7 @@ export default {
           data: data
         })
         .then(res => {
+           this.$toast.hide()
           if (res.returnStatus) {
             if (res.data.data.length !== this.pagesize) {
               this.forceUpdate(false);

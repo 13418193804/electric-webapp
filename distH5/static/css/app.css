@@ -100,6 +100,12 @@ body {
   color: #2c3e50;
   position: relative;
 }
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
 /******reset********/
 html,
 body,
@@ -488,10 +494,15 @@ header .back {
   margin-right: 0.27273rem;
 }
 .icon-saoyisao {
-  font-size: 2.54545rem !important;
+  font-size: 2.18182rem !important;
   color: #777;
 }
 .icon-danxuan-weixuan {
+  font-size: 2.18182rem !important;
+  color: #409eff;
+}
+.icon-danxuanxuanzhong {
+  font-size: 2.18182rem !important;
   color: #409eff;
 }
 .icon-sousuo {
@@ -1916,9 +1927,14 @@ input:-ms-input-placeholder {
 .details-type-content-list {
   margin-bottom: 0.90909rem;
 }
-.details-type-content-list span {
+.details-type-content-list-item {
+  display: inline-block;
+  margin-right: 0.90909rem;
+}
+.details-type-content-list-item span {
   margin-left: 0.90909rem;
-  display: ininlie-block;
+  width: 3.63636rem;
+  display: inline-block;
 }
 .details-type-temp {
   padding: 0.90909rem 0;
