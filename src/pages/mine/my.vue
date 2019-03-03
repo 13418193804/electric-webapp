@@ -7,7 +7,7 @@
       <div>
          <img src="../../assets/logo1.png" alt=""> 
       </div>
-       <p>操作人:龙添</p>
+       <p>操作人:{{username}}</p>
     </div> 
     <div class="mine-operation">
         <div @click="getSign()">签 到</div>
@@ -17,57 +17,58 @@
 </template>
 
 <script>
-import Vue from 'vue'
-const $vue = new Vue()
+import Vue from "vue";
+const $vue = new Vue();
 export default {
   data() {
     // 选项 数据
     return {
-      imgInfo: {} // 存图片的宽高信息
+      imgInfo: {}, // 存图片的宽高信息
+      username: this.$store.getters.getUserName
     };
   },
   components: {
     // 定义组件
   },
-  beforeCreate(){
-     
-  },
+  beforeCreate() {},
   methods: {
-    getSign(){
-      this.service.httpRequest({
-            url: "/aapi/sign",
-            methods: "post",
-            data: {token:this.$store.getters.getToken}
-        }).then(res => {
-            if(res.returnStatus){
-               this.signData = res.data
-               this.$dialog.alert({
-                 content:'签到成功',
-                 confirmText: '确定'
-               })
-            } else{
-                this.$dialog.alert({
-                    content:res.msg,
-                    confirmText: '确定',
-                })
-            }
+    getSign() {
+      this.service
+        .httpRequest({
+          url: "/aapi/sign",
+          methods: "post",
+          data: { token: this.$store.getters.getToken }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.signData = res.data;
+            this.$dialog.alert({
+              content: "签到成功",
+              confirmText: "确定"
+            });
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
         });
     },
-    getData(){
-      this.$router.push({name: 'sign'})
+    getData() {
+      this.$router.push({ name: "sign" });
     },
-    getImgInfo () {
-      let img = new Image()
-      img.src = this.myImg
-      const vm = this
-      img.onload = function () {
-        vm.$set(vm.imgInfo, 'width', img.width)
-        vm.$set(vm.imgInfo, 'height', img.height)
-        console.log('img',vm.imgInfo) // 打印图片信息
-      }
+    getImgInfo() {
+      let img = new Image();
+      img.src = this.myImg;
+      const vm = this;
+      img.onload = function() {
+        vm.$set(vm.imgInfo, "width", img.width);
+        vm.$set(vm.imgInfo, "height", img.height);
+        console.log("img", vm.imgInfo); // 打印图片信息
+      };
     },
-    handelBack(){
-      window.plusReady()
+    handelBack() {
+      window.plusReady();
     }
   },
   created() {
@@ -75,38 +76,55 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    this.getImgInfo()
+    if ((this.$store.getters.getToken || "") == "") {
+      this.$router.replace("/login");
+      return;
+    }
+    this.getImgInfo();
   }
 };
 </script>
 
 <style lang="less">
-@import '../../../static/css/common.less';
-.mine{
-  text-align: center;height: 100%;
-  background: linear-gradient(20deg,#0f91ef,#06c1f4);color: #fff;padding:8% 5%;
-  &-titile{
-    h2{
-      text-align: center;font-size: 32*@rpx;margin-bottom: 100*@rpx;
+@import "../../../static/css/common.less";
+.mine {
+  text-align: center;
+  height: 100%;
+  background: linear-gradient(20deg, #0f91ef, #06c1f4);
+  color: #fff;
+  padding: 8% 5%;
+  &-titile {
+    h2 {
+      text-align: center;
+      font-size: 32 * @rpx;
+      margin-bottom: 100 * @rpx;
     }
   }
-  &-user{
+  &-user {
     // padding: 5*@rpx;border-radius: 50%;width: 160px*@rpx;height: 160px*@rpx;border: 2px solid #8bd9fd;margin:0 auto;
     text-align: center;
-    div{
-      img{
-        width: 200px*@rpx;height: 200px*@rpx;border-radius: 50%;
+    div {
+      img {
+        width: 200px * @rpx;
+        height: 200px * @rpx;
+        border-radius: 50%;
       }
     }
-    p{
-      margin-top: 30*@rpx;
+    p {
+      margin-top: 30 * @rpx;
     }
   }
-  &-operation{
+  &-operation {
     margin-top: 40%;
-    div{
-      display: inline-block;width: 70%;margin-bottom: 40*@rpx;
-      border: 1px solid #fff;border-radius: 4px; text-align: center;height: 60*@rpx;line-height: 60*@rpx;
+    div {
+      display: inline-block;
+      width: 70%;
+      margin-bottom: 40 * @rpx;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      text-align: center;
+      height: 60 * @rpx;
+      line-height: 60 * @rpx;
     }
   }
 }

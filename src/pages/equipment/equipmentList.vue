@@ -165,9 +165,7 @@ export default {
 
     /* api */
     getDataList(active) {
-
       this.$toast.loading('加载中...');
-
       let list = this.eqData[active] || [];
       this.eqData[active] = [];
       let data = {
