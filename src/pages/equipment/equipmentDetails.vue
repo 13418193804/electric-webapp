@@ -19,12 +19,17 @@
       <div class="details-type-titile"><h4>IO状态</h4></div>
       <div class="details-type-content">
           <div class="details-type-content-list">
-            <span v-for="(item,index) in typeData" :key="index" @click="handelType(item,index)">{{item.name}}
-              <i class="iconfont icon-danxuan-weixuan" :class="[item.auto==true?'icon-danxuanxuanzhong':'']"></i></span>
+            <div class="details-type-content-list-item" v-for="(item,index) in typeData" :key="index" @click="handelType(item,index)">
+              <span>{{item.name}}</span>
+              <i class="iconfont" :class="[item.auto==true?'icon-danxuanxuanzhong':'icon-danxuan-weixuan']"></i>
+            </div>
+              <!-- <i class="iconfont" v-for="(item,index) in statasData" :key="index" 
+              :class="[item.auto==true?'icon-danxuanxuanzhong':'icon-danxuan-weixuan']"></i> -->
+            <!-- </span>  -->
           </div>
-          <div class="details-type-content-list">
+          <!-- <div class="details-type-content-list">
             <span>B1</span> <span>B2</span> <span>B3</span>
-          </div>
+          </div> -->
       </div>
       <div class="details-type-set">设置</div>
     </div>
@@ -68,6 +73,8 @@ export default {
       isCheack: 0,
       checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
       typeData: [{name: 'A1',auto:false},{name:'A2',auto:true}],
+      //typeData: [],  别名
+      statasData: [], // 状态
       deviceId:'',
       detailsData:[]
     };
@@ -79,9 +86,9 @@ export default {
     cheader
   },
   created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
     this.getDataList()
+    //this.getAliasData()
+    this.getStatusData()
   },
   mounted() {
   },
@@ -91,6 +98,7 @@ export default {
         this.$router.push('/')
     },
     handelType(item,index){
+      console.log('item',item)
       if (item.auto === true) {
         item.auto = false
       } else {
@@ -111,6 +119,50 @@ export default {
             if(res.data.status === '00'){
                this.detailsData = res.data
                console.log('设备详情',this.detailsData)
+            } else{
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
+            }
+        });
+    },
+    //io
+    getAliasData(){
+        this.service.httpRequest({
+            url: "/aapi/getalias",
+            methods: "get",
+            data: {
+              token:this.$store.getters.getToken,
+            }
+        }).then(res => {
+            if(res.data.status === '00'){
+              this.typeData = res.data
+              let list = []
+              // this.typeData.forEach(item => {
+              //   list.push(Object.assign({}, item, {auto: item.false}))
+              // })
+              // this.typeData = list
+               console.log('别名',this.typeData)
+            } else{
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
+            }
+        });
+    },
+    getStatusData(){
+        this.service.httpRequest({
+            url: "/aapi/getalias",
+            methods: "get",
+            data: {
+              token:this.$store.getters.getToken,
+            }
+        }).then(res => {
+            if(res.data.status === '00'){
+              this.statasData = res.data
+               console.log('状态',res.data)
             } else{
                 this.$dialog.alert({
                     content:res.msg,
@@ -158,8 +210,12 @@ export default {
       padding: 20*@rpx 0;
       &-list{
         margin-bottom: 20*@rpx;
-        span{
-          margin-left: 20*@rpx;display: ininlie-block;
+        &-item{
+          display: inline-block;margin-right:20*@rpx;
+          span{
+          margin-left: 20*@rpx;
+            width: 80*@rpx;display: inline-block;
+          }
         }
       }
     }

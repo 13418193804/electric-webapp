@@ -152,8 +152,8 @@ body {
 html,
 body,
 #app {
-  // width: 100%;
-  // height: 100%;
+  width: 100%;
+  height: 100%;
 }
 /******reset********/
 html,
@@ -518,10 +518,15 @@ header {
   margin-right: 3px;
 }
 .icon-saoyisao {
-  font-size: 28px !important;
+  font-size: 24px !important;
   color: #777;
 }
 .icon-danxuan-weixuan {
+  font-size: 24px !important;
+  color: #409eff;
+}
+.icon-danxuanxuanzhong {
+  font-size: 24px !important;
   color: #409eff;
 }
 .icon-sousuo {
