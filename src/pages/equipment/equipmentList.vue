@@ -21,7 +21,7 @@
       </ul>
     </div>
 
-    <div v-for="(tab,index) in tabs" v-if="active == index " v-show="scanStatus !== 'opening'">
+    <div v-for="(tab,index) in tabs" v-if="active == index " :key="index" v-show="scanStatus !== 'opening'">
       <!-- mainStyle="top: 250px;"
       :pullDownRefreshObj="{ threshold: 90, stop: 40 }" -->
       <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"  >
@@ -61,13 +61,15 @@ export default {
   },
   data() {
     return {
+      pagesize: 10,
+      pageindex: 1,
       active: null,
       tabs: [
         { titile: "设备列表" },
         { titile: "在线设备" },
         { titile: "离线设备" }
       ],
-      eqData: [], // 设备列表 [所以,在线,离线 ]
+      eqData: [], // 设备列表 [所有,在线,离线 ]
       list: 10,
       isFinished: true,
       keyword: "",
@@ -79,9 +81,8 @@ export default {
         { status: "opening", remark: "打开了扫码窗，未关闭" },
         { status: "opened", remark: "已经关闭了扫码窗,仍然不可返回" },
         { status: "finished", remark: "已经关闭了扫码窗,已经可以调用router" }
-      ],
-      pagesize: 10,
-      pageindex: 1
+      ]
+      
     };
   },
 
