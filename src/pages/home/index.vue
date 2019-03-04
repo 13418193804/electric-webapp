@@ -19,10 +19,10 @@
       </div>
       <div class="flex chat catTop ">
          <div>
-             <canvas id="canvas_circle" width="270" height="270"></canvas>  
+             <canvas id="canvas_circle" width="200" height="200"></canvas>  
           </div>
          <div>
-             <canvas id="canvas_circle1" width="270" height="270"></canvas>  
+             <canvas id="canvas_circle1" width="200" height="200"></canvas>  
           </div>
       </div>
     </div>
@@ -131,15 +131,19 @@ export default {
   > div {
     width: 50%;
     text-align: center;
-    height: 150 * @rpx;
+    height: 140 * @rpx;
+    margin-top:50*@rpx;
     img{
-      width: 64*@rpx;height: 66*@rpx;
+      width: 84*@rpx;height: 86*@rpx;
+    }
+    h3{
+      margin-top:20*@rpx;
     }
   }
 }
 .cartogram {
   width: 80vw;
-  margin: 0 auto;
+  margin: 40*@rpx auto 0;
   // height: 600 * @rpx;
   background: #eee;
   .catTop {

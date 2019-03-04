@@ -62,7 +62,7 @@ Vue.mixin({
     created() {
         this.service = httpService
     },
-    // 判断是否登陆
+    // 判断是否登录
     beforeCreate(to, form, next){
         if((this.$store.getters.getToken||'') ==''){
             this.$router.replace('/login')

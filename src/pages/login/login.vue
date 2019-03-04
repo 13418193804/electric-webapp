@@ -16,7 +16,7 @@
     </div>
     <div class="loginCode">
         <img src="../../assets/code.png" alt="">
-        <div @click.prevent="goLogin()">登陆</div>
+        <div @click.prevent="goLogin()">登录</div>
     </div>
 
   </div>
@@ -55,8 +55,9 @@ export default {
       if (this.loginForm.password == "q") {
         this.loginForm.password = "123456";
       }
-      this.loginForm.username = "18603050282";
-      this.loginForm.password = "123456";
+      // this.loginForm.username = "18603050282";
+      // this.loginForm.password = "123456";
+      this.$toast.loading("登录中...");
       this.service
         .httpRequest({
           url: "/aapi/login",
@@ -64,14 +65,19 @@ export default {
           data: this.loginForm
         })
         .then(res => {
+          this.$toast.hide();
           if (res.returnStatus) {
             this.userToken = "Bearer " + res.data.token;
             // 将用户token保存到vuex中
             localStorage.setItem("packageToken", res.data.token);
-            this.setUserInfo({ token: res.data.token });
+            localStorage.setItem("username", res.data.username||'');
+            this.setUserInfo({
+              token: res.data.token,
+              username: res.data.username || ""
+            });
             this.$router.push({ name: "home" });
-            store.state.bAuth = true;
-            this.$router.push({ name: "home" });
+            // store.state.bAuth = true;
+            // this.$router.push({ name: "home" });
           } else {
             this.$dialog.alert({
               content: res.msg,
