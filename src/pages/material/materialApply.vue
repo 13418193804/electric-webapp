@@ -19,14 +19,15 @@
                 </div>
                 <div class="flex material-list-operation">
                     <div>
-                        <span class="tag" v-if="item.is_get == 0" @click="basicDialog.open = true">撤销</span>
+                        <span class="tag" v-if="item.status == 0" @click="confirmRevoke(item.id)">撤销</span>
                     </div>
-                    <div>状态：<span>{{item.is_get== 0 ?'等待领取':'已经领取'}}</span></div>
+                    <div>状态：<span>
+                        {{handleStatus(item)}}
+                        </span></div>
                 </div>
             </div>
         </div>
-        <md-dialog title="是否撤销" :closable="true" v-model="basicDialog.open" :btns="basicDialog.btns">
-        </md-dialog>
+      
         <!-- 物料备用 -->
         <div class="material" v-if="active == 1">
         <div class="material-reserve">
@@ -114,55 +115,46 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
-import cheader from '../../components/header'
-import popup from './popUp'
-import {Dialog, Button, Toast} from 'mand-mobile'
+import BScroll from "better-scroll";
+import cheader from "../../components/header";
+import popup from "./popUp";
+import { Dialog, Button, Toast } from "mand-mobile";
 import betterScroll from "../../components/better-scroll";
 export default {
-  name: 'landscape-demo',
-    components: {
-      cheader,
-      popup,
-      betterScroll,
-      [Dialog.name]: Dialog,
-      [Button.name]: Button
+  name: "landscape-demo",
+  components: {
+    cheader,
+    popup,
+    betterScroll,
+    [Dialog.name]: Dialog,
+    [Button.name]: Button
   },
-  data () {
+  data() {
     return {
       pagesize: 10,
       pageindex: 1,
       active: 0,
       isFinished: true,
       list: 10,
-      keyword: '',
-      tabs: [{titile: '物料申请单'}, {titile: '我的备用物料'}, {titile: '物料使用记录'}],
-      appleyData:[],// 物料列表
-      basicDialog: { //撤销弹框
-        open: false,
-        btns: [
-          {
-            text: '取消',
-            handler: this.onBasicCancel,
-          },
-          {
-            text: '确定',
-            handler: this.onBasicConfirm,
-          },
-        ],
-      },
-      workorderId: null, // 工单ID
+      keyword: "",
+      tabs: [
+        { titile: "物料申请单" },
+        { titile: "我的备用物料" },
+        { titile: "物料使用记录" }
+      ],
+      appleyData: [], // 物料列表
+      isGetListEnum: ["等待领取", "已经领取"],
       status: null, // 审核状态
 
       reserveData: [], // 备用列表
       tableData: [],
-    //   showNoMask: false,
+      //   showNoMask: false,
       isPopup: false // 弹窗
-    }
+    };
   },
-  mounted () {
-    this.getDataList()
-    this.getReserveData() //备用
+  mounted() {
+    this.getDataList();
+    this.getReserveData(); //备用
   },
   methods: {
     onPullingUp() {
@@ -175,11 +167,11 @@ export default {
         this.getDataList(this.active);
       }, 1000);
     },
-    leftClick(){
-        this.$router.go(-1)
+    leftClick() {
+      this.$router.go(-1);
     },
-    handelClick (index) {
-      this.active = index
+    handelClick(index) {
+      this.active = index;
       if (this.active === 0) {
       }
       if (this.active === 1) {
@@ -187,16 +179,16 @@ export default {
       if (this.active === 2) {
       }
     },
-    leftClick(){
-        this.$router.push('/')
+    leftClick() {
+      this.$router.push("/");
     },
     /* 物料申请 star */
-    getApply(){
-        this.$router.push({name:'materialList'})
+    getApply() {
+      this.$router.push({ name: "materialList" });
     },
     /* API */
     getDataList() {
-      this.$toast.loading('加载中...');
+      this.$toast.loading("加载中...");
       let data = {
         token: this.$store.getters.getToken,
         pagesize: this.pagesize,
@@ -209,73 +201,83 @@ export default {
           data: data
         })
         .then(res => {
-           this.$toast.hide()
+          this.$toast.hide();
           if (res.returnStatus) {
-            this.appleyData = res.data.data
-            console.log('appley',res.data.data)  
+            this.appleyData = res.data.data;
+            console.log("appley", res.data.data);
           } else {
             this.$dialog.alert({
               content: res.msg,
               confirmText: "确定"
             });
           }
-
         });
     },
     // 撤销
-    onBasicConfirm() {
-        if(this.status === 1||this.status === 3){
-            Toast({
-                content: '已经审核的不可撤回',
+    confirmRevoke(id) {
+      this.$dialog.confirm({
+        title: "确认",
+        content: "是否撤销该物料申请",
+        confirmText: "确定",
+        onConfirm: () => {
+          let data = {
+            token: this.$store.getters.getToken,
+            id: id
+          };
+          this.service
+            .httpRequest({
+              url: "/aapi/materialordercancel",
+              methods: "post",
+              data: data
             })
-            this.basicDialog.open = true
-            return
-        }
-     let data = {
-        token: this.$store.getters.getToken,
-        id: this.workorderId
-      };
-     this.service
-        .httpRequest({
-          url: "/aapi/materialordercancel",
-          methods: "post",
-          data: data
-        }).then(res => {
-           this.$toast.hide()
-          if (res.returnStatus) {
-               Toast({
-                content: '已撤回',
-            })
-            this.basicDialog.open = false
-            this.getDataList()
-          } else {
-            this.$dialog.alert({
-              content: res.msg,
-              confirmText: "确定"
+            .then(res => {
+              this.$toast.hide();
+              if (res.returnStatus) {
+                Toast({ content: "已撤销" });
+                this.getDataList();
+              } else {
+                this.$dialog.alert({
+                  content: res.msg,
+                  confirmText: "确定"
+                });
+              }
             });
-          }
-        });
-    
+        }
+      });
     },
     onBasicCancel() {
       Toast({
-        content: '已取消',
-      })
-      this.basicDialog.open = false
+        content: "已取消"
+      });
+      this.basicDialog.open = false;
     },
 
     /* end 
     *
     *
     */
-    
+    /*状态处理 */
+    handleStatus(item) {
+      switch (item.status) {
+        case 0:
+          return "等待审核";
+        case 1:
+          return this.isGetListEnum[item.is_get];
+        case 2:
+          return "不予受理";
+        case 3:
+          return "已经撤消";
+        default:
+          return "";
+      }
+    },
     /* 备用物料 */
-    getPop(){
-        this.isPopup = true
+    getPop() {
+      this.isPopup = true;
     },
     /* api */
     getReserveData() {
-      this.$toast.loading('加载中...');
+      this.$toast.loading("加载中...");
       let data = {
         token: this.$store.getters.getToken,
         pagesize: this.pagesize,
@@ -286,11 +288,12 @@ export default {
           url: "/aapi/materialspare",
           methods: "get",
           data: data
-        }).then(res => {
-           this.$toast.hide()
+        })
+        .then(res => {
+          this.$toast.hide();
           if (res.returnStatus) {
-            this.reserveData = res.data.data
-            console.log('beiyong',res.data.data.warehouse)  
+            this.reserveData = res.data.data;
+            console.log("beiyong", res.data.data);
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -298,115 +301,157 @@ export default {
             });
           }
         });
-    },
+    }
     /* end */
 
     /* end 
     *
     *
     */
-
   }
-}
+};
 </script>
 
 <style lang="less" scope>
-@import '../../../static/css/common.less';
-.material{
-    margin-top:100*@rpx;position: relative;padding: 5% 5% 5% 3%;
-    &-apply{
-        position: absolute;right: 35*@rpx;top: -12*@rpx;
+@import "../../../static/css/common.less";
+.material {
+  margin-top: 100 * @rpx;
+  position: relative;
+  padding: 5% 5% 5% 3%;
+  &-apply {
+    position: absolute;
+    right: 35 * @rpx;
+    top: -12 * @rpx;
+  }
+  &-list {
+    margin-bottom: 25 * @rpx;
+    div {
+      margin-bottom: 15 * @rpx;
     }
-    &-list{
-        margin-bottom: 25*@rpx;
-        div{
-            margin-bottom: 15*@rpx;
-        }
-        &-dots{
-            i{
-                 width: 5px;height: 5px;border-radius: 50%;background: #4699ff;display: inline-block;
-            }
-        }
-        &-btn{
-            border:1px solid #7e7e7e;line-height: 56*@rpx; padding: 0 5px;border-radius: 5px;margin-bottom: 15*@rpx!important;
-        }
-        &-operation{
-            align-items:center;overflow: hidden;
-            div{
-                float: left;width: 60%;
-            }
-            :nth-of-type(2){
-                float: right;width: 40%;
-            }
-
-        }
-
+    &-dots {
+      i {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4699ff;
+        display: inline-block;
+      }
     }
-    // 扫一扫
-    &-top{
-        width: 90%; margin: 0*@rpx auto;height: 80*@rpx;justify-content:space-between;
-        &-search{
-            width: 75%;position: relative;border:1px solid #ddd;border-radius:5px;padding-left:20*@rpx;
-            .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
-                border:1px solid #eee;border-radius: 5px;height: 35px;padding-left:10px;
-            }
-            &-icon{
-                position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
-            }
-        }
-        &-button{
-            padding-top:15*@rpx;
-        }
+    &-btn {
+      border: 1px solid #7e7e7e;
+      line-height: 56 * @rpx;
+      padding: 0 5px;
+      border-radius: 5px;
+      margin-bottom: 15 * @rpx!important;
     }
-    // table
-    &-table{
-        width: 90%;margin:20*@rpx auto 0;
-        &-box{
-            border-top:1px solid #999;
-            border-left:1px solid #999;
-            &-list{
-                width: 20%;text-align: center;border-right: 1px solid #999;padding: 3px 0;
-            }
-        }
+    &-operation {
+      align-items: center;
+      overflow: hidden;
+      div {
+        float: left;
+        width: 60%;
+      }
+      :nth-of-type(2) {
+        float: right;
+        width: 40%;
+      }
     }
+  }
+  // 扫一扫
+  &-top {
+    width: 90%;
+    margin: 0 * @rpx auto;
+    height: 80 * @rpx;
+    justify-content: space-between;
+    &-search {
+      width: 75%;
+      position: relative;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding-left: 20 * @rpx;
+      .md-input-item .md-input-item-control .md-input-item-fake,
+      .md-input-item .md-input-item-control .md-input-item-input {
+        border: 1px solid #eee;
+        border-radius: 5px;
+        height: 35px;
+        padding-left: 10px;
+      }
+      &-icon {
+        position: absolute;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        top: 0;
+        line-height: 35px;
+      }
+    }
+    &-button {
+      padding-top: 15 * @rpx;
+    }
+  }
+  // table
+  &-table {
+    width: 90%;
+    margin: 20 * @rpx auto 0;
+    &-box {
+      border-top: 1px solid #999;
+      border-left: 1px solid #999;
+      &-list {
+        width: 20%;
+        text-align: center;
+        border-right: 1px solid #999;
+        padding: 3px 0;
+      }
+    }
+  }
 }
-.material-table-box:last-child{
-    border-bottom: 1px solid #999;
+.material-table-box:last-child {
+  border-bottom: 1px solid #999;
 }
 // 蒙层
-.apply{
-    background: #fff;padding:20*@rpx; border-radius: 10*@rpx;
-    &-list{
-        margin-bottom: 10*@rpx;font-size: 24*@rpx;
-        div{
-            font-size: 24*@rpx;
-            span{
-                font-size: 24*@rpx;
-            }
-            textarea{
-                width: 100%;height: 100*@rpx;border: 1px solid #ddd;resize: none;
-            }
-        }
-        img{
-            width: 15px;height: 15px;vertical-align: middle;
-        }
-        span{
-            margin-bottom: 10*@rpx;font-size: 24*@rpx;display: inline-block;
-        }
+.apply {
+  background: #fff;
+  padding: 20 * @rpx;
+  border-radius: 10 * @rpx;
+  &-list {
+    margin-bottom: 10 * @rpx;
+    font-size: 24 * @rpx;
+    div {
+      font-size: 24 * @rpx;
+      span {
+        font-size: 24 * @rpx;
+      }
+      textarea {
+        width: 100%;
+        height: 100 * @rpx;
+        border: 1px solid #ddd;
+        resize: none;
+      }
     }
+    img {
+      width: 15px;
+      height: 15px;
+      vertical-align: middle;
+    }
+    span {
+      margin-bottom: 10 * @rpx;
+      font-size: 24 * @rpx;
+      display: inline-block;
+    }
+  }
 }
-.material-list:nth-of-type(1){
-    color: #4699ff;
+.material-list:nth-of-type(1) {
+  color: #4699ff;
 }
-.taskNew .material-list:nth-of-type(1) .material-list-dots{
-    background: url(../../assets/dots.png) no-repeat left center;
-    background-size: 7px 7px;
-    padding-left: 12px;
+.taskNew .material-list:nth-of-type(1) .material-list-dots {
+  background: url(../../assets/dots.png) no-repeat left center;
+  background-size: 7px 7px;
+  padding-left: 12px;
 }
-.md-landscape-content{
-    width: 550*@rpx!important;
+.md-landscape-content {
+  width: 550 * @rpx!important;
 }
-.md-field-item-content{
-    min-height: 70*@rpx;
+.md-field-item-content {
+  min-height: 70 * @rpx;
 }
 </style>

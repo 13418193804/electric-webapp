@@ -29,7 +29,7 @@
         <div class="flex details-result-cause">
             <div class="left">处理结果</div>
             <div class="details-result-cause-select">
-              <div class="selectBox">
+              <div class="selectBox flex  flex-align-center">
                     <select v-model="curOption" @change="handelSelect($event)">
                         <option v-for="(item,index) in option" :key="index" :value="item.id">{{item.name}}</option>
                     </select>

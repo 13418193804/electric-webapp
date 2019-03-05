@@ -190,7 +190,6 @@ export default {
           data: data
         })
         .then(res => {
-          console.log(res);
           this.$toast.hide();
           if (res.returnStatus) {
             if (res.data.data.length !== this.pagesize) {

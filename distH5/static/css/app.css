@@ -631,6 +631,10 @@ header .back {
   background: #fff;
   padding-left: 0.45455rem;
   border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 1.54545rem;
 }
 .selectBox option {
   font-size: 1rem;
@@ -1454,7 +1458,7 @@ input:-ms-input-placeholder {
   margin: 2.72727rem auto 0;
 }
 
-#allmap {
+#l-map {
   height: 27.27273rem;
   width: 100%;
 }
