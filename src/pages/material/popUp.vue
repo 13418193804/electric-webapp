@@ -42,13 +42,14 @@ import {Landscape, Toast, Button} from 'mand-mobile'
 export default {
   name: 'landscape-demo',
     components: {
-      cheader,
       [Landscape.name]: Landscape,
       [Button.name]: Button
   },
   data () {
     return {
       showNoMask: true,
+      sum:11,
+      nowNum: 1
     }
   },
   mounted () {

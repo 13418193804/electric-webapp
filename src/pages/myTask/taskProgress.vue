@@ -36,15 +36,11 @@
         <div class="flex details-result-cause">
             <div>处理结果</div>
             <div class="details-result-cause-select">
-              <!-- <p @click="handelSelect()">&nbsp;{{curName}}</p>
-              <div v-show="isOption" class="details-result-cause-select-list">
-                  <div v-for="(item,index) in option" :key="index" @click="handelClick(item,index)" :class="{cur:index == curOption}">{{item.name}}</div>
-              </div> -->
               <div class="selectBox">
                     <div class="blockBlue"></div>
-                    <select>
-                        <option value ="volvo">损耗</option>
-                        <option value ="saab">任务单</option>
+                    <select v-model="curOption" @change="handelSelect($event)">
+                        <option v-for="(item,index) in option" :key="index" :value="item.id">{{item.name}}</option>
+                        
                     </select>
                 </div>
             </div>
@@ -157,15 +153,9 @@ export default {
     leftClick(){
         this.$router.push('/')
     },
-    handelSelect(){
-      this.isOption = true
-    },
-    handelClick(item,index){
-      console.log('当前',item)
-      this.curOption = index
-      this.curName = item.name
-      this.curId = item.id
-      this.isOption = false
+    handelSelect(event){
+      this.curId = event.target.value;
+      console.log(event)
     },
     handelCheck(index){
       this.active = index
