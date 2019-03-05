@@ -618,6 +618,9 @@ header {
     color: #fff;
   }
 }
+.md-input-item-input{
+  height: 50*@rpx;
+}
 // 弹窗
 .md-dialog .md-dialog-content{
   border-radius: 5px;width: 200px;
@@ -630,6 +633,18 @@ header {
 }
 .md-dialog .md-dialog-actions a{
   height: 40px!important;
+}
+// 下拉框
+.selectBox{
+    position: relative; width: 100%;padding-left:10px;
+    background: url(assets/select.png) no-repeat left center;background-size: 100% 100%;margin-left:10px;
+    select{
+        height: 50*@rpx;font-size: 22*@rpx;outline: none;width: 80%;background: #fff;
+        padding-left:10*@rpx;border:none;
+    }
+    option{
+        font-size: 22*@rpx;
+    }
 }
 // 按钮
 .footer-btn{

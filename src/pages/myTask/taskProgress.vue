@@ -36,10 +36,17 @@
         <div class="flex details-result-cause">
             <div>处理结果</div>
             <div class="details-result-cause-select">
-              <p @click="handelSelect()">&nbsp;{{curName}}</p>
+              <!-- <p @click="handelSelect()">&nbsp;{{curName}}</p>
               <div v-show="isOption" class="details-result-cause-select-list">
                   <div v-for="(item,index) in option" :key="index" @click="handelClick(item,index)" :class="{cur:index == curOption}">{{item.name}}</div>
-              </div>
+              </div> -->
+              <div class="selectBox">
+                    <div class="blockBlue"></div>
+                    <select>
+                        <option value ="volvo">损耗</option>
+                        <option value ="saab">任务单</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="details-result-cause">
@@ -174,7 +181,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 @import '../../../static/css/common.less';
 .details{
   width: 100%;height: 100%;
@@ -205,8 +212,7 @@ export default {
         line-height: 30px;
       }
       &-select{
-        background: url(../../assets/select.png) no-repeat left center;background-size: 100% 100%;width: 80%;margin-left:10px;
-        position: relative;
+        width: 80%;
         p{
           padding-left:10px;font-size: 12px;
         }
@@ -231,4 +237,5 @@ export default {
     }
   }
 }
+
 </style>
