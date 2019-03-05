@@ -24,7 +24,7 @@
     <div v-for="(tab,index) in tabs" v-if="active == index " :key="index" v-show="scanStatus !== 'opening'">
       <!-- mainStyle="top: 250px;"
       :pullDownRefreshObj="{ threshold: 90, stop: 40 }" -->
-      <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"  >
+      <better-scroll ref="betterScroll" @onPullingUp="onPullingUp">
         <template slot="list-content">
           <div class="scroll-view-list equipment-list">
             <div class="  equipment-list-box" v-for="(item,index) in eqData[active]" :key="index" @click="getDetails(item.device_id)">
