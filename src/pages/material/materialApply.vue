@@ -5,7 +5,7 @@
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
     <!-- 物料申请 -->
-    <div class="material" v-if="active == 0">
+    <div class="material taskNew" v-if="active == 0">
         <div class="material-apply tag" @click="getApply()">申请物料</div>
         <div class="material-list" v-for="(item,index) in appleyData" :key="index">
             <div class="flex flex-pack-justify material-list-dots">
@@ -235,13 +235,14 @@ export default {
 <style lang="less" scope>
 @import '../../../static/css/common.less';
 .material{
-    margin-top:100*@rpx;position: relative;padding: 3% 5% 5% 3%;
+    margin-top:100*@rpx;position: relative;padding: 5% 5% 5% 3%;
     &-apply{
         position: absolute;right: 35*@rpx;top: -12*@rpx;
     }
     &-list{
+        margin-bottom: 25*@rpx;
         div{
-            margin-bottom: 10*@rpx;
+            margin-bottom: 15*@rpx;
         }
         &-dots{
             i{
@@ -315,7 +316,14 @@ export default {
             margin-bottom: 10*@rpx;font-size: 24*@rpx;display: inline-block;
         }
     }
-    
+}
+.material-list:nth-of-type(1){
+    color: #4699ff;
+}
+.taskNew .material-list:nth-of-type(1) .material-list-dots{
+    background: url(../../assets/dots.png) no-repeat left center;
+    background-size: 7px 7px;
+    padding-left: 12px;
 }
 .md-landscape-content{
     width: 550*@rpx!important;
