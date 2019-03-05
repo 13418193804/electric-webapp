@@ -5,18 +5,16 @@
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-     <div v-for="(quote,quoteIndex) in tabs" v-if="quoteIndex === active"> 
+     <div v-for="(quote,quoteIndex) in tabs" :key="quoteIndex" v-if="quoteIndex === active" > 
         <!-- 新任务 -->
-        <div >
+        <div>
            <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"  marginTop="100px">
             <template slot="list-content">
-                <div class="scroll-view-list taskList"  v-if="active == 0">
+                <div class="scroll-view-list taskList taskNew"  v-if="active == 0">
                     <ul>
-                        <li v-for="(item,index) in quoteData[active] " :key="index" class="scroll-view-list" @click="getDetails()">
+                        <li v-for="(item,index) in quoteData[active]" :key="index" class="scroll-view-list" @click="getDetails()">
                             <div>
-                                
-                                <p class="dots">{{item.create_time}}</p>
-                                <!-- <p class="dots"> 2018年8月10日 12:00:00</p> -->
+                                <p>{{item.create_time}}</p>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
                                 <span class="tag">{{quoteTypeEnum[item.type]}}</span>
                             </div>
@@ -28,9 +26,10 @@
                     <ul>
                         <li v-for="(item,index) in quoteData[active] " :key="index">
                             <div>
-                                <p> 订单时间</p>
-                                <h4> 报警：深南达到香蜜</h4>
-                                <h4> 备注：<span>回公司</span></h4>
+                                <p> 订单时间：{{item.create_time}}</p>
+                                <h4> 报警：{{item.fault}}</h4>
+                                <h4> 备注：<span>{{item.desp}}</span></h4>
+                                <p> 最后一次更新时间{{item.update_time}}</p>
                             </div>
                         </li>
                     </ul>
@@ -41,10 +40,11 @@
                         <li v-for="(item,index) in  quoteData[active] " :key="index">
                             {{index}}
                             <div>
-                                <p> 订单时间</p>
-                                <h4> 报警：<span>深南达到香蜜</span></h4>
-                                <h4> 问腿：<span>线路问题</span></h4>
-                                <h4> 备注：<span>回公司</span></h4>
+                                <p> 订单时间：{{item.create_time}}</p>
+                                <h4> 报警：<span>{{item.fault}}</span></h4>
+                                <h4> 问题：<span>{{item.fault}}</span></h4>
+                                <h4> 备注：<span>{{item.desp}}</span></h4>
+                                <p> 最后一次更新时间{{item.update_time}}</p>
                             </div>
                         </li>
                     </ul>
@@ -165,6 +165,7 @@ export default {
             this.quoteData[active] = list;
             this.active = active;
             this.quoteData.push();
+            console.log('quoteData',this.quoteData[active])
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -208,7 +209,7 @@ export default {
 @import "../../../static/css/common.less";
 .taskBox {
   .taskList {
-    padding: 5%;
+    padding: 2% 5%;
     // padding-top: 100px * @rpx;
     ul {
       width: 100%;
@@ -216,7 +217,7 @@ export default {
       overflow: hidden;
       li {
         position: relative;
-        padding: 30px * @rpx 0;
+        padding: 0;
         border-top: 2px * @rpx solid #eee;
         padding-left: 20 * @rpx;
         div {
@@ -234,6 +235,9 @@ export default {
             white-space: nowrap;
             overflow: hidden;
             padding-left: 12px;
+            span{
+              font-size: 24px * @rpx;
+            }
           }
           span.tag {
             font-size: 20px * @rpx;
@@ -246,7 +250,16 @@ export default {
           }
         }
       }
+      :nth-of-type(1){
+          border:0;
+        }
+      
     }
+  }
+  .taskNew ul li:nth-of-type(1) div p{
+    background: url(../../assets/dots.png) no-repeat left center;
+    background-size: 7px 7px;
+    padding-left: 12px;
   }
 }
 </style>

@@ -87,7 +87,7 @@ export default {
       flex-wrap: wrap;background:#eeeeef;padding:0 5px;position: relative;
       font-size:24*@rpx;border-bottom: 1px solid #fff;
       .div{
-        width:69%;line-height: 30px;
+        width:67%;line-height: 30px;
       }
       .div1{
         width: 20%;text-align: right;
@@ -95,7 +95,7 @@ export default {
       &-swich{
         position: absolute;right: 3px;top: 6px;
         button{
-          background: #2680f0;color: #fff;border: none;border-radius: 5px;
+          background: #2680f0;color: #fff;border: none;border-radius: 5px;width:100*@rpx;height: 50*@rpx;font-size: 24*@rpx;
         }
       }
     }
