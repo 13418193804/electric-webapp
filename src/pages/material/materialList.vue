@@ -54,100 +54,128 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
-import cheader from '../../components/header'
+import BScroll from "better-scroll";
+import cheader from "../../components/header";
 
 export default {
-  name: 'HelloWorld',
-    components: {
-      cheader,
+  name: "HelloWorld",
+  components: {
+    cheader
   },
-  data () {
+  data() {
     return {
-     active: 0,
-     sum:11,
-     nowNum: 1,
-     listData: [{name:'机箱'},{name: '整机'},{name: '电源'},{name: '网线'},{name: '电源保护开关'}]
-    }
+      active: 0,
+      sum: 11,
+      nowNum: 1,
+      listData: [
+        { name: "机箱" },
+        { name: "整机" },
+        { name: "电源" },
+        { name: "网线" },
+        { name: "电源保护开关" }
+      ],
+   
+    };
   },
-  mounted () {
-      
+  mounted() {
+      this.getDataList()
   },
   methods: {
-    leftClick(){
-        this.$router.go(-1)
+    leftClick() {
+      this.$router.go(-1);
     },
-    handelLook(item,index){
-        this.active = index
+    handelLook(item, index) {
+      this.active = index;
     },
-    getMinute(){
-        if(this.nowNum === 1){
-            return
-        } else {
-            this.nowNum = this.nowNum - 1
-        }
+    getMinute() {
+      if (this.nowNum === 1) {
+        return;
+      } else {
+        this.nowNum = this.nowNum - 1;
+      }
     },
-    getAdd(){
-        if(this.nowNum === this.sum){
-            return
-        } else {
-            this.nowNum = this.nowNum + 1
-        }
+    getAdd() {
+      if (this.nowNum === this.sum) {
+        return;
+      } else {
+        this.nowNum = this.nowNum + 1;
+      }
     }
   }
-}
+};
 </script>
 
 <style lang="less">
-@import '../../../static/css/common.less';
-.details{
-     width: 90%;margin: 40*@rpx auto;
-    &-search{
-        position: relative;margin-bottom:40*@rpx;
-        .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
-            border:1px solid #eee;border-radius: 5px;height: 35px;padding-left:10px;
-        }
-        &-icon{
-            position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
-        }
+@import "../../../static/css/common.less";
+.details {
+  width: 90%;
+  margin: 40 * @rpx auto;
+  &-search {
+    position: relative;
+    margin-bottom: 40 * @rpx;
+    .md-input-item .md-input-item-control .md-input-item-fake,
+    .md-input-item .md-input-item-control .md-input-item-input {
+      border: 1px solid #eee;
+      border-radius: 5px;
+      height: 35px;
+      padding-left: 10px;
     }
-    &-content{
-        margin-bottom:40*@rpx;
-        &-box{
-            border:1px solid #ddd;width:70%;height: 400*@rpx;overflow: auto;
-            &-list{
-                line-height: 28px;border-bottom:1px solid #ddd; 
-            }
-            &-details{
-                margin-bottom: 5px;
-                div{
-                    line-height: 20px;
-                    img{
-                        width: 15px;height: 15px;vertical-align: middle;
-                    }
-                }
-            }
-            .cur{
-                background: #4699ff;color: #fff;
-            }
-            &-list:last-child{
-                border-bottom: none;
-            }
-        }
-        &-box:nth-of-type(1){
-            width: 30%;margin-right: 3%;text-align: center;
-        }
-        &-box:nth-of-type(2){
-            padding: 30*@rpx;
-        }
+    &-icon {
+      position: absolute;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      line-height: 35px;
     }
-    &-form{
-        &-list{
-            margin-bottom: 10px;
-            &-border{
-                border:1px solid #ddd; padding: 10px;
-            }
+  }
+  &-content {
+    margin-bottom: 40 * @rpx;
+    &-box {
+      border: 1px solid #ddd;
+      width: 70%;
+      height: 400 * @rpx;
+      overflow: auto;
+      &-list {
+        line-height: 28px;
+        border-bottom: 1px solid #ddd;
+      }
+      &-details {
+        margin-bottom: 5px;
+        div {
+          line-height: 20px;
+          img {
+            width: 15px;
+            height: 15px;
+            vertical-align: middle;
+          }
         }
+      }
+      .cur {
+        background: #4699ff;
+        color: #fff;
+      }
+      &-list:last-child {
+        border-bottom: none;
+      }
     }
+    &-box:nth-of-type(1) {
+      width: 30%;
+      margin-right: 3%;
+      text-align: center;
+    }
+    &-box:nth-of-type(2) {
+      padding: 30 * @rpx;
+    }
+  }
+  &-form {
+    &-list {
+      margin-bottom: 10px;
+      &-border {
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+    }
+  }
 }
 </style>

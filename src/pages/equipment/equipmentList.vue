@@ -137,8 +137,8 @@ export default {
       this.getDataList(index);
     },
     doSearch() {
-      if((this.keyword||'') === ''){
-        return
+      if ((this.keyword || "") === "") {
+        return;
       }
       // 重置页数
       // 重置list
@@ -165,15 +165,17 @@ export default {
 
     /* api */
     getDataList(active) {
-      this.$toast.loading('加载中...');
+      this.$toast.loading("加载中...");
       let list = this.eqData[active] || [];
       this.eqData[active] = [];
+
       let data = {
-        token: this.$store.getters.getToken,
+        token: this.$store['getters'].getToken,
         keyword: this.keyword,
         pagesize: this.pagesize,
         pageindex: this.pageindex
       };
+
       if (this.onlineActiveList[active] != null) {
         Object.assign(data, {
           online: this.onlineActiveList[active]
@@ -186,7 +188,7 @@ export default {
           data: data
         })
         .then(res => {
-           this.$toast.hide()
+          this.$toast.hide();
           if (res.returnStatus) {
             if (res.data.data.length !== this.pagesize) {
               this.forceUpdate(false);

@@ -5,16 +5,24 @@
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
     <!-- 物料申请 -->
-    <div class="material" v-if="active == 0">
-        <div class="material-list">
-            <div class="material-list-dots">2018-12-11 12:22:22</div>
-            <div>关联任务单：<span>2018297836263</span></div>
-            <div class="flex material-list-btn">A0997-C征集上海市；保护卡个</div>
-            <div class="flex material-list-operation">
-                <div class="tag" @click="getApply()">申请物料</div>
-                <div>状态：<span>等待领取</span></div>
+    <div class="" v-if="active == 0">
+     <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"  >
+        <template slot="list-content">
+          <div class="scroll-view-list material ">
+            <div class="  equipment-list-box" v-for="(item,index) in 10" :key="index" >
+                <div class="material-list">
+                    <div class="material-list-dots">2018-12-11 12:22:22</div>
+                    <div>关联任务单：<span>2018297836263</span></div>
+                    <div class="flex material-list-btn">A0997-C征集上海市；保护卡个</div>
+                    <div class="flex material-list-operation">
+                        <div class="tag" @click="getApply()">申请物料</div>
+                        <div>状态：<span>等待领取</span></div>
+                    </div>
+                </div>
             </div>
-        </div>
+          </div>
+        </template>
+      </better-scroll>
     </div>
     <!-- 物料备用 -->
     <div class="material" v-if="active == 1">
@@ -98,32 +106,85 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
-import cheader from '../../components/header'
+import BScroll from "better-scroll";
+import cheader from "../../components/header";
+import betterScroll from "../../components/better-scroll";
 
 export default {
-  name: 'HelloWorld',
-    components: {
-      cheader,
+  name: "HelloWorld",
+  components: {
+    cheader,
+    betterScroll
   },
-  data () {
+  data() {
     return {
       active: 0,
-      tabs: [{titile: '物料申请单'}, {titile: '我的备用物料'}, {titile: '物料使用记录'}],
+      tabs: [
+        { titile: "物料申请单" },
+        { titile: "我的备用物料" },
+        { titile: "物料使用记录" }
+      ],
       quoteData: [], // data
-      tableData: [{no:'001',name:'物料1',danwei:'艾斯'},{no:'002',name:'物料2',danwei:'艾斯2'}]
-      
-    }
+      tableData: [
+        { no: "001", name: "物料1", danwei: "艾斯" },
+        { no: "002", name: "物料2", danwei: "艾斯2" }
+      ],
+      pagesize: 10,
+      pageindex: 1,
+      auditStatusEnum: ["待审核", "已通过", "未通过", "撤销"]
+    };
   },
-  mounted () {
-      
+  mounted() {
+    this.getDataList();
   },
   methods: {
-    leftClick(){
-        this.$router.go(-1)
+
+    onPullingUp() {},
+    getDataList() {
+      this.$toast.loading("加载中...");
+      let data = {
+        token: this.$store["getters"].getToken,
+        pagesize: this.pagesize,
+        pageindex: this.pageindex
+      };
+
+      this.service
+        .httpRequest({
+          url: "/aapi/materialorder",
+          methods: "get",
+          data: data
+        })
+        .then(res => {
+          this.$toast.hide();
+          if (res.returnStatus) {
+            console.log(res.data);
+            this.materialList = res.data
+            // if (res.data.data.length !== this.pagesize) {
+            //   this.forceUpdate(false);
+            // }
+            // res.data.data.forEach(item => {
+            //   list.push(item);
+            // });
+            // this.eqData[active] = list;
+            // this.active = active;
+            // this.eqData.push();
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+          if (this.$refs.scrollView) {
+            // 停止刷新
+            this.$refs.scrollView[0].finishLoadMore();
+          }
+        });
     },
-    handelClick (index) {
-      this.active = index
+    leftClick() {
+      this.$router.go(-1);
+    },
+    handelClick(index) {
+      this.active = index;
       if (this.active === 0) {
       }
       if (this.active === 1) {
@@ -131,71 +192,99 @@ export default {
       if (this.active === 2) {
       }
     },
-    leftClick(){
-        this.$router.push('/')
+    leftClick() {
+      this.$router.push("/");
     },
-    getApply(){
-        this.$router.push({name:'materialList'})
+    getApply() {
+      this.$router.push({ name: "materialList" });
     }
   }
-}
+};
 </script>
 
 <style lang="less">
-@import '../../../static/css/common.less';
-.material{
-    padding: 5%;margin-top:100*@rpx;
-    &-list{
-        div{
-            margin-bottom: 10*@rpx;
-        }
-        &-dots{
-            i{
-                 width: 5px;height: 5px;border-radius: 50%;background: #4699ff;display: inline-block;
-            }
-        }
-        &-btn{
-            border:1px solid #7e7e7e;line-height: 56*@rpx; padding: 0 5px;border-radius: 5px;margin-bottom: 15*@rpx!important;
-        }
-        &-operation{
-            justify-content:space-between;align-items:center;
-            .tag{
-                font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 50px; padding: 0 6px;
-            }
-        }
+@import "../../../static/css/common.less";
+.material {
+  padding: 5%;
+  margin-top: 100 * @rpx;
+  &-list {
+    div {
+      margin-bottom: 10 * @rpx;
+    }
+    &-dots {
+      i {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4699ff;
+        display: inline-block;
+      }
+    }
+    &-btn {
+      border: 1px solid #7e7e7e;
+      line-height: 56 * @rpx;
+      padding: 0 5px;
+      border-radius: 5px;
+      margin-bottom: 15 * @rpx!important;
+    }
+    &-operation {
+      justify-content: space-between;
+      align-items: center;
+      .tag {
+        font-size: 20px * @rpx;
+        border: 1px solid #4699ff;
+        border-radius: 50px;
+        padding: 0 6px;
+      }
+    }
+  }
 
+  // 扫一扫
+  &-top {
+    width: 90%;
+    margin: 0 * @rpx auto;
+    height: 80 * @rpx;
+    justify-content: space-between;
+    &-search {
+      width: 75%;
+      position: relative;
+      .md-input-item .md-input-item-control .md-input-item-fake,
+      .md-input-item .md-input-item-control .md-input-item-input {
+        border: 1px solid #eee;
+        border-radius: 5px;
+        height: 35px;
+        padding-left: 10px;
+      }
+      &-icon {
+        position: absolute;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        top: 0;
+        line-height: 35px;
+      }
     }
-
-    // 扫一扫
-    &-top{
-        width: 90%; margin: 0*@rpx auto;height: 80*@rpx;justify-content:space-between;
-        &-search{
-            width: 75%;position: relative;
-            .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
-                border:1px solid #eee;border-radius: 5px;height: 35px;padding-left:10px;
-            }
-            &-icon{
-                position: absolute;right: 0;width: 30px;height: 30px;top: 0;line-height: 35px;
-            }
-        }
-        &-button{
-            padding-top:15*@rpx;
-        }
+    &-button {
+      padding-top: 15 * @rpx;
     }
-    // table
-    &-table{
-        width: 90%;margin:20*@rpx auto 0;
-        &-box{
-            border-top:1px solid #999;
-            border-left:1px solid #999;
-            &-list{
-                width: 20%;text-align: center;border-right: 1px solid #999;padding: 3px 0;
-            }
-        }
+  }
+  // table
+  &-table {
+    width: 90%;
+    margin: 20 * @rpx auto 0;
+    &-box {
+      border-top: 1px solid #999;
+      border-left: 1px solid #999;
+      &-list {
+        width: 20%;
+        text-align: center;
+        border-right: 1px solid #999;
+        padding: 3px 0;
+      }
     }
+  }
 }
-.material-table-box:last-child{
-    border-bottom: 1px solid #999;
+.material-table-box:last-child {
+  border-bottom: 1px solid #999;
 }
-
 </style>
