@@ -41,7 +41,7 @@
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
-                                <h4> 问题：<span>{{item.fault}}</span></h4>
+                                <!-- <h4> 问题：<span>{{item.fault}}</span></h4> -->
                                 <h4> 备注：<span>{{item.desp}}</span></h4>
                                 <p> 最后一次更新时间：{{item.update_time}}</p>
                             </div>

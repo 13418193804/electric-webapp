@@ -136,7 +136,7 @@ export default {
     },
     // 事件处理方法
     leftClick(){
-        this.$router.push('/')
+        this.$router.go(-1)
     },
     handelSelect(event){
       this.curId = event.target.value;

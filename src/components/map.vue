@@ -1,10 +1,16 @@
 <template>
   <div class="map">
-   <p>地图</p>
+   <!-- <p>地图</p> -->
+
+ 	<div id="allmap"></div>
+
+
+   
   </div>
 </template>
 
 <script>
+import { init, setPlace, getPosition, setPoint } from "./baidu";
 export default {
   data() {
     // 选项 数据
@@ -13,7 +19,6 @@ export default {
   },
   mounted (){
     this.ready()
-    
   },
   methods: {
     ready() {
@@ -32,5 +37,8 @@ export default {
 </script>
 
 <style>
-
+#allmap {
+  height: 300px;
+  width: 100%;
+}
 </style>

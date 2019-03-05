@@ -9,7 +9,7 @@
                 <!-- 扫一扫 -->
       <div class="flex flex-pack-center equipment-top ">
         <div class="equipment-top-search flex flex-align-center ">
-          <md-input-item ref="input0" v-model="keyword" type="textarea" :maxlength="200" ></md-input-item>
+          <md-input-item ref="input0" v-model="keyword" type="textarea" :maxlength="200" placeholder="请输入名称或者设备编号"></md-input-item>
           <div class="equipment-top-search-icon flex flex-align-center"  @click="doSearch"><i class="iconfont icon-sousuo"></i></div>
         </div>
         <div class="flex  flex-align-center equipment-top-search-code" @click="initScan()">
@@ -246,7 +246,7 @@ export default {
     &-search {
       width: 75%;
       position: relative;
-      border: 1px solid #e5e5e5;
+      border: 0.5px solid #777;
       padding: 8px;
       border-radius: 8px;
       .md-input-item .md-input-item-control .md-input-item-fake,
@@ -266,6 +266,8 @@ export default {
         line-height: 35px;
       }
       &-code {
+
+        font-size: 26px;
         padding: 0 20px;
       }
     }
