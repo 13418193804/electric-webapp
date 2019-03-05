@@ -41,6 +41,7 @@
                     <div class="tag"  @click="getApply()">申请物料</div>
                 </div>
             </div>
+
             <div class="material-table">
                 <div class="flex material-table-box">
                     <div class="material-table-box-list">编号</div>
@@ -54,7 +55,7 @@
                     <div class="material-table-box-list">{{tableData[index].name}}</div>
                     <div class="material-table-box-list">{{tableData[index].danwei}}</div>
                     <div class="material-table-box-list">{{tableData[index].no}}</div>
-                    <div class="material-table-box-list"></div>
+                    <div class="material-table-box-list" @click="getPop()">使用</div>
                 </div>
             </div>            
             <!-- 物料列表 -->
@@ -63,7 +64,8 @@
             </div>
        </div>
        <!-- 弹窗 -->
-       <md-button @click.native="showNoMask=true">点击蒙层关闭</md-button>
+       <popup ref="popup"></popup>
+       <!-- <md-button @click.native="showNoMask=true">点击蒙层关闭</md-button>
         <md-landscape v-model="showNoMask" :mask-closable="true">
             <div class="apply">
                 <div class="apply-list">物料编码：987654</div>
@@ -73,7 +75,7 @@
                      <div>数量：</div>
                      <div>{{sum}} <span @click="getMinute()"><img src="../../assets/jian.png" alt=""></span> {{nowNum}} <span @click="getAdd()"><img src="../../assets/jia.png" alt=""></span></div>
                  </div>
-                <div class="apply-list selectBox">
+                <div class="apply-list selectBox" style="width:200px;">
                     <div class="blockBlue"></div>
                     <select>
                         <option value ="volvo">损耗</option>
@@ -95,7 +97,7 @@
                     <button class="btn btn-blue" @click="showNoMask=false">确定</button>
                 </div>
             </div>
-        </md-landscape>
+        </md-landscape> -->
     </div>
     <!-- 物料使用记录 -->
     <div class="material" v-if="active == 2">
@@ -142,12 +144,14 @@
 <script>
 import BScroll from 'better-scroll'
 import cheader from '../../components/header'
+import popup from './popUp'
 // import ItemVue from '../../../../../aisi/caipiao/ssc-manager/src/views/layout/components/Sidebar/Item.vue';
 import {Landscape, Toast, Button} from 'mand-mobile'
 export default {
   name: 'landscape-demo',
     components: {
       cheader,
+      popup,
       [Landscape.name]: Landscape,
       [Button.name]: Button
   },
@@ -156,6 +160,7 @@ export default {
       pagesize: 10,
       pageindex: 1,
       active: 0,
+      keyword: '',
       tabs: [{titile: '物料申请单'}, {titile: '我的备用物料'}, {titile: '物料使用记录'}],
       eqData:[],// 物料列表
       quoteData: [], // data
@@ -257,10 +262,10 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 @import '../../../static/css/common.less';
 .material{
-    margin-top:100*@rpx;position: relative;padding: 6% 5% 5% 5%;
+    margin-top:100*@rpx;position: relative;padding: 3% 5% 5% 3%;
     &-apply{
         position: absolute;right: 35*@rpx;top: -12*@rpx;
     }
@@ -288,12 +293,11 @@ export default {
         }
 
     }
-
     // 扫一扫
     &-top{
         width: 90%; margin: 0*@rpx auto;height: 80*@rpx;justify-content:space-between;
         &-search{
-            width: 75%;position: relative;
+            width: 75%;position: relative;border:1px solid #ddd;border-radius:5px;padding-left:20*@rpx;
             .md-input-item .md-input-item-control .md-input-item-fake, .md-input-item .md-input-item-control .md-input-item-input{
                 border:1px solid #eee;border-radius: 5px;height: 35px;padding-left:10px;
             }
@@ -341,25 +345,12 @@ export default {
             margin-bottom: 10*@rpx;font-size: 24*@rpx;display: inline-block;
         }
     }
-    .selectBox{
-        position: relative; width: 200*@rpx;
-        .blockBlue{
-            position: absolute;right: 0;width: 40*@rpx;background: #409EFF;height: 50*@rpx;
-        }
-        select{
-            width: 200*@rpx;height: 50*@rpx;font-size: 22*@rpx;outline: none;
-            padding-left:10*@rpx;
-            border:1px solid #409EFF;
-            // -webkit-appearance: none;
-            // -moz-appearance: none;
-            // appearance: none;
-        }
-        option{
-            font-size: 22*@rpx;
-        }
-    }
+    
 }
 .md-landscape-content{
     width: 550*@rpx!important;
+}
+.md-field-item-content{
+    min-height: 70*@rpx;
 }
 </style>

@@ -150,7 +150,7 @@ export default {
 
     /**
      * 扫码
-     */
+    */
     initScan() {
       this.scanStatus = "opening";
       startRecognize("bcid", scan => {
