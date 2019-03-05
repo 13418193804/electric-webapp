@@ -2,7 +2,7 @@
   <div>
     <cheader title="物料列表" @leftClick="leftClick"></cheader>
     <div class=""></div>
-    <div class="details">
+    <div class="Mdetails">
       <!-- 扫一扫 -->
         <div class="flex material-top">
             <div class="material-top-search">
@@ -17,20 +17,20 @@
                 <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
             </div>
         </div>
-        <div class="flex details-content">
-            <div class="details-content-box">
-                <div class="details-content-box-list" v-for="(item,index) in warehouse" :key="index"
+        <div class="flex Mdetails-content">
+            <div class="Mdetails-content-box">
+                <div class="Mdetails-content-box-list" v-for="(item,index) in warehouse" :key="index"
                     @click="handelLook(item,index)" :class="{cur:index == active}"
                 >{{item.type_name}}</div>
             </div>
-             <div class="details-content-box">
+             <div class="Mdetails-content-box">
 
                 <div v-for="(item,index) in valueList">
-                 <div class="flex details-content-box-details">
+                 <div class="flex Mdetails-content-box-Mdetails">
                      <div>{{item.name}}</div>
                      <!-- <div>98766789-K</div> -->
                  </div>
-                 <div class="flex details-content-box-details">
+                 <div class="flex Mdetails-content-box-Mdetails">
                      <div>库存:</div>
                      <div>{{item.amount}} <span @click="getMinute(item)"><img src="../../assets/jian.png" alt=""></span> {{getCount(item.id)}} <span @click="getAdd(item)"><img src="../../assets/jia.png" alt=""></span></div>
                  </div>
@@ -39,20 +39,20 @@
 
             </div>
         </div>
-        <div class="details-form">
-            <div class="details-form-list">
+        <div class="Mdetails-form">
+            <div class="Mdetails-form-list">
                 关联任务单：76543456789
             </div>
-            <!-- <div class="details-form-list">
+            <!-- <div class="Mdetails-form-list">
                 领用备注：76543456789
             </div> -->
-            <div class="details-form-list">
+            <div class="Mdetails-form-list">
                 申请物料：
-                <div class="details-form-list-border">
+                <div class="Mdetails-form-list-border">
                     {{getPreMaterialListString()}}
                 </div>
             </div>
-             <div class="details-form-list">
+             <div class="Mdetails-form-list">
                 领用备注：
                 <div>
                     <textarea style="width:100%;height:50px;border:1px solid #ddd"></textarea>
@@ -192,7 +192,7 @@ export default {
 
 <style lang="less">
 @import "../../../static/css/common.less";
-.details {
+.Mdetails {
   width: 90%;
   margin: 40 * @rpx auto;
   &-search {
@@ -225,7 +225,7 @@ export default {
         line-height: 28px;
         border-bottom: 1px solid #ddd;
       }
-      &-details {
+      &-Mdetails {
         margin-bottom: 5px;
         div {
           line-height: 20px;
