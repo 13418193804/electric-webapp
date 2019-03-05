@@ -1694,15 +1694,18 @@ input:-ms-input-placeholder {
 .material {
   margin-top: 4.54545rem;
   position: relative;
-  padding: 3% 5% 5% 3%;
+  padding: 5% 5% 5% 3%;
 }
 .material-apply {
   position: absolute;
   right: 1.59091rem;
   top: -0.54545rem;
 }
+.material-list {
+  margin-bottom: 1.13636rem;
+}
 .material-list div {
-  margin-bottom: 0.45455rem;
+  margin-bottom: 0.68182rem;
 }
 .material-list-dots i {
   width: 0.45455rem;
@@ -1812,6 +1815,14 @@ input:-ms-input-placeholder {
   margin-bottom: 0.45455rem;
   font-size: 1.09091rem;
   display: inline-block;
+}
+.material-list:nth-of-type(1) {
+  color: #4699ff;
+}
+.taskNew .material-list:nth-of-type(1) .material-list-dots {
+  background: url(./static/img/dots.png?v=cc88839) no-repeat left center;
+  background-size: 0.63636rem 0.63636rem;
+  padding-left: 1.09091rem;
 }
 .md-landscape-content {
   width: 25rem !important;
