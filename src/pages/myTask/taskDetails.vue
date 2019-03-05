@@ -56,7 +56,7 @@ export default {
   methods: {
     // 事件处理方法
     leftClick(){
-        this.$router.push('/')
+        this.$router.go(-1)
     },
     handler(name, active) {
       console.log(`Status of switch ${name} is ${active ? 'active' : 'inactive'}`)

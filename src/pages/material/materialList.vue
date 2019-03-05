@@ -86,9 +86,9 @@ export default {
         { name: "网线" },
         { name: "电源保护开关" }
       ],
-      warehouse: [],
-      warehouseList: [],
-      preMaterialList: []
+      warehouse: [], //所有物料
+      warehouseList: [], //当前展示的物料
+      preMaterialList: [] //预选物料
     };
   },
   mounted() {
@@ -96,7 +96,6 @@ export default {
   },
   methods: {
     leftClick() {
-      console.log('-调用')
       this.$router.go(-1);
     },
     handelLook(item, index) {
@@ -178,7 +177,15 @@ export default {
         .then(res => {
           this.$toast.hide();
           if (res.returnStatus) {
-            this.warehouse = res.data.data.warehouse;
+            let power_box = [
+              {
+                type_id: "round",
+                type_name: "电源箱",
+                data: res.data.data.power_box
+              }
+            ];
+            this.warehouse = power_box.concat(res.data.data.warehouse);
+            console.log(this.warehouse);
             if (this.warehouse.length > 0) {
               this.handelLook(this.warehouse[0], 0);
             }
