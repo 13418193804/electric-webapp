@@ -22,7 +22,7 @@ export default {
     return {};
   },
   beforeDestroy() {
-    window.titleHeaderDoback =null
+    window.titleHeaderDoback = null;
   },
   mounted() {
     window.titleHeaderDoback = this.doback;
@@ -30,7 +30,7 @@ export default {
   methods: {
     doback() {
       if (typeof this.$emit("leftClick").$listeners["leftClick"]) {
-        this.$emit("leftClick");
+        // this.$emit("leftClick");
       } else {
         this.$router.go(-1);
       }

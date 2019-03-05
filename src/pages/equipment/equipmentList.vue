@@ -136,7 +136,7 @@ export default {
       }
       this.pageindex = 1;
       this.forceUpdate(true);
-      this.quoteData[index] = [];
+      this.eqData[index] = [];
       this.getDataList(index);
     },
     doSearch() {
@@ -152,7 +152,7 @@ export default {
 
     /**
      * 扫码
-    */
+     */
     initScan() {
       this.scanStatus = "opening";
       startRecognize("bcid", scan => {

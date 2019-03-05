@@ -96,6 +96,7 @@ export default {
   },
   methods: {
     leftClick() {
+      console.log('-调用')
       this.$router.go(-1);
     },
     handelLook(item, index) {
@@ -164,6 +165,7 @@ export default {
     },
     //取物料仓库
     getMaterialwarehouse() {
+      this.$toast.loading("加载物料中...");
       let data = {
         token: this.$store.getters.getToken
       };
@@ -174,6 +176,7 @@ export default {
           data: data
         })
         .then(res => {
+          this.$toast.hide();
           if (res.returnStatus) {
             this.warehouse = res.data.data.warehouse;
             if (this.warehouse.length > 0) {

@@ -105,7 +105,7 @@ export default {
     };
   },
   mounted() {
-    this.getDataList(1);
+    this.getDataList(0);
     window.ScrollViewTrigger1 = () => {
       this.$refs.scrollView.triggerRefresh();
     };
@@ -165,7 +165,7 @@ export default {
             this.quoteData[active] = list;
             this.active = active;
             this.quoteData.push();
-            console.log('quoteData',this.quoteData[active])
+            console.log("quoteData", this.quoteData[active]);
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -179,7 +179,7 @@ export default {
         });
     },
     leftClick() {
-      this.$router.push("/");
+      this.$router.go(-1);
     },
     handelClick(index) {
       if (this.active === index) {
@@ -235,7 +235,7 @@ export default {
             white-space: nowrap;
             overflow: hidden;
             padding-left: 12px;
-            span{
+            span {
               font-size: 24px * @rpx;
             }
           }
@@ -250,13 +250,12 @@ export default {
           }
         }
       }
-      :nth-of-type(1){
-          border:0;
-        }
-      
+      :nth-of-type(1) {
+        border: 0;
+      }
     }
   }
-  .taskNew ul li:nth-of-type(1) div p{
+  .taskNew ul li:nth-of-type(1) div p {
     background: url(../../assets/dots.png) no-repeat left center;
     background-size: 7px 7px;
     padding-left: 12px;
