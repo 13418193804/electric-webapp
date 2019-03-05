@@ -640,7 +640,10 @@ header {
     background: url(assets/select.png) no-repeat left center;background-size: 100% 100%;margin-left:10px;
     select{
         height: 50*@rpx;font-size: 22*@rpx;outline: none;width: 80%;background: #fff;
-        padding-left:10*@rpx;border:none;
+        padding-left:10*@rpx;border:none;-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 17px;
     }
     option{
         font-size: 22*@rpx;
