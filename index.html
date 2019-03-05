@@ -23,7 +23,7 @@
   function plusReady() {
     //监听键按下事件
     plus.key.addEventListener("keydown", function (e) {
-
+      console.log('--1')
 
       if (e.keyCode == 4 && myvue.$route.path == '/') {
         if (!myvue.historyClickTime || (new Date().getTime() - myvue.historyClickTime > 2000)) {
@@ -38,6 +38,7 @@
       }
 
       if (e.keyCode == 4 && myvue.$route.path !== '/') {
+        console.log('--2')
         if (titleHeaderDoback) {
           titleHeaderDoback()
         } else {
