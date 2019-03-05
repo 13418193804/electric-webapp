@@ -25,7 +25,7 @@
             </div>
              <div class="Mdetails-content-box">
 
-                <div v-for="(item,index) in valueList">
+                <div v-for="(item,index) in warehouseList">
                  <div class="flex Mdetails-content-box-Mdetails">
                      <div>{{item.name}}</div>
                      <!-- <div>98766789-K</div> -->
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-           <md-button type="default" @click="postMaterialwarehouse">Default</md-button>
+           <md-button type="default" @click="postMaterialwarehouse">申请物料</md-button>
 
     </div>
   </div>
@@ -87,7 +87,7 @@ export default {
         { name: "电源保护开关" }
       ],
       warehouse: [],
-      valueList: [],
+      warehouseList: [],
       preMaterialList: []
     };
   },
@@ -100,8 +100,7 @@ export default {
     },
     handelLook(item, index) {
       this.active = index;
-      console.log(item);
-      this.valueList = item.data;
+      this.warehouseList = item.data;
     },
     //实时取数量
     getCount(id) {
@@ -153,13 +152,14 @@ export default {
       });
     },
     getPreMaterialListString() {
-    
-      let list = this.preMaterialList.filter(filter=>{
-        return (filter.getCount||0) >0
-      }).map(item => {
-        return `${item.name}${item.getCount}${item.units}`;
-      });
- 
+      let list = this.preMaterialList
+        .filter(filter => {
+          return (filter.getCount || 0) > 0;
+        })
+        .map(item => {
+          return `${item.name}${item.getCount}${item.units}`;
+        });
+
       return list.join("；");
     },
     //取物料仓库
@@ -176,6 +176,9 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             this.warehouse = res.data.data.warehouse;
+            if (this.warehouse.length > 0) {
+              this.handelLook(this.warehouse[0], 0);
+            }
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -185,7 +188,44 @@ export default {
         });
     },
     //提交物料申请
-    postMaterialwarehouse() {}
+    postMaterialwarehouse() {
+      this.$toast.loading("加载中...");
+      let list = [];
+      list.push("token=" + this.$store.getters.getToken);
+      let length = this.preMaterialList.filter(item => {
+        if (item.getCount > 0) {
+          list.push("warehouse_id=" + item.id);
+          list.push("warehouse_type=" + item.type);
+          list.push("warehouse_amount=" + item.getCount);
+        }
+        return item.getCount > 0;
+      }).length;
+      if (length == 0) {
+        this.$toast.hide();
+        this.$toast.info("请选择要提交的物料");
+        return;
+      }
+      this.service
+        .httpRequest({
+          url: "/aapi/materialwarehouse?" + list.join("&"),
+          methods: "post",
+          data: {}
+        })
+        .then(res => {
+          this.$toast.hide();
+          if (res.returnStatus) {
+            this.$toast.succeed("已提交申请", 2000, true);
+            setTimeout(() => {
+              this.$router.replace("/material");
+            }, 1000);
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    }
   }
 };
 </script>
