@@ -82,7 +82,6 @@ export default {
         { status: "opened", remark: "已经关闭了扫码窗,仍然不可返回" },
         { status: "finished", remark: "已经关闭了扫码窗,已经可以调用router" }
       ]
-      
     };
   },
 
@@ -127,7 +126,9 @@ export default {
       //  isFinished   判断当前是否可以继续加载
       //  然后设置子组件可否加载的状态
       this.isFinished = status;
-      this.$refs.betterScroll[0].forceUpdate(status);
+      if (this.$refs.betterScroll) {
+        this.$refs.betterScroll[0].forceUpdate(status);
+      }
     },
     handelClick(index) {
       if (this.active === index) {
@@ -135,6 +136,7 @@ export default {
       }
       this.pageindex = 1;
       this.forceUpdate(true);
+      this.quoteData[index] = [];
       this.getDataList(index);
     },
     doSearch() {
@@ -169,9 +171,8 @@ export default {
       this.$toast.loading("加载中...");
       let list = this.eqData[active] || [];
       this.eqData[active] = [];
-
       let data = {
-        token: this.$store['getters'].getToken,
+        token: this.$store["getters"].getToken,
         keyword: this.keyword,
         pagesize: this.pagesize,
         pageindex: this.pageindex
@@ -189,6 +190,7 @@ export default {
           data: data
         })
         .then(res => {
+          console.log(res);
           this.$toast.hide();
           if (res.returnStatus) {
             if (res.data.data.length !== this.pagesize) {
