@@ -47,15 +47,16 @@
     <!-- 处理完毕 -->
     <div class="taskList" v-if="active == 2">
      <ul>
-            <li v-for="(item,index) in 5 " :key="index">
-                <div>
-                    <p> 订单时间</p>
-                    <h4> 报警：<span>深南达到香蜜</span></h4>
-                    <h4> 问腿：<span>线路问题</span></h4>
-                    <h4> 备注：<span>回公司</span></h4>
-                </div>
-            </li>
-        </ul>
+      <li v-for="(item,index) in 4 " :key="index">
+        {{index}}
+          <div>
+              <p> 订单时间</p>
+              <h4> 报警：<span>深南达到香蜜</span></h4>
+              <h4> 问腿：<span>线路问题</span></h4>
+              <h4> 备注：<span>回公司</span></h4>
+          </div>
+      </li>
+    </ul>
     </div>
   </div>
 </template>
@@ -82,6 +83,7 @@ export default {
         prohibituote: [{text: '处理完毕'}, {text: '潮流潮流潮流潮流潮流潮流潮流潮流潮流'}]
       }],
       list: 3,
+      isIndex:null
     }
   },
   mounted () {

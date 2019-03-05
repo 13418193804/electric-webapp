@@ -429,7 +429,6 @@ body {
   width: 105/7.5vw;
   height: 105/7.5vw;
 }
-
 .btnwrap img.btn {
   width: 105/7.5vw;
   height: 105/7.5vw;
@@ -532,11 +531,8 @@ header {
 .icon-sousuo {
   font-size: 24px !important;
 }
-.tag {
-  font-size: 20px * @rpx;
-  border: 1px solid #4699ff;
-  border-radius: 50px;
-  padding: 0 6px;
+.tag{
+  font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 10*@rpx; padding: 4*@rpx 20*@rpx;display: inline-block;
 }
 .icon-shangchuantupian {
   font-size: 50px !important;
@@ -552,12 +548,6 @@ header {
 .icon .A {
   width: 18px;
   height: 18px;
-}
-.tag {
-  font-size: 20px * @rpx;
-  border: 1px solid #4699ff;
-  border-radius: 50px;
-  padding: 0 6px;
 }
 .dots {
   background: url(./assets/dots.png) no-repeat left center;
@@ -640,5 +630,22 @@ header {
 }
 .md-dialog .md-dialog-actions a{
   height: 40px!important;
+}
+// 按钮
+.footer-btn{
+  text-align: center;
+}
+.btn{
+  width: 120*@rpx;font-size: 24*@rpx;height: 50*@rpx;border-radius: 6*@rpx;color: #fff;
+  margin-right: 20*@rpx;
+}
+.btn-white{
+  background: #fff;border:1px solid #409eff;color: #409eff;
+}
+.btn-blue{
+  background: #409eff;border:1px solid #409eff;
+}
+.md-landscape .md-icon.md-landscape-close{
+  display: none;
 }
 </style>
