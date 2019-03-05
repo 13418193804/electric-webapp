@@ -3,27 +3,27 @@
     <cheader title="我的任务" @leftClick="leftClick"></cheader>
     <div class="details-declare">
         <div class="flex details-declare-list">
-            <div class="div div1"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="div">深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道</div>
+            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
+            <div class="right">深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道</div>
             <div class="details-declare-list-swich">
               <button @click="getProgress()">处理</button>
             </div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
-            <div class="div">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
+            <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
+            <div class="right">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
         </div>
          <div class="flex details-declare-list">
-            <div class="div div1"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="div">深圳大道故障</div>
+            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
+            <div class="right">深圳大道故障</div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1">紧急：</div>
-            <div class="div">XXX</div>
+            <div class="left">紧急：</div>
+            <div class="right">XXX</div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1">位置：</div>
-            <div class="div">深圳22坐标：xx</div>
+            <div class="left">位置：</div>
+            <div class="right">深圳22坐标：xx</div>
         </div>
         
     </div>
@@ -82,15 +82,15 @@ export default {
 .details{
   width: 100%;height: 100%;
   &-declare{
-    width: 90%;margin: 60*@rpx auto 0*@rpx;
+    width: 90%;margin: 45*@rpx auto 0*@rpx;
     &-list{
       flex-wrap: wrap;background:#eeeeef;padding:0 5px;position: relative;
       font-size:24*@rpx;border-bottom: 1px solid #fff;
-      .div{
-        width:67%;line-height: 30px;
+      .left{
+        width: 160*@rpx;text-align: right;line-height: 30px;
       }
-      .div1{
-        width: 20%;text-align: right;
+      .right{
+        width:430*@rpx;line-height: 30px;
       }
       &-swich{
         position: absolute;right: 3px;top: 6px;
@@ -99,6 +99,9 @@ export default {
         }
       }
     }
+  }
+  &-map{
+    width: 90%;margin: 60*@rpx auto 0*@rpx;
   }
 }
 </style>

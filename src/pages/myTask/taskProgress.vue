@@ -3,44 +3,35 @@
     <cheader title="我的任务" @leftClick="leftClick"></cheader>
     <div class="details-declare">
         <div class="flex details-declare-list">
-            <div class="div div1"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="div">深圳大道</div>
+            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
+            <div class="right">深圳大道</div>
             <div class="details-declare-list-swich">
-              <!-- <button @click="getProgress()">处理</button> -->
-              <!-- <div class="md-example-child md-example-child-switch md-example-child-switch-0">
-                <md-switch
-                    v-model="isActive"
-                    @change="handler('switch0', isActive, $event)"
-                  ></md-switch>
-                </div> -->
             </div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
-            <div class="div">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
+            <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
+            <div class="right">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
         </div>
          <div class="flex details-declare-list">
-            <div class="div div1"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="div">深圳大道故障</div>
+            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
+            <div class="right">深圳大道故障</div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1">紧急：</div>
-            <div class="div">XXX</div>
+            <div class="left">紧急：</div>
+            <div class="right">XXX</div>
         </div>
         <div class="flex details-declare-list">
-            <div class="div div1">位置：</div>
-            <div class="div">深圳22坐标：xx</div>
+            <div class="left">位置：</div>
+            <div class="right">深圳22坐标：xx</div>
         </div>
     </div>
     <div class="details-result">
         <div class="flex details-result-cause">
-            <div>处理结果</div>
+            <div class="left">处理结果</div>
             <div class="details-result-cause-select">
               <div class="selectBox">
-                    <div class="blockBlue"></div>
                     <select v-model="curOption" @change="handelSelect($event)">
                         <option v-for="(item,index) in option" :key="index" :value="item.id">{{item.name}}</option>
-                        
                     </select>
                 </div>
             </div>
@@ -55,32 +46,26 @@
               <span v-for="(item,index) in checkDataNo" :key="index" 
                 @click="handelCheck(index)" :class="{cur:index == active}">
                 <i class="iconfont icon-weigouxuan" :class="{'icon-yigouxuan':index == active}"></i>{{item.name}}</span>
-               <div>
-                  <textarea style="width:100%;height:50px;border:1px solid #999;outline:none;padding-left:10px;" placeholder="暂时不处理的原因"></textarea>
-                </div>
             </div>
             <div class="flex details-result-cause-check" v-if="curId == 3">
-                <textarea style="width:100%;height:50px;border:1px solid #999;outline:none;padding-left:10px;" placeholder="暂时不处理的原因"></textarea>
+                <textarea placeholder="暂时不处理的原因"></textarea>
             </div>
         </div>
         <div class="flex details-result-cause">
-            <div>备注：</div>
-            <div>
-              <md-input-item
-                ref="input0"
-                type="textarea"
-                :maxlength="200"
-              ></md-input-item>
+            <div class="left">备注：</div>
+            <div class="details-result-cause-remak">
+                <input type="text">
             </div>
         </div>
         <div class="details-result-cause">
-            <div>上传：</div>
-            <ul class="clearfix">
-                <li v-if="imgs.length > 0" v-for='(item ,index ) in imgs' :key="index">
+            <div class="left">上传：</div>
+            <ul class="flex clearfix">
+                <li class="picBox">
                     <img :src="item">
                 </li>
-                <li style="position:relative" v-if="imgs.length>=6 ? false : true">
-                    <i class="iconfont icon-shangchuantupian"></i> <input class="upload" @change='add_img'  type="file" style="opacity:0;">
+                <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
+                    <p><i class="iconfont icon-shangchuantupian"></i></p>
+                    <input class="upload" @change='add_img'  type="file" style="opacity:0;">
                 </li>
             </ul>
         </div>
@@ -175,31 +160,14 @@ export default {
 @import '../../../static/css/common.less';
 .details{
   width: 100%;height: 100%;
-  &-declare{
-    width: 90%;margin: 40*@rpx auto 0*@rpx;
-    &-list{
-      flex-wrap: wrap;background:#eee;padding:0 5px;position: relative;
-      font-size:24*@rpx;border-bottom: 1px solid #fff;
-      .div{
-        width:69%;line-height: 30px;
-      }
-      .div1{
-        width: 20%;text-align: right;
-      }
-      &-swich{
-        position: absolute;right: 2px;top: 2px;
-        button{
-          background: #409EFF;color: #fff;border: none;border-radius: 5px;
-        }
-      }
-    }
-  }
+  
   &-result{
     padding: 5%;
     &-cause{
-      margin-bottom: 10*@rpx;line-height: 40px;
+      margin-bottom: 20*@rpx;line-height: 40px;
       div{
-        line-height: 30px;
+        line-height: 60*@rpx;
+        height: 60px*@rpx;
       }
       &-select{
         width: 80%;
@@ -217,13 +185,51 @@ export default {
         }
       }
       &-check{
+        height: auto!important;padding-left:135*@rpx;
         span{
-          display: inline-block;width: 50%;flex-wrap: wrap;line-height: 64*@rpx;
+          display: inline-block;flex-wrap: wrap;line-height: 64*@rpx;margin-right: 40*@rpx;
+        }
+        textarea{
+          width: 100%;border:1px solid #ddd;outline:none;padding:10*@rpx 20*@rpx;
+          height: 100*@rpx;font-size: 24*@rpx;
         }
         .cur{
           color: #409EFF;
         }
       }
+      .left{
+        width: 120*@rpx;
+      }
+      &-remak{
+        width: 80%;margin-left:15*@rpx;
+        input{
+          width: 100%;border:1px solid #ddd;outline:none;height: 60*@rpx;
+        }
+      }
+    }
+  }
+}
+// 上传
+.clearfix{
+  li{
+    width: 160*@rpx;height: 160*@rpx;border: 1px solid #ddd;
+    margin: 0 20*@rpx 20*@rpx 0;position: relative;
+  }
+  .picBox{
+    img{
+      width: 100%;height: 100%;border:none;
+    }
+  }
+  .uploadPic{
+    // border: none!important;
+    p{
+      position: absolute;left: 30*@rpx;top: 30*@rpx;
+      i{
+        color: #999;
+      }
+    }
+    input{
+      width: 100%;height: 100%;
     }
   }
 }

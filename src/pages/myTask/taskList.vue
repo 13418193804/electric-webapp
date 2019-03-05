@@ -29,7 +29,7 @@
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：{{item.fault}}</h4>
                                 <h4> 备注：<span>{{item.desp}}</span></h4>
-                                <p> 最后一次更新时间{{item.update_time}}</p>
+                                <p> 最后一次更新时间：{{item.update_time}}</p>
                             </div>
                         </li>
                     </ul>
@@ -38,13 +38,12 @@
                 <div class="scroll-view-list taskList"  v-if="active == 2">
                     <ul>
                         <li v-for="(item,index) in  quoteData[active] " :key="index">
-                            {{index}}
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
                                 <h4> 问题：<span>{{item.fault}}</span></h4>
                                 <h4> 备注：<span>{{item.desp}}</span></h4>
-                                <p> 最后一次更新时间{{item.update_time}}</p>
+                                <p> 最后一次更新时间：{{item.update_time}}</p>
                             </div>
                         </li>
                     </ul>
@@ -209,7 +208,7 @@ export default {
 @import "../../../static/css/common.less";
 .taskBox {
   .taskList {
-    padding: 2% 5%;
+    padding: 0% 5%;
     // padding-top: 100px * @rpx;
     ul {
       width: 100%;
@@ -217,7 +216,7 @@ export default {
       overflow: hidden;
       li {
         position: relative;
-        padding: 0;
+        padding: 20*@rpx;
         border-top: 2px * @rpx solid #eee;
         padding-left: 20 * @rpx;
         div {
@@ -243,7 +242,7 @@ export default {
             font-size: 20px * @rpx;
             position: absolute;
             right: 0;
-            top: 30px * @rpx;
+            top: 20px * @rpx;
             border: 1px solid #4699ff;
             border-radius: 50px;
             padding: 0 6px;

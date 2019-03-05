@@ -636,7 +636,7 @@ header {
 }
 // 下拉框
 .selectBox{
-    position: relative; width: 100%;padding-left:10px;
+    position: relative; width: 100%;padding-left:10px;height: 100%!important;
     background: url(assets/select.png) no-repeat left center;background-size: 100% 100%;margin-left:10px;
     select{
         height: 50*@rpx;font-size: 22*@rpx;outline: none;width: 80%;background: #fff;
