@@ -48,6 +48,8 @@ export default {
   data () {
     return {
       showNoMask: true,
+      sum:11,
+      nowNum: 1
     }
   },
   mounted () {

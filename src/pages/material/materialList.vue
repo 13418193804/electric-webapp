@@ -3,14 +3,19 @@
     <cheader title="物料列表" @leftClick="leftClick"></cheader>
     <div class=""></div>
     <div class="details">
-        <div class="details-search">
-            <md-input-item
-            ref="input0"
-            type="textarea"
-            :maxlength="200"
-            placeholder="输入物料名称或者物料编号"
-            ></md-input-item>
-            <div class="details-search-icon"><i class="iconfont icon-sousuo"></i></div>
+      <!-- 扫一扫 -->
+        <div class="flex material-top">
+            <div class="material-top-search">
+                <md-input-item
+                ref="input0"
+                type="textarea"
+                :maxlength="200"
+                ></md-input-item>
+                <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+            </div>
+            <div class="material-top-button">
+                <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
+            </div>
         </div>
         <div class="flex details-content">
             <div class="details-content-box">
@@ -130,7 +135,7 @@ export default {
     }
   }
   &-content {
-    margin-bottom: 40 * @rpx;
+    margin: 40 * @rpx 0 30* @rpx;
     &-box {
       border: 1px solid #ddd;
       width: 70%;

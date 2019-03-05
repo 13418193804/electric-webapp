@@ -7,7 +7,7 @@
     <!-- 物料申请 -->
     <div class="material" v-if="active == 0">
         <div class="material-apply tag" @click="getApply()">申请物料</div>
-        <div class="material-list" v-for="(item,index) in eqData" :key="index">
+        <div class="material-list" v-for="(item,index) in appleyData" :key="index">
             <div class="flex flex-pack-justify material-list-dots">
                 <div>{{item.create_time}}</div>
                 <div>物料申请单：<span>{{item.workorder_id}}</span></div>
@@ -38,7 +38,7 @@
                     <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
                 </div>
                 <div class="material-top-button">
-                    <div class="tag"  @click="getApply()">申请物料</div>
+                    <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
                 </div>
             </div>
 
@@ -50,54 +50,21 @@
                     <div class="material-table-box-list">剩余数量</div>
                     <div class="material-table-box-list"></div>
                 </div>
-                <div class="flex material-table-box" v-for="(item,index) in tableData.length" :key="index">
-                   <div class="material-table-box-list">{{tableData[index].no}}</div>
+                <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
+                   <div class="material-table-box-list">{{tableData[index].id}}</div>
                     <div class="material-table-box-list">{{tableData[index].name}}</div>
-                    <div class="material-table-box-list">{{tableData[index].danwei}}</div>
-                    <div class="material-table-box-list">{{tableData[index].no}}</div>
+                    <div class="material-table-box-list">{{tableData[index].units}}</div>
+                    <div class="material-table-box-list">{{tableData[index].amount}}</div>
                     <div class="material-table-box-list" @click="getPop()">使用</div>
                 </div>
             </div>            
-            <!-- 物料列表 -->
+            <!-- 列表 -->
             <div class="material-reserve-table">
                 <div class=""></div>
             </div>
        </div>
        <!-- 弹窗 -->
-       <popup ref="popup"></popup>
-       <!-- <md-button @click.native="showNoMask=true">点击蒙层关闭</md-button>
-        <md-landscape v-model="showNoMask" :mask-closable="true">
-            <div class="apply">
-                <div class="apply-list">物料编码：987654</div>
-                <div class="apply-list">物料名称：网线</div>
-                <div class="apply-list">物料名称：个</div>
-                <div class="flex apply-list">
-                     <div>数量：</div>
-                     <div>{{sum}} <span @click="getMinute()"><img src="../../assets/jian.png" alt=""></span> {{nowNum}} <span @click="getAdd()"><img src="../../assets/jia.png" alt=""></span></div>
-                 </div>
-                <div class="apply-list selectBox" style="width:200px;">
-                    <div class="blockBlue"></div>
-                    <select>
-                        <option value ="volvo">损耗</option>
-                        <option value ="saab">任务单</option>
-                    </select>
-                </div>
-                <div class="flex flex-pack-justify apply-list">
-                    <div>任务单：967678</div>
-                    <div class="tag">选择任务单</div>
-                </div>
-                <div class="apply-list">
-                    <span>备注：</span>
-                    <div>
-                        <textarea></textarea>
-                    </div>
-                </div>
-                <div class="footer-btn">
-                    <button class="btn btn-white">取消</button>
-                    <button class="btn btn-blue" @click="showNoMask=false">确定</button>
-                </div>
-            </div>
-        </md-landscape> -->
+       <popup ref="popup" v-show="isPopup"></popup>
     </div>
     <!-- 物料使用记录 -->
     <div class="material" v-if="active == 2">
@@ -145,15 +112,11 @@
 import BScroll from 'better-scroll'
 import cheader from '../../components/header'
 import popup from './popUp'
-// import ItemVue from '../../../../../aisi/caipiao/ssc-manager/src/views/layout/components/Sidebar/Item.vue';
-import {Landscape, Toast, Button} from 'mand-mobile'
 export default {
   name: 'landscape-demo',
     components: {
       cheader,
-      popup,
-      [Landscape.name]: Landscape,
-      [Button.name]: Button
+      popup
   },
   data () {
     return {
@@ -162,37 +125,20 @@ export default {
       active: 0,
       keyword: '',
       tabs: [{titile: '物料申请单'}, {titile: '我的备用物料'}, {titile: '物料使用记录'}],
-      eqData:[],// 物料列表
-      quoteData: [], // data
-      tableData: [{no:'001',name:'物料1',danwei:'艾斯'},{no:'002',name:'物料2',danwei:'艾斯2'}],
-      showNoMask: false,
-      sum:11,
-      nowNum: 1
+      appleyData:[],// 物料列表
+      reserveData: [], // 备用列表
+    //   tableData: [{no:'001',name:'物料1',danwei:'艾斯'},{no:'002',name:'物料2',danwei:'艾斯2'}],
+      tableData: [],
+      
+    //   showNoMask: false,
+      isPopup: false // 弹窗
     }
   },
   mounted () {
     this.getDataList()
+    this.getReserveData() //备用
   },
   methods: {
-    /* 蒙层 */
-    alert(msg) {
-      Toast.succeed(msg)
-    },
-    getMinute(){
-        if(this.nowNum === 1){
-            return
-        } else {
-            this.nowNum = this.nowNum - 1
-        }
-    },
-    getAdd(){
-        if(this.nowNum === this.sum){
-            return
-        } else {
-            this.nowNum = this.nowNum + 1
-        }
-    },
-    /* end */
     leftClick(){
         this.$router.go(-1)
     },
@@ -208,24 +154,18 @@ export default {
     leftClick(){
         this.$router.push('/')
     },
+    /* 物料申请 star */
     getApply(){
         this.$router.push({name:'materialList'})
     },
-    /* api */
+    /* API */
     getDataList() {
       this.$toast.loading('加载中...');
-    //   let list = this.eqData[active] || [];
-    //   this.eqData[active] = [];
       let data = {
         token: this.$store.getters.getToken,
         pagesize: this.pagesize,
         pageindex: this.pageindex
       };
-    //   if (this.onlineActiveList[active] != null) {
-    //     Object.assign(data, {
-    //       online: this.onlineActiveList[active]
-    //     });
-    //   }
       this.service
         .httpRequest({
           url: "/aapi/materialorder",
@@ -235,29 +175,59 @@ export default {
         .then(res => {
            this.$toast.hide()
           if (res.returnStatus) {
-            // if (res.data.data.length !== this.pagesize) {
-            //   this.forceUpdate(false);
-            // }
-            // res.data.data.forEach(item => {
-            //   list.push(item);
-            // });
-            // this.eqData[active] = list;
-            // this.active = active;
-            // this.eqData.push();
-            this.eqData = res.data.data
-            console.log(res.data.data)  
+            this.appleyData = res.data.data
+            console.log('appley',res.data.data)  
           } else {
             this.$dialog.alert({
               content: res.msg,
               confirmText: "确定"
             });
           }
-        //   if (this.$refs.scrollView) {
-        //     // 停止刷新
-        //     this.$refs.scrollView[0].finishLoadMore();
-        //   }
+
         });
     },
+    /* end 
+    *
+    *
+    */
+    
+    /* 备用物料 */
+    getPop(){
+        this.isPopup = true
+    },
+    /* api */
+    getReserveData() {
+      this.$toast.loading('加载中...');
+      let data = {
+        token: this.$store.getters.getToken,
+        pagesize: this.pagesize,
+        pageindex: this.pageindex
+      };
+      this.service
+        .httpRequest({
+          url: "/aapi/materialspare",
+          methods: "get",
+          data: data
+        }).then(res => {
+           this.$toast.hide()
+          if (res.returnStatus) {
+            this.reserveData = res.data.data
+            console.log('beiyong',res.data.data.warehouse)  
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
+    /* end */
+
+    /* end 
+    *
+    *
+    */
+
   }
 }
 </script>
