@@ -12,7 +12,7 @@
         <div>
             <input type="text" name="password" v-model="loginForm.password"  placeholder="请输入密码"> 
         </div>
-        <span class="forget">忘记密码</span>
+        <span class="forget">配置服务器</span>
     </div>
     <div class="loginCode">
         <img src="../../assets/code.png" alt="">

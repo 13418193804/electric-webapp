@@ -25,7 +25,7 @@
             </div>
              <div class="Mdetails-content-box">
 
-                <div v-for="(item,index) in warehouseList">
+                <div class="mb" v-for="(item,index) in warehouseList">
                  <div class="flex Mdetails-content-box-Mdetails">
                      <div>{{item.name}}</div>
                      <!-- <div>98766789-K</div> -->
@@ -47,13 +47,13 @@
                 领用备注：76543456789
             </div> -->
             <div class="Mdetails-form-list">
-                申请物料：
+                <div>申请物料：</div>
                 <div class="Mdetails-form-list-border">
                     {{getPreMaterialListString()}}
                 </div>
             </div>
              <div class="Mdetails-form-list">
-                领用备注：
+                <div>领用备注：</div>
                 <div>
                     <textarea style="width:100%;height:50px;border:1px solid #ddd"></textarea>
                 </div>
@@ -272,8 +272,9 @@ export default {
       height: 400 * @rpx;
       overflow: auto;
       &-list {
-        line-height: 28px;
+        line-height: 30px;
         border-bottom: 1px solid #ddd;
+        
       }
       &-Mdetails {
         margin-bottom: 5px;
@@ -300,15 +301,19 @@ export default {
       text-align: center;
     }
     &-box:nth-of-type(2) {
-      padding: 30 * @rpx;
+      padding: 20 * @rpx 30 * @rpx;
     }
   }
   &-form {
     &-list {
       margin-bottom: 10px;
+      div{
+        margin-bottom: 10px;        
+      }
       &-border {
         border: 1px solid #ddd;
-        padding: 10px;
+        margin-top: 10*@rpx;
+        padding: 5px; min-height: 32px;
       }
     }
   }

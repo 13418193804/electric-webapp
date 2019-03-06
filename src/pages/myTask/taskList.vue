@@ -53,8 +53,6 @@
         </div>
 
     </div>
-
-
   </div>
 </template>
 
@@ -233,7 +231,7 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            padding-left: 12px;
+            // padding-left: 12px;
             span {
               font-size: 24px * @rpx;
             }

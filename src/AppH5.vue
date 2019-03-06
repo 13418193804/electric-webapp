@@ -528,6 +528,9 @@ header {
   font-size: 24px !important;
   color: #409eff;
 }
+.icon-guanbi {
+  font-size: 24px !important;color: #999;
+}
 .icon-sousuo {
   font-size: 24px !important;
 }
@@ -555,6 +558,10 @@ header {
   padding-left: 12px;
 }
 // 第三方ui
+.scroll-loading{
+  width: 40*@rpx!important;
+  height: 40*@rpx!important;
+}
 .md-scroll-view-refresh {
   padding: 50 * @rpx 0;
 }

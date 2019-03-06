@@ -4,9 +4,10 @@
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-    <!-- <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"> -->
+    <better-scroll ref="betterScroll" @onPullingUp="onPullingUp">
+      <template slot="list-content">
         <!-- 物料申请 -->
-        <div class="material taskNew" v-if="active == 0">
+        <div class="scroll-view-list material taskNew" v-if="active == 0">
             <div class="material-apply tag" @click="getApply()">申请物料</div>
             <div class="material-list" v-for="(item,index) in appleyData" :key="index">
                 <div class="flex flex-pack-justify material-list-dots">
@@ -29,93 +30,94 @@
         </div>
       
         <!-- 物料备用 -->
-        <div class="material" v-if="active == 1">
-        <div class="material-reserve">
-            <!-- 扫一扫 -->
-                <div class="flex material-top">
-                    <div class="material-top-search">
-                        <md-input-item
-                        ref="input0"
-                        type="textarea"
-                        :maxlength="200"
-                        ></md-input-item>
-                        <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
-                    </div>
-                    <div class="material-top-button">
-                        <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
-                    </div>
-                </div>
+        <div class="scroll-view-list material" v-if="active == 1">
+          <div class="material-reserve">
+              <!-- 扫一扫 -->
+              <div class="flex material-top">
+                  <div class="material-top-search">
+                      <md-input-item
+                      ref="input0"
+                      type="textarea"
+                      :maxlength="200"
+                      ></md-input-item>
+                      <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                  </div>
+                  <div class="material-top-button">
+                      <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
+                  </div>
+              </div>
 
-                <div class="material-table">
-                    <div class="flex material-table-box">
-                        <div class="material-table-box-list">编号</div>
-                        <div class="material-table-box-list">名称</div>
-                        <div class="material-table-box-list">单位</div>
-                        <div class="material-table-box-list">剩余数量</div>
-                        <div class="material-table-box-list"></div>
-                    </div>
-                    <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
-                    <div class="material-table-box-list">{{tableData[index].id}}</div>
-                        <div class="material-table-box-list">{{tableData[index].name}}</div>
-                        <div class="material-table-box-list">{{tableData[index].units}}</div>
-                        <div class="material-table-box-list">{{tableData[index].amount}}</div>
-                        <div class="material-table-box-list" @click="getPop()">使用</div>
-                    </div>
-                </div>            
-                <!-- 列表 -->
-                <div class="material-reserve-table">
-                    <div class=""></div>
-                </div>
+              <div class="material-table">
+                  <div class="flex material-table-box">
+                      <div class="material-table-box-list">编号</div>
+                      <div class="material-table-box-list">名称</div>
+                      <div class="material-table-box-list">单位</div>
+                      <div class="material-table-box-list">剩余数量</div>
+                      <div class="material-table-box-list"></div>
+                  </div>
+                  <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
+                  <div class="material-table-box-list">{{tableData[index].id}}</div>
+                      <div class="material-table-box-list">{{tableData[index].name}}</div>
+                      <div class="material-table-box-list">{{tableData[index].units}}</div>
+                      <div class="material-table-box-list">{{tableData[index].amount}}</div>
+                      <div class="material-table-box-list" @click="getPop()">使用</div>
+                  </div>
+              </div>            
+              <!-- 列表 -->
+              <div class="material-reserve-table">
+                  <div class=""></div>
+              </div>
+          </div>
+          <!-- 弹窗 -->
+          <popup ref="popup" v-show="isPopup"></popup>
         </div>
-        <!-- 弹窗 -->
-        <popup ref="popup" v-show="isPopup"></popup>
-        </div>
+
         <!-- 物料使用记录 -->
-        <div class="material" v-if="active == 2">
+        <div class="scroll-view-list material" v-if="active == 2">
             <div class="material-reserve">
-            <!-- 扫一扫 -->
-                <div class="flex material-top">
-                    <div class="material-top-search">
-                        <md-input-item
-                        ref="input0"
-                        type="textarea"
-                        :maxlength="200"
-                        ></md-input-item>
-                        <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
-                    </div>
-                    <div class="material-top-button">
-                        <div class="tag">申请物料</div>
-                    </div>
-                </div>
-                <div class="material-table">
-                    <div class="flex material-table-box">
-                        <div class="material-table-box-list">编号</div>
-                        <div class="material-table-box-list">名称</div>
-                        <div class="material-table-box-list">单位</div>
-                        <div class="material-table-box-list">剩余数量</div>
-                        <div class="material-table-box-list">使用情况</div>
-                    </div>
-                    <div class="flex material-table-box" v-for="(item,index) in tableData.length" :key="index">
-                    <div class="material-table-box-list">{{tableData[index].no}}</div>
-                        <div class="material-table-box-list">{{tableData[index].name}}</div>
-                        <div class="material-table-box-list">{{tableData[index].danwei}}</div>
-                        <div class="material-table-box-list">{{tableData[index].no}}</div>
-                        <div class="material-table-box-list"></div>
-                    </div>
-                </div>            
-                <!-- 物料列表 -->
-                <div class="material-reserve-table">
-                    <div class=""></div>
-                </div>
+              <!-- 扫一扫 -->
+              <div class="flex material-top">
+                  <div class="material-top-search">
+                      <md-input-item
+                      ref="input0"
+                      type="textarea"
+                      :maxlength="200"
+                      ></md-input-item>
+                      <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                  </div>
+                  <div class="material-top-button">
+                      <div class="tag">申请物料</div>
+                  </div>
+              </div>
+              <div class="material-table">
+                  <div class="flex material-table-box">
+                      <div class="material-table-box-list">编号</div>
+                      <div class="material-table-box-list">名称</div>
+                      <div class="material-table-box-list">单位</div>
+                      <div class="material-table-box-list">剩余数量</div>
+                      <div class="material-table-box-list">使用情况</div>
+                  </div>
+                  <div class="flex material-table-box" v-for="(item,index) in tableData.length" :key="index">
+                  <div class="material-table-box-list">{{tableData[index].no}}</div>
+                      <div class="material-table-box-list">{{tableData[index].name}}</div>
+                      <div class="material-table-box-list">{{tableData[index].danwei}}</div>
+                      <div class="material-table-box-list">{{tableData[index].no}}</div>
+                      <div class="material-table-box-list"></div>
+                  </div>
+              </div>            
+              <!-- 物料列表 -->
+              <div class="material-reserve-table">
+                  <div class=""></div>
+              </div>
+            </div>
         </div>
-        </div>
-    <!-- </better-scroll> -->
+      </template>
+    </better-scroll>
 
   </div>
 </template>
 
 <script>
-import BScroll from "better-scroll";
 import cheader from "../../components/header";
 import popup from "./popUp";
 import { Dialog, Button, Toast } from "mand-mobile";
@@ -131,11 +133,11 @@ export default {
   },
   data() {
     return {
-      pagesize: 10,
+      pagesize: 3,
       pageindex: 1,
       active: 0,
       isFinished: true,
-      list: 10,
+      list: 3,
       keyword: "",
       tabs: [
         { titile: "物料申请单" },
@@ -153,11 +155,15 @@ export default {
     };
   },
   mounted() {
-    this.getDataList();
+    this.getDataList(0);
     this.getReserveData(); //备用
+    window.ScrollViewTrigger1 = () => {
+      this.$refs.scrollView.triggerRefresh();
+    };
   },
   methods: {
     onPullingUp() {
+      console.log('拉一次')
       if (!this.isFinished) {
         return;
       }
@@ -167,11 +173,29 @@ export default {
         this.getDataList(this.active);
       }, 1000);
     },
+    forceUpdate(status) {
+      //  isFinished   判断当前是否可以继续加载
+      //  然后设置子组件可否加载的状态
+      this.isFinished = status;
+      if (this.$refs.betterScroll) {
+        this.$refs.betterScroll[0].forceUpdate(status);
+      }
+    },
+    $_onRefresh() {
+      // async data
+      setTimeout(() => {
+        this.list += 5;
+        this.$refs.scrollView.finishRefresh();
+      }, 2000);
+    },
     leftClick() {
       this.$router.go(-1);
     },
     handelClick(index) {
       this.active = index;
+      this.pageindex = 1
+      this.forceUpdate(true);
+      this.getDataList(index)
       if (this.active === 0) {
       }
       if (this.active === 1) {
@@ -187,10 +211,10 @@ export default {
       this.$router.push({ name: "materialList" });
     },
     /* API */
-    getDataList() {
+    getDataList(active) {
       this.$toast.loading("加载中...");
       let data = {
-        token: this.$store.getters.getToken,
+        token: this.$store["getters"].getToken,
         pagesize: this.pagesize,
         pageindex: this.pageindex
       };
@@ -203,6 +227,16 @@ export default {
         .then(res => {
           this.$toast.hide();
           if (res.returnStatus) {
+            this.$nextTick(() => {
+              this.forceUpdate(true);
+            });
+            if (res.data.data.length !== this.pagesize) {
+              // this.$nextTick(() => {
+              //   this.forceUpdate(false);
+              // });
+              this.forceUpdate(false);
+            }
+            this.active = active
             this.appleyData = res.data.data;
             console.log("appley", res.data.data);
           } else {
@@ -210,6 +244,10 @@ export default {
               content: res.msg,
               confirmText: "确定"
             });
+          }
+          if (this.$refs.scrollView) {
+            // 停止刷新
+            this.$refs.scrollView[0].finishLoadMore();
           }
         });
     },
@@ -315,7 +353,7 @@ export default {
 <style lang="less" scope>
 @import "../../../static/css/common.less";
 .material {
-  margin-top: 100 * @rpx;
+  // margin-top: 100 * @rpx;
   position: relative;
   padding: 5% 5% 5% 3%;
   &-apply {
@@ -326,7 +364,7 @@ export default {
   &-list {
     margin-bottom: 25 * @rpx;
     div {
-      margin-bottom: 15 * @rpx;
+      margin-bottom: 15 * @rpx;flex-wrap: wrap;
     }
     &-dots {
       i {
@@ -338,7 +376,7 @@ export default {
       }
     }
     &-btn {
-      border: 1px solid #7e7e7e;
+      border: 1*@rpx solid #7e7e7e;
       line-height: 56 * @rpx;
       padding: 0 5px;
       border-radius: 5px;
