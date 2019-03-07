@@ -4,105 +4,168 @@
        <!-- <md-button @click.native="showNoMask=true">点击蒙层关闭</md-button> -->
         <md-landscape v-model="showNoMask" :mask-closable="true">
             <div class="apply">
-                <div class="apply-list">物料编码：987654</div>
-                <div class="apply-list">物料名称：网线</div>
-                <div class="apply-list">物料名称：个</div>
+                <div class="apply-list">物料编码：{{materialspareObject.id}}</div>
+                <div class="apply-list">物料名称：{{materialspareObject.name}}</div>
+                <div class="apply-list">物料单位：{{materialspareObject.units}}</div>
                 <div class="flex apply-list">
                      <div>数量：</div>
-                     <div>{{sum}} <span @click="getMinute()"><img src="../../assets/jian.png" alt=""></span> {{nowNum}} <span @click="getAdd()"><img src="../../assets/jia.png" alt=""></span></div>
+                     <div>{{materialspareObject.amount}}
+                        <span @click="getMinute()">
+                          <img src="../../assets/jian.png" alt=""></span>
+                            {{nowNum}}
+                          <span @click="getAdd()"><img src="../../assets/jia.png" alt=""></span></div>
                  </div>
                 <div class="apply-list selectBox" style="width:200px;">
                     <div class="blockBlue"></div>
-                    <select>
-                        <option value ="volvo">损耗</option>
-                        <option value ="saab">任务单</option>
+                    <select v-model="wastage">
+                        <option :value="1">损耗</option>
+                        <option :value="0">任务单</option>
                     </select>
                 </div>
-                <div class="flex flex-pack-justify apply-list">
-                    <div>任务单：967678</div>
-                    <div class="tag">选择任务单</div>
+                <div class="flex flex-pack-justify apply-list" v-if="wastage == 0">
+                    <div>任务单：{{workorderId||''}}</div>
+                    <div class="tag" @click="changeChecktask">选择任务单</div>
                 </div>
                 <div class="apply-list">
                     <span>备注：</span>
                     <div>
-                        <textarea></textarea>
+                        <textarea v-model="desp"></textarea>
                     </div>
                 </div>
                 <div class="footer-btn">
-                    <button class="btn btn-white">取消</button>
-                    <button class="btn btn-blue" @click="showNoMask=false">确定</button>
+                    <button class="btn btn-white" @click="showNoMask=false">取消</button>
+                    <button class="btn btn-blue" @click="materialspare()">确定</button>
                 </div>
             </div>
         </md-landscape>
+
+        <checktask ref="checktask" @confirm="confirm"></checktask>
   </div>
 </template>
 
 <script>
-import {Landscape, Toast, Button} from 'mand-mobile'
+import { Landscape, Toast, Button } from "mand-mobile";
+import checktask from "../../components/checktask";
+
 export default {
-  name: 'landscape-demo',
-    components: {
-      [Landscape.name]: Landscape,
-      [Button.name]: Button
+  name: "landscape-demo",
+  components: {
+    [Landscape.name]: Landscape,
+    [Button.name]: Button,
+    checktask
   },
-  data () {
+  data() {
     return {
-      showNoMask: true,
-      sum:11,
-      nowNum: 1
-    }
+      materialspareObject: {},
+      showNoMask: false,
+      sum: 11,
+      nowNum: 1,
+      wastage: 1,
+      desp: "",
+      workorderId: null
+    };
   },
-  mounted () {
-    this.getDataList()
-  },
+  mounted() {},
   methods: {
     /* 蒙层 */
     alert(msg) {
-      Toast.succeed(msg)
+      Toast.succeed(msg);
     },
-    getMinute(){
-        if(this.nowNum === 1){
-            return
-        } else {
-            this.nowNum = this.nowNum - 1
+    getMinute() {
+      if (this.nowNum < 1) {
+        this.nowNum -= 1;
+      }
+    },
+    getAdd() {
+      if (this.nowNum < this.materialspareObject.amount) {
+        this.nowNum += 1;
+      }
+    },
+    //使用备用物料
+    materialspare() {
+      this.$toast.loading("加载中...");
+      let data = {
+        token: this.$store.getters.getToken,
+        spare_id: this.materialspareObject.id,
+        spare_amount: this.nowNum,
+        desp: this.desp
+      };
+      if (this.wastage == 1) {
+        Object.assign(data, { wastage: 1 });
+      } else {
+        if (this.workorderId !== null) {
+          Object.assign(data, { workorder_id: this.workorderId });
         }
+      }
+      this.service
+        .httpRequest({
+          url: "/aapi/materialspare",
+          methods: "post",
+          data: data
+        })
+        .then(res => {
+          this.$toast.hide();
+          if (res.returnStatus) {
+            this.showNoMask = false;
+            this.$emit("getReserveData", () => {
+              this.$toast.succeed("已生成记录");
+            });
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
     },
-    getAdd(){
-        if(this.nowNum === this.sum){
-            return
-        } else {
-            this.nowNum = this.nowNum + 1
-        }
+    changeChecktask() {
+      this.$refs.checktask.showTask = true;
+      this.$refs.checktask.isFinished = true;
+      this.$refs.checktask.pageindex = 1;
+      this.$refs.checktask.selectId = this.workorderId;
+      this.$refs.checktask.taskList = [];
+      this.$refs.checktask.getDataList();
     },
-    /* end */
-    
+    confirm(selectId) {
+      this.workorderId = selectId;
+      this.$refs.checktask.showTask = false;
+    }
   }
-}
+};
 </script>
 
 <style lang="less">
-@import '../../../static/css/common.less';
+@import "../../../static/css/common.less";
 // 蒙层
-.apply{
-    background: #fff;padding:20*@rpx; border-radius: 10*@rpx;
-    &-list{
-        margin-bottom: 10*@rpx;font-size: 24*@rpx;
-        div{
-            font-size: 24*@rpx;
-            span{
-                font-size: 24*@rpx;
-            }
-            textarea{
-                width: 100%;height: 100*@rpx;border: 1px solid #ddd;resize: none;
-            }
-        }
-        img{
-            width: 15px;height: 15px;vertical-align: middle;
-        }
-        span{
-            margin-bottom: 10*@rpx;font-size: 24*@rpx;display: inline-block;
-        }
+.apply {
+  background: #fff;
+  padding: 20 * @rpx;
+  border-radius: 10 * @rpx;
+  &-list {
+    margin-bottom: 10 * @rpx;
+    font-size: 24 * @rpx;
+    div {
+      font-size: 24 * @rpx;
+      span {
+        font-size: 24 * @rpx;
+      }
+      textarea {
+        width: 100%;
+        height: 100 * @rpx;
+        border: 1px solid #ddd;
+        resize: none;
+      }
     }
-    
+    img {
+      width: 15px;
+      height: 15px;
+      vertical-align: middle;
+    }
+    span {
+      margin-bottom: 10 * @rpx;
+      font-size: 24 * @rpx;
+      display: inline-block;
+    }
+  }
 }
 </style>

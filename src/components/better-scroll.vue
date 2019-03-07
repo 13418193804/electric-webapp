@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <header>vue-better-scroll demo</header> -->
-    <main class="position-box">  <!-- 需要一个创建一个父容器 组件高度默认等于父容器的高度 -->
+    <main :style="mainStyle||''" class="position-box">  <!-- 需要一个创建一个父容器 组件高度默认等于父容器的高度 -->
       <vue-better-scroll class="wrapper"
                          ref="scroll"
                          :scrollbar="scrollbarObj"
@@ -29,7 +29,8 @@ export default {
   components: { VueBetterScroll },
 
   props: [
-    "marginTop"
+    "marginTop",
+    "mainStyle",
     // 'pullDownRefreshObj'
   ],
   data() {

@@ -46,7 +46,7 @@ export default {
   height: 82px * @rpx;
   width: 100%;
   background-color: #4699ff;
-  z-index: 9999;
+  z-index: 1111;
   color: #fff;
 }
 .postHeight {

@@ -161,7 +161,6 @@ export default {
             this.quoteData[active] = list;
             this.active = active;
             this.quoteData.push();
-            console.log("quoteData", this.quoteData[active]);
           } else {
             this.$dialog.alert({
               content: res.msg,

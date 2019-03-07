@@ -4,10 +4,14 @@
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-    <better-scroll ref="betterScroll" @onPullingUp="onPullingUp">
+
+
+
+    
+    <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" marginTop="110px" v-if="active == 0">
       <template slot="list-content">
         <!-- 物料申请 -->
-        <div class="scroll-view-list material taskNew" v-if="active == 0">
+        <div class="scroll-view-list material taskNew" >
             <div class="material-apply tag" @click="getApply()">申请物料</div>
             <div class="material-list" v-for="(item,index) in appleyData" :key="index">
                 <div class="flex flex-pack-justify material-list-dots">
@@ -29,8 +33,14 @@
             </div>
         </div>
       
+
+      </template>
+
+    </better-scroll>
+      
         <!-- 物料备用 -->
         <div class="scroll-view-list material" v-if="active == 1">
+          <div style="height:60px;"></div>
           <div class="material-reserve">
               <!-- 扫一扫 -->
               <div class="flex material-top">
@@ -56,11 +66,11 @@
                       <div class="material-table-box-list"></div>
                   </div>
                   <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
-                  <div class="material-table-box-list">{{tableData[index].id}}</div>
-                      <div class="material-table-box-list">{{tableData[index].name}}</div>
-                      <div class="material-table-box-list">{{tableData[index].units}}</div>
-                      <div class="material-table-box-list">{{tableData[index].amount}}</div>
-                      <div class="material-table-box-list" @click="getPop()">使用</div>
+                  <div class="material-table-box-list">{{item.id}}</div>
+                      <div class="material-table-box-list">{{item.name}}</div>
+                      <div class="material-table-box-list">{{item.units}}</div>
+                      <div class="material-table-box-list">{{item.amount}}</div>
+                      <div class="material-table-box-list" @click="getPop(item)">使用</div>
                   </div>
               </div>            
               <!-- 列表 -->
@@ -69,11 +79,12 @@
               </div>
           </div>
           <!-- 弹窗 -->
-          <popup ref="popup" v-show="isPopup"></popup>
+          <popup ref="popup" @getReserveData="getReserveData"></popup>
         </div>
 
         <!-- 物料使用记录 -->
         <div class="scroll-view-list material" v-if="active == 2">
+                    <div style="height:60px;"></div>
             <div class="material-reserve">
               <!-- 扫一扫 -->
               <div class="flex material-top">
@@ -97,12 +108,13 @@
                       <div class="material-table-box-list">剩余数量</div>
                       <div class="material-table-box-list">使用情况</div>
                   </div>
-                  <div class="flex material-table-box" v-for="(item,index) in tableData.length" :key="index">
-                  <div class="material-table-box-list">{{tableData[index].no}}</div>
-                      <div class="material-table-box-list">{{tableData[index].name}}</div>
-                      <div class="material-table-box-list">{{tableData[index].danwei}}</div>
-                      <div class="material-table-box-list">{{tableData[index].no}}</div>
-                      <div class="material-table-box-list"></div>
+                  <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
+                  <div class="material-table-box-list">{{item.id}}</div>
+                      <div class="material-table-box-list">{{item.name}}</div>
+                      <div class="material-table-box-list">{{item.units}}</div>
+                      <div class="material-table-box-list">{{item.amount}}</div>
+                      <div class="material-table-box-list" @click="goTask(item)">{{item.is_wastage==1?'损耗':'查看工单'}}</div>
+                      <!-- wastageOrworkorder -->
                   </div>
               </div>            
               <!-- 物料列表 -->
@@ -111,8 +123,6 @@
               </div>
             </div>
         </div>
-      </template>
-    </better-scroll>
 
   </div>
 </template>
@@ -133,7 +143,7 @@ export default {
   },
   data() {
     return {
-      pagesize: 3,
+      pagesize: 10,
       pageindex: 1,
       active: 0,
       isFinished: true,
@@ -147,30 +157,26 @@ export default {
       appleyData: [], // 物料列表
       isGetListEnum: ["等待领取", "已经领取"],
       status: null, // 审核状态
-
       reserveData: [], // 备用列表
       tableData: [],
-      //   showNoMask: false,
-      isPopup: false // 弹窗
+      materiallist: [] //设备记录
     };
   },
   mounted() {
-    this.getDataList(0);
-    this.getReserveData(); //备用
-    window.ScrollViewTrigger1 = () => {
-      this.$refs.scrollView.triggerRefresh();
-    };
+    // 如果你那里实在不行的话我给你一个node脚本
+    this.getDataList();
+    // this.getMateriallist(); //使用记录
+    // this.getReserveData(); //备用
   },
   methods: {
     onPullingUp() {
-      console.log('拉一次')
       if (!this.isFinished) {
         return;
       }
       // async data
       setTimeout(() => {
         this.pageindex += 1;
-        this.getDataList(this.active);
+        this.getDataList();
       }, 1000);
     },
     forceUpdate(status) {
@@ -178,7 +184,7 @@ export default {
       //  然后设置子组件可否加载的状态
       this.isFinished = status;
       if (this.$refs.betterScroll) {
-        this.$refs.betterScroll[0].forceUpdate(status);
+        this.$refs.betterScroll.forceUpdate(status);
       }
     },
     $_onRefresh() {
@@ -192,15 +198,20 @@ export default {
       this.$router.go(-1);
     },
     handelClick(index) {
+      if (this.active === index) {
+        return;
+      }
+      this.keyword = "";
+      this.pageindex = 1;
       this.active = index;
-      this.pageindex = 1
-      this.forceUpdate(true);
-      this.getDataList(index)
       if (this.active === 0) {
+        this.getDataList();
       }
       if (this.active === 1) {
+        this.getReserveData(); //备用
       }
       if (this.active === 2) {
+        this.getMateriallist(); //使用记录
       }
     },
     leftClick() {
@@ -213,6 +224,7 @@ export default {
     /* API */
     getDataList(active) {
       this.$toast.loading("加载中...");
+      let list = this.appleyData || [];
       let data = {
         token: this.$store["getters"].getToken,
         pagesize: this.pagesize,
@@ -227,19 +239,21 @@ export default {
         .then(res => {
           this.$toast.hide();
           if (res.returnStatus) {
-            // this.$nextTick(() => {
-            //   this.forceUpdate(true);
-            // });
-            this.forceUpdate(true);
+            this.$nextTick(() => {
+              this.forceUpdate(true);
+            });
             if (res.data.data.length !== this.pagesize) {
-              // this.$nextTick(() => {
-              //   this.forceUpdate(false);
-              // });
-              this.forceUpdate(false);
+              this.$nextTick(() => {
+                this.forceUpdate(false);
+              });
             }
-            this.active = active
+
+            // this.active = active;
             this.appleyData = res.data.data;
-            console.log("appley", res.data.data);
+            res.data.data.forEach(item => {
+              list.push(item);
+            });
+            this.appleyData = list;
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -310,17 +324,22 @@ export default {
           return "";
       }
     },
+
     /* 备用物料 */
-    getPop() {
-      this.isPopup = true;
+    getPop(item) {
+      this.$refs.popup.desp = "";
+      this.$refs.popup.wastage = 1;
+      this.$refs.popup.workorder_id = null;
+      
+      this.$refs.popup.materialspareObject = item;
+      this.$refs.popup.showNoMask = true;
     },
-    /* api */
-    getReserveData() {
+
+    /* 备用物料 */
+    getReserveData(callback = null) {
       this.$toast.loading("加载中...");
       let data = {
-        token: this.$store.getters.getToken,
-        pagesize: this.pagesize,
-        pageindex: this.pageindex
+        token: this.$store.getters.getToken
       };
       this.service
         .httpRequest({
@@ -330,9 +349,11 @@ export default {
         })
         .then(res => {
           this.$toast.hide();
+          if (callback) {
+            callback();
+          }
           if (res.returnStatus) {
             this.reserveData = res.data.data;
-            console.log("beiyong", res.data.data);
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -340,9 +361,36 @@ export default {
             });
           }
         });
+    },
+    //使用记录列表
+    getMateriallist() {
+      this.$toast.loading("加载中...");
+      let data = {
+        token: this.$store.getters.getToken
+      };
+      this.service
+        .httpRequest({
+          url: "/aapi/materiallist",
+          methods: "get",
+          data: data
+        })
+        .then(res => {
+          this.$toast.hide();
+          if (res.returnStatus) {
+            this.materiallist = res.data.data;
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
+    goTask(item) {
+      if (item.is_wastage == 1) {
+        return;
+      }
     }
-    /* end */
-
     /* end 
     *
     *
@@ -365,7 +413,8 @@ export default {
   &-list {
     margin-bottom: 25 * @rpx;
     div {
-      margin-bottom: 15 * @rpx;flex-wrap: wrap;
+      margin-bottom: 15 * @rpx;
+      flex-wrap: wrap;
     }
     &-dots {
       i {
@@ -377,7 +426,7 @@ export default {
       }
     }
     &-btn {
-      border: 1*@rpx solid #7e7e7e;
+      border: 1 * @rpx solid #7e7e7e;
       line-height: 56 * @rpx;
       padding: 0 5px;
       border-radius: 5px;

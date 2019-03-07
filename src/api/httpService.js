@@ -28,7 +28,8 @@ export default {
         }
       }).then(res => {
         return res
-      }).catch(()=>{
+      }).catch((e)=>{
+        console.log(e)
         return {
           returnStatus: false,
           msg: "网络中断，请稍后重试"
@@ -58,7 +59,8 @@ export default {
         }
       }).then(res => {
         return res
-      }).catch(()=>{
+      }).catch((e)=>{
+        console.log(e)
         return {
           returnStatus: false,
           msg: "网络中断，请稍后重试"
@@ -86,7 +88,8 @@ headers: {'Content-Type': 'multipart/form-data'}
   }
 }).then(res => {
   return res
-}).catch(()=>{
+}).catch((e)=>{
+  console.log(e)
   return {
     returnStatus: false,
     msg: "网络中断，请稍后重试"
