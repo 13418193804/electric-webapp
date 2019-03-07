@@ -227,9 +227,10 @@ export default {
         .then(res => {
           this.$toast.hide();
           if (res.returnStatus) {
-            this.$nextTick(() => {
-              this.forceUpdate(true);
-            });
+            // this.$nextTick(() => {
+            //   this.forceUpdate(true);
+            // });
+            this.forceUpdate(true);
             if (res.data.data.length !== this.pagesize) {
               // this.$nextTick(() => {
               //   this.forceUpdate(false);
