@@ -11,6 +11,8 @@ import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
 import BScroll from 'better-scroll'
 import * as FastClick from "fastclick"
+import { base_url } from './api/conf';
+
 FastClick.attach(document.body)
 
 // import BMap from 'BMap'
@@ -39,6 +41,7 @@ Vue.use(mandMobile)
 // Vue.use(BMap)
 
 Vue.config.productionTip = false
+Vue.prototype.baseImageUrl    =base_url
 Vue.use(Vuex)
 Vue.mixin({
     data() {
