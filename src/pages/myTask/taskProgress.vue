@@ -4,7 +4,7 @@
     <div class="details-declare">
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">{{detailsData.location+detailsData.device_name+detailsData.fault}}</div>
+            <div class="right">{{detailsData.location||''+ detailsData.device_name||''+detailsData.fault||''}}</div>
             <!-- <div class="details-declare-list-swich">
               <button @click="getProgress(detailsData)">处理</button>
             </div> -->
@@ -18,8 +18,8 @@
             <div class="right">{{detailsData.solution}}</div>
         </div> -->
         <div class="flex details-declare-list auto">
-            <div class="left">位置：{{detailsData.location}}</div>
-            <div class="right">坐标：{{detailsData.longitude + detailsData.latitude}}</div>
+            <div class="left">位置：{{detailsData.location||''}}</div>
+            <div class="right">坐标：{{detailsData.longitude||''}} {{detailsData.latitude||''}}</div>
         </div>
         <div class="flex details-declare-list">
         </div>
@@ -47,13 +47,13 @@
                 <i class="iconfont icon-weigouxuan" :class="{'icon-yigouxuan':index == active}"></i>{{item.name}}</span>
             </div>
             <div class="flex details-result-cause-check" v-if="curId == 3">
-                <textarea placeholder="暂时不处理的原因"></textarea>
+                <textarea placeholder="暂时不处理的原因" v-model="solution"></textarea>
             </div>
         </div>
         <div class="flex details-result-cause">
             <div class="left">备注：</div>
             <div class="details-result-cause-remak">
-                <input type="text" v-model="desp">
+                <input type="textarea" v-model="desp">
             </div>
         </div>
         <div class="details-result-cause">
@@ -111,14 +111,15 @@ export default {
     // 定义组件
     cheader
   },
-   created() {
+  created() {
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
     // this.getDataList()
       this.detailsData = this.$route.query.detailsData
-      console.log(this.detailsData)
+      // this.detailsData = this.$route.query.detailsData
+      console.log('解决',this.detailsData)
   },
   methods: {
     getDeleteImg(index){
@@ -214,10 +215,10 @@ export default {
               }
             })
           } else{
-              this.$dialog.alert({
-                  content:res.msg,
-                  confirmText: '确定',
-              })
+            this.$dialog.alert({
+                content:res.msg,
+                confirmText: '确定',
+            })
           }
       });
     },
@@ -269,9 +270,9 @@ export default {
         width: 120*@rpx;
       }
       &-remak{
-        width: 80%;margin-left:15*@rpx;
+        width: 80%;margin-left:15*@rpx;line-height: 24*@rpx!important;height: 90*@rpx!important;
         input{
-          width: 100%;border:1px solid #ddd;outline:none;height: 60*@rpx;
+          width: 100%;border:1px solid #ddd;outline:none;height: 90*@rpx;font-size: 24*@rpx;padding: 2px 5px;line-height: 24*@rpx!important;
         }
       }
     }

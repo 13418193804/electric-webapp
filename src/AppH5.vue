@@ -535,12 +535,17 @@ header {
 .icon-sousuo {
   font-size: 24px !important;
 }
-.tag {
-  font-size: 20px * @rpx;
-  border: 1px solid #4699ff;
-  border-radius: 10 * @rpx;
-  padding: 4 * @rpx 20 * @rpx;
-  display: inline-block;
+.icon-zanwushuju{
+  font-size: 54px !important;color: #999;
+}
+.noneData{
+  text-align: center;margin-top: 100px;
+  p{
+    margin-top:10px;color: #999;
+  }
+}
+.tag{
+  font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 10*@rpx; padding: 4*@rpx 20*@rpx;display: inline-block;
 }
 .icon-shangchuantupian {
   font-size: 50px !important;
@@ -669,10 +674,10 @@ header {
     -moz-appearance: none;
     appearance: none;
     font-size: 17px;
-  }
-  option {
-    font-size: 22 * @rpx;
-  }
+    }
+    select option{
+        font-size: 22*@rpx;
+    }
 }
 // 按钮
 .footer-btn {

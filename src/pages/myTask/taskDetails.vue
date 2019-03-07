@@ -4,8 +4,7 @@
     <div class="details-declare">
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">{{detailsData.location+detailsData.device_name+detailsData.fault}}</div>
-                {{detailsData.status}}
+            <div class="right">{{detailsData.location||''+detailsData.device_name||''+detailsData.fault||''}}</div>
             <div class="details-declare-list-swich" v-if="detailsData.status==0">
               <button @click="getProgress(detailsData)">处理</button>
             </div>
@@ -22,17 +21,17 @@
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">{{detailsData.solution}}</div>
+            <div class="right">{{detailsData.solution||''}}</div>
         </div>
         <div class="flex details-declare-list auto">
-            <div class="left">位置：{{detailsData.location}}</div>
-            <div class="right">坐标：{{detailsData.longitude + detailsData.latitude}}</div>
+            <div class="left">位置：{{detailsData.location||''}}</div>
+            <div class="right">坐标：{{detailsData.longitude||'' }} {{detailsData.latitude||''}}</div>
         </div>
         <div class="flex details-declare-list">
         </div>
     </div>
     <div class="details-map">
-        <mapbox></mapbox>
+        <mapbox v-if="flag" :detailsData="detailsData" ref="map"></mapbox>
     </div>
   </div>
 </template>
@@ -47,6 +46,7 @@ export default {
     // 选项 数据
     return {
       isActive:'',
+      flag:false,
       detailsData:[]
     };
   },
@@ -62,7 +62,9 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
+
     this.getDataList()
+    
   },
   methods: {
     // 事件处理方法
@@ -91,9 +93,14 @@ export default {
               id: id
             }
         }).then(res => {
-            if(res.data.status === '00'){
+            if(res.returnStatus){
                this.detailsData = res.data.workorder
-               console.log('设备详情',this.detailsData)
+               this.flag = true
+
+               this.$nextTick(()=>{
+                this.$refs.map.mapSetIcon(this.detailsData.latitude,this.detailsData.longitude)
+               })
+
             } else{
                 this.$dialog.alert({
                     content:res.msg,

@@ -18,11 +18,17 @@ export default {
       map:null
     };
   },
+  props: {
+    detailsData: Object,
+    required: true
+  },
   mounted (){
-   init(map => {
+    init(map => {
       this.map = map;
-// setPoint(this.map,29.602414,106.515893)
-setIcon(this.map,106.515893,29.602414)
+    console.log('map===1', this.detailsData)
+
+      // setPoint(this.map,29.602414,106.515893)
+      // setIcon(this.map,106.515893,29.602414)
     });
   },
   methods: {
@@ -36,7 +42,15 @@ setIcon(this.map,106.515893,29.602414)
     //   var marker = new BMap.Marker(point);
     //   map.addOverlay(marker)
     // }
+    mapSetIcon(latitude,longitude){
+      setTimeout(()=>{
+        this.$nextTick(()=>{
+          setIcon(this.map,longitude,latitude)
+        })  
+      },1500)
+   
 
+    }
   },
 }
 

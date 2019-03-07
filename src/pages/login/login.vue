@@ -10,9 +10,9 @@
             <input type="text" name="username" v-model="loginForm.username" placeholder="请输入账号"> 
         </div>
         <div>
-            <input type="text" name="password" v-model="loginForm.password"  placeholder="请输入密码"> 
+            <input type="password" name="password" v-model="loginForm.password"  placeholder="请输入密码"> 
         </div>
-        <span class="forget">配置服务器</span>
+        <span class="config" @click="getConfigIp()">配置服务器</span>
     </div>
     <div class="loginCode">
         <img src="../../assets/code.png" alt="">
@@ -48,6 +48,9 @@ export default {
   methods: {
     // 事件处理方法
     ...mapMutations(["changeLogin"]),
+    getConfigIp(){
+      this.$router.push({name:"configIp"})
+    },
     goLogin() {
       if (this.loginForm.username == "q") {
         this.loginForm.username = "18603050282";
@@ -90,7 +93,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 @import "../../../static/css/common.less";
 .loginBox {
   padding: 12% 5%;
@@ -138,7 +141,7 @@ export default {
         font-size: 28 * @rpx;
       }
     }
-    .forget {
+    .config {
       position: absolute;
       font-size: 24px * @rpx;
       right: 60 * @rpx;
