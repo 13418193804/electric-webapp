@@ -7,6 +7,7 @@ import test from '../pages/test/index.vue'
 import server from '../pages/server/index.vue'
 import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
+import configIp from '../pages/login/configIp.vue' // ip
 import myTask from '../pages/myTask/taskList.vue' //我的任务
 import taskDetails from '../pages/myTask/taskDetails.vue' 
 import taskProgress from '../pages/myTask/taskProgress.vue' 
@@ -69,6 +70,12 @@ export default new Router({
     name: 'login',
     component: login,
     alias: '/pages/login/login'
+  },
+  {
+    path: '/configIp',
+    name: 'configIp',
+    component: configIp,
+    alias: '/pages/login/configIp'
   },
   {
     path: '/myTask',
