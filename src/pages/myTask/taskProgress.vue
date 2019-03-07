@@ -4,7 +4,7 @@
     <div class="details-declare">
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">{{detailsData.location+detailsData.device_name+detailsData.fault}}</div>
+            <div class="right">{{detailsData.location||''+ detailsData.device_name||''+detailsData.fault||''}}</div>
             <!-- <div class="details-declare-list-swich">
               <button @click="getProgress(detailsData)">处理</button>
             </div> -->
@@ -18,8 +18,8 @@
             <div class="right">{{detailsData.solution}}</div>
         </div> -->
         <div class="flex details-declare-list auto">
-            <div class="left">位置：{{detailsData.location}}</div>
-            <div class="right">坐标：{{detailsData.longitude + detailsData.latitude}}</div>
+            <div class="left">位置：{{detailsData.location||''}}</div>
+            <div class="right">坐标：{{detailsData.longitude||''}} {{detailsData.latitude||''}}</div>
         </div>
         <div class="flex details-declare-list">
         </div>
@@ -111,14 +111,15 @@ export default {
     // 定义组件
     cheader
   },
-   created() {
+  created() {
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
     // this.getDataList()
       this.detailsData = this.$route.query.detailsData
-      console.log(this.detailsData)
+      // this.detailsData = this.$route.query.detailsData
+      console.log('解决',this.detailsData)
   },
   methods: {
     getDeleteImg(index){

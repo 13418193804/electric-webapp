@@ -10,8 +10,9 @@
         <div>
            <better-scroll ref="betterScroll" @onPullingUp="onPullingUp"  marginTop="100px">
             <template slot="list-content">
+                
                 <div class="scroll-view-list taskList taskNew"  v-if="active == 0">
-                    <ul>
+                    <ul v-if="quoteData[active].length > 0">
                         <li v-for="(item,index) in quoteData[active]" :key="index" class="scroll-view-list" @click="getDetails(item.id)">
                             <div>
                                 <p>{{item.create_time}}</p>
@@ -20,11 +21,16 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="noneData" v-else>
+                        <i class="iconfont icon-zanwushuju"></i>
+                        <p>暂无数据</p>
+                    </div>
                 </div>
+                
                  <!-- 处理中 -->
                 <div class="scroll-view-list taskList" v-if="active == 1" >
-                    <ul>
-                        <li v-for="(item,index) in quoteData[active] " :key="index">
+                    <ul v-if="quoteData[active].length > 0">
+                        <li v-for="(item,index) in quoteData[active] " :key="index" @click="getProgeess(item)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：{{item.fault}}</h4>
@@ -33,10 +39,14 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="noneData" v-else>
+                        <i class="iconfont icon-zanwushuju"></i>
+                        <p>暂无数据</p>
+                    </div>
                 </div>
                  <!-- 处理完毕 -->
                 <div class="scroll-view-list taskList"  v-if="active == 2">
-                    <ul>
+                    <ul v-if="quoteData[active].length > 0">
                         <li v-for="(item,index) in  quoteData[active] " :key="index">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
@@ -47,6 +57,10 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="noneData" v-else>
+                        <i class="iconfont icon-zanwushuju"></i>
+                        <p>暂无数据</p>
+                    </div>
                 </div>
             </template>
          </better-scroll>
@@ -194,11 +208,19 @@ export default {
       }, 2000);
     },
     getDetails(id) { 
-      console.log(id)
       this.$router.push({
         name: "taskDetails",
         query: {
           id: id
+        }
+      });
+    },
+    getProgeess(detailsData) {
+      console.log('处理中')
+      this.$router.push({
+        name: "taskProgress",
+        query: {
+          detailsData: detailsData
         }
       });
     }

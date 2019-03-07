@@ -534,6 +534,15 @@ header {
 .icon-sousuo {
   font-size: 24px !important;
 }
+.icon-zanwushuju{
+  font-size: 54px !important;color: #999;
+}
+.noneData{
+  text-align: center;margin-top: 100px;
+  p{
+    margin-top:10px;color: #999;
+  }
+}
 .tag{
   font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 10*@rpx; padding: 4*@rpx 20*@rpx;display: inline-block;
 }
@@ -652,7 +661,7 @@ header {
     appearance: none;
     font-size: 17px;
     }
-    option{
+    select option{
         font-size: 22*@rpx;
     }
 }

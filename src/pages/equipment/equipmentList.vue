@@ -26,7 +26,7 @@
       :pullDownRefreshObj="{ threshold: 90, stop: 40 }" -->
       <better-scroll ref="betterScroll" @onPullingUp="onPullingUp">
         <template slot="list-content">
-          <div class="scroll-view-list equipment-list">
+          <div class="scroll-view-list equipment-list" v-if="eqData[active].length >0">
             <div class="  equipment-list-box" v-for="(item,index) in eqData[active]" :key="index" @click="getDetails(item.device_id)">
               <div class="flex flex-pack-justify">
                 <div class="equipment-list-box-bold">设备名称：{{item.device_name}}</div>
@@ -38,6 +38,10 @@
               <div>坐标：{{item.latitude+' '+item.longitude}}</div>
               <div>扫码</div>
             </div>
+          </div>
+          <div class="noneData" v-else>
+              <i class="iconfont icon-zanwushuju"></i>
+              <p>暂无数据</p>
           </div>
         </template>
       </better-scroll>
@@ -274,10 +278,10 @@ export default {
   &-list {
     width: 100%;
     padding: 0 5%;
-    margin-top: 40px;
+    margin-top: 40*@rpx;
     &-box {
       text-align: left;
-      border-bottom: 1px solid #4699ff;
+      border-bottom: 1*@rpx solid #4699ff;
       padding-bottom: 10px;
       padding-left: 10px;
       padding-right: 10px;

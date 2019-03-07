@@ -1,6 +1,6 @@
 
 //全局Zoom
-const Zoom = 22;
+const Zoom = 16;
 
 
 /**
