@@ -12,7 +12,7 @@
             <template slot="list-content">
                 <div class="scroll-view-list taskList taskNew"  v-if="active == 0">
                     <ul>
-                        <li v-for="(item,index) in quoteData[active]" :key="index" class="scroll-view-list" @click="getDetails()">
+                        <li v-for="(item,index) in quoteData[active]" :key="index" class="scroll-view-list" @click="getDetails(item.id)">
                             <div>
                                 <p>{{item.create_time}}</p>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
@@ -51,7 +51,6 @@
             </template>
          </better-scroll>
         </div>
-
     </div>
   </div>
 </template>
@@ -194,8 +193,14 @@ export default {
         this.$refs.scrollView.finishRefresh();
       }, 2000);
     },
-    getDetails() {
-      this.$router.push({ name: "taskDetails" });
+    getDetails(id) { 
+      console.log(id)
+      this.$router.push({
+        name: "taskDetails",
+        query: {
+          id: id
+        }
+      });
     }
   }
 };

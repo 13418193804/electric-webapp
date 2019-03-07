@@ -4,25 +4,24 @@
     <div class="details-declare">
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">深圳大道</div>
-            <div class="details-declare-list-swich">
-            </div>
+            <div class="right">{{detailsData.location+detailsData.device_name+detailsData.fault}}</div>
+            <!-- <div class="details-declare-list-swich">
+              <button @click="getProgress(detailsData)">处理</button>
+            </div> -->
         </div>
-        <div class="flex details-declare-list">
-            <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
-            <div class="right">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
+        <div class="flex details-declare-list auto">
+            <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i>{{detailsData.type == 0 ?'系统自动派单':'手动派单'}}</div>
+            <div class="right"> <span>{{detailsData.create_time}}</span></div>
         </div>
-         <div class="flex details-declare-list">
-            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">深圳大道故障</div>
-        </div>
-        <div class="flex details-declare-list">
+        <!-- <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">XXX</div>
+            <div class="right">{{detailsData.solution}}</div>
+        </div> -->
+        <div class="flex details-declare-list auto">
+            <div class="left">位置：{{detailsData.location}}</div>
+            <div class="right">坐标：{{detailsData.longitude + detailsData.latitude}}</div>
         </div>
         <div class="flex details-declare-list">
-            <div class="left">位置：</div>
-            <div class="right">深圳22坐标：xx</div>
         </div>
     </div>
     <div class="details-result">
@@ -39,12 +38,12 @@
         <div class="details-result-cause">
             <div class="flex details-result-cause-check" v-if="curId == 1">
                 <span v-for="(item,index) in checkData" :key="index" 
-                @click="handelCheck(index)" :class="{cur:index == active}">
+                @click="handelCheck(item,index)" :class="{cur:index == active}">
                 <i class="iconfont icon-weigouxuan" :class="{'icon-yigouxuan':index == active}"></i>{{item.name}}</span>
             </div>
             <div class=" details-result-cause-check" v-if="curId == 2">
               <span v-for="(item,index) in checkDataNo" :key="index" 
-                @click="handelCheck(index)" :class="{cur:index == active}">
+                @click="handelCheck(item,index)" :class="{cur:index == active}">
                 <i class="iconfont icon-weigouxuan" :class="{'icon-yigouxuan':index == active}"></i>{{item.name}}</span>
             </div>
             <div class="flex details-result-cause-check" v-if="curId == 3">
@@ -54,7 +53,7 @@
         <div class="flex details-result-cause">
             <div class="left">备注：</div>
             <div class="details-result-cause-remak">
-                <input type="text">
+                <input type="text" v-model="desp">
             </div>
         </div>
         <div class="details-result-cause">
@@ -68,10 +67,14 @@
                 </li>
                 <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
                     <p><i class="iconfont icon-shangchuantupian"></i></p>
-                    <input class="upload" @change='add_img'  type="file" style="opacity:0;">
+                    <input class="upload" ref="input" @change='add_img'  type="file" style="opacity:0;">
                 </li>
             </ul>
         </div>
+    </div>
+    <div class="flex flex-pack-center details-footer">
+      <div class="details-footer-btn column6">物料申请</div>
+      <div class="details-footer-btn" @click="getSubmit()">提交</div>
     </div>
   </div>
 </template>
@@ -79,21 +82,24 @@
 <script>
 import cheader from '../../components/header'
 import {Switch} from 'mand-mobile'
-
+import Vue from 'vue'
 export default {
   data() {
     // 选项 数据
     return {
       isActive:'',
-      active: 0,
+      active: null,
+      detailsData:[],
       checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
       checkDataNo: [{name:'无法处理'},{name: '下雨'},{name: '其他'}],
       option:[{name:'已解决',id:1},{name:'未解决',id:2},{name:'暂停',id:3}],
-      curName: '', //当前name
-      curOption: '',
+      desp: '', // 备注
+      curOption: '', //处理结果 option
+      status: '', // 维修状态
+      solution: '', // 解决方法
       curId: 1,
       isOption: false,
-      imgs: [1],
+      imgs: [], // 图片路径
       imgData: {
           accept: 'image/gif, image/jpeg, image/png, image/jpg',
       }
@@ -105,12 +111,21 @@ export default {
     // 定义组件
     cheader
   },
-
+   created() {
+    // 生命周期函数
+    // console.log('homeroot', this.$root, this.$root.$mp)
+  },
+  mounted() {
+    // this.getDataList()
+      this.detailsData = this.$route.query.detailsData
+      console.log(this.detailsData)
+  },
   methods: {
     getDeleteImg(index){
       this.imgs.splice(index,1)
     },
     add_img(event){  
+
       let reader =new FileReader();
       let img1=event.target.files[0];
       let type=img1.type;//文件的类型，判断是否是图片
@@ -123,22 +138,35 @@ export default {
           alert('请选择3M以内的图片！');
           return false;
       }
+
       var uri = ''
       let form = new FormData(); 
-      form.append('file',img1,img1.name);
-      // this.$http.post('/file/upload',form,{
-      //     headers:{'Content-Type':'multipart/form-data'}
-      // }).then(response => {
-      //     console.log(response.data)
-      //     uri = response.data.url
-      //     reader.readAsDataURL(img1);
-      //     var that=this;
-      //     reader.onloadend=function(){
-      //         that.imgs.push(uri);
-      //     }
-      // }).catch(error => {
-      //     alert('上传图片出错！');
-      // })    
+
+      form.append('token',this.$store.getters.getToken)
+      form.append('image',this.$refs.input.files[0])
+      this.service.httpRequest({
+          url: "/aapi/uploadimg",
+          methods: "upload",
+          form
+      }).then(res => {
+        if(res.returnStatus){
+            console.log(res.data.img_path)
+            uri = res.data.img_path
+            reader.readAsDataURL(img1);
+            var that=this;
+            reader.onloadend=function(){
+                that.imgs.push(uri);
+            }
+          } else{
+            this.$dialog.alert({
+                content:res.msg,
+                confirmText: '确定',
+            })
+          }
+          
+      }).catch(error => {
+          alert('上传图片出错！');
+      })   
     },
     // 事件处理方法
     leftClick(){
@@ -147,18 +175,53 @@ export default {
     handelSelect(event){
       this.curId = event.target.value;
       console.log(event)
+      this.status = event.target.value;
     },
-    handelCheck(index){
+    handelCheck(item,index){
       this.active = index
-    }
+      this.solution = item.name
+      console.log(item)
+    },
+     /* API */
+    getSubmit(){
+      if(this.status ===''){
+        this.$dialog.alert({
+            content:'请选择解决方案',
+            confirmText: '确定',
+        })
+        return
+      }
+      this.imgs = this.imgs.join(',')
+      let data = {
+        token: this.$store.getters.getToken,
+        id: this.detailsData.id,
+        solution: this.solution,
+        desp: this.desp,
+        status: this.status,
+        img_paths: this.imgs
+      };
+      console.log('提交', data)
+      this.service.httpRequest({
+          url: "/aapi/workorderdetail",
+          methods: "get",
+          data: data
+      }).then(res => {
+          if(res.data.status === '00'){
+              this.$router.push({
+              name: 'taskDetails',
+              query: {
+                id:this.detailsData.id
+              }
+            })
+          } else{
+              this.$dialog.alert({
+                  content:res.msg,
+                  confirmText: '确定',
+              })
+          }
+      });
+    },
   },
-  created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
-  },
-  mounted() {
-    
-  }
 };
 </script>
 
@@ -166,7 +229,6 @@ export default {
 @import '../../../static/css/common.less';
 .details{
   width: 100%;height: 100%;
-  
   &-result{
     padding: 5%;
     &-cause{
@@ -212,6 +274,14 @@ export default {
           width: 100%;border:1px solid #ddd;outline:none;height: 60*@rpx;
         }
       }
+    }
+  }
+  &-footer{
+    width: 100%;margin-top: 30*@rpx;
+    &-btn{
+      border-radius: 50px;background: #4699ff;color: #fff;
+      width: 180*@rpx;line-height: 60*@rpx;font-size: 24*@rpx;
+      text-align: center;
     }
   }
 }

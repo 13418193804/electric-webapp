@@ -4,28 +4,32 @@
     <div class="details-declare">
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道深圳大道</div>
-            <div class="details-declare-list-swich">
-              <button @click="getProgress()">处理</button>
+            <div class="right">{{detailsData.location+detailsData.device_name+detailsData.fault}}</div>
+                {{detailsData.status}}
+            <div class="details-declare-list-swich" v-if="detailsData.status==0">
+              <button @click="getProgress(detailsData)">处理</button>
+            </div>
+            <div class="details-declare-list-swich" v-if="detailsData.status==1">
+              <button>处理中</button>
+            </div>
+            <div class="details-declare-list-swich" v-if="detailsData.status==2">
+              <button>已处理</button>
             </div>
         </div>
-        <div class="flex details-declare-list">
-            <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i></div>
-            <div class="right">系统自动派单 <span>2018年8月10日 12:00:00</span></div>
-        </div>
-         <div class="flex details-declare-list">
-            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">深圳大道故障</div>
+        <div class="flex details-declare-list auto">
+            <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i>{{detailsData.type == 0 ?'系统自动派单':'手动派单'}}</div>
+            <div class="right"> <span>{{detailsData.create_time}}</span></div>
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">XXX</div>
+            <div class="right">{{detailsData.solution}}</div>
+        </div>
+        <div class="flex details-declare-list auto">
+            <div class="left">位置：{{detailsData.location}}</div>
+            <div class="right">坐标：{{detailsData.longitude + detailsData.latitude}}</div>
         </div>
         <div class="flex details-declare-list">
-            <div class="left">位置：</div>
-            <div class="right">深圳22坐标：xx</div>
         </div>
-        
     </div>
     <div class="details-map">
         <mapbox></mapbox>
@@ -42,7 +46,8 @@ export default {
   data() {
     // 选项 数据
     return {
-      isActive:''
+      isActive:'',
+      detailsData:[]
     };
   },
   name: 'switch-demo',
@@ -52,7 +57,13 @@ export default {
     cheader,
     mapbox
   },
-
+  created() {
+    // 生命周期函数
+    // console.log('homeroot', this.$root, this.$root.$mp)
+  },
+  mounted() {
+    this.getDataList()
+  },
   methods: {
     // 事件处理方法
     leftClick(){
@@ -61,19 +72,39 @@ export default {
     handler(name, active) {
       console.log(`Status of switch ${name} is ${active ? 'active' : 'inactive'}`)
     },
-    getProgress() {
-      this.$router.push({name: 'taskProgress'})
-    }
-    
-  },
-  created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
-    
-  },
-  mounted() {
-    
+    getProgress(detailsData) {
+      this.$router.push({
+        name: 'taskProgress',
+        query: {
+          detailsData:detailsData
+        }
+      })
+    },
+    /* API */
+    getDataList(){
+      let id = this.$route.query.id
+        this.service.httpRequest({
+            url: "/aapi/workorderdetail",
+            methods: "get",
+            data: {
+              token:this.$store.getters.getToken,
+              id: id
+            }
+        }).then(res => {
+            if(res.data.status === '00'){
+               this.detailsData = res.data.workorder
+               console.log('设备详情',this.detailsData)
+            } else{
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
+            }
+        });
+    },
+
   }
+
 };
 </script>
 
@@ -93,10 +124,18 @@ export default {
         width:430*@rpx;line-height: 30px;
       }
       &-swich{
-        position: absolute;right: 3px;top: 6px;
+        position: absolute;right: 3px;top: 4px;
         button{
           background: #2680f0;color: #fff;border: none;border-radius: 5px;width:100*@rpx;height: 50*@rpx;font-size: 24*@rpx;
         }
+      }
+    }
+    .auto{  
+      .left{
+        width: 230*@rpx!important;margin-right: 10*@rpx;
+      }
+      .right{
+        width: 380*@rpx!important;
       }
     }
   }

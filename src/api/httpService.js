@@ -64,7 +64,37 @@ export default {
           msg: "网络中断，请稍后重试"
         }
       })
-    } else {
+    } else if(option.methods == 'upload' ){
+      return await axios.post(
+        base_url + option.url,option.form,{
+method: 'post',
+headers: {'Content-Type': 'multipart/form-data'}
+}).then(res => {
+  if (res.data.status === '00') {
+    return {
+      returnStatus: true,
+      data: res.data
+    }
+  }else if(res.data.status === '08'|| res.data.status === '02'){
+    window.myvue.$toast.info(res.data.msg)
+    window.myvue.$router.replace('/login')
+  } else {
+    return {
+      returnStatus: false,
+      msg: res.data.msg
+    }
+  }
+}).then(res => {
+  return res
+}).catch(()=>{
+  return {
+    returnStatus: false,
+    msg: "网络中断，请稍后重试"
+  }
+})
+
+
+    }else {
       console.log('method not allow!')
     }
   }
