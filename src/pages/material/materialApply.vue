@@ -43,7 +43,7 @@
                       <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
                   </div>
                   <div class="material-top-button">
-                      <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
+                      <div class="tag"  @click="getApply()">申请物料</div>
                   </div>
               </div>
 
