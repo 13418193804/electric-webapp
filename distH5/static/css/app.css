@@ -1396,7 +1396,7 @@ input:-ms-input-placeholder {
 
 @charset "utf-8";
 .ipbox {
-  padding: 0 5%;
+  padding: 5% 5%;
 }
 .loginForm {
   text-align: left;
