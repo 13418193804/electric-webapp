@@ -93,9 +93,9 @@ export default {
       checkData: [{ name: "线路故障" }, { name: "元气损坏" }, { name: "其他" }],
       checkDataNo: [{ name: "无法处理" }, { name: "下雨" }, { name: "其他" }],
       option: [
-        { name: "已解决", id: 1 },
-        { name: "未解决", id: 2 },
-        { name: "暂停", id: 3 }
+        { name: "已解决", id: 2 },
+        { name: "未解决", id: 1 },
+        { name: "暂停", id: 0 }
       ],
       desp: "", // 备注
       curOption: "", //处理结果 option
@@ -122,7 +122,7 @@ export default {
   mounted() {
     console.log(this.$route)
     // this.getDataList()
-    this.detailsData = this.$route.params.detailsData
+this.detailsData = this.$route.params.detailsData
     console.log('解决',this.detailsData)
   },
   methods: {
@@ -178,7 +178,7 @@ export default {
     },
     handelSelect(event) {
       this.curId = event.target.value;
-      console.log(event);
+      console.log(event.target.value);
       this.status = event.target.value;
     },
     handelCheck(item, index) {
@@ -215,7 +215,7 @@ export default {
           if (res.data.status === "00") {
             this.$router.push({
               name: "taskDetails",
-              query: {
+              params: {
                 id: this.detailsData.id
               }
             });
@@ -366,10 +366,11 @@ export default {
 }
 // 上传
 .clearfix {
+  flex-wrap: wrap;
   li {
     width: 160 * @rpx;
     height: 160 * @rpx;
-    margin: 0 30 * @rpx 30 * @rpx 0;
+    margin: 0 50 * @rpx 30 * @rpx 0;
     position: relative;
   }
   .picBox {
