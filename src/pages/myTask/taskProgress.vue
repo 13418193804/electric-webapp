@@ -122,9 +122,8 @@ export default {
   mounted() {
     console.log(this.$route)
     // this.getDataList()
-    this.detailsData = this.$route.params.detailsData;
-    // this.detailsData = this.$route.query.detailsData
-    console.log("解决", this.detailsData);
+    this.detailsData = this.$route.params.detailsData
+    console.log('解决',this.detailsData)
   },
   methods: {
     getDeleteImg(index) {
@@ -144,13 +143,11 @@ export default {
         return false;
       }
 
-      var uri = "";
-      let form = new FormData();
-
-      form.append("token", this.$store.getters.getToken);
-      form.append("image", this.$refs.input.files[0]);
-      this.service
-        .httpRequest({
+      var uri = ''
+      let form = new FormData(); 
+      form.append('token',this.$store.getters.getToken)
+      form.append('image',this.$refs.input.files[0])
+      this.service.httpRequest({
           url: "/aapi/uploadimg",
           methods: "upload",
           form
@@ -332,6 +329,39 @@ export default {
       font-size: 24 * @rpx;
       text-align: center;
     }
+  }
+}
+.details{
+  width: 100%;height: 100%;
+  &-declare{
+    width: 90%;margin: 45*@rpx auto 0*@rpx;
+    &-list{
+      flex-wrap: wrap;background:#eeeeef;padding:0 5px;position: relative;
+      font-size:24*@rpx;border-bottom: 1px solid #fff;
+      .left{
+        width: 160*@rpx;text-align: right;line-height: 30px;
+      }
+      .right{
+        width:430*@rpx;line-height: 30px;
+      }
+      &-swich{
+        position: absolute;right: 3px;top: 4px;
+        button{
+          background: #2680f0;color: #fff;border: none;border-radius: 5px;width:100*@rpx;height: 50*@rpx;font-size: 24*@rpx;
+        }
+      }
+    }
+    .auto{  
+      .left{
+        width: 230*@rpx!important;margin-right: 10*@rpx;
+      }
+      .right{
+        width: 380*@rpx!important;
+      }
+    }
+  }
+  &-map{
+    width: 90%;margin: 60*@rpx auto 0*@rpx;
   }
 }
 // 上传

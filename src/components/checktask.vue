@@ -152,38 +152,7 @@ export default {
 .isSelect {
   color: #2f86f6;
 }
-// 蒙层
-.apply {
-  background: #fff;
-  padding: 20 * @rpx;
-  border-radius: 10 * @rpx;
-  &-list {
-    margin-bottom: 10 * @rpx;
-    font-size: 24 * @rpx;
-    div {
-      font-size: 24 * @rpx;
-      span {
-        font-size: 24 * @rpx;
-      }
-      textarea {
-        width: 100%;
-        height: 100 * @rpx;
-        border: 1px solid #ddd;
-        resize: none;
-      }
-    }
-    img {
-      width: 15px;
-      height: 15px;
-      vertical-align: middle;
-    }
-    span {
-      margin-bottom: 10 * @rpx;
-      font-size: 24 * @rpx;
-      display: inline-block;
-    }
-  }
-}
+
 .taskList {
   padding: 0% 5%;
   // padding-top: 100px * @rpx;

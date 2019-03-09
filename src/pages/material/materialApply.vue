@@ -70,7 +70,7 @@
                       <div class="material-table-box-list">{{item.name}}</div>
                       <div class="material-table-box-list">{{item.units}}</div>
                       <div class="material-table-box-list">{{item.amount}}</div>
-                      <div class="material-table-box-list" @click="getPop(item)">使用</div>
+                      <div class="material-table-box-list" @click="getPop(item)"><span>使用</span></div>
                   </div>
               </div>            
               <!-- 列表 -->
@@ -489,19 +489,31 @@ export default {
     width: 90%;
     margin: 20 * @rpx auto 0;
     &-box {
-      border-top: 1px solid #999;
-      border-left: 1px solid #999;
+      border-top: 1*@rpx solid #999;
+      border-left: 1*@rpx solid #999;
       &-list {
         width: 20%;
         text-align: center;
-        border-right: 1px solid #999;
-        padding: 3px 0;
+        border-right: 1*@rpx solid #999;
+        padding: 5px 0;
+      }
+      :nth-of-type(2) {
+        width: 30%;
+      }
+      :nth-of-type(3) {
+        width: 15%;
+      }
+      :nth-of-type(5) {
+        span{
+          display: inline-bloack;color:#fff;font-size: 24*@rpx;
+          padding: 5*@rpx;background: #4699ff;border-radius: 4px;padding: 3px 6px;
+        }
       }
     }
   }
 }
 .material-table-box:last-child {
-  border-bottom: 1px solid #999;
+  border-bottom: 1*@rpx solid #999;
 }
 // 蒙层
 .apply {

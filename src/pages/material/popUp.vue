@@ -15,7 +15,7 @@
                             {{nowNum}}
                           <span @click="getAdd()"><img src="../../assets/jia.png" alt=""></span></div>
                  </div>
-                <div class="apply-list selectBox" style="width:200px;">
+                <div class="apply-list selectDiv" style="width:200px;">
                     <div class="blockBlue"></div>
                     <select v-model="wastage">
                         <option :value="1">损耗</option>
@@ -27,13 +27,13 @@
                     <div class="tag" @click="changeChecktask">选择任务单</div>
                 </div>
                 <div class="apply-list">
-                    <span>备注：</span>
+                    <div style="margin-bottom:15px;">备注：</div>
                     <div>
                         <textarea v-model="desp"></textarea>
                     </div>
                 </div>
                 <div class="footer-btn">
-                    <button class="btn btn-white" @click="showNoMask=false">取消</button>
+                    <!-- <button class="btn btn-white" @click="showNoMask=false">取消</button> -->
                     <button class="btn btn-blue" @click="materialspare()">确定</button>
                 </div>
             </div>
@@ -143,17 +143,18 @@ export default {
   border-radius: 10 * @rpx;
   &-list {
     margin-bottom: 10 * @rpx;
-    font-size: 24 * @rpx;
+    font-size: 28 * @rpx!important;
     div {
-      font-size: 24 * @rpx;
+      font-size: 28 * @rpx!important;
       span {
-        font-size: 24 * @rpx;
+        font-size: 28 * @rpx!important;
       }
       textarea {
         width: 100%;
         height: 100 * @rpx;
         border: 1px solid #ddd;
         resize: none;
+        font-size: 28 * @rpx!important;
       }
     }
     img {
@@ -163,9 +164,22 @@ export default {
     }
     span {
       margin-bottom: 10 * @rpx;
-      font-size: 24 * @rpx;
+      font-size: 38 * @rpx;
       display: inline-block;
     }
+  }
+  .selectDiv{
+    position: relative;
+    select{
+      font-size: 28*@rpx;height: 50*@rpx;border: none; border: 1px solid #409eff;width: 100%;padding-left:10px;
+      outline: none;background: #fff;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  }
+  .blockBlue{
+    position: absolute;right: 0;width: 40*@rpx;height:50*@rpx;background: #409eff;
   }
 }
 </style>

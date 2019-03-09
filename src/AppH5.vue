@@ -539,12 +539,16 @@ header {
   font-size: 54px !important;
   color: #999;
 }
-.noneData {
-  text-align: center;
-  margin-top: 100px;
-  p {
-    margin-top: 10px;
-    color: #999;
+.icon-iconfontdian11{
+  font-size: 24px !important;color: red;
+}
+.icon-iconfontdian1{
+  font-size: 24px !important;color: #1afa29;
+}
+.noneData{
+  text-align: center;margin-top: 100px;
+  p{
+    margin-top:10px;color: #999;
   }
 }
 .tag {
@@ -659,6 +663,10 @@ header {
 .md-dialog .md-dialog-actions a {
   height: 40px !important;
 }
+// footer 按钮
+.footBtb{
+  position: fixed;bottom: 0;left: 0;width: 100%;background: #409EFF;color: #fff;text-align: center;line-height: 100*@rpx;
+}
 // 下拉框
 .selectBox {
   position: relative;
@@ -745,9 +753,9 @@ header {
   text-align: center;
 }
 .btn {
-  width: 120 * @rpx;
+  width: 160 * @rpx;
   font-size: 24 * @rpx;
-  height: 50 * @rpx;
+  height: 60 * @rpx;
   border-radius: 6 * @rpx;
   color: #fff;
   margin-right: 20 * @rpx;
