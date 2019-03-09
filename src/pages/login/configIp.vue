@@ -51,7 +51,7 @@ export default {
 <style lang="less" scope>
 @import "../../../static/css/common.less";
 .ipbox{
-  padding: 0 5%;
+  padding: 5% 5%;
 }
 .loginForm {
     text-align: left;
