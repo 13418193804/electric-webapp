@@ -5,27 +5,20 @@
   </template>
 
   <script>
-  
 import { init, setPlace, getPosition, setPoint } from "./baidu";
-	export default  {
-  
+export default {
   data: function() {
     return {
-      map: null, 
-    
+      map: null
     };
   },
   mounted() {
-   init(map => {
+    init(map => {
       this.map = map;
     });
-
   },
-  methods: {
-
-  },
-  components: {
-  }
+  methods: {},
+  components: {}
 };
 </script>
  <style lang="less" scoped>
