@@ -35,13 +35,12 @@
                      <div>{{item.amount}} <span @click="getMinute(item)"><img src="../../assets/jian.png" alt=""></span> {{getCount(item.id)}} <span @click="getAdd(item)"><img src="../../assets/jia.png" alt=""></span></div>
                  </div>
                 </div> 
-
-
             </div>
         </div>
         <div class="Mdetails-form">
-            <div class="Mdetails-form-list">
-                关联任务单：76543456789
+            <div class="Mdetails-form-list flex flex-pack-justify">
+              <div>关联任务单：{{workorderId||''}}</div>
+              <div class="tag" @click="changeChecktask">选择任务单</div>
             </div>
             <!-- <div class="Mdetails-form-list">
                 领用备注：76543456789
@@ -65,17 +64,20 @@
         申请物料
       </div>
     </div>
+            <checktask ref="checktask" @confirm="confirm"></checktask>
   </div>
 </template>
 
 <script>
 import BScroll from "better-scroll";
 import cheader from "../../components/header";
+import checktask from "../../components/checktask";
 
 export default {
   name: "HelloWorld",
   components: {
-    cheader
+    cheader,
+    checktask
   },
   data() {
     return {
@@ -90,11 +92,15 @@ export default {
       ],
       warehouse: [], //所有物料
       warehouseList: [], //当前展示的物料
-      preMaterialList: [] //预选物料
+      preMaterialList: [], //预选物料
+      workorderId: null
     };
   },
   mounted() {
     this.getMaterialwarehouse();
+    if (this.$route.query.id) {
+      this.workorderId = this.$route.query.id;
+    }
   },
   methods: {
     leftClick() {
@@ -204,6 +210,10 @@ export default {
       this.$toast.loading("加载中...");
       let list = [];
       list.push("token=" + this.$store.getters.getToken);
+
+      if (this.workorderId) {
+        list.push("workorder_id=" + this.workorderId);
+      }
       let length = this.preMaterialList.filter(item => {
         if (item.getCount > 0) {
           list.push("warehouse_id=" + item.id);
@@ -237,6 +247,18 @@ export default {
             });
           }
         });
+    },
+    changeChecktask() {
+      this.$refs.checktask.showTask = true;
+      this.$refs.checktask.isFinished = true;
+      this.$refs.checktask.pageindex = 1;
+      this.$refs.checktask.selectId = this.workorderId;
+      this.$refs.checktask.taskList = [];
+      this.$refs.checktask.getDataList();
+    },
+    confirm(selectId) {
+      this.workorderId = selectId;
+      this.$refs.checktask.showTask = false;
     }
   }
 };
@@ -276,7 +298,6 @@ export default {
       &-list {
         line-height: 30px;
         border-bottom: 1px solid #ddd;
-        
       }
       &-Mdetails {
         margin-bottom: 5px;
@@ -309,13 +330,14 @@ export default {
   &-form {
     &-list {
       margin-bottom: 10px;
-      div{
-        margin-bottom: 10px;        
+      div {
+        margin-bottom: 10px;
       }
       &-border {
         border: 1px solid #ddd;
-        margin-top: 10*@rpx;
-        padding: 5px; min-height: 32px;
+        margin-top: 10 * @rpx;
+        padding: 5px;
+        min-height: 32px;
       }
     }
   }

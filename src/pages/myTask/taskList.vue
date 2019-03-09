@@ -226,6 +226,8 @@ export default {
         name: "taskProgress",
         params: {
           detailsData: detailsData
+        },params:{
+          detailsData: detailsData
         }
       });
     }

@@ -13,7 +13,6 @@
         ></md-popup-title-bar>
         <div>
             <div class="md-example-popup md-example-popup-bottom">
-            
             <!-- describe="Popup Description" -->
         <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" mainStyle="top:30vh" marginTop="0">
             <template slot="list-content">
@@ -33,8 +32,6 @@
             </div>
         </div>
     </md-popup>
-
-        
   </div>
 </template>
 

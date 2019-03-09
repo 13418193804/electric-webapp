@@ -205,6 +205,7 @@ export default {
       this.pageindex = 1;
       this.active = index;
       if (this.active === 0) {
+        this.appleyData = [];
         this.getDataList();
       }
       if (this.active === 1) {
@@ -330,7 +331,7 @@ export default {
       this.$refs.popup.desp = "";
       this.$refs.popup.wastage = 1;
       this.$refs.popup.workorder_id = null;
-      
+
       this.$refs.popup.materialspareObject = item;
       this.$refs.popup.showNoMask = true;
     },
@@ -390,6 +391,12 @@ export default {
       if (item.is_wastage == 1) {
         return;
       }
+      this.$router.push({
+        name: "taskDetails",
+        query: {
+          id: item.id
+        }
+      });
     }
     /* end 
     *
