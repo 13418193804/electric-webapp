@@ -58,7 +58,7 @@
         </div>
         <div class="details-result-cause">
             <div class="left">上传：</div>
-            <ul class="flex clearfix">
+            <ul class="flex clearfix"> 
                 <li class="picBox" v-if="imgs.length>0" v-for='(item ,index ) in imgs'>
                     <div class="deleteImg" @click="getDeleteImg(index)">
                       <i class="iconfont icon-guanbi"></i>
@@ -174,7 +174,7 @@ this.detailsData = this.$route.params.detailsData
     },
     // 事件处理方法
     leftClick() {
-      this.$router.go(-1);
+      this.$router.push({name: 'myTask'});
     },
     handelSelect(event) {
       this.curId = event.target.value;
@@ -213,12 +213,7 @@ this.detailsData = this.$route.params.detailsData
         })
         .then(res => {
           if (res.data.status === "00") {
-            this.$router.push({
-              name: "taskDetails",
-              params: {
-                id: this.detailsData.id
-              }
-            });
+            this.$router.push({name: "myTask"});
           } else {
             this.$dialog.alert({
               content: res.msg,

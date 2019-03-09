@@ -69,7 +69,7 @@ export default {
   methods: {
     // 事件处理方法
     leftClick(){
-        this.$router.go(-1)
+        this.$router.push({name: "myTask"});
     },
     handler(name, active) {
       console.log(`Status of switch ${name} is ${active ? 'active' : 'inactive'}`)
@@ -79,8 +79,6 @@ export default {
         name: 'taskProgress',
         params: {
           detailsData:detailsData
-        },params:{
-          detailsData: detailsData
         }
       })
     },

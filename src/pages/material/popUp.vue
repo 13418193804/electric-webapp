@@ -139,7 +139,7 @@ export default {
 // 蒙层
 .apply {
   background: #fff;
-  padding: 20 * @rpx;
+  padding: 30 * @rpx;
   border-radius: 10 * @rpx;
   &-list {
     margin-bottom: 10 * @rpx;
