@@ -23,7 +23,6 @@ export default {
     required: true
   },
   mounted (){
-        // this.$toast.loading("加载定位中...");
     init(map => {
       this.map = map;
       // setPoint(this.map,29.602414,106.515893)
@@ -42,6 +41,8 @@ export default {
     //   map.addOverlay(marker)
     // }
     mapSetIcon(latitude,longitude){
+        // this.$toast.loading("加载定位中...");
+      
       // setTimeout(()=>{
         this.$nextTick(()=>{
                     // this.$toast.hide();

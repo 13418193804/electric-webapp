@@ -48,11 +48,11 @@
               <div class="flex material-top">
                   <div class="material-top-search">
                       <md-input-item
-                      ref="input0"
+                      ref="input0" v-model="keyword"
                       type="textarea"
                       :maxlength="200"
                       ></md-input-item>
-                      <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                      <div class="material-top-search-icon" @click="search(1)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
                   <div class="material-top-button">
                       <div class="tag"  @click="getApply()">申请物料</div>
@@ -97,12 +97,12 @@
               <!-- 扫一扫 -->
               <div class="flex material-top">
                   <div class="material-top-search">
-                      <md-input-item
+                      <md-input-item v-model="keyword"
                       ref="input0"
                       type="textarea"
                       :maxlength="200"
                       ></md-input-item>
-                      <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                      <div class="material-top-search-icon" @click="search(2)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
                   <div class="material-top-button">
                       <div class="tag">申请物料</div>
@@ -354,7 +354,8 @@ export default {
     getReserveData(callback = null) {
       this.$toast.loading("加载中...");
       let data = {
-        token: this.$store.getters.getToken
+        token: this.$store.getters.getToken,
+        keyword: this.keyword
       };
       this.service
         .httpRequest({
@@ -381,7 +382,8 @@ export default {
     getMateriallist() {
       this.$toast.loading("加载中...");
       let data = {
-        token: this.$store.getters.getToken
+        token: this.$store.getters.getToken,
+        keyword: this.keyword
       };
       this.service
         .httpRequest({
@@ -411,6 +413,17 @@ export default {
           id: item.id
         }
       });
+    },
+    search(index) {
+      // if ((this.keyword || "") == "") {
+      //   return;
+      // }
+      if (index == 1) {
+        this.getReserveData();
+      }
+      if (index == 2) {
+        this.getMateriallist();
+      }
     }
     /* end 
     *
@@ -486,11 +499,12 @@ export default {
         padding-left: 10px;
       }
       &-icon {
+        margin-top: -2.5px;
         position: absolute;
         right: 0;
         width: 30px;
         height: 30px;
-        top: 0;
+        top: 6px;
         line-height: 35px;
       }
     }
@@ -503,12 +517,12 @@ export default {
     width: 90%;
     margin: 20 * @rpx auto 0;
     &-box {
-      border-top: 1*@rpx solid #999;
-      border-left: 1*@rpx solid #999;
+      border-top: 1 * @rpx solid #999;
+      border-left: 1 * @rpx solid #999;
       &-list {
         width: 20%;
         text-align: center;
-        border-right: 1*@rpx solid #999;
+        border-right: 1 * @rpx solid #999;
         padding: 5px 0;
       }
       :nth-of-type(2) {
@@ -518,16 +532,21 @@ export default {
         width: 15%;
       }
       :nth-of-type(5) {
-        span{
-          display: inline-bloack;color:#fff;font-size: 24*@rpx;
-          padding: 5*@rpx;background: #4699ff;border-radius: 4px;padding: 3px 6px;
+        span {
+          display: inline-bloack;
+          color: #fff;
+          font-size: 24 * @rpx;
+          padding: 5 * @rpx;
+          background: #4699ff;
+          border-radius: 4px;
+          padding: 3px 6px;
         }
       }
     }
   }
 }
 .material-table-box:last-child {
-  border-bottom: 1*@rpx solid #999;
+  border-bottom: 1 * @rpx solid #999;
 }
 // 蒙层
 .apply {
