@@ -77,14 +77,16 @@ export default {
     getProgress(detailsData) {
       this.$router.push({
         name: 'taskProgress',
-        query: {
+        params: {
           detailsData:detailsData
         }
       })
     },
     /* API */
     getDataList(){
-      let id = this.$route.query.id
+      // let id = this.$route.query.id
+      let id = this.$route.params.id
+      console.log('详情',this.$route.params.id)
         this.service.httpRequest({
             url: "/aapi/workorderdetail",
             methods: "get",

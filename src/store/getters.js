@@ -20,3 +20,14 @@ export const getUserName = state => {
     }
 }
 
+export const getTaskId = state=> {
+    // userInfo: sessionStorage.getItem('xxx-info');
+    // mutations: {
+    //     setUserInfo(state, info) {
+    //         state.userInfo=info;
+    //         sessionStorage.setItem('xxx-info', info);
+    //     }
+    // }
+}
+
+

@@ -59,9 +59,11 @@
                 </div>
             </div>
         </div>
-
-           <md-button type="default" @click="postMaterialwarehouse">申请物料</md-button>
-
+        <!-- <md-button type="default" @click="postMaterialwarehouse">申请物料</md-button> -->
+        <!-- button -->
+      <div class="footBtb" @click="postMaterialwarehouse()">
+        申请物料
+      </div>
     </div>
   </div>
 </template>

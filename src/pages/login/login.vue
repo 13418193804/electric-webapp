@@ -132,6 +132,7 @@ export default {
       margin-bottom: 20px * @rpx;
       input {
         border: none;
+        outline: none;
         border-bottom: 2px * @rpx solid #fff;
         height: 70px * @rpx;
         padding-left: 10px * @rpx;

@@ -9,9 +9,18 @@
       </div>
        <p>操作人:{{username}}</p>
     </div> 
+    <div class="mine-cinfigbox">
+      <div>服务器地址：www.108.170.11</div>
+      <div>&nbsp;&nbsp;&nbsp;推送地址：wwe.1874.97793</div>
+      <div>&nbsp;&nbsp;&nbsp;链接状态：
+        <span><i class="iconfont icon-iconfontdian1"></i>已链接</span>
+        <!-- <span><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span>重新连接</span></span> -->
+      </div>
+    </div>
     <div class="mine-operation">
         <div @click="getSign()">签 到</div>
         <div @click="getData()">签 到 日 期</div>
+        <div @click="getConfigIp()">服务器配置</div>
     </div>
   </div>
 </template>
@@ -32,6 +41,9 @@ export default {
   },
   beforeCreate() {},
   methods: {
+    getConfigIp(){
+      this.$router.push({name:"configIp"})
+    },
     getSign() {
       this.service
         .httpRequest({
@@ -114,8 +126,21 @@ export default {
       margin-top: 30 * @rpx;
     }
   }
+  &-cinfigbox{
+    margin:20% auto 0;
+    width: 65%;
+    div{
+      text-align: left;
+      span{
+        position: relative;padding-left:20*@rpx;
+        i{
+          position: absolute;left:-26*@rpx;top:-10*@rpx;
+        }
+      }
+    }
+  }
   &-operation {
-    margin-top: 40%;
+    margin-top: 20%;
     div {
       display: inline-block;
       width: 70%;

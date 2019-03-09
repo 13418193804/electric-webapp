@@ -207,18 +207,24 @@ export default {
       }, 2000);
     },
     getDetails(id) { 
+      // this.$router.push({
+      //   name: "taskDetails",
+      //   query: {
+      //     id: id
+      //   }
+      // });
       this.$router.push({
         name: "taskDetails",
-        query: {
+        params: {
           id: id
         }
       });
     },
     getProgeess(detailsData) {
-      console.log('处理中')
+      console.log('quchuli',detailsData)
       this.$router.push({
         name: "taskProgress",
-        query: {
+        params: {
           detailsData: detailsData
         }
       });

@@ -85,13 +85,13 @@ export default new Router({
   },
   
   {
-    path: '/taskDetails',
+    path: '/taskDetails/:id',
     name: 'taskDetails',
     component: taskDetails,
     alias: '/pages/myTask/taskDetails'
   },
   {
-    path: '/taskProgress',
+    path: '/taskProgress/:detailsData',
     name: 'taskProgress',
     component: taskProgress,
     alias: '/pages/myTask/taskProgress'
