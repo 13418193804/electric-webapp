@@ -535,17 +535,24 @@ header {
 .icon-sousuo {
   font-size: 24px !important;
 }
-.icon-zanwushuju{
-  font-size: 54px !important;color: #999;
+.icon-zanwushuju {
+  font-size: 54px !important;
+  color: #999;
 }
-.noneData{
-  text-align: center;margin-top: 100px;
-  p{
-    margin-top:10px;color: #999;
+.noneData {
+  text-align: center;
+  margin-top: 100px;
+  p {
+    margin-top: 10px;
+    color: #999;
   }
 }
-.tag{
-  font-size: 20px*@rpx;border: 1px solid #4699ff;border-radius: 10*@rpx; padding: 4*@rpx 20*@rpx;display: inline-block;
+.tag {
+  font-size: 20px * @rpx;
+  border: 1px solid #4699ff;
+  border-radius: 10 * @rpx;
+  padding: 4 * @rpx 20 * @rpx;
+  display: inline-block;
 }
 .icon-shangchuantupian {
   font-size: 50px !important;
@@ -674,11 +681,65 @@ header {
     -moz-appearance: none;
     appearance: none;
     font-size: 17px;
-    }
-    select option{
-        font-size: 22*@rpx;
-    }
+  }
+  select option {
+    font-size: 22 * @rpx;
+  }
 }
+
+.details {
+  width: 100%;
+  height: 100%;
+  &-declare {
+    width: 90%;
+    margin: 45 * @rpx auto 0 * @rpx;
+    &-list {
+      flex-wrap: wrap;
+      background: #eeeeef;
+      padding: 0 5px;
+      position: relative;
+      font-size: 24 * @rpx;
+      border-bottom: 1px solid #fff;
+      .left {
+        width: 160 * @rpx;
+        text-align: right;
+        line-height: 30px;
+      }
+      .right {
+        width: 430 * @rpx;
+        line-height: 30px;
+      }
+      &-swich {
+        position: absolute;
+        right: 3px;
+        top: 4px;
+        button {
+          background: #2680f0;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          width: 100 * @rpx;
+          height: 50 * @rpx;
+          font-size: 24 * @rpx;
+        }
+      }
+    }
+    .auto {
+      .left {
+        width: 230 * @rpx!important;
+        margin-right: 10 * @rpx;
+      }
+      .right {
+        width: 380 * @rpx!important;
+      }
+    }
+  }
+  &-map {
+    width: 90%;
+    margin: 60 * @rpx auto 0 * @rpx;
+  }
+}
+
 // 按钮
 .footer-btn {
   text-align: center;
@@ -706,4 +767,6 @@ header {
 .md-dialog .md-popup {
   z-index: 2000;
 }
+
+//把每个页面的全局做好管理import进来
 </style>

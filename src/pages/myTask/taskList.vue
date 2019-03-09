@@ -220,6 +220,8 @@ export default {
         name: "taskProgress",
         query: {
           detailsData: detailsData
+        },params:{
+          detailsData: detailsData
         }
       });
     }
