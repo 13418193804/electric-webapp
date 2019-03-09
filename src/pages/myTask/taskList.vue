@@ -188,7 +188,7 @@ export default {
         });
     },
     leftClick() {
-      this.$router.go(-1);
+      this.$router.push('/');
     },
     handelClick(index) {
       if (this.active === index) {

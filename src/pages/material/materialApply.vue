@@ -4,16 +4,14 @@
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-
-
-
     
     <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" marginTop="110px" v-if="active == 0">
       <template slot="list-content">
         <!-- 物料申请 -->
         <div class="scroll-view-list material taskNew" >
             <div class="material-apply tag" @click="getApply()">申请物料</div>
-            <div class="material-list" v-for="(item,index) in appleyData" :key="index">
+
+            <div class="material-list" v-for="(item,index) in appleyData" :key="index" v-if="appleyData.length > 0">
                 <div class="flex flex-pack-justify material-list-dots">
                     <div>{{item.create_time}}</div>
                     <div>物料申请单：<span>{{item.workorder_id}}</span></div>
@@ -30,6 +28,10 @@
                         {{handleStatus(item)}}
                         </span></div>
                 </div>
+            </div>
+            <div class="noneData" v-else>
+                <i class="iconfont icon-zanwushuju"></i>
+                <p>暂无数据</p>
             </div>
         </div>
       
@@ -57,22 +59,28 @@
                   </div>
               </div>
 
-              <div class="material-table">
-                  <div class="flex material-table-box">
-                      <div class="material-table-box-list">编号</div>
-                      <div class="material-table-box-list">名称</div>
-                      <div class="material-table-box-list">单位</div>
-                      <div class="material-table-box-list">剩余数量</div>
-                      <div class="material-table-box-list"></div>
-                  </div>
-                  <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
-                  <div class="material-table-box-list">{{item.id}}</div>
-                      <div class="material-table-box-list">{{item.name}}</div>
-                      <div class="material-table-box-list">{{item.units}}</div>
-                      <div class="material-table-box-list">{{item.amount}}</div>
-                      <div class="material-table-box-list" @click="getPop(item)"><span>使用</span></div>
-                  </div>
-              </div>            
+              <div>
+                <div class="material-table" v-if="reserveData.length > 0">
+                    <div class="flex material-table-box">
+                        <div class="material-table-box-list">编号</div>
+                        <div class="material-table-box-list">名称</div>
+                        <div class="material-table-box-list">单位</div>
+                        <div class="material-table-box-list">剩余数量</div>
+                        <div class="material-table-box-list"></div>
+                    </div>
+                    <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
+                      <div class="material-table-box-list">{{item.id}}</div>
+                        <div class="material-table-box-list">{{item.name}}</div>
+                        <div class="material-table-box-list">{{item.units}}</div>
+                        <div class="material-table-box-list">{{item.amount}}</div>
+                        <div class="material-table-box-list" @click="getPop(item)"><span>使用</span></div>
+                    </div>
+                </div>
+                <div class="noneData" v-else>
+                    <i class="iconfont icon-zanwushuju"></i>
+                    <p>暂无数据</p>
+                </div>
+              </div>    
               <!-- 列表 -->
               <div class="material-reserve-table">
                   <div class=""></div>
@@ -84,7 +92,7 @@
 
         <!-- 物料使用记录 -->
         <div class="scroll-view-list material" v-if="active == 2">
-                    <div style="height:60px;"></div>
+            <div style="height:60px;"></div>
             <div class="material-reserve">
               <!-- 扫一扫 -->
               <div class="flex material-top">
@@ -100,23 +108,29 @@
                       <div class="tag">申请物料</div>
                   </div>
               </div>
-              <div class="material-table">
-                  <div class="flex material-table-box">
-                      <div class="material-table-box-list">编号</div>
-                      <div class="material-table-box-list">名称</div>
-                      <div class="material-table-box-list">单位</div>
-                      <div class="material-table-box-list">剩余数量</div>
-                      <div class="material-table-box-list">使用情况</div>
-                  </div>
-                  <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
-                  <div class="material-table-box-list">{{item.id}}</div>
-                      <div class="material-table-box-list">{{item.name}}</div>
-                      <div class="material-table-box-list">{{item.units}}</div>
-                      <div class="material-table-box-list">{{item.amount}}</div>
-                      <div class="material-table-box-list" @click="goTask(item)">{{item.is_wastage==1?'损耗':'查看工单'}}</div>
-                      <!-- wastageOrworkorder -->
-                  </div>
-              </div>            
+              <div>
+                <div class="material-table" v-if="materiallist.length > 0">
+                    <div class="flex material-table-box">
+                        <div class="material-table-box-list">编号</div>
+                        <div class="material-table-box-list">名称</div>
+                        <div class="material-table-box-list">单位</div>
+                        <div class="material-table-box-list">剩余数量</div>
+                        <div class="material-table-box-list">使用情况</div>
+                    </div>
+                    <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
+                        <div class="material-table-box-list">{{item.id}}</div>
+                        <div class="material-table-box-list">{{item.name}}</div>
+                        <div class="material-table-box-list">{{item.units}}</div>
+                        <div class="material-table-box-list">{{item.amount}}</div>
+                        <div class="material-table-box-list" @click="goTask(item)">{{item.is_wastage==1?'损耗':'查看工单'}}</div>
+                        <!-- wastageOrworkorder -->
+                    </div>
+                </div>    
+                <div class="noneData" v-else>
+                    <i class="iconfont icon-zanwushuju"></i>
+                    <p>暂无数据</p>
+                </div>   
+              </div>     
               <!-- 物料列表 -->
               <div class="material-reserve-table">
                   <div class=""></div>
