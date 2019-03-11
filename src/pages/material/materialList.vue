@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="Mdetails-form">
-            <div class="Mdetails-form-list flex flex-pack-justify">
+            <div class="Mdetails-form-list flex flex-pack-justify" v-if="this.$route.query.id==undefined">
               <div>关联任务单：{{workorderId||''}}</div>
               <div class="tag" @click="changeChecktask">选择任务单</div>
             </div>
@@ -235,6 +235,7 @@ export default {
         })
         .then(res => {
           this.$toast.hide();
+          console.log('====', list)
           if (res.returnStatus) {
             this.$toast.succeed("已提交申请", 2000, true);
             setTimeout(() => {

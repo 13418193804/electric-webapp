@@ -195,20 +195,23 @@ this.detailsData = this.$route.params.detailsData
         });
         return;
       }
-      this.imgs = this.imgs.join(",");
+      // this.imgs = this.imgs.join(",");
+      let img_paths = []
+      console.log('tupian', this.imgs.length)
       let data = {
         token: this.$store.getters.getToken,
         id: this.detailsData.id,
         solution: this.solution,
         desp: this.desp,
         status: this.status,
-        img_paths: this.imgs
+        img_paths: this.imgs.join(",")
       };
       console.log("提交", data);
+      
       this.service
         .httpRequest({
           url: "/aapi/workorderdetail",
-          methods: "get",
+          methods: "post",
           data: data
         })
         .then(res => {
