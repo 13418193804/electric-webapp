@@ -1,6 +1,6 @@
 
 //全局Zoom
-const Zoom = 16;
+const Zoom = 20;
 
 
 /**
@@ -68,7 +68,7 @@ export const init = (callback) => {
     // })
 
     var pt = new BMap.Point(106.515893, 29.602414);
-    map.centerAndZoom('北京', Zoom);
+    // map.centerAndZoom('北京', Zoom);
     map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
     map.enableContinuousZoom();
 

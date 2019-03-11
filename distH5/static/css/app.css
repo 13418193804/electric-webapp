@@ -1710,10 +1710,14 @@ input:-ms-input-placeholder {
   width: 90%;
   margin: 2.72727rem auto 0;
 }
+.clearfix {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
 .clearfix li {
   width: 7.27273rem;
   height: 7.27273rem;
-  margin: 0 1.36364rem 1.36364rem 0;
+  margin: 0 2.27273rem 1.36364rem 0;
   position: relative;
 }
 .clearfix .picBox .deleteImg {
@@ -1951,11 +1955,12 @@ input:-ms-input-placeholder {
   padding-left: 0.90909rem;
 }
 .material-top-search-icon {
+  margin-top: -0.22727rem;
   position: absolute;
   right: 0;
   width: 2.72727rem;
   height: 2.72727rem;
-  top: 0;
+  top: 0.54545rem;
   line-height: 3.18182rem;
 }
 .material-top-button {
@@ -2042,7 +2047,7 @@ input:-ms-input-placeholder {
 @charset "utf-8";
 .apply {
   background: #fff;
-  padding: 0.90909rem;
+  padding: 1.36364rem;
   border-radius: 0.45455rem;
 }
 .apply-list {
