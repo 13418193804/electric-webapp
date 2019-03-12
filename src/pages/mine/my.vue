@@ -66,7 +66,6 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             this.servicerData = res.data
-            console.log(res)
           } else {
             this.$dialog.alert({
               content: res.msg,

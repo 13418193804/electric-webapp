@@ -57,12 +57,12 @@
         </div>
         <div class="details-result-cause">
             <div class="left">上传：</div>
-            <ul class="flex clearfix"> 
+            <ul class="flex clearfix">
                 <li class="picBox" v-if="imgs.length>0" v-for='(item ,index ) in imgs' :key="index">
                     <div class="deleteImg" @click="getDeleteImg(index)">
                       <i class="iconfont icon-guanbi"></i>
                     </div>
-                    <img :src="'http://'+item">
+                    <img :src="baseImageUrl+item">
                 </li>
                 <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
                     <p><i class="iconfont icon-shangchuantupian"></i></p>
@@ -120,10 +120,9 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    console.log(this.$route)
     // this.getDataList()
-this.detailsData = this.$route.params.detailsData
-    console.log('解决',this.detailsData)
+    this.detailsData = this.$route.params.detailsData
+    // console.log('解决',this.detailsData)
   },
   methods: {
     getDeleteImg(index) {
@@ -154,12 +153,10 @@ this.detailsData = this.$route.params.detailsData
         })
         .then(res => {
           if (res.returnStatus) {
-            let baseImageUrl = Vue.prototype.baseImageUrl
-            uri = baseImageUrl+res.data.img_path;
+           
             reader.readAsDataURL(img1);
-            var that = this;
-            reader.onloadend = function() {
-              that.imgs.push(uri);
+            reader.onloadend = ()=> {
+              this.imgs.push(res.data.img_path);
             };
           } else {
             this.$dialog.alert({
@@ -178,24 +175,15 @@ this.detailsData = this.$route.params.detailsData
     },
     handelSelect(event) {
       this.curId = event.target.value;
-      console.log(event.target.value);
       this.status = event.target.value;
     },
     handelCheck(item, index) {
       this.active = index;
       this.solution = item.name;
-      console.log(item);
     },
     /* API */
     getSubmit() {
       this.$toast.loading("加载中...");
-      // if (this.status === "") {
-      //   this.$dialog.alert({
-      //     content: "请选择解决方案",
-      //     confirmText: "确定"
-      //   });
-      //   return;
-      // }
       if (this.status === "") {
         this.$toast.hide();
         this.$toast.info("请选择要提交的物料");
@@ -208,10 +196,8 @@ this.detailsData = this.$route.params.detailsData
       list.push("desp=" + this.desp);
       list.push("status=" + this.status);
       let length = this.imgs.filter(item => {
-        console.log(item)
         list.push("img_paths=" + item);
       }).length;
-      console.log("提交", list);
       this.service
         .httpRequest({
           url: "/aapi/workorderdetail?" + list.join("&"),
