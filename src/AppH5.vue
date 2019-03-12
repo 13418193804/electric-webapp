@@ -535,6 +535,10 @@ header {
 .icon-sousuo {
   font-size: 24px !important;
 }
+.icon-dizhi1{
+  font-size: 22px !important;
+  color: #1575ed !important;
+}
 .icon-zanwushuju {
   font-size: 54px !important;
   color: #999;
@@ -704,13 +708,19 @@ header {
     &-list {
       flex-wrap: wrap;
       background: #eeeeef;
-      padding: 0 5px;
+      padding: 2px 5px;
       position: relative;
       font-size: 24 * @rpx;
       border-bottom: 1px solid #fff;
+      div{
+        i{
+          display: inline-block;width: 20px;text-align: center;
+        }
+      }
       .left {
-        width: 160 * @rpx;
-        text-align: right;
+        width: 145 * @rpx;
+        padding-left: 10*@rpx;
+        text-align: left;
         line-height: 30px;
       }
       .right {
@@ -734,11 +744,11 @@ header {
     }
     .auto {
       .left {
-        width: 230 * @rpx!important;
+        width: 240 * @rpx!important;
         margin-right: 10 * @rpx;
       }
       .right {
-        width: 380 * @rpx!important;
+        width: 370 * @rpx!important;
       }
     }
   }

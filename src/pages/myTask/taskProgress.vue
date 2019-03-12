@@ -2,26 +2,25 @@
   <div class="details">
     <cheader title="我的任务" @leftClick="leftClick"></cheader>
     <div class="details-declare">
-        <div class="flex details-declare-list">
+         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">{{detailsData.location||''+ detailsData.device_name||''+detailsData.fault||''}}</div>
-            <!-- <div class="details-declare-list-swich">
-              <button @click="getProgress(detailsData)">处理</button>
-            </div> -->
+            <div class="right">{{detailsData.location||''+detailsData.device_name||''+detailsData.fault||''}}</div>
         </div>
         <div class="flex details-declare-list auto">
             <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i>{{detailsData.type == 0 ?'系统自动派单':'手动派单'}}</div>
             <div class="right"> <span>{{detailsData.create_time}}</span></div>
         </div>
-        <!-- <div class="flex details-declare-list">
+        <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">{{detailsData.solution}}</div>
-        </div> -->
-        <div class="flex details-declare-list auto">
-            <div class="left">位置：{{detailsData.location||''}}</div>
-            <div class="right">坐标：{{detailsData.longitude||''}} {{detailsData.latitude||''}}</div>
+            <div class="right">{{detailsData.solution||''}}</div>
         </div>
         <div class="flex details-declare-list">
+            <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>
+            <div class="right" style="line-height: 70px;"> {{detailsData.location||''}}</div>
+        </div>
+        <div class="flex details-declare-list">
+            <div class="left" style="text-align: right;">坐标：</div>
+            <div class="right"> {{detailsData.longitude||'' }} {{detailsData.latitude||''}}</div>
         </div>
     </div>
     <div class="details-result">
@@ -53,13 +52,13 @@
         <div class="flex details-result-cause">
             <div class="left">备注：</div>
             <div class="details-result-cause-remak">
-                <input type="textarea" v-model="desp">
+                <textarea v-model="desp"></textarea>
             </div>
         </div>
         <div class="details-result-cause">
             <div class="left">上传：</div>
             <ul class="flex clearfix"> 
-                <li class="picBox" v-if="imgs.length>0" v-for='(item ,index ) in imgs'>
+                <li class="picBox" v-if="imgs.length>0" v-for='(item ,index ) in imgs' :key="index">
                     <div class="deleteImg" @click="getDeleteImg(index)">
                       <i class="iconfont icon-guanbi"></i>
                     </div>
@@ -104,6 +103,7 @@ export default {
       curId: 1,
       isOption: false,
       imgs: [], // 图片路径
+      imgList: [], //array img
       imgData: {
         accept: "image/gif, image/jpeg, image/png, image/jpg"
       }
@@ -154,8 +154,8 @@ this.detailsData = this.$route.params.detailsData
         })
         .then(res => {
           if (res.returnStatus) {
-            console.log(res.data.img_path);
-            uri = res.data.img_path;
+            let baseImageUrl = Vue.prototype.baseImageUrl
+            uri = baseImageUrl+res.data.img_path;
             reader.readAsDataURL(img1);
             var that = this;
             reader.onloadend = function() {
@@ -188,35 +188,43 @@ this.detailsData = this.$route.params.detailsData
     },
     /* API */
     getSubmit() {
+      this.$toast.loading("加载中...");
+      // if (this.status === "") {
+      //   this.$dialog.alert({
+      //     content: "请选择解决方案",
+      //     confirmText: "确定"
+      //   });
+      //   return;
+      // }
       if (this.status === "") {
-        this.$dialog.alert({
-          content: "请选择解决方案",
-          confirmText: "确定"
-        });
+        this.$toast.hide();
+        this.$toast.info("请选择要提交的物料");
         return;
       }
-      // this.imgs = this.imgs.join(",");
-      let img_paths = []
-      console.log('tupian', this.imgs.length)
-      let data = {
-        token: this.$store.getters.getToken,
-        id: this.detailsData.id,
-        solution: this.solution,
-        desp: this.desp,
-        status: this.status,
-        img_paths: this.imgs.join(",")
-      };
-      console.log("提交", data);
-      
+      let list = [];
+      list.push("token=" + this.$store.getters.getToken);
+      list.push("id=" + this.detailsData.id);
+      list.push("solution=" + this.solution);
+      list.push("desp=" + this.desp);
+      list.push("status=" + this.status);
+      let length = this.imgs.filter(item => {
+        console.log(item)
+        list.push("img_paths=" + item);
+      }).length;
+      console.log("提交", list);
       this.service
         .httpRequest({
-          url: "/aapi/workorderdetail",
+          url: "/aapi/workorderdetail?" + list.join("&"),
           methods: "post",
-          data: data
+          data: {}
         })
         .then(res => {
-          if (res.data.status === "00") {
-            this.$router.push({name: "myTask"});
+          this.$toast.hide();
+          if (res.returnStatus) {
+            this.$toast.succeed("已提交申请", 2000, true);
+            setTimeout(() => {
+              this.$router.push({name: "myTask"});
+            }, 1000);
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -303,14 +311,15 @@ this.detailsData = this.$route.params.detailsData
         margin-left: 15 * @rpx;
         line-height: 24 * @rpx!important;
         height: 90 * @rpx!important;
-        input {
+        textarea {
           width: 100%;
           border: 1px solid #ddd;
           outline: none;
           height: 90 * @rpx;
           font-size: 24 * @rpx;
-          padding: 2px 5px;
+          padding: 5px 10px;
           line-height: 24 * @rpx!important;
+          resize: none;
         }
       }
     }
@@ -329,39 +338,39 @@ this.detailsData = this.$route.params.detailsData
     }
   }
 }
-.details{
-  width: 100%;height: 100%;
-  &-declare{
-    width: 90%;margin: 45*@rpx auto 0*@rpx;
-    &-list{
-      flex-wrap: wrap;background:#eeeeef;padding:0 5px;position: relative;
-      font-size:24*@rpx;border-bottom: 1px solid #fff;
-      .left{
-        width: 160*@rpx;text-align: right;line-height: 30px;
-      }
-      .right{
-        width:430*@rpx;line-height: 30px;
-      }
-      &-swich{
-        position: absolute;right: 3px;top: 4px;
-        button{
-          background: #2680f0;color: #fff;border: none;border-radius: 5px;width:100*@rpx;height: 50*@rpx;font-size: 24*@rpx;
-        }
-      }
-    }
-    .auto{  
-      .left{
-        width: 230*@rpx!important;margin-right: 10*@rpx;
-      }
-      .right{
-        width: 380*@rpx!important;
-      }
-    }
-  }
-  &-map{
-    width: 90%;margin: 60*@rpx auto 0*@rpx;
-  }
-}
+// .details{
+//   width: 100%;height: 100%;
+//   &-declare{
+//     width: 90%;margin: 45*@rpx auto 0*@rpx;
+//     &-list{
+//       flex-wrap: wrap;background:#eeeeef;padding:0 5px;position: relative;
+//       font-size:24*@rpx;border-bottom: 1px solid #fff;
+//       .left{
+//         width: 160*@rpx;text-align: right;line-height: 30px;
+//       }
+//       .right{
+//         width:430*@rpx;line-height: 30px;
+//       }
+//       &-swich{
+//         position: absolute;right: 3px;top: 4px;
+//         button{
+//           background: #2680f0;color: #fff;border: none;border-radius: 5px;width:100*@rpx;height: 50*@rpx;font-size: 24*@rpx;
+//         }
+//       }
+//     }
+//     .auto{  
+//       .left{
+//         width: 230*@rpx!important;margin-right: 10*@rpx;
+//       }
+//       .right{
+//         width: 380*@rpx!important;
+//       }
+//     }
+//   }
+//   &-map{
+//     width: 90%;margin: 60*@rpx auto 0*@rpx;
+//   }
+// }
 // 上传
 .clearfix {
   flex-wrap: wrap;

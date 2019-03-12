@@ -79,6 +79,11 @@ export default {
     getAdd() {
       if (this.nowNum < this.materialspareObject.amount) {
         this.nowNum += 1;
+      } else{
+        this.$dialog.alert({
+          content:'已超出库存',
+          confirmText: "确定"
+        });
       }
     },
     //使用备用物料

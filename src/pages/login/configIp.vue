@@ -4,14 +4,14 @@
     <div class="ipbox">
         <div class="loginForm"> 
             <div>
-                <input type="text" v-model="ipForm.username" placeholder="服务器地址"> 
+                <input type="text" v-model="ipForm.url" placeholder="服务器地址"> 
             </div>
-            <div>
+            <!-- <div>
                 <input type="text" v-model="ipForm.password"  placeholder="推送地址"> 
-            </div>
+            </div> -->
         </div>
         <div class="loginCode">
-            <div>保存</div>
+            <div @click="getFormIP()">保存</div>
         </div>
     </div>
   </div>
@@ -19,6 +19,7 @@
 
 <script>
 import { mapMutations } from "vuex";
+import { Dialog, Button, Toast } from "mand-mobile";
 import cheader from '../../components/header'
 import store from "../../store/index";
 
@@ -44,6 +45,32 @@ export default {
     leftClick(){
         this.$router.go(-1)
     },
+    /* API star */
+    getFormIP() {
+      this.service
+        .httpRequest({
+          url: "/aapi/server",
+          methods: "post",
+          data: { 
+            token: this.$store.getters.getToken ,
+            url: this.ipForm.url
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.$toast.succeed("已添加", 2000, true);
+            setTimeout(() => {
+              this.$router.push({name: "my"});
+            }, 1000);
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
+    /* end */
   }
 };
 </script>

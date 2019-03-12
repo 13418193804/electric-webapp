@@ -10,12 +10,12 @@
        <p>操作人:{{username}}</p>
     </div> 
     <div class="mine-cinfigbox">
-      <div>服务器地址：www.108.170.11</div>
-      <div>&nbsp;&nbsp;&nbsp;推送地址：wwe.1874.97793</div>
-      <div>&nbsp;&nbsp;&nbsp;链接状态：
+      <div>服务器地址：{{servicerData.servicer}}</div>
+      <!-- <div>&nbsp;&nbsp;&nbsp;推送地址：wwe.1874.97793</div> -->
+     <!--  <div>&nbsp;&nbsp;&nbsp;链接状态：
         <span><i class="iconfont icon-iconfontdian1"></i>已链接</span>
-        <!-- <span><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span>重新连接</span></span> -->
-      </div>
+        <span><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span>重新连接</span></span>
+      </div> -->
     </div>
     <div class="mine-operation">
         <div @click="getSign()">签 到</div>
@@ -33,16 +33,47 @@ export default {
     // 选项 数据
     return {
       imgInfo: {}, // 存图片的宽高信息
+      servicerData: [],
       username: this.$store.getters.getUserName
     };
   },
   components: {
     // 定义组件
   },
+  created() {
+    // 生命周期函数
+    // console.log('homeroot', this.$root, this.$root.$mp)
+  },
+  mounted() {
+    if ((this.$store.getters.getToken || "") == "") {
+      this.$router.replace("/login");
+      return;
+    }
+    this.getImgInfo();
+    this.getServer()
+  },
   beforeCreate() {},
   methods: {
-    getConfigIp(){
-      this.$router.push({name:"configIp"})
+    
+    /* API star */
+    getServer() {
+      this.service
+        .httpRequest({
+          url: "/aapi/server",
+          methods: "get",
+          data: { token: this.$store.getters.getToken }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.servicerData = res.data
+            console.log(res)
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
     },
     getSign() {
       this.service
@@ -66,8 +97,12 @@ export default {
           }
         });
     },
+    /* API star */
     getData() {
       this.$router.push({ name: "sign" });
+    },
+    getConfigIp(){
+      this.$router.push({name:"configIp"})
     },
     getImgInfo() {
       let img = new Image();
@@ -83,17 +118,7 @@ export default {
       window.plusReady();
     }
   },
-  created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
-  },
-  mounted() {
-    if ((this.$store.getters.getToken || "") == "") {
-      this.$router.replace("/login");
-      return;
-    }
-    this.getImgInfo();
-  }
+  
 };
 </script>
 
@@ -128,7 +153,7 @@ export default {
   }
   &-cinfigbox{
     margin:20% auto 0;
-    width: 65%;
+    width: 70%;
     div{
       text-align: left;
       span{

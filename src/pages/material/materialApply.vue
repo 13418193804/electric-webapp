@@ -438,7 +438,10 @@ export default {
 .material {
   // margin-top: 100 * @rpx;
   position: relative;
-  padding: 5% 5% 5% 3%;
+  // padding: 5% 5% 5% 3%;
+  width: 90%;
+  margin:0 auto;
+  padding:5% 0;
   &-apply {
     position: absolute;
     right: 35 * @rpx;
@@ -481,7 +484,7 @@ export default {
   }
   // 扫一扫
   &-top {
-    width: 90%;
+    // width: 90%;
     margin: 0 * @rpx auto;
     height: 80 * @rpx;
     justify-content: space-between;
@@ -514,8 +517,8 @@ export default {
   }
   // table
   &-table {
-    width: 90%;
-    margin: 20 * @rpx auto 0;
+    width: 100%;
+    margin-top: 20*@rpx;
     &-box {
       border-top: 1 * @rpx solid #999;
       border-left: 1 * @rpx solid #999;

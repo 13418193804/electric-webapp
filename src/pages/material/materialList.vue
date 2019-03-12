@@ -54,7 +54,7 @@
              <div class="Mdetails-form-list">
                 <div>领用备注：</div>
                 <div>
-                    <textarea style="width:100%;height:50px;border:1px solid #ddd"></textarea>
+                    <textarea style=""></textarea>
                 </div>
             </div>
         </div>
@@ -140,9 +140,15 @@ export default {
           if (getCount < row.amount) {
             getCount += 1;
             this.preMaterialList[idx].getCount = getCount;
+          }else {
+              this.$dialog.alert({
+              content:'已超出库存',
+              confirmText: "确定"
+            });
           }
         } else {
           this.preMaterialList.push(Object.assign(row, { getCount: 1 }));
+          
         }
         this.preMaterialList.push();
       });
@@ -333,6 +339,10 @@ export default {
       margin-bottom: 10px;
       div {
         margin-bottom: 10px;
+        textarea{
+          width:100%;height:60px;border:1px solid #ddd;outline: none;
+          padding: 10*@rpx 20*@rpx;font-size: 24*@rpx;
+        }
       }
       &-border {
         border: 1px solid #ddd;
