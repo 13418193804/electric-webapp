@@ -173,6 +173,7 @@ export default {
               list.push(item);
             });
             this.quoteData[active] = list;
+            console.log('res',this.quoteData[active])
             this.active = active;
             this.quoteData.push();
           } else {
