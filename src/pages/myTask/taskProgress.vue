@@ -209,7 +209,12 @@ export default {
           if (res.returnStatus) {
             this.$toast.succeed("已提交申请", 2000, true);
             setTimeout(() => {
-              this.$router.push({name: "myTask"});
+              this.$router.push({
+                name: "taskDetails",
+                params: {
+                  id: this.detailsData.id
+                }
+              });
             }, 1000);
           } else {
             this.$dialog.alert({

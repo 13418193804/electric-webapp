@@ -5,15 +5,15 @@
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
             <div class="right">{{detailsData.location||''+detailsData.device_name||''+detailsData.fault||''}}</div>
-            <div class="details-declare-list-swich">
+            <div class="details-declare-list-swich" v-if="detailsData.status==0">
               <button @click="getProgress(detailsData)">处理</button>
             </div>
-            <!-- <div class="details-declare-list-swich" v-if="detailsData.status==1">
+            <div class="details-declare-list-swich" v-if="detailsData.status==1">
               <button>处理中</button>
             </div>
             <div class="details-declare-list-swich" v-if="detailsData.status==2">
               <button>已处理</button>
-            </div> -->
+            </div>
         </div>
         <div class="flex details-declare-list auto">
             <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i>{{detailsData.type == 0 ?'系统自动派单':'手动派单'}}</div>

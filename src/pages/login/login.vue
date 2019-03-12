@@ -25,6 +25,7 @@
 <script>
 import { mapMutations } from "vuex";
 import store from "../../store/index";
+import Vue from "vue";
 
 export default {
   data() {
@@ -44,6 +45,7 @@ export default {
   },
   mounted() {
     store.state.bAuth = false;
+    console.log(this.$store.getters.getToken)
   },
   methods: {
     // 事件处理方法
@@ -52,16 +54,17 @@ export default {
       this.$router.push({ name: "configIp" });
     },
     goLogin() {
-      // if ((localStorage.servicer || "") == "") {
-      //   this.$toast.info("请配置服务器");
-      //   return;
+      console.log(localStorage.servicer)
+      if ((localStorage.servicer || "") == ""){
+        this.$toast.info("请配置服务器");
+         return;
+      }
+      // if (this.loginForm.username == "q") {
+      //   this.loginForm.username = "18603050282";
       // }
-      if (this.loginForm.username == "q") {
-        this.loginForm.username = "18603050282";
-      }
-      if (this.loginForm.password == "q") {
-        this.loginForm.password = "123456";
-      }
+      // if (this.loginForm.password == "q") {
+      //   this.loginForm.password = "123456";
+      // }
       // this.loginForm.username = "18603050282";
       // this.loginForm.password = "123456";
       this.$toast.loading("登录中...");
@@ -78,17 +81,36 @@ export default {
             // 将用户token保存到vuex中
             localStorage.setItem("packageToken", res.data.token);
             localStorage.setItem("username", res.data.username || "");
-            
-            
             this.setUserInfo({
               token: res.data.token,
               username: res.data.username || ""
             });
             
-
-         
+            // 提交服务器
+            this.service
+              .httpRequest({
+                url: "/aapi/server",
+                methods: "post",
+                data: {
+                  token: this.$store.getters.getToken,
+                  url: localStorage.servicer
+                }
+              })
+              .then(res => {
+                if (res.returnStatus) {
+                  this.$toast.succeed("配置成功", 2000, true);
+                  setTimeout(() => {
+                    this.$router.push({ name: "login" });
+                  }, 1000);
+                } else {
+                  this.$dialog.alert({
+                    content: res.msg,
+                    confirmText: "确定"
+                  });
+                }
+              });
             this.$router.push({ name: "home" });
-            // store.state.bAuth = true;
+            store.state.bAuth = true;
             // this.$router.push({ name: "home" });
           } else {
             this.$dialog.alert({

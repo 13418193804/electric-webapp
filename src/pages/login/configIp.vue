@@ -11,7 +11,7 @@
             </div> -->
         </div>
         <div class="loginCode">
-            <div @click="getFormIP()">保存</div>
+            <div @click="handelConfig()">保存</div>
         </div>
     </div>
   </div>
@@ -22,6 +22,7 @@ import { mapMutations } from "vuex";
 import { Dialog, Button, Toast } from "mand-mobile";
 import cheader from "../../components/header";
 import store from "../../store/index";
+import Vue from "vue";
 
 export default {
   data() {
@@ -38,13 +39,25 @@ export default {
     // 生命周期函数
   },
   mounted() {
-    store.state.bAuth = false;
-    ipForm.url = localStorage.servicer || "";
+    // store.state.bAuth = false;
+    // this.ipForm.url = localStorage.servicer || "";
+    // console.log('ip',Vue.prototype.baseImageUrl)
   },
+
   methods: {
     // 事件处理方法
     leftClick() {
       this.$router.go(-1);
+    },
+    handelConfig(){
+      if((this.$store.getters.getToken||'') == ''){
+        console.log('没登陆')
+          localStorage.servicer = this.ipForm.url
+          this.$router.push({ name: "login" });
+      } else {
+        console.log('sssss')
+        this.getFormIP()
+      }
     },
     /* API star */
     getFormIP() {
@@ -59,9 +72,9 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-            this.$toast.succeed("保存成功", 2000, true);
+            this.$toast.succeed("配置成功", 2000, true);
             setTimeout(() => {
-              this.$router.push({ name: "my" });
+              this.$router.push({ name: "login" });
             }, 1000);
           } else {
             this.$dialog.alert({

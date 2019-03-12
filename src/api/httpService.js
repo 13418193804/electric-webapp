@@ -20,6 +20,7 @@ export default {
         } else if(res.data.status === '08'|| res.data.status === '02'){
           window.myvue.$toast.info(res.data.msg)
           window.myvue.$router.replace('/login')
+          localStorage.removeItem("packageToken");
         }else{
           return {
             returnStatus: false,

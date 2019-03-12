@@ -30,7 +30,7 @@
                  <!-- 处理中 -->
                 <div class="scroll-view-list taskList" v-if="active == 1" >
                     <ul v-if="quoteData[active].length > 0">
-                        <li v-for="(item,index) in quoteData[active] " :key="index" @click="getProgeess(item)">
+                        <li v-for="(item,index) in quoteData[active] " :key="index" @click="getProgeess(item.id)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：{{item.fault}}</h4>
@@ -47,7 +47,7 @@
                  <!-- 处理完毕 -->
                 <div class="scroll-view-list taskList"  v-if="active == 2">
                     <ul v-if="quoteData[active].length > 0">
-                        <li v-for="(item,index) in  quoteData[active] " :key="index">
+                        <li v-for="(item,index) in  quoteData[active] " :key="index" @click="getEnd(item.id)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
@@ -221,14 +221,21 @@ export default {
         }
       });
     },
-    getProgeess(detailsData) {
-      console.log('quchuli',detailsData)
+    getProgeess(id) {
+      console.log('quchuli',id)
       this.$router.push({
-        name: "taskProgress",
+        name: "taskDetails",
         params: {
-          detailsData: detailsData
-        },params:{
-          detailsData: detailsData
+          id: id
+        }
+      });
+    },
+    getEnd(id) {
+      console.log('quchuli',id)
+      this.$router.push({
+        name: "taskDetails",
+        params: {
+          id: id
         }
       });
     }
