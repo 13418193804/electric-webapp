@@ -52,10 +52,10 @@ export default {
       this.$router.push({ name: "configIp" });
     },
     goLogin() {
-      if ((localStorage.servicer || "") == "") {
-        this.$toast.info("请配置服务器");
-        return;
-      }
+      // if ((localStorage.servicer || "") == "") {
+      //   this.$toast.info("请配置服务器");
+      //   return;
+      // }
       if (this.loginForm.username == "q") {
         this.loginForm.username = "18603050282";
       }
@@ -78,10 +78,15 @@ export default {
             // 将用户token保存到vuex中
             localStorage.setItem("packageToken", res.data.token);
             localStorage.setItem("username", res.data.username || "");
+            
+            
             this.setUserInfo({
               token: res.data.token,
               username: res.data.username || ""
             });
+            
+
+         
             this.$router.push({ name: "home" });
             // store.state.bAuth = true;
             // this.$router.push({ name: "home" });

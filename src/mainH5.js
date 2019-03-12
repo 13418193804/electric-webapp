@@ -42,6 +42,7 @@ Vue.use(mandMobile)
 
 Vue.config.productionTip = false
 Vue.prototype.baseImageUrl = base_url
+
 Vue.use(Vuex)
 Vue.mixin({
     data() {
