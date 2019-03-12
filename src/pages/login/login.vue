@@ -4,7 +4,7 @@
         <img src="../../assets/logo1.png" alt="">
     </div>
     <h1>智 能 电 源 箱 管 理</h1>
-    <h3>监控不当机 只选ONY</h3>
+    <h3>监控不当机 只选ONV</h3>
     <div class="loginForm"> 
         <div>
             <input type="text" name="username" v-model="loginForm.username" placeholder="请输入账号"> 

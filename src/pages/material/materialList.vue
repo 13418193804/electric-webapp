@@ -273,6 +273,118 @@ export default {
 
 <style lang="less">
 @import "../../../static/css/common.less";
+
+.material {
+  // margin-top: 100 * @rpx;
+  position: relative;
+  padding: 5% 5% 5% 3%;
+  &-apply {
+    position: absolute;
+    right: 35 * @rpx;
+    top: -12 * @rpx;
+  }
+  &-list {
+    margin-bottom: 25 * @rpx;
+    div {
+      margin-bottom: 15 * @rpx;
+      flex-wrap: wrap;
+    }
+    &-dots {
+      i {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4699ff;
+        display: inline-block;
+      }
+    }
+    &-btn {
+      border: 1 * @rpx solid #7e7e7e;
+      line-height: 56 * @rpx;
+      padding: 0 5px;
+      border-radius: 5px;
+      margin-bottom: 15 * @rpx!important;
+    }
+    &-operation {
+      align-items: center;
+      overflow: hidden;
+      div {
+        float: left;
+        width: 60%;
+      }
+      :nth-of-type(2) {
+        float: right;
+        width: 40%;
+      }
+    }
+  }
+  // 扫一扫
+  &-top {
+    width: 100%;
+    // margin: 0 * @rpx auto;
+    height: 80 * @rpx;
+    justify-content: space-between;
+    &-search {
+      width: 75%;
+      position: relative;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding-left: 20 * @rpx;
+      .md-input-item .md-input-item-control .md-input-item-fake,
+      .md-input-item .md-input-item-control .md-input-item-input {
+        border: 1px solid #eee;
+        border-radius: 5px;
+        height: 35px;
+        padding-left: 10px;
+      }
+      &-icon {
+        margin-top: -2.5px;
+        position: absolute;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        top: 6px;
+        line-height: 35px;
+      }
+    }
+    &-button {
+      padding-top: 15 * @rpx;
+    }
+  }
+  // table
+  &-table {
+    width: 90%;
+    margin: 20 * @rpx auto 0;
+    &-box {
+      border-top: 1 * @rpx solid #999;
+      border-left: 1 * @rpx solid #999;
+      &-list {
+        width: 20%;
+        text-align: center;
+        border-right: 1 * @rpx solid #999;
+        padding: 5px 0;
+      }
+      :nth-of-type(2) {
+        width: 30%;
+      }
+      :nth-of-type(3) {
+        width: 15%;
+      }
+      :nth-of-type(5) {
+        span {
+          display: inline-bloack;
+          color: #fff;
+          font-size: 24 * @rpx;
+          padding: 5 * @rpx;
+          background: #4699ff;
+          border-radius: 4px;
+          padding: 3px 6px;
+        }
+      }
+    }
+  }
+}
+
 .Mdetails {
   width: 90%;
   margin: 40 * @rpx auto;
