@@ -20,7 +20,7 @@
 <script>
 import { mapMutations } from "vuex";
 import { Dialog, Button, Toast } from "mand-mobile";
-import cheader from '../../components/header'
+import cheader from "../../components/header";
 import store from "../../store/index";
 
 export default {
@@ -39,11 +39,12 @@ export default {
   },
   mounted() {
     store.state.bAuth = false;
+    ipForm.url = localStorage.servicer || "";
   },
   methods: {
     // 事件处理方法
-    leftClick(){
-        this.$router.go(-1)
+    leftClick() {
+      this.$router.go(-1);
     },
     /* API star */
     getFormIP() {
@@ -51,16 +52,16 @@ export default {
         .httpRequest({
           url: "/aapi/server",
           methods: "post",
-          data: { 
-            token: this.$store.getters.getToken ,
+          data: {
+            token: this.$store.getters.getToken,
             url: this.ipForm.url
           }
         })
         .then(res => {
           if (res.returnStatus) {
-            this.$toast.succeed("已添加", 2000, true);
+            this.$toast.succeed("保存成功", 2000, true);
             setTimeout(() => {
-              this.$router.push({name: "my"});
+              this.$router.push({ name: "my" });
             }, 1000);
           } else {
             this.$dialog.alert({
@@ -69,7 +70,7 @@ export default {
             });
           }
         });
-    },
+    }
     /* end */
   }
 };
@@ -77,43 +78,43 @@ export default {
 
 <style lang="less" scope>
 @import "../../../static/css/common.less";
-.ipbox{
+.ipbox {
   padding: 5% 5%;
 }
 .loginForm {
-    text-align: left;
-    padding: 40px * @rpx 60px * @rpx;
-    position: relative;
-    div {
-      margin-bottom: 20px * @rpx;
-      input {
-        border: none;
-        border: 1px * @rpx solid #4699ff;
-        height: 70px * @rpx;
-        border-radius: 5px;
-        padding-left: 10px * @rpx;
-        width: 100%;
-        color: #333;
-        font-size: 28 * @rpx;
-      }
-    }
-  }
-  .loginCode {
-    margin-top: 60px * @rpx;
-    text-align: center;
-    div {
-      width: 210px * @rpx;
+  text-align: left;
+  padding: 40px * @rpx 60px * @rpx;
+  position: relative;
+  div {
+    margin-bottom: 20px * @rpx;
+    input {
+      border: none;
+      border: 1px * @rpx solid #4699ff;
       height: 70px * @rpx;
-      border-radius: 100px * @rpx;
-      background: #4699ff;
-      margin: 0 auto;
-      margin-top: 30 * @rpx;
-      color: #fff;
-      text-align: center;
-      line-height: 70px * @rpx;
-      font-size: 16px;
+      border-radius: 5px;
+      padding-left: 10px * @rpx;
+      width: 100%;
+      color: #333;
+      font-size: 28 * @rpx;
     }
   }
+}
+.loginCode {
+  margin-top: 60px * @rpx;
+  text-align: center;
+  div {
+    width: 210px * @rpx;
+    height: 70px * @rpx;
+    border-radius: 100px * @rpx;
+    background: #4699ff;
+    margin: 0 auto;
+    margin-top: 30 * @rpx;
+    color: #fff;
+    text-align: center;
+    line-height: 70px * @rpx;
+    font-size: 16px;
+  }
+}
 .ipbox input::-webkit-input-placeholder {
   color: #999;
 }

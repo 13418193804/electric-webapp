@@ -48,10 +48,14 @@ export default {
   methods: {
     // 事件处理方法
     ...mapMutations(["changeLogin"]),
-    getConfigIp(){
-      this.$router.push({name:"configIp"})
+    getConfigIp() {
+      this.$router.push({ name: "configIp" });
     },
     goLogin() {
+      if ((localStorage.servicer || "") == "") {
+        this.$toast.info("请配置服务器");
+        return;
+      }
       if (this.loginForm.username == "q") {
         this.loginForm.username = "18603050282";
       }
@@ -73,7 +77,7 @@ export default {
             this.userToken = "Bearer " + res.data.token;
             // 将用户token保存到vuex中
             localStorage.setItem("packageToken", res.data.token);
-            localStorage.setItem("username", res.data.username||'');
+            localStorage.setItem("username", res.data.username || "");
             this.setUserInfo({
               token: res.data.token,
               username: res.data.username || ""
