@@ -38,9 +38,9 @@
             </div>
         </div>
         <div class="Mdetails-form">
-            <div class="Mdetails-form-list flex flex-pack-justify" v-if="this.$route.query.id==undefined">
+            <div class="Mdetails-form-list flex flex-pack-justify">
               <div>关联任务单：{{workorderId||''}}</div>
-              <div class="tag" @click="changeChecktask">选择任务单</div>
+              <div class="tag" v-if="this.$route.params.detailsData==undefined" @click="changeChecktask">选择任务单</div>
             </div>
             <!-- <div class="Mdetails-form-list">
                 领用备注：76543456789
@@ -98,8 +98,10 @@ export default {
   },
   mounted() {
     this.getMaterialwarehouse();
-    if (this.$route.query.id) {
-      this.workorderId = this.$route.query.id;
+    
+    if (this.$route.params.detailsData) {
+      this.workorderId = this.$route.params.detailsData.id;
+      console.log('tiaozhuan',this.$route.params.detailsData.id)
     }
   },
   methods: {

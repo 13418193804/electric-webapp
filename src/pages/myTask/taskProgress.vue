@@ -12,7 +12,7 @@
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">{{detailsData.solution||''}}</div>
+            <div class="right"></div>
         </div>
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>
@@ -62,7 +62,7 @@
                     <div class="deleteImg" @click="getDeleteImg(index)">
                       <i class="iconfont icon-guanbi"></i>
                     </div>
-                    <img :src="baseImageUrl+item">
+                    <img :src="item">
                 </li>
                 <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
                     <p><i class="iconfont icon-shangchuantupian"></i></p>
@@ -75,7 +75,7 @@
       <div class="details-footer-btn column6" @click="goMaterialList()">物料申请</div>
       <div class="details-footer-btn" @click="getSubmit()">提交</div>
     </div>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -121,8 +121,21 @@ export default {
   },
   mounted() {
     // this.getDataList()
-    this.detailsData = this.$route.params.detailsData
-    // console.log('解决',this.detailsData)
+    if(this.$route.params.detailsData){
+      this.detailsData = this.$route.params.detailsData
+      if(this.detailsData.status == 0){
+        this.curOption = ''
+
+      }else{
+        this.curOption = this.detailsData.status
+        this.status = this.detailsData.status
+        this.curId = this.detailsData.status
+      }
+      this.solution = this.detailsData.solution
+      this.desp = this.detailsData.desp
+      this.imgs = this.detailsData.imgs
+      console.log('解决',this.detailsData)
+    }
   },
   methods: {
     getDeleteImg(index) {
@@ -153,10 +166,11 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-           
+            uri = Vue.prototype.baseImageUrl + response.data.img_path
+            console.log('==',uri)
             reader.readAsDataURL(img1);
             reader.onloadend = ()=> {
-              this.imgs.push(res.data.img_path);
+              this.imgs.push(uri);
             };
           } else {
             this.$dialog.alert({
@@ -209,7 +223,12 @@ export default {
           if (res.returnStatus) {
             this.$toast.succeed("已提交申请", 2000, true);
             setTimeout(() => {
-              this.$router.push({name: "myTask"});
+              this.$router.push({
+                name: "myTask",
+                params: {
+                  active: this.status
+                }
+              });
             }, 1000);
           } else {
             this.$dialog.alert({
@@ -222,7 +241,8 @@ export default {
     goMaterialList() {
       this.$router.push({
         name: "materialList",
-        query: { id: this.detailsData.id }
+        params: { detailsData: this.detailsData }
+        // params: { id: this.detailsData.id }
       });
     }
   }

@@ -6,12 +6,13 @@ import App from './AppH5'
 import router from './router'
 import wxService from './api/wxService'
 import httpService from './api/httpService'
-import store from './store'
+import store from './store/index'
 import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
 import BScroll from 'better-scroll'
 import * as FastClick from "fastclick"
 import { base_url } from './api/conf';
+Vue.prototype.baseImageUrl = base_url
 
 FastClick.attach(document.body)
 
@@ -41,7 +42,6 @@ Vue.use(mandMobile)
 // Vue.use(BMap)
 
 Vue.config.productionTip = false
-Vue.prototype.baseImageUrl = base_url
 
 Vue.use(Vuex)
 Vue.mixin({
@@ -67,15 +67,13 @@ Vue.mixin({
         this.service = httpService
     },
     // 判断是否登录
-    beforeCreate(to, form, next){
-        if((this.$store.getters.getToken||'') ==''){
-            this.$router.replace('/login')
-        } 
+    beforeCreate(){
+       
     }
 })
 
 /* eslint-disable no-new */
-new Vue({
+let newVue = new Vue({
     el: '#app',
     router,
     components: { App },
@@ -83,4 +81,18 @@ new Vue({
     store
 })
 
+
+router.beforeEach((to, from, next) => {
+    if (to.path === '/login' || to.path === '/configIp' ) {
+      next();
+    } else {
+      console.log('baocuo')
+      if ((newVue.$store.getters.getToken||'') =='') {
+        console.log('kong')
+        next('/login');
+      } else {
+        next();
+      }
+    }
+  });
 
