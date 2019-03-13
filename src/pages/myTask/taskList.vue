@@ -115,13 +115,15 @@ export default {
     };
   },
   mounted() {
-    this.getDataList(0);
+    if(this.$route.params.active){
+      this.active = this.$route.params.active
+      console.log('====fanhui',this.active)
+    }
+    this.getDataList(this.active);
     window.ScrollViewTrigger1 = () => {
       this.$refs.scrollView.triggerRefresh();
     };
-    this.$route.params.active
-    this.active = this.$route.params.active
-    console.log('====fanhui',this.active)
+    
   },
   methods: {
     onPullingUp() {
@@ -137,7 +139,6 @@ export default {
 
     forceUpdate(status) {
       console.log()
-      status = this.active
       //  isFinished   判断当前是否可以继续加载
       //  然后设置子组件可否加载的状态
       this.isFinished = status;
@@ -147,7 +148,6 @@ export default {
     },
     /* api */
     getDataList(active) {
-      console.log('active',this.active)
       this.$toast.loading("加载中...");
       let list = this.quoteData[active] || [];
       this.quoteData[active] = [];
