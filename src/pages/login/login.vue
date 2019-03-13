@@ -79,7 +79,6 @@ export default {
             localStorage.setItem("packageToken", res.data.token);
             localStorage.setItem("username", res.data.username || "");
             
-            
             this.setUserInfo({
               token: res.data.token,
               username: res.data.username || ""
