@@ -79,6 +79,7 @@ export default {
             // 将用户token保存到vuex中
             localStorage.setItem("packageToken", res.data.token);
             localStorage.setItem("username", res.data.username || "");
+            
             this.setUserInfo({
               token: res.data.token,
               username: res.data.username || ""
