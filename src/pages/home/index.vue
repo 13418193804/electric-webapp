@@ -5,17 +5,20 @@
       <img src="../../assets/homebanner.png" alt="">
     </div>
     <div class="flex menus">
-        <div @click="getTask()"><img src="../../assets/task.png" alt=""><h3>我的任务</h3></div>
+        <div @click="getTask()">
+          <div class="badge" v-if="numbelData.undisposed">{{numbelData.undisposed}}</div>
+          <img src="../../assets/task.png" alt=""><h3>我的任务</h3>
+        </div>
         <div @click="getEquipment()"><img src="../../assets/equipment.png" alt=""><h3>设备管理</h3></div>
         <div @click="getMaterial()"> <img src="../../assets/material.png" alt=""><h3>物料管理</h3></div>
         <div @click="getMessage()"> <img src="../../assets/messge.png" alt=""><h3>消息</h3></div>
     </div>
     <div class="cartogram">
       <div class="flex catTop">
-          <div><i class="dot"></i>离线设备 <span>222</span>台</div>
-          <div><i class="dot"></i>未处理任务 <span>2</span>条</div>
-          <div><i class="dot"></i>在线设备 <span>2</span>台</div>
-          <div><i class="dot"></i>以处理任务 <span>22</span>条</div>
+          <div><i class="dot"></i>离线设备 <span>{{numbelData.offline}}</span>台</div>
+          <div><i class="dot"></i>未处理任务 <span>{{numbelData.undisposed}}</span>条</div>
+          <div><i class="dot"></i>在线设备 <span>{{numbelData.online}}</span>台</div>
+          <div><i class="dot"></i>已处理任务 <span>{{numbelData.processed}}</span>条</div>
       </div>
       <div class="flex chat catTop ">
          <div>
@@ -43,12 +46,29 @@ export default {
   data() {
     // 选项 数据
     return {
+      numbelData:[]
     };
   },
   components: {
     // 定义组件
   },
-
+created() {
+    // 生命周期函数
+    // console.log('homeroot', this.$root, this.$root.$mp)
+  },
+  mounted() {
+    this.getNumbel()
+    init([
+      {
+        id: "canvas_circle",
+        data_arr: [0.8, 0.2]
+      },
+      {
+        id: "canvas_circle1",
+        data_arr: [0.8, 0.8]
+      }
+    ]);
+  },
   methods: {
     // 事件处理方法
     gotoGame(path) {
@@ -68,34 +88,29 @@ export default {
     },
     goMine() {
       this.$router.push({ name: "my" }); // 我的
-    }
-  },
-  created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
-  },
-  mounted() {
-    init([
-      {
-        id: "canvas_circle",
-        data_arr: [0.8, 0.2]
-      },
-      {
-        id: "canvas_circle1",
-        data_arr: [0.8, 0.8]
-      }
-    ]);
-
-    // this.service
-    //   .httpRequest({
-    //     url: "/address/queryprovince",
-    //     methods: "post",
-    //     data: {}
-    //   })
-    //   .then(res => {
-    //     console.log(res);
-    //   });
-    // console.log('home999', this.$root, this.$root.$mp)
+    },
+    /* API */
+    getNumbel(){
+      this.service
+        .httpRequest({
+          url: "/aapi/getstatistics",
+          methods: "get",
+          data: {
+            token:this.$store.getters.getToken
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.numbelData = res.data.data
+            console.log(res.data)
+          }else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
   }
 };
 </script>
@@ -132,12 +147,17 @@ export default {
     width: 50%;
     text-align: center;
     height: 140 * @rpx;
-    margin-top:50*@rpx;
+    margin-top:50*@rpx;position: relative;
     img{
       width: 84*@rpx;height: 86*@rpx;
     }
     h3{
       margin-top:20*@rpx;
+    }
+    .badge{
+      background: #f56c6c;color: #fff;font-size: 25*@rpx;
+      position: absolute;right: 15px;top: -15px;border-radius: 20px;
+      width: 35px;height: 25px;text-align: center;line-height: 25px;
     }
   }
 }

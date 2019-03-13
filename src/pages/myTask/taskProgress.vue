@@ -62,7 +62,7 @@
                     <div class="deleteImg" @click="getDeleteImg(index)">
                       <i class="iconfont icon-guanbi"></i>
                     </div>
-                    <img :src="item">
+                    <img :src="baseImageUrl + item">
                 </li>
                 <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
                     <p><i class="iconfont icon-shangchuantupian"></i></p>
@@ -166,11 +166,11 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-            uri = Vue.prototype.baseImageUrl + response.data.img_path
-            console.log('==',uri)
+            // uri = Vue.prototype.baseImageUrl + response.data.img_path
+            // console.log('==',uri)
             reader.readAsDataURL(img1);
             reader.onloadend = ()=> {
-              this.imgs.push(uri);
+              this.imgs.push(res.data.img_path);
             };
           } else {
             this.$dialog.alert({
