@@ -23,7 +23,7 @@ import { Dialog, Button, Toast } from "mand-mobile";
 import cheader from "../../components/header";
 import store from "../../store/index";
 import Vue from "vue";
-import { setBaseUrl, getBaseUrl } from "../../api/conf"
+import { base_url } from "../../api/conf"
 
 export default {
   data() {
@@ -43,8 +43,8 @@ export default {
   mounted() {
     store.state.bAuth = false;
     this.ipForm.url = localStorage.servicer;
-    getBaseUrl()
-    console.log('configip-',setBaseUrl())
+    // getBaseUrl()
+    // console.log('configip-',setBaseUrl())
   },
 
   methods: {
