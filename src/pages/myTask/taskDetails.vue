@@ -21,7 +21,7 @@
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">{{detailsData.solution||''}}</div>
+            <div class="right"></div>
         </div>
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>

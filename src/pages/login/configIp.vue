@@ -23,6 +23,7 @@ import { Dialog, Button, Toast } from "mand-mobile";
 import cheader from "../../components/header";
 import store from "../../store/index";
 import Vue from "vue";
+import { setBaseUrl, getBaseUrl } from "../../api/conf"
 
 export default {
   data() {
@@ -37,11 +38,13 @@ export default {
   },
   created() {
     // 生命周期函数
+    this.ipForm.url = localStorage.servicer;
   },
   mounted() {
-    // store.state.bAuth = false;
-    // this.ipForm.url = localStorage.servicer || "";
-    // console.log('ip',Vue.prototype.baseImageUrl)
+    store.state.bAuth = false;
+    this.ipForm.url = localStorage.servicer;
+    getBaseUrl()
+    console.log('configip-',setBaseUrl())
   },
 
   methods: {
@@ -51,12 +54,17 @@ export default {
     },
     handelConfig(){
       if((this.$store.getters.getToken||'') == ''){
-        console.log('没登陆')
-          localStorage.servicer = this.ipForm.url
-          this.$router.push({ name: "login" });
+
+          if(this.ipForm.url!==''){
+            localStorage.servicer = this.ipForm.url //本地存
+            this.$router.push({ name: "login" });
+          }
+
+          console.log('未登录',localStorage.servicer)
       } else {
-        console.log('sssss')
-        this.getFormIP()
+          localStorage.servicer = this.ipForm.url //本地存
+          this.getFormIP()
+          console.log('已登陆',localStorage.servicer)
       }
     },
     /* API star */
@@ -73,6 +81,7 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             this.$toast.succeed("配置成功", 2000, true);
+            localStorage.servicer = this.ipForm.url
             setTimeout(() => {
               this.$router.push({ name: "login" });
             }, 1000);

@@ -45,28 +45,26 @@ export default {
   },
   mounted() {
     store.state.bAuth = false;
-    console.log(this.$store.getters.getToken)
+    console.log('login==',localStorage.servicer)
   },
   methods: {
     // 事件处理方法
     ...mapMutations(["changeLogin"]),
     getConfigIp() {
-      this.$router.push({ name: "configIp" });
+      this.$router.push( '/configIp');
     },
     goLogin() {
-      console.log(localStorage.servicer)
-      if ((localStorage.servicer || "") == ""){
-        this.$toast.info("请配置服务器");
-         return;
-      }
+      // if (localStorage.servicer == ''||localStorage.servicer == undefined){
+      //   console.log('kong')
+      //   this.$toast.info("请配置服务器");
+      //    return;
+      // }
       // if (this.loginForm.username == "q") {
       //   this.loginForm.username = "18603050282";
       // }
       // if (this.loginForm.password == "q") {
       //   this.loginForm.password = "123456";
       // }
-      // this.loginForm.username = "18603050282";
-      // this.loginForm.password = "123456";
       this.$toast.loading("登录中...");
       this.service
         .httpRequest({
@@ -100,7 +98,7 @@ export default {
                 if (res.returnStatus) {
                   this.$toast.succeed("配置成功", 2000, true);
                   setTimeout(() => {
-                    this.$router.push({ name: "login" });
+                    this.$router.push({ name: "home" });
                   }, 1000);
                 } else {
                   this.$dialog.alert({
@@ -109,9 +107,7 @@ export default {
                   });
                 }
               });
-            this.$router.push({ name: "home" });
-            store.state.bAuth = true;
-            // this.$router.push({ name: "home" });
+              store.state.bAuth = true;
           } else {
             this.$dialog.alert({
               content: res.msg,

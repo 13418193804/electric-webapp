@@ -30,7 +30,7 @@
                  <!-- 处理中 -->
                 <div class="scroll-view-list taskList" v-if="active == 1" >
                     <ul v-if="quoteData[active].length > 0">
-                        <li v-for="(item,index) in quoteData[active] " :key="index" @click="getProgeess(item.id)">
+                        <li v-for="(item,index) in quoteData[active] " :key="index" @click="getProgeess(item)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
                                 <h4> 报警：{{item.fault}}</h4>
@@ -115,10 +115,15 @@ export default {
     };
   },
   mounted() {
+    
+
     this.getDataList(0);
     window.ScrollViewTrigger1 = () => {
       this.$refs.scrollView.triggerRefresh();
     };
+    this.$route.params.active
+    this.active = this.$route.params.active
+    console.log('====fanhui',this.active)
   },
   methods: {
     onPullingUp() {
@@ -221,12 +226,12 @@ export default {
         }
       });
     },
-    getProgeess(id) {
-      console.log('quchuli',id)
+    getProgeess(detailsData) {
+      console.log('quchuli',detailsData)
       this.$router.push({
-        name: "taskDetails",
+        name: "taskProgress",
         params: {
-          id: id
+          detailsData: detailsData
         }
       });
     },
