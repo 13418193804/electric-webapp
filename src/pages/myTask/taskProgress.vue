@@ -4,7 +4,7 @@
     <div class="details-declare">
          <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">{{detailsData.location||''+detailsData.device_name||''+detailsData.fault||''}}</div>
+            <div class="right">{{detailsData.fault||''}}</div>
         </div>
         <div class="flex details-declare-list auto">
             <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i>{{detailsData.type == 0 ?'系统自动派单':'手动派单'}}</div>
@@ -12,7 +12,7 @@
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right"></div>
+            <div class="right">{{detailsData.solution}}</div>
         </div>
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>
@@ -57,19 +57,30 @@
         </div>
         <div class="details-result-cause">
             <div class="left">上传：</div>
-            <ul class="flex clearfix">
-                <li class="picBox" v-if="imgs.length>0" v-for='(item ,index ) in imgs' :key="index">
-                    <div class="deleteImg" @click="getDeleteImg(index)">
-                      <i class="iconfont icon-guanbi"></i>
-                    </div>
-                    <img :src="baseImageUrl + item">
-                </li>
-                <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
-                    <p><i class="iconfont icon-shangchuantupian"></i></p>
-                    <input class="upload" ref="input" @change='add_img'  type="file" style="opacity:0;">
-                </li>
-            </ul>
+              <ul class="flex clearfix">
+                <template v-if="imgs.length>0" v-for="(item, index) in imgs">
+                  <li class="picBox" @click="showViewer(index, $event)" :key="index">
+                      <div class="deleteImg" @click="getDeleteImg(index)">
+                        <i class="iconfont icon-guanbi"></i>
+                      </div>
+                      <div class="img" :style="`background: url(${baseurl+item}) center no-repeat;background-size:cover;`">
+                        
+                      </div>
+                      <!-- <img :src="baseurl + item"> -->
+                  </li>
+                </template>
+                  <li class="uploadPic" v-if="imgs.length>=6 ? false : true">
+                      <p><i class="iconfont icon-shangchuantupian"></i></p>
+                      <input class="upload" ref="input" @change='add_img'  type="file" style="opacity:0;">
+                  </li>
+              </ul>
         </div>
+        <md-image-viewer
+        v-model="isViewerShow"
+        :list="urlimgs"
+        :has-dots="true"
+        :initial-index="viewerIndex">
+      </md-image-viewer>
     </div>
     <div class="flex flex-pack-center details-footer">
       <div class="details-footer-btn column6" @click="goMaterialList()">物料申请</div>
@@ -80,8 +91,8 @@
 
 <script>
 import cheader from "../../components/header";
-import { Switch } from "mand-mobile";
-import Vue from "vue";
+import { Switch,ImageViewer } from "mand-mobile";
+import { setBaseUrl, getBaseUrl } from "../../api/conf";
 export default {
   data() {
     // 选项 数据
@@ -106,12 +117,17 @@ export default {
       imgList: [], //array img
       imgData: {
         accept: "image/gif, image/jpeg, image/png, image/jpg"
-      }
+      },
+      baseurl: '', // url
+      isViewerShow: false,
+      viewerIndex: 0,
+      urlimgs: []
     };
   },
   name: "switch-demo",
   components: {
     [Switch.name]: Switch,
+    [ImageViewer.name]: ImageViewer,
     // 定义组件
     cheader
   },
@@ -120,6 +136,8 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
+    this.baseurl = getBaseUrl()
+    
     // this.getDataList()
     if(this.$route.params.detailsData){
       this.detailsData = this.$route.params.detailsData
@@ -134,12 +152,20 @@ export default {
       this.solution = this.detailsData.solution
       this.desp = this.detailsData.desp
       this.imgs = this.detailsData.imgs
+      this.imgs.forEach(item => {
+        let url = this.baseurl + item
+        this.urlimgs.push(url)
+      });
       console.log('解决',this.detailsData)
     }
   },
   methods: {
     getDeleteImg(index) {
       this.imgs.splice(index, 1);
+    },
+    showViewer(index) {
+      this.viewerIndex = index
+      this.isViewerShow = true
     },
     add_img(event) {
       let reader = new FileReader();
@@ -166,8 +192,10 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-            // uri = Vue.prototype.baseImageUrl + response.data.img_path
+            // uri = Vue.prototype.baseImageUrl + res.data.img_path
             // console.log('==',uri)
+            uri = this.baseurl + res.data.img_path
+            this.urlimgs.push(uri)
             reader.readAsDataURL(img1);
             reader.onloadend = ()=> {
               this.imgs.push(res.data.img_path);
@@ -387,6 +415,10 @@ export default {
     position: relative;
   }
   .picBox {
+    .img{
+      width: 160 * @rpx;
+      height: 160 * @rpx;
+    }
     .deleteImg {
       position: absolute;
       right: -14 * @rpx;
@@ -412,6 +444,34 @@ export default {
     input {
       width: 100%;
       height: 100%;
+    }
+  }
+}
+.md-example-child-image-reader{
+  float: left;
+  width: 100%;
+  .md-example-child{
+    float: left;
+  }
+  ul{
+    float: left;
+    width: 100%;
+    li{
+      position: relative;
+      float: left;
+      width: 22%;
+      padding-bottom: 22%;
+      margin-left: 2%;
+      margin-top: 2%;
+      border-sizing: border-box;
+      border-radius: 2px;
+      overflow: hidden;
+      list-style: none;
+      .img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

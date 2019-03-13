@@ -4,7 +4,7 @@
     <div class="details-declare">
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>报警：</div>
-            <div class="right">{{detailsData.location||''+detailsData.device_name||''+detailsData.fault||''}}</div>
+            <div class="right">{{fault||''}}</div>
             <div class="details-declare-list-swich" v-if="detailsData.status==0">
               <button @click="getProgress(detailsData)">处理</button>
             </div>
@@ -21,7 +21,7 @@
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right"></div>
+            <div class="right">{{detailsData.solution}}</div>
         </div>
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>
@@ -99,8 +99,8 @@ export default {
         }).then(res => {
             if(res.returnStatus){
                this.detailsData = res.data.workorder
+               console.log(this.detailsData)
                this.flag = true
-
                this.$nextTick(()=>{
                 this.$refs.map.mapSetIcon(this.detailsData.latitude,this.detailsData.longitude)
                })

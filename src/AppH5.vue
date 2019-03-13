@@ -346,17 +346,17 @@ body {
   top: 219/7.5vw;
   left: 35/7.5vw;
 }
-.item {
-  width: 68/7.5vw;
-  height: 68/7.5vw;
-  margin: 0 5/7.5vw 2/7.5vw 0;
-  z-index: 10;
-  box-sizing: border-box;
-  position: relative;
-}
+// .item {
+//   width: 68/7.5vw;
+//   height: 68/7.5vw;
+//   margin: 0 5/7.5vw 2/7.5vw 0;
+//   z-index: 10;
+//   box-sizing: border-box;
+//   position: relative;
+// }
 .item img {
   width: 100%;
-  height: 100%;
+  // height: 100%;
 }
 .item .lighted {
   position: absolute;
