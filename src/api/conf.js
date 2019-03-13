@@ -16,7 +16,17 @@
 // }
 // console.log('base///=', urlip)
 
-export const base_url = "http://onv.96ba.com:442"
+// http://onv.96ba.com:442
+
+export const base_url = ""
+export const setBaseUrl = (base_url) => {
+    this.base_url = base_url
+    localStorage.servicer = base_url
+}
+export const getBaseUrl = () => {
+    return this.base_url || localStorage.servicer
+}
+
 
 
 

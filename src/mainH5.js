@@ -11,8 +11,8 @@ import mandMobile from 'mand-mobile'
 import 'mand-mobile/lib/mand-mobile.css'
 import BScroll from 'better-scroll'
 import * as FastClick from "fastclick"
-import { base_url } from './api/conf';
-Vue.prototype.baseImageUrl = base_url
+// import { base_url } from './api/conf';
+// Vue.prototype.baseImageUrl = base_url
 
 FastClick.attach(document.body)
 

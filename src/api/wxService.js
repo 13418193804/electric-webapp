@@ -1,5 +1,5 @@
 
-import {base_url}  from "./conf"
+import {base_url,getBaseUrl}  from "./conf"
 
 export default {
   async getUserInfo() {
@@ -28,7 +28,7 @@ export default {
       //     break
       // }
       wx.request({
-        url:base_url+  options.url,
+        url:getBaseUrl()+  options.url,
         data: Object.assign({}, options.data),
         method: options.methods || 'GET',
         header:  options.headers || {

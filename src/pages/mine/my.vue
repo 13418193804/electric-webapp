@@ -1,5 +1,6 @@
 <template>
   <div id="my" class="mine">
+    <cheader title="" @leftClick="leftClick" v-show="false"></cheader>
     <div class="mine-titile">
         <h2 @click="handelBack()">我的</h2>
     </div>
@@ -10,7 +11,7 @@
        <p>操作人:{{username}}</p>
     </div> 
     <div class="mine-cinfigbox">
-      <div>服务器地址：{{servicerData.servicer}}</div>
+      <div>服务器地址：{{servicerData.servicer||''}}</div>
       <!-- <div>&nbsp;&nbsp;&nbsp;推送地址：wwe.1874.97793</div> -->
      <!--  <div>&nbsp;&nbsp;&nbsp;链接状态：
         <span><i class="iconfont icon-iconfontdian1"></i>已链接</span>
@@ -27,6 +28,8 @@
 
 <script>
 import Vue from "vue";
+import cheader from "../../components/header";
+
 const $vue = new Vue();
 export default {
   data() {
@@ -50,11 +53,14 @@ export default {
       return;
     }
     this.getImgInfo();
-    this.getServer()
+    this.getServer();
   },
   beforeCreate() {},
   methods: {
-    
+    // 事件处理方法
+    leftClick() {
+      this.$router.push("/");
+    },
     /* API star */
     getServer() {
       this.service
@@ -65,7 +71,7 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-            this.servicerData = res.data
+            this.servicerData = res.data;
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -100,8 +106,8 @@ export default {
     getData() {
       this.$router.push({ name: "sign" });
     },
-    getConfigIp(){
-      this.$router.push({name:"configIp"})
+    getConfigIp() {
+      this.$router.push({ name: "configIp" });
     },
     getImgInfo() {
       let img = new Image();
@@ -116,8 +122,7 @@ export default {
     handelBack() {
       window.plusReady();
     }
-  },
-  
+  }
 };
 </script>
 
@@ -150,15 +155,18 @@ export default {
       margin-top: 30 * @rpx;
     }
   }
-  &-cinfigbox{
-    margin:20% auto 0;
+  &-cinfigbox {
+    margin: 20% auto 0;
     width: 70%;
-    div{
+    div {
       text-align: left;
-      span{
-        position: relative;padding-left:20*@rpx;
-        i{
-          position: absolute;left:-26*@rpx;top:-10*@rpx;
+      span {
+        position: relative;
+        padding-left: 20 * @rpx;
+        i {
+          position: absolute;
+          left: -26 * @rpx;
+          top: -10 * @rpx;
         }
       }
     }

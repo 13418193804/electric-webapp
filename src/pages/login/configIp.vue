@@ -23,8 +23,7 @@ import { Dialog, Button, Toast } from "mand-mobile";
 import cheader from "../../components/header";
 import store from "../../store/index";
 import Vue from "vue";
-import { setBaseUrl, getBaseUrl } from "../../api/conf"
-
+import { setBaseUrl, getBaseUrl } from "../../api/conf";
 export default {
   data() {
     // 选项 数据
@@ -37,14 +36,10 @@ export default {
     cheader
   },
   created() {
-    // 生命周期函数
-    this.ipForm.url = localStorage.servicer;
+    this.ipForm.url = getBaseUrl();
   },
   mounted() {
     store.state.bAuth = false;
-    this.ipForm.url = localStorage.servicer;
-    getBaseUrl()
-    console.log('configip-',setBaseUrl())
   },
 
   methods: {
@@ -52,19 +47,20 @@ export default {
     leftClick() {
       this.$router.go(-1);
     },
-    handelConfig(){
-      if((this.$store.getters.getToken||'') == ''){
+    handelConfig() {
+      if ((this.ipForm.url || "") == "") {
+        this.$toast.info("请输入服务器地址");
+        return;
+      }
 
-          if(this.ipForm.url!==''){
-            localStorage.servicer = this.ipForm.url //本地存
-            this.$router.push({ name: "login" });
-          }
-
-          console.log('未登录',localStorage.servicer)
+      if ((this.$store.getters.getToken || "") == "") {
+        setBaseUrl(this.ipForm.url);
+        this.$router.push({ name: "login" });
       } else {
-          localStorage.servicer = this.ipForm.url //本地存
-          this.getFormIP()
-          console.log('已登陆',localStorage.servicer)
+        setBaseUrl(this.ipForm.url);
+        //立刻设置 不可请求成功后设置
+        //修改那一刻接口已经请求不了了
+        this.getFormIP();
       }
     },
     /* API star */
@@ -75,15 +71,18 @@ export default {
           methods: "post",
           data: {
             token: this.$store.getters.getToken,
-            url: this.ipForm.url
+            url: getBaseUrl()
           }
         })
         .then(res => {
           if (res.returnStatus) {
             this.$toast.succeed("配置成功", 2000, true);
-            localStorage.servicer = this.ipForm.url
             setTimeout(() => {
-              this.$router.push({ name: "login" });
+              if ((this.$store.getters.getToken || "") == "") {
+                this.$router.replace({ name: "login" });
+              } else {
+                this.$router.replace({ name: "my" });
+              }
             }, 1000);
           } else {
             this.$dialog.alert({
