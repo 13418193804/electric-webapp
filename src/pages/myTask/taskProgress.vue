@@ -60,7 +60,7 @@
               <ul class="flex clearfix">
                 <template v-if="imgs.length>0" v-for="(item, index) in imgs">
                   <li class="picBox" @click="showViewer(index, $event)" :key="index">
-                      <div class="deleteImg" @click="getDeleteImg(index)">
+                      <div class="deleteImg" @click.stop="getDeleteImg(index)">
                         <i class="iconfont icon-guanbi"></i>
                       </div>
                       <div class="img" :style="`background: url(${baseurl+item}) center no-repeat;background-size:cover;`">
@@ -91,7 +91,7 @@
 
 <script>
 import cheader from "../../components/header";
-import { Switch,ImageViewer } from "mand-mobile";
+import { Switch, ImageViewer } from "mand-mobile";
 import { setBaseUrl, getBaseUrl } from "../../api/conf";
 export default {
   data() {
@@ -118,7 +118,7 @@ export default {
       imgData: {
         accept: "image/gif, image/jpeg, image/png, image/jpg"
       },
-      baseurl: '', // url
+      baseurl: "", // url
       isViewerShow: false,
       viewerIndex: 0,
       urlimgs: []
@@ -136,36 +136,72 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    this.baseurl = getBaseUrl()
-    
-    // this.getDataList()
-    if(this.$route.params.detailsData){
-      this.detailsData = this.$route.params.detailsData
-      if(this.detailsData.status == 0){
-        this.curOption = ''
+    this.baseurl = getBaseUrl();
+    this.getDataDetail();
 
-      }else{
-        this.curOption = this.detailsData.status
-        this.status = this.detailsData.status
-        this.curId = this.detailsData.status
-      }
-      this.solution = this.detailsData.solution
-      this.desp = this.detailsData.desp
-      this.imgs = this.detailsData.imgs
-      this.imgs.forEach(item => {
-        let url = this.baseurl + item
-        this.urlimgs.push(url)
-      });
-      console.log('解决',this.detailsData)
-    }
+    // this.getDataList()
+
+    // if (this.$route.params.detailsData) {
+    //   this.detailsData = this.$route.params.detailsData;
+    //   if (this.detailsData.status == 0) {
+    //     this.curOption = "";
+    //   } else {
+    //     this.curOption = this.detailsData.status;
+    //     this.status = this.detailsData.status;
+    //     this.curId = this.detailsData.status;
+    //   }
+    //   this.solution = this.detailsData.solution;
+    //   this.desp = this.detailsData.desp;
+    //   this.imgs = this.detailsData.imgs;
+    //   this.imgs.forEach(item => {
+    //     let url = this.baseurl + item;
+    //     this.urlimgs.push(url);
+    //   });
+    // }
   },
   methods: {
+    /* API */
+    getDataDetail() {
+      this.service
+        .httpRequest({
+          url: "/aapi/workorderdetail",
+          methods: "get",
+          data: {
+            token: this.$store.getters.getToken,
+            id: this.$store.getters.getTaskId
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.detailsData = res.data.workorder;
+            if (this.detailsData.status == 0) {
+              this.curOption = "";
+            } else {
+              this.curOption = this.detailsData.status;
+              this.status = this.detailsData.status;
+              this.curId = this.detailsData.status;
+            }
+            this.solution = this.detailsData.solution;
+            this.desp = this.detailsData.desp;
+            this.imgs = this.detailsData.imgs;
+            this.imgs.forEach(item => {
+              let url = this.baseurl + item;
+              this.urlimgs.push(url);
+            });
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
     getDeleteImg(index) {
       this.imgs.splice(index, 1);
     },
     showViewer(index) {
-      this.viewerIndex = index
-      this.isViewerShow = true
+      this.viewerIndex = index;
+      this.isViewerShow = true;
     },
     add_img(event) {
       let reader = new FileReader();
@@ -173,19 +209,26 @@ export default {
       let type = img1.type; //文件的类型，判断是否是图片
       let size = img1.size; //文件的大小，判断图片的大小
       if (this.imgData.accept.indexOf(type) == -1) {
-        alert("请选择我们支持的图片格式！");
+        this.$dialog.alert({
+          content: "请选择我们支持的图片格式！",
+          confirmText: "确定"
+        });
         return false;
       }
       if (size > 3145728) {
-        alert("请选择3M以内的图片！");
+        this.$dialog.alert({
+          content: "请选择3M以内的图片！",
+          confirmText: "确定"
+        });
         return false;
       }
 
-      var uri = ''
-      let form = new FormData(); 
-      form.append('token',this.$store.getters.getToken)
-      form.append('image',this.$refs.input.files[0])
-      this.service.httpRequest({
+      var uri = "";
+      let form = new FormData();
+      form.append("token", this.$store.getters.getToken);
+      form.append("image", this.$refs.input.files[0]);
+      this.service
+        .httpRequest({
           url: "/aapi/uploadimg",
           methods: "upload",
           form
@@ -194,10 +237,10 @@ export default {
           if (res.returnStatus) {
             // uri = Vue.prototype.baseImageUrl + res.data.img_path
             // console.log('==',uri)
-            uri = this.baseurl + res.data.img_path
-            this.urlimgs.push(uri)
+            uri = this.baseurl + res.data.img_path;
+            this.urlimgs.push(uri);
             reader.readAsDataURL(img1);
-            reader.onloadend = ()=> {
+            reader.onloadend = () => {
               this.imgs.push(res.data.img_path);
             };
           } else {
@@ -213,7 +256,11 @@ export default {
     },
     // 事件处理方法
     leftClick() {
-      this.$router.push({name: 'myTask'});
+      if (this.detailsData.status == "0") {
+        this.$router.push({ name: "taskDetails" });
+      } else {
+        this.$router.push({ name: "myTask", query: { active: "1" } });
+      }
     },
     handelSelect(event) {
       this.curId = event.target.value;
@@ -228,7 +275,7 @@ export default {
       this.$toast.loading("加载中...");
       if (this.status === "") {
         this.$toast.hide();
-        this.$toast.info("请选择要提交的物料");
+        this.$toast.info("请选择处理结果");
         return;
       }
       let list = [];
@@ -251,12 +298,7 @@ export default {
           if (res.returnStatus) {
             this.$toast.succeed("已提交申请", 2000, true);
             setTimeout(() => {
-              this.$router.push({
-                name: "myTask",
-                params: {
-                  active: this.status
-                }
-              });
+              this.leftClick();
             }, 1000);
           } else {
             this.$dialog.alert({
@@ -392,7 +434,7 @@ export default {
 //         }
 //       }
 //     }
-//     .auto{  
+//     .auto{
 //       .left{
 //         width: 230*@rpx!important;margin-right: 10*@rpx;
 //       }
@@ -415,7 +457,7 @@ export default {
     position: relative;
   }
   .picBox {
-    .img{
+    .img {
       width: 160 * @rpx;
       height: 160 * @rpx;
     }
@@ -447,16 +489,16 @@ export default {
     }
   }
 }
-.md-example-child-image-reader{
+.md-example-child-image-reader {
   float: left;
   width: 100%;
-  .md-example-child{
+  .md-example-child {
     float: left;
   }
-  ul{
+  ul {
     float: left;
     width: 100%;
-    li{
+    li {
       position: relative;
       float: left;
       width: 22%;
@@ -467,7 +509,7 @@ export default {
       border-radius: 2px;
       overflow: hidden;
       list-style: none;
-      .img{
+      .img {
         position: absolute;
         width: 100%;
         height: 100%;

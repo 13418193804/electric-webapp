@@ -9,19 +9,19 @@ import map from '../pages/map/index.vue'
 import login from '../pages/login/login.vue'
 import configIp from '../pages/login/configIp.vue' // ip
 import myTask from '../pages/myTask/taskList.vue' //我的任务
-import taskDetails from '../pages/myTask/taskDetails.vue' 
-import taskProgress from '../pages/myTask/taskProgress.vue' 
+import taskDetails from '../pages/myTask/taskDetails.vue'
+import taskProgress from '../pages/myTask/taskProgress.vue'
 
 import demo from '../pages/myTask/demo.vue'
 import my from '../pages/mine/my.vue' //我的
-import sign from '../pages/mine/sign.vue' 
-import inform from '../pages/mine/inform.vue' 
-import message from '../pages/mine/message.vue' 
+import sign from '../pages/mine/sign.vue'
+import inform from '../pages/mine/inform.vue'
+import message from '../pages/mine/message.vue'
 import material from '../pages/material/materialApply.vue' //我的物料
 import materialList from '../pages/material/materialList.vue'
 import equipment from '../pages/equipment/equipmentList.vue' //我的设备
 import equipmentDetails from '../pages/equipment/equipmentDetails.vue'
-import equimentRecord from '../pages/equipment/equimentRecord.vue' 
+import equimentRecord from '../pages/equipment/equimentRecord.vue'
 
 // #0f91ef
 Vue.use(Router)
@@ -34,7 +34,7 @@ export default new Router({
     alias: '/pages/home/main',
   },
 
-   {
+  {
     path: '/game',
     name: 'game',
     component: game,
@@ -83,15 +83,15 @@ export default new Router({
     component: myTask,
     alias: '/pages/myTask/taskList'
   },
-  
+
   {
-    path: '/taskDetails/:id',
+    path: '/taskDetails',
     name: 'taskDetails',
     component: taskDetails,
     alias: '/pages/myTask/taskDetails'
   },
   {
-    path: '/taskProgress/:detailsData',
+    path: '/taskProgress',
     name: 'taskProgress',
     component: taskProgress,
     alias: '/pages/myTask/taskProgress'
@@ -157,7 +157,7 @@ export default new Router({
     alias: '/pages/mine/message'
   },
 
-]
+  ]
 })
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登录
 // router.beforeEach((to, from, next) => {
@@ -165,7 +165,7 @@ export default new Router({
 //     next();
 //   } else {
 //     let token = localStorage.getItem('Authorization');
- 
+
 //     if (token === 'null' || token === '') {
 //       next('/login');
 //     } else {

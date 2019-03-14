@@ -8,24 +8,28 @@ Vue.use(Vuex)
 /** 状态定义 */
 export const state = {
     result: '',
-    os:'',
+    os: '',
     userInfo: {
-        token:null
-    },    
+        token: null
+    },
+    taskId: null
 }
 
 // 定义所需的 mutations
 const mutations = {
-    SETOS(state,os) {
-        state.os=os
+    SETOS(state, os) {
+        state.os = os
     },
-    setUserInfo (state,userInfo){
+    setUserInfo(state, userInfo) {
         state.userInfo = userInfo
+    },
+    setTaskId(state, taskId) {
+        state.taskId = taskId
     }
 }
 const store = new Vuex.Store({
     state,
-  mutations
+    mutations
 });
 
 export default new Vuex.Store({

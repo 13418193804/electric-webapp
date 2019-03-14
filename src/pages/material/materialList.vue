@@ -7,11 +7,11 @@
         <div class="flex material-top">
             <div class="material-top-search">
                 <md-input-item
-                ref="input0"
+                ref="input0" v-model="keyword"
                 type="textarea"
                 :maxlength="200"
                 ></md-input-item>
-                <div class="material-top-search-icon"><i class="iconfont icon-sousuo"></i></div>
+                <div class="material-top-search-icon" @click="getMaterialwarehouse"><i class="iconfont icon-sousuo"></i></div>
             </div>
             <div class="material-top-button">
                 <!-- <div class="tag"  @click="getApply()">申请物料</div> -->
@@ -93,15 +93,16 @@ export default {
       warehouse: [], //所有物料
       warehouseList: [], //当前展示的物料
       preMaterialList: [], //预选物料
-      workorderId: null
+      workorderId: null,
+      keyword: ""
     };
   },
   mounted() {
     this.getMaterialwarehouse();
-    
+
     if (this.$route.params.detailsData) {
       this.workorderId = this.$route.params.detailsData.id;
-      console.log('tiaozhuan',this.$route.params.detailsData.id)
+      console.log("tiaozhuan", this.$route.params.detailsData.id);
     }
   },
   methods: {
@@ -142,15 +143,14 @@ export default {
           if (getCount < row.amount) {
             getCount += 1;
             this.preMaterialList[idx].getCount = getCount;
-          }else {
-              this.$dialog.alert({
-              content:'已超出库存',
+          } else {
+            this.$dialog.alert({
+              content: "已超出库存",
               confirmText: "确定"
             });
           }
         } else {
           this.preMaterialList.push(Object.assign(row, { getCount: 1 }));
-          
         }
         this.preMaterialList.push();
       });
@@ -182,7 +182,8 @@ export default {
     getMaterialwarehouse() {
       this.$toast.loading("加载物料中...");
       let data = {
-        token: this.$store.getters.getToken
+        token: this.$store.getters.getToken,
+        keyword: this.keyword
       };
       this.service
         .httpRequest({
@@ -193,15 +194,19 @@ export default {
         .then(res => {
           this.$toast.hide();
           if (res.returnStatus) {
-            let power_box = [
-              {
-                type_id: "round",
-                type_name: "电源箱",
-                data: res.data.data.power_box
-              }
-            ];
-            this.warehouse = power_box.concat(res.data.data.warehouse);
-            console.log(this.warehouse);
+            if (res.data.data.power_box.length > 0) {
+              let power_box = [
+                {
+                  type_id: "round",
+                  type_name: "电源箱",
+                  data: res.data.data.power_box
+                }
+              ];
+              this.warehouse = power_box.concat(res.data.data.warehouse);
+            } else {
+              this.warehouse = res.data.data.warehouse;
+            }
+
             if (this.warehouse.length > 0) {
               this.handelLook(this.warehouse[0], 0);
             }
@@ -246,7 +251,8 @@ export default {
           if (res.returnStatus) {
             this.$toast.succeed("已提交申请", 2000, true);
             setTimeout(() => {
-              this.$router.replace("/material");
+              // this.$router.replace("/material");
+              this.$router.go(-1);
             }, 1000);
           } else {
             this.$dialog.alert({
@@ -452,9 +458,13 @@ export default {
       margin-bottom: 10px;
       div {
         margin-bottom: 10px;
-        textarea{
-          width:100%;height:60px;border:1px solid #ddd;outline: none;
-          padding: 10*@rpx 20*@rpx;font-size: 24*@rpx;
+        textarea {
+          width: 100%;
+          height: 60px;
+          border: 1px solid #ddd;
+          outline: none;
+          padding: 10 * @rpx 20 * @rpx;
+          font-size: 24 * @rpx;
         }
       }
       &-border {

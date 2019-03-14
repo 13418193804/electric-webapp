@@ -785,6 +785,8 @@ header {
 .md-dialog .md-popup {
   z-index: 2000;
 }
-
+textarea{
+  font-size: 17px!important;
+}
 //把每个页面的全局做好管理import进来
 </style>

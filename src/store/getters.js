@@ -28,6 +28,8 @@ export const getTaskId = state=> {
     //         sessionStorage.setItem('xxx-info', info);
     //     }
     // }
+
+    return state.taskId
 }
 
 

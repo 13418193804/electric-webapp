@@ -23,7 +23,7 @@
                     </select>
                 </div>
                 <div class="flex flex-pack-justify apply-list" v-if="wastage == 0">
-                    <div>任务单：{{workorderId||''}}</div>
+                    <div style="height:45px;line-height:45px;">任务单：{{workorderId||''}}</div>
                     <div class="tag" @click="changeChecktask">选择任务单</div>
                 </div>
                 <div class="apply-list">
