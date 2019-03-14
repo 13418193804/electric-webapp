@@ -3,35 +3,47 @@
     <cheader title="维修记录" @leftClick="leftClick"></cheader>
     <div class="details-declare">
         <div class="flex details-declare-list">
-            <div class="div">设备名称：<span>主控电源</span></div>
-            <div class="div">设备编号：<span>100101001</span></div>
+            <div class="div">设备名称：<span>{{recordData.device_name}}</span></div>
+            <div class="div">设备编号：<span>{{recordData.device_sn}}</span></div>
         </div>
-        <div class="flex details-declare-list">
-            <div class="div">位置：<span>深圳大道啥事吧</span></div>
+        <div class="details-declare-list">
+            <div class="div div1">位置：<span>{{recordData.location}}</span></div>
         </div>
-        <div class="flex details-declare-list">
-            <div class="div">坐标：<span>62.3434.232</span></div>
+        <div class="details-declare-list">
+            <div class="div div1">坐标：<span>{{recordData.longitude||'' }} {{recordData.latitude||''}}</span></div>
         </div>
     </div>
     <!--  -->
     <div class="details-content">
       <div class="details-content-box">
-        <div class="details-content-box-text">处理时间 <span>2018-19-22</span></div>
-        <div class="details-content-box-text">问题原因 <span>线路故障</span></div>
+        <div class="details-content-box-text">处理时间 <span>{{recordList[0].update_time}}</span></div>
+        <div class="details-content-box-text">问题原因 <span>{{recordList[0].fault}}</span></div>
         <div class="details-content-box-text">维护人 <span>周猩猩</span></div>
-        <div class="details-content-box-text">备注 <span>线路进水</span></div>
+        <div class="details-content-box-text">备注 <span>{{recordList[0].desp}}</span></div>
         <div>
-
+          <ul class="flex clearfix">
+            <template v-if="recordList[0].imgs.length>0" v-for="(item, index) in recordList[0].imgs">
+              <li class="picBox" @click="showViewer(index, $event)" :key="index">
+                  <div class="img" :style="`background: url(${baseurl+item}) center no-repeat;background-size:cover;`"></div>
+              </li>
+            </template>
+          </ul>
         </div>
+         <md-image-viewer
+        v-model="isViewerShow"
+        :list="urlimgs"
+        :has-dots="true"
+        :initial-index="viewerIndex">
+      </md-image-viewer>
       </div>
     </div>
     <!--  -->
     <div class="details-record">
       <h2>维护记录</h2>
       <ul>
-        <li>
-          <div><i class="dots"></i> 2018年8月9日 12:22:22</div>
-          <div>报警：<span>深圳大道丽莎</span> </div>
+        <li v-for="(item,index) in recordList" :key="index">
+          <div><i class="dots"></i> {{item.update_time}}</div>
+          <div>报警：<span>{{item.fault}}</span> </div>
         </li>
       </ul>
     </div>
@@ -40,7 +52,8 @@
 
 <script>
 import cheader from '../../components/header'
-import {Switch} from 'mand-mobile'
+import { setBaseUrl, getBaseUrl } from "../../api/conf";
+import { ImageViewer } from "mand-mobile";
 
 export default {
   data() {
@@ -50,32 +63,66 @@ export default {
       active: 0,
       isCheack: 0,
       checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
-      typeData: [{name: 'A1'},{name:'A2'}]
+      typeData: [{name: 'A1'},{name:'A2'}],
+      baseurl: "", // url
+      recordData:[], //设备信息
+      recordList:[], //维修列表
+      baseurl: "", // url
+      isViewerShow: false,
+      viewerIndex: 0,
+      urlimgs: []
     };
   },
-  name: 'switch-demo',
   components: {
-    [Switch.name]: Switch,
     // 定义组件
-    cheader
+    cheader,
+    [ImageViewer.name]: ImageViewer,
   },
-
+  created() {
+    // 生命周期函数
+  },
+  mounted() {
+    this.getDataList()
+    console.log('weixiu')
+    this.baseurl = getBaseUrl();
+    
+  },
   methods: {
     // 事件处理方法
     leftClick(){
         this.$router.go(-1)
     },
-    handelType(index){
-      this.isCheack = index
-      console.log('index',index,'ischeack', this.isCheack)
-    }
-  },
-  created() {
-    // 生命周期函数
-    // console.log('homeroot', this.$root, this.$root.$mp)
-  },
-  mounted() {
-    
+    showViewer(index) {
+      this.viewerIndex = index;
+      this.isViewerShow = true;
+    },
+    /* api */
+    getDataList(){
+      let deviceId = this.$route.query.deviceId
+        this.service.httpRequest({
+            url: "/aapi/devicerecord",
+            methods: "get",
+            data: {
+              token:this.$store.getters.getToken,
+              id: deviceId
+            }
+        }).then(res => {
+            if(res.returnStatus){
+               this.recordData = res.data.device_info
+               this.recordList = res.data.finish_workorders
+               this.recordList[0].imgs.forEach(item => {
+                let url = this.baseurl + item;
+                this.urlimgs.push(url);
+              });
+               console.log('记录',res.data)
+            } else{
+                this.$dialog.alert({
+                    content:res.msg,
+                    confirmText: '确定',
+                })
+            }
+        });
+    },
   }
 };
 </script>
@@ -92,6 +139,9 @@ export default {
       .div{
         width:50%;line-height: 30px;
       }
+      .div{
+        width: 100%;
+      }
       &-swich{
         // position: absolute;right: 2px;top: 2px;
         button{
@@ -105,7 +155,10 @@ export default {
     &-box{
       border: 1px dashed #ccc;border-radius: 6px;padding: 25*@rpx;
       &-text{
-        line-height: 46*@rpx;font-size: 24*@rpx;
+        line-height: 46*@rpx;font-size: 26*@rpx;
+        span{
+          font-size: 26*@rpx;
+        }
       }
     }
   }
@@ -117,6 +170,7 @@ export default {
     ul{
       padding: 30*@rpx;
       li{
+        margin-bottom: 20*@rpx;
         div{
           line-height: 52*@rpx;
           // .dots{
@@ -127,6 +181,76 @@ export default {
         // :nth-of-type(1){
         //   padding-left: 50*@rpx;
         // }
+      }
+    }
+  }
+}
+// 上传
+.clearfix {
+  flex-wrap: wrap;
+  li {
+    width: 160 * @rpx;
+    height: 160 * @rpx;
+    margin: 0 50 * @rpx 30 * @rpx 0;
+    position: relative;
+  }
+  .picBox {
+    .img {
+      width: 160 * @rpx;
+      height: 160 * @rpx;
+    }
+    .deleteImg {
+      position: absolute;
+      right: -14 * @rpx;
+      top: -20 * @rpx;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+  .uploadPic {
+    // border: none!important;
+    border: 1px solid #ddd;
+    p {
+      position: absolute;
+      left: 30 * @rpx;
+      top: 30 * @rpx;
+      i {
+        color: #999;
+      }
+    }
+    input {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.md-example-child-image-reader {
+  float: left;
+  width: 100%;
+  .md-example-child {
+    float: left;
+  }
+  ul {
+    float: left;
+    width: 100%;
+    li {
+      position: relative;
+      float: left;
+      width: 22%;
+      padding-bottom: 22%;
+      margin-left: 2%;
+      margin-top: 2%;
+      border-sizing: border-box;
+      border-radius: 2px;
+      overflow: hidden;
+      list-style: none;
+      .img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
       }
     }
   }

@@ -30,7 +30,7 @@
             <span>B1</span> <span>B2</span> <span>B3</span>
           </div> -->
       </div>
-      <div class="details-type-set" @click="handelSet(item)">设置</div>
+      <div class="details-type-set">设置</div>
     </div>
 
     <!-- <div class="details-type">
@@ -128,31 +128,6 @@ export default {
               //     console.log('3',array)
               //  });
                console.log('设备详情',res.data)
-            } else{
-                this.$dialog.alert({
-                    content:res.msg,
-                    confirmText: '确定',
-                })
-            }
-        });
-    },
-    // 设置
-    handelSet(item){
-      console.log('set', item)
-      this.$toast.loading("加载中...");
-      let data = {
-        token: this.$store.getters.getToken,
-        id: this.deviceId,
-        type:item.id
-      }
-      this.service.httpRequest({
-            url: "/aapi/devicedetail",
-            methods: "post",
-            data: data
-        }).then(res => {
-          this.$toast.hide();
-            if(res.returnStatus){
-              this.$toast.succeed("已发送", 2000, true);
             } else{
                 this.$dialog.alert({
                     content:res.msg,
