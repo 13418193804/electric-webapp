@@ -159,9 +159,31 @@ export default {
      */
     initScan() {
       this.scanStatus = "opening";
-      startRecognize("bcid", scan => {
-        this.scan = scan;
-      });
+      startRecognize(
+        "bcid",
+        scan => {
+          this.scan = scan;
+        },
+        (type, result) => {
+          this.leftClick();
+          alert(type)
+          alert(result)
+          if (
+            type == "QR" &&
+            result.split(":") &&
+            result.split(":").length > 0 &&
+            result.split(":")[0] == "onv"
+          ) {
+            this.keyword = result.split(":")[1];
+            this.doSearch();
+          } else {
+            this.$dialog.alert({
+              content: "识别有误",
+              confirmText: "确定"
+            });
+          }
+        }
+      );
     },
     cancelScan() {
       this.scan.close();
@@ -269,7 +291,6 @@ export default {
         line-height: 35px;
       }
       &-code {
-
         font-size: 26px;
         padding: 0 20px;
       }
@@ -278,10 +299,10 @@ export default {
   &-list {
     width: 100%;
     padding: 0 5%;
-    margin-top: 40*@rpx;
+    margin-top: 40 * @rpx;
     &-box {
       text-align: left;
-      border-bottom: 1*@rpx solid #4699ff;
+      border-bottom: 1 * @rpx solid #4699ff;
       padding-bottom: 10px;
       padding-left: 10px;
       padding-right: 10px;
@@ -330,8 +351,8 @@ export default {
   margin-top: 20px;
   // background: #0f0;
   z-index: 999;
-  height: 260px;
+  height: 270px;
   // width: -webkit-fill-available;
-  width: 160px;
+  width: 170px;
 }
 </style>
