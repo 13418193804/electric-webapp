@@ -58,6 +58,22 @@ export default {
         this.$toast.info("请配置服务器");
         return;
       }
+
+      if ((this.loginForm.username || "") == "") {
+        this.$dialog.alert({
+          content: "请输入手机号",
+          confirmText: "确定"
+        });
+        return;
+      }
+      if ((this.loginForm.password || "") == "") {
+        this.$dialog.alert({
+          content: "请输入密码",
+          confirmText: "确定"
+        });
+        return;
+      }
+
       if (this.loginForm.username == "q") {
         this.loginForm.username = "18603050282";
       }

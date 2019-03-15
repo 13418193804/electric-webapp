@@ -68,10 +68,10 @@ export default {
   methods: {
     confirm() {
       if (this.selectId == null) {
-        this.$dialog.alert({
-          content: "请选择任务单",
-          confirmText: "确定"
-        });
+        // this.$dialog.alert({
+        //   content: "请选择任务单",
+        //   confirmText: "确定"
+        // });
         return;
       }
       this.$emit("confirm", this.selectId);

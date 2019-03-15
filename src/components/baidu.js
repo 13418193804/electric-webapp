@@ -3,6 +3,28 @@
 const Zoom = 20;
 
 
+export const sendMessage = (message) => {
+    
+        var NotifyID = 1;
+        var Context = window.plus.android.importClass("android.content.Context");
+        var main = window.plus.android.runtimeMainActivity();
+        // var Intent = plus.android.importClass('android.content.Intent');
+        var Noti = window.plus.android.importClass("android.app.Notification");
+        var NotificationManager = window.plus.android.importClass("android.app.NotificationManager");
+        var nm = main.getSystemService(Context.NOTIFICATION_SERVICE)
+        var Notification = window.plus.android.importClass("android.app.Notification");
+        var mNotification = new Notification.Builder(main);
+        // mNotification.setOngoing(true);
+        mNotification.setContentTitle("OVN智能运维")
+        mNotification.setContentText(message)
+        mNotification.setSmallIcon(17301620)
+        mNotification.setTicker("PadInfo")
+        mNotification.setNumber(10)
+        mNotification.setDefaults(plus.android.importClass("android.app.Notification").DEFAULT_SOUND); 
+        var mNb = mNotification.build()
+        nm.notify(NotifyID, mNb);
+    }
+    
 /**
  *  浏览器定位
  *  关于状态码
