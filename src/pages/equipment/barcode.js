@@ -9,16 +9,16 @@ export const startRecognize = (id, callback,onmarked) => {
 		var text = '未知: ';
 		switch (type) {
 			case plus.barcode.QR:
-				text = 'QR: ';
+				text = 'QR';
 				break;
 			case plus.barcode.EAN13:
-				text = 'EAN13: ';
+				text = 'EAN13';
 				break;
 			case plus.barcode.EAN8:
-				text = 'EAN8: ';
+				text = 'EAN8';
 				break;
 		}
-		onmarked(type , result)
+		onmarked(text , result)
 	};
 	//开始扫码
 	scan.start();

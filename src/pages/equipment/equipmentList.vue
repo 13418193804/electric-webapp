@@ -166,8 +166,6 @@ export default {
         },
         (type, result) => {
           this.leftClick();
-          alert(type)
-          alert(result)
           if (
             type == "QR" &&
             result.split(":") &&
@@ -351,8 +349,8 @@ export default {
   margin-top: 20px;
   // background: #0f0;
   z-index: 999;
-  height: 270px;
+  height: 315px;
   // width: -webkit-fill-available;
-  width: 170px;
+  width: 200px;
 }
 </style>
