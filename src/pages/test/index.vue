@@ -2,8 +2,8 @@
   <div class="homePage">
 
 
-<button @click="onConnected()">订阅消息</button>
-<div id="index">字体16号</div>
+<!-- <button @click="onConnected()">订阅消息</button> -->
+<!-- <div id="index">字体16号</div>
 
 	<input type='button' @click='initScan()' value='创建扫码控件' />
 		<input type='button' @click='startScan()' value='开始扫码' />
@@ -12,7 +12,7 @@
 		<div id= "bcid" style="background:#0F0;
 	height:480px;
 	width:360px;"></div>
-<div id="info"></div>
+<div id="info"></div> -->
 <div v-for="item in messageList">
 
   {{item}}
@@ -108,21 +108,28 @@ export default {
     if (this.os == "wx") {
       this.mapCtx = wx.createMapContext("myMap");
     } else {
+      // var client = mqtt.connect("mqtt://120.78.135.69:9000");
       var client = mqtt.connect("mqtt://120.78.135.69:9000");
       client.on("connect", function() {
-        console.log(">>> connected");
         // 发布主题
         //  setInterval(
         //  		()=>{client.publish('mqtt', '30');},
         //  		3000
         //  	);
         // 订阅主题/temperature  在message 处接收
-        client.subscribe("/temperature");
+        client.subscribe(
+          "http://onv.96ba.com:442/mqttinterface?token=fdec00f488fa2c14f22764b5db4172f6"
+        );
       });
       client.on("message", (topic, message) => {
+        // console.log(message);
         let str = this.Uint8ArrayToString(message);
+        var jschardet = require("jschardet");
+        var iconv = require("iconv-lite");
+        console.log(iconv.decode(str,'utf8'));
+
         this.messageList.push(str);
-        sendMessage(str);
+        // sendMessage(str);
       });
     }
 

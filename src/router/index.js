@@ -156,6 +156,11 @@ export default new Router({
     component: message,
     alias: '/pages/mine/message'
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: test,
+  },
 
   ]
 })

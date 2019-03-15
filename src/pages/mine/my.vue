@@ -13,10 +13,10 @@
     <div class="mine-cinfigbox">
       <div>服务器地址：{{servicerData.servicer||''}}</div>
       <!-- <div>&nbsp;&nbsp;&nbsp;推送地址：wwe.1874.97793</div> -->
-     <!--  <div>&nbsp;&nbsp;&nbsp;链接状态：
-        <span><i class="iconfont icon-iconfontdian1"></i>已链接</span>
-        <span><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span>重新连接</span></span>
-      </div> -->
+      <div>&nbsp;&nbsp;&nbsp;链接状态：
+        <span v-if="mqttClient&&mqttClient.connected"><i class="iconfont icon-iconfontdian1"></i>已链接</span>
+        <span v-else><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span style="color:blue">重新连接</span></span>
+      </div>
     </div>
     <div class="mine-operation">
         <div @click="getSign()">签 到</div>
@@ -48,6 +48,9 @@ export default {
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
+    // mqttClient&&mqttClient.connected
+    // 实时
+    // reconnect() 重连
     if ((this.$store.getters.getToken || "") == "") {
       this.$router.replace("/login");
       return;

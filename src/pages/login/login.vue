@@ -83,6 +83,10 @@ export default {
               token: res.data.token,
               username: res.data.username || ""
             });
+            //开启mqtt
+            this.loginMQTT(res.data.token, mqttClient => {
+              Vue.prototype.mqttClient = mqttClient;
+            });
             return true;
           } else {
             this.$dialog.alert({

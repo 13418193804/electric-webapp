@@ -29,4 +29,5 @@ export const getBaseUrl = () => {
 
 
 
+export const mqtt_url = "mqtt://120.78.135.69:9000"
 

@@ -42,22 +42,26 @@
 
 <script>
 import { init } from "./pie.js";
+import Vue from "vue";
+
 export default {
   data() {
     // 选项 数据
     return {
-      numbelData:[]
+      numbelData: []
     };
   },
   components: {
     // 定义组件
   },
-created() {
+  created() {
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    this.getNumbel()
+    if ((this.$store.getters.getToken || "") !== "") {
+      this.getNumbel();
+    }
     init([
       {
         id: "canvas_circle",
@@ -84,33 +88,38 @@ created() {
       this.$router.push({ name: "equipment" }); // 我的设备
     },
     getMessage() {
-      this.$router.push({name: 'message'})
+      this.$router.push({ name: "message" });
     },
     goMine() {
       this.$router.push({ name: "my" }); // 我的
     },
     /* API */
-    getNumbel(){
+    getNumbel() {
       this.service
         .httpRequest({
           url: "/aapi/getstatistics",
           methods: "get",
           data: {
-            token:this.$store.getters.getToken
+            token: this.$store.getters.getToken
           }
         })
         .then(res => {
           if (res.returnStatus) {
-            this.numbelData = res.data.data
-            console.log(res.data)
-          }else {
+            this.numbelData = res.data.data;
+            if (!Vue.prototype.mqttClient) {
+              //开启mqtt
+              this.loginMQTT(this.$store.getters.getToken, mqttClient => {
+                Vue.prototype.mqttClient = mqttClient;
+              });
+            }
+          } else {
             this.$dialog.alert({
               content: res.msg,
               confirmText: "确定"
             });
           }
         });
-    },
+    }
   }
 };
 </script>
@@ -120,11 +129,13 @@ created() {
 .homeTitle {
   text-align: center;
   padding: 5% 0;
-  img{
-    width: 70px;height: 35px;
+  img {
+    width: 70px;
+    height: 35px;
   }
   h1 {
-    font-size: 36 * @rpx;line-height: 35px;
+    font-size: 36 * @rpx;
+    line-height: 35px;
   }
 }
 .banner {
@@ -147,23 +158,33 @@ created() {
     width: 50%;
     text-align: center;
     height: 140 * @rpx;
-    margin-top:50*@rpx;position: relative;
-    img{
-      width: 84*@rpx;height: 86*@rpx;
+    margin-top: 50 * @rpx;
+    position: relative;
+    img {
+      width: 84 * @rpx;
+      height: 86 * @rpx;
     }
-    h3{
-      margin-top:20*@rpx;
+    h3 {
+      margin-top: 20 * @rpx;
     }
-    .badge{
-      background: #f56c6c;color: #fff;font-size: 25*@rpx;
-      position: absolute;right: 15px;top: -15px;border-radius: 20px;
-      width: 35px;height: 25px;text-align: center;line-height: 25px;
+    .badge {
+      background: #f56c6c;
+      color: #fff;
+      font-size: 25 * @rpx;
+      position: absolute;
+      right: 15px;
+      top: -15px;
+      border-radius: 20px;
+      width: 35px;
+      height: 25px;
+      text-align: center;
+      line-height: 25px;
     }
   }
 }
 .cartogram {
   width: 80vw;
-  margin: 40*@rpx auto 0;
+  margin: 40 * @rpx auto 0;
   // height: 600 * @rpx;
   background: #eee;
   .catTop {
@@ -175,8 +196,10 @@ created() {
     div {
       width: 50%;
       line-height: 50 * @rpx;
-      padding-left:35px;
-      color: #fff;position: relative;font-size:13px;
+      padding-left: 35px;
+      color: #fff;
+      position: relative;
+      font-size: 13px;
       .dot {
         width: 5px;
         height: 5px;
@@ -184,14 +207,15 @@ created() {
         background: #fff;
         display: inline-block;
         margin-right: 5px;
-        position: absolute;left:25px;top:9px;
+        position: absolute;
+        left: 25px;
+        top: 9px;
       }
     }
   }
 }
-.chat{
-      background: #eee!important;
-      height: auto!important;
+.chat {
+  background: #eee !important;
+  height: auto !important;
 }
-
 </style>

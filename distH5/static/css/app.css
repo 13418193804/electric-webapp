@@ -752,7 +752,13 @@ header .back {
   display: none;
 }
 .md-dialog .md-popup {
-  z-index: 2000;
+  z-index: 2000!important;
+}
+.md-popup-mask {
+  z-index: 2000!important;
+}
+.md-popup-box{
+  z-index: 2000!important;
 }
 textarea {
   font-size: 1.54545rem!important;

@@ -132,6 +132,8 @@ export default {
           type: item.id,
           teamperature: "0" //温度
         });
+
+        
       } else {
         this.devicedetail(
           Object.assign(
