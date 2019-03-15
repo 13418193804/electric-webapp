@@ -2460,8 +2460,11 @@ input:-ms-input-placeholder {
   width: 50%;
   line-height: 2.18182rem;
 }
+.details-declare-list .div1 {
+  width: 100%;
+}
 .details-declare-list-swich button {
-  background: #409EFF;
+  background: #409eff;
   color: #fff;
   border: none;
   border-radius: 0.45455rem;
@@ -2474,7 +2477,7 @@ input:-ms-input-placeholder {
   width: 7.27273rem;
   height: 2.54545rem;
   border-radius: 1.81818rem;
-  background: #409EFF;
+  background: #409eff;
   color: #fff;
   line-height: 2.54545rem;
   text-align: center;
@@ -2503,7 +2506,7 @@ input:-ms-input-placeholder {
 .details-type-set {
   position: absolute;
   right: 0.45455rem;
-  background: #409EFF;
+  background: #409eff;
   color: #fff;
   border-radius: 0.36364rem;
   width: 4.54545rem;
@@ -2533,8 +2536,11 @@ input:-ms-input-placeholder {
   width: 50%;
   line-height: 2.72727rem;
 }
+.details-declare-list .div {
+  width: 100%;
+}
 .details-declare-list-swich button {
-  background: #409EFF;
+  background: #409eff;
   color: #fff;
   border: none;
   border-radius: 0.45455rem;
@@ -2550,7 +2556,10 @@ input:-ms-input-placeholder {
 }
 .details-content-box-text {
   line-height: 2.09091rem;
-  font-size: 1.09091rem;
+  font-size: 1.18182rem;
+}
+.details-content-box-text span {
+  font-size: 1.18182rem;
 }
 .details-record {
   width: 90%;
@@ -2560,13 +2569,83 @@ input:-ms-input-placeholder {
   padding-left: 1.36364rem;
   font-size: 1.63636rem;
   font-weight: bold;
-  color: #409EFF;
+  color: #409eff;
   line-height: 2.72727rem;
-  border-bottom: 0.09091rem solid #409EFF;
+  border-bottom: 0.09091rem solid #409eff;
 }
 .details-record ul {
   padding: 1.36364rem;
 }
+.details-record ul li {
+  margin-bottom: 0.90909rem;
+}
 .details-record ul li div {
   line-height: 2.36364rem;
+}
+.clearfix {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.clearfix li {
+  width: 7.27273rem;
+  height: 7.27273rem;
+  margin: 0 2.27273rem 1.36364rem 0;
+  position: relative;
+}
+.clearfix .picBox .img {
+  width: 7.27273rem;
+  height: 7.27273rem;
+}
+.clearfix .picBox .deleteImg {
+  position: absolute;
+  right: -0.63636rem;
+  top: -0.90909rem;
+}
+.clearfix .picBox img {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.clearfix .uploadPic {
+  border: 0.09091rem solid #ddd;
+}
+.clearfix .uploadPic p {
+  position: absolute;
+  left: 1.36364rem;
+  top: 1.36364rem;
+}
+.clearfix .uploadPic p i {
+  color: #999;
+}
+.clearfix .uploadPic input {
+  width: 100%;
+  height: 100%;
+}
+.md-example-child-image-reader {
+  float: left;
+  width: 100%;
+}
+.md-example-child-image-reader .md-example-child {
+  float: left;
+}
+.md-example-child-image-reader ul {
+  float: left;
+  width: 100%;
+}
+.md-example-child-image-reader ul li {
+  position: relative;
+  float: left;
+  width: 22%;
+  padding-bottom: 22%;
+  margin-left: 2%;
+  margin-top: 2%;
+  border-sizing: border-box;
+  border-radius: 0.18182rem;
+  overflow: hidden;
+  list-style: none;
+}
+.md-example-child-image-reader ul li .img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }

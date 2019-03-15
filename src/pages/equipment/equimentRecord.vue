@@ -15,8 +15,8 @@
     </div>
     <!--  -->
     <div class="details-content">
-      <div class="details-content-box">
-        <div class="details-content-box-text">处理时间 <span>{{recordList[0].update_time}}</span></div>
+      <div class="details-content-box" v-if="recordList.length>0">
+        <div class="details-content-box-text">处理时间 <span>{{recordList[0].update_time||''}}</span></div>
         <div class="details-content-box-text">问题原因 <span>{{recordList[0].fault}}</span></div>
         <div class="details-content-box-text">维护人 <span>周猩猩</span></div>
         <div class="details-content-box-text">备注 <span>{{recordList[0].desp}}</span></div>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import cheader from '../../components/header'
+import cheader from "../../components/header";
 import { setBaseUrl, getBaseUrl } from "../../api/conf";
 import { ImageViewer } from "mand-mobile";
 
@@ -59,14 +59,14 @@ export default {
   data() {
     // 选项 数据
     return {
-      isActive:'',
+      isActive: "",
       active: 0,
       isCheack: 0,
-      checkData: [{name:'线路故障'},{name: '元气损坏'},{name: '其他'}],
-      typeData: [{name: 'A1'},{name:'A2'}],
+      checkData: [{ name: "线路故障" }, { name: "元气损坏" }, { name: "其他" }],
+      typeData: [{ name: "A1" }, { name: "A2" }],
       baseurl: "", // url
-      recordData:[], //设备信息
-      recordList:[], //维修列表
+      recordData: [], //设备信息
+      recordList: [], //维修列表
       baseurl: "", // url
       isViewerShow: false,
       viewerIndex: 0,
@@ -76,103 +76,123 @@ export default {
   components: {
     // 定义组件
     cheader,
-    [ImageViewer.name]: ImageViewer,
+    [ImageViewer.name]: ImageViewer
   },
   created() {
     // 生命周期函数
   },
   mounted() {
-    this.getDataList()
-    console.log('weixiu')
+    this.getDataList();
+    console.log("weixiu");
     this.baseurl = getBaseUrl();
-    
   },
   methods: {
     // 事件处理方法
-    leftClick(){
-        this.$router.go(-1)
+    leftClick() {
+      this.$router.go(-1);
     },
     showViewer(index) {
       this.viewerIndex = index;
       this.isViewerShow = true;
     },
     /* api */
-    getDataList(){
-      let deviceId = this.$route.query.deviceId
-        this.service.httpRequest({
-            url: "/aapi/devicerecord",
-            methods: "get",
-            data: {
-              token:this.$store.getters.getToken,
-              id: deviceId
-            }
-        }).then(res => {
-            if(res.returnStatus){
-               this.recordData = res.data.device_info
-               this.recordList = res.data.finish_workorders
-               this.recordList[0].imgs.forEach(item => {
-                let url = this.baseurl + item;
-                this.urlimgs.push(url);
-              });
-               console.log('记录',res.data)
-            } else{
-                this.$dialog.alert({
-                    content:res.msg,
-                    confirmText: '确定',
-                })
-            }
+    getDataList() {
+      let deviceId = this.$route.query.deviceId;
+      this.service
+        .httpRequest({
+          url: "/aapi/devicerecord",
+          methods: "get",
+          data: {
+            token: this.$store.getters.getToken,
+            id: deviceId
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.recordData = res.data.device_info;
+            this.recordList = res.data.finish_workorders;
+            this.recordList[0].imgs.forEach(item => {
+              let url = this.baseurl + item;
+              this.urlimgs.push(url);
+            });
+            console.log("记录", res.data);
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
         });
-    },
+    }
   }
 };
 </script>
 
 <style lang="less">
-@import '../../../static/css/common.less';
-.details{
-  width: 100%;height: 100%;
-  &-declare{
-    width: 90%;margin: 60*@rpx auto 0*@rpx;
-    &-list{
-      flex-wrap: wrap;background:#eee;padding:0 5px;position: relative;
-      font-size:24*@rpx;
-      .div{
-        width:50%;line-height: 30px;
+@import "../../../static/css/common.less";
+.details {
+  width: 100%;
+  height: 100%;
+  &-declare {
+    width: 90%;
+    margin: 60 * @rpx auto 0 * @rpx;
+    &-list {
+      flex-wrap: wrap;
+      background: #eee;
+      padding: 0 5px;
+      position: relative;
+      font-size: 24 * @rpx;
+      .div {
+        width: 50%;
+        line-height: 30px;
       }
-      .div{
+      .div {
         width: 100%;
       }
-      &-swich{
+      &-swich {
         // position: absolute;right: 2px;top: 2px;
-        button{
-          background: #409EFF;color: #fff;border: none;border-radius: 5px;
+        button {
+          background: #409eff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
         }
       }
     }
   }
-  &-content{
-    width: 90%;margin: 60*@rpx auto;
-    &-box{
-      border: 1px dashed #ccc;border-radius: 6px;padding: 25*@rpx;
-      &-text{
-        line-height: 46*@rpx;font-size: 26*@rpx;
-        span{
-          font-size: 26*@rpx;
+  &-content {
+    width: 90%;
+    margin: 60 * @rpx auto;
+    &-box {
+      border: 1px dashed #ccc;
+      border-radius: 6px;
+      padding: 25 * @rpx;
+      &-text {
+        line-height: 46 * @rpx;
+        font-size: 26 * @rpx;
+        span {
+          font-size: 26 * @rpx;
         }
       }
     }
   }
-  &-record{
-    width: 90%;margin: 0 auto;
-    h2{
-      padding-left: 30*@rpx; font-size: 36*@rpx;font-weight: bold; color: #409EFF;line-height: 60*@rpx;border-bottom: 1px solid #409EFF;
+  &-record {
+    width: 90%;
+    margin: 0 auto;
+    h2 {
+      padding-left: 30 * @rpx;
+      font-size: 36 * @rpx;
+      font-weight: bold;
+      color: #409eff;
+      line-height: 60 * @rpx;
+      border-bottom: 1px solid #409eff;
     }
-    ul{
-      padding: 30*@rpx;
-      li{
-        margin-bottom: 20*@rpx;
-        div{
-          line-height: 52*@rpx;
+    ul {
+      padding: 30 * @rpx;
+      li {
+        margin-bottom: 20 * @rpx;
+        div {
+          line-height: 52 * @rpx;
           // .dots{
           //   width: 5px;height: 5px;border-radius: 50%;background: #4699ff;position: absolute;
           //   left: 0;top:44*@rpx;

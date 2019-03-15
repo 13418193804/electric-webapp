@@ -16,13 +16,11 @@ const Zoom = 20;
     BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
     BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
  */
-const getCurrentPosition = (map, callback) => {
+export const getCurrentPosition = (callback) => {
+    console.log('-------')
     var geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-            // var mk = new BMap.Marker(r.point);
-            // map.addOverlay(mk);
-            // map.panTo(r.point);
             callback(r.point)
         }
         else {
@@ -64,7 +62,7 @@ export const init = (callback) => {
     let map = new BMap.Map("l-map");
     callback(map)
     // getCurrentPosition(map, point => {
-      
+
     // })
 
     var pt = new BMap.Point(106.515893, 29.602414);
