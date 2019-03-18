@@ -7,38 +7,38 @@
       </div>
      <div class="messages-content">
         <div class="messages-content-box">
-          <div class="messages-content-box-list">
-            <p class="dots">2018年10月22日 12:00:00</p>
-            <p>你有一条消息2</p>
-          </div>
-          <div class="messages-content-box-list">
-            <p class="dots">2018年10月22日 12:00:00</p>
-            <p>你有一条消息2</p>
+          <div class="messages-content-box-list" v-for="(item,index) in infoData" :key="index">
+            <p :class="{'dots':item.is_read == 0}" >{{item.create_time}}</p>
+            <p>{{item.device_name}}:{{item.event}} ({{item.location}})</p>
           </div>
         </div>
       </div>
+      
   </div>
 </template>
 
 <script>
 import cheader from '../../components/header'
-
 export default {
   data() {
     // 选项 数据
     return {
+      pagesize: 10,
+      pageindex: 1,
+      infoData:[]
     };
   },
   components: {
     // 定义组件
-    cheader
+    cheader,
+    
   },
   created() {
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    
+    this.getDataList()
   },
   methods: {
     // 事件处理方法
@@ -47,7 +47,31 @@ export default {
     },
     getInform() {
       this.$router.push({name: 'inform'})
-    }
+    },
+    getDataList() {
+      this.service
+        .httpRequest({
+          url: "/aapi/message",
+          methods: "get",
+          data: {
+            token: this.$store.getters.getToken,
+            pagesize: this.pagesize,
+            pageindex: this.pageindex
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.infoData = res.data.news.data
+            console.log(res.data.news)
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
+    
   }
 
 };

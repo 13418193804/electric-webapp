@@ -7,38 +7,52 @@
       </div>
       <div class="messages-content">
         <div class="messages-content-box">
-          <div class="messages-content-box-list">
-            <p class="dots">2018年10月22日 12:00:00</p>
-            <p>你有一条消息</p>
-          </div>
-          <div class="messages-content-box-list">
-            <p class="dots">2018年10月22日 12:00:00</p>
-            <p>你有一条消息</p>
+          <div class="messages-content-box-list" v-for="(item,index) in infoData" :key="index" @click="gerRead(item)">
+            <p :class="{'dots':item.is_read == 0}" >{{item.create_time}}</p>
+            <p>{{item.content}}</p>
           </div>
         </div>
       </div>
+      <md-landscape v-model="showNoMask" :mask-closable="true">
+          <div class="info-box">
+              <h4>通知</h4>
+              <p>{{content.create_time}}</p>
+              <div>{{content.content}}</div>
+          </div>
+      </md-landscape>
   </div>
 </template>
 
 <script>
 import cheader from '../../components/header'
+import {Landscape, Toast, Button} from 'mand-mobile'
+import checktask from "../../components/checktask";
 
 export default {
   data() {
     // 选项 数据
     return {
+      pagesize: 10,
+      pageindex: 1,
+      infoData:[],
+      showNoMask: false,
+      content:{}
+
     };
   },
   components: {
     // 定义组件
-    cheader
+    cheader,
+    [Landscape.name]: Landscape,
+    [Button.name]: Button,
+    checktask
   },
   created() {
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    
+    this.getDataList()
   },
   methods: {
     // 事件处理方法
@@ -47,6 +61,53 @@ export default {
     },
     getMessage() {
       this.$router.push({name: 'message'})
+    },
+    getDataList() {
+      this.service
+        .httpRequest({
+          url: "/aapi/message",
+          methods: "get",
+          data: {
+            token: this.$store.getters.getToken,
+            pagesize: this.pagesize,
+            pageindex: this.pageindex
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.infoData = res.data.inform.data
+            console.log(res.data.inform)
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
+    },
+    gerRead(item){
+      this.showNoMask = true
+      this.content = item
+      this.service
+        .httpRequest({
+          url: "/aapi/message",
+          methods: "post",
+          data: {
+            token: this.$store.getters.getToken,
+            id: item.id
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            console.log('成功')
+            this.getDataList()
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+        });
     }
   }
 
@@ -77,7 +138,21 @@ export default {
      }
    }
   }
-  
+}
+.info-box{
+  background: #fff;
+  padding: 30 * @rpx;
+  border-radius: 10 * @rpx;
+  h4{
+    font-size: 36 * @rpx;margin-bottom: 10*@rpx;text-align: center;
+  }
+  p{
+    margin-bottom: 10*@rpx;
+  }
+  div{
+    height: 320*@rpx;overflow: auto;
+  }
+
 }
 
 </style>

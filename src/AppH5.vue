@@ -779,7 +779,7 @@ header {
   background: #409eff;
   border: 1px solid #409eff;
 }
-.md-landscape .md-icon.md-landscape-close {
+.apply .md-landscape .md-icon.md-landscape-close {
   display: none;
 }
 .md-dialog .md-popup {
