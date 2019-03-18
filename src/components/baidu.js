@@ -39,11 +39,11 @@ export const sendMessage = (message) => {
     BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
  */
 export const getCurrentPosition = (callback) => {
-    console.log('-------')
     var geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
+        console.log(r)
         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-            callback(r.point)
+            callback(r.address,r.point)
         }
         else {
             callback('北京')

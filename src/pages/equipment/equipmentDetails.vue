@@ -11,7 +11,7 @@
         </div>
         <div class="flex details-declare-list">
             <div class="div div1">坐标：<span>{{detailsData.longitude||'' }} {{detailsData.latitude||''}}</span></div>
-      <div class="details-type-set" @click="getCurrentPosition">更新坐标</div>
+      <div class="details-type-set" @click="getCurrentPosition">更新</div>
      
         </div>
         <!-- <div class="flex details-declare-list">
@@ -120,9 +120,18 @@ export default {
   mounted() {},
   methods: {
     getCurrentPosition() {
-      getCurrentPosition(res => {
-        alert(res.lng || "");
-        alert(res.lat || "");
+      this.$toast.loading("加载定位中...");
+      getCurrentPosition((address,point) => {
+        // alert(point.lng || "");
+        // alert(point.lat || "");
+        this.$toast.hide();
+        this.$dialog.confirm({
+          content: `当前定位：${address.province||''}${address.city||''}${address.district||''}${address.street||''}${address.street_number||''}(${point.lng},${point.lat})`,
+          confirmText: "确定",
+          onConfirm: () => {
+            
+          }
+        });
       });
     },
     // 事件处理方法
