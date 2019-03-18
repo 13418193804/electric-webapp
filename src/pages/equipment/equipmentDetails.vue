@@ -65,6 +65,22 @@
     <div class="footBtb" @click="getRecord()">
       设备维护记录
     </div>
+
+    <!-- 温度弹窗 -->
+            <md-landscape v-model="teamperatureModel" :mask-closable="true">
+            <div class="apply">
+
+              <div class="flex flex-pack-justify flex-align-center apply-list">
+              <div class="apply-prop">温度：</div>
+              <md-input-item ref="teamperature" v-model="teamperature"  type="textarea" :maxlength="10" placeholder="请输入设备温度"></md-input-item>
+</div>
+                   <div class="footer-btn">
+                    <button class="btn btn-blue" @click="doUpdateTeamperature()">确定</button>
+                </div>
+            </div>
+            </md-landscape>
+
+
   </div>
 </template>
 
@@ -86,7 +102,10 @@ export default {
       deviceId: "",
       detailsData: [],
       deviceUpdateList: [], //编辑修改时的对象列表[ {IO} , {温度} , {电源} ...]
-      selectEnum: [1, 0]
+      selectEnum: [1, 0],
+      teamperatureModel: false,
+      teamperature: "",
+      teamperatureId: null
     };
   },
   name: "switch-demo",
@@ -94,7 +113,8 @@ export default {
     [Switch.name]: Switch,
     // 定义组件
     cheader
-  },created() {
+  },
+  created() {
     this.getDataList();
   },
   mounted() {},
@@ -123,17 +143,21 @@ export default {
 
       // deviceUpdateList
     },
+
+    doUpdateTeamperature() {
+      this.devicedetail({
+        token: this.$store.getters.getToken,
+        id: this.deviceId,
+        type: this.teamperatureId,
+        teamperature: this.teamperature //温度
+      });
+    },
     // 设置
     handelSet(item) {
       if (item.teamperatureType) {
-        this.devicedetail({
-          token: this.$store.getters.getToken,
-          id: this.deviceId,
-          type: item.id,
-          teamperature: "0" //温度
-        });
-
-        
+        this.teamperatureModel = true;
+        this.teamperature = item.list[0].teamperature;
+        this.teamperatureId = item.id;
       } else {
         this.devicedetail(
           Object.assign(
@@ -304,6 +328,16 @@ export default {
       line-height: 50 * @rpx;
       text-align: center;
     }
+  }
+}
+// 蒙层
+.apply {
+  background: #fff;
+  padding: 30 * @rpx;
+  border-radius: 10 * @rpx;
+  &-prop {
+    white-space: nowrap;
+    width: 65px;
   }
 }
 </style>
