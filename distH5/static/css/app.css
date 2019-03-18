@@ -2517,6 +2517,15 @@ input:-ms-input-placeholder {
   line-height: 2.27273rem;
   text-align: center;
 }
+.apply {
+  background: #fff;
+  padding: 1.36364rem;
+  border-radius: 0.45455rem;
+}
+.apply-prop {
+  white-space: nowrap;
+  width: 5.90909rem;
+}
 
 @charset "utf-8";
 .details {
