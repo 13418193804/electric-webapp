@@ -19,6 +19,9 @@ export const loginMQTT = (token, callback) => {
         mqttClient.subscribe(
             `${getBaseUrl()}/mqttinterface?token=${token}`
         );
+        mqttClient.subscribe(
+            `${getBaseUrl()}/mqttinterface`
+        );
         // console.log(`${getBaseUrl()}/mqttinterface?token=${token}`)
     });
     mqttClient.on("message", (topic, message) => {
@@ -31,6 +34,13 @@ export const loginMQTT = (token, callback) => {
                 `${obj.device_name}：${obj.event}`
             );
         }
+        if (obj.teyp == 2) {
+            sendMessage(
+                '通知',
+                `${obj.content}`
+            );
+        }
+
         // mqttClient.end()
         // this.messageList.push(str);
     });
