@@ -12,7 +12,7 @@
         </div>
         <div class="flex details-declare-list">
             <div class="left">紧急：</div>
-            <div class="right">{{detailsData.solution}}</div>
+            <div class="right"></div>
         </div>
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>
@@ -35,7 +35,12 @@
             </div>
         </div>
         <div class="details-result-cause">
-            <div class="flex details-result-cause-check" v-if="curId == 1">
+          <div class="flex details-result-cause-check">
+                <span v-for="(item,index) in checkData" :key="index" 
+                @click="handelCheck(item,index)">
+                <i class="iconfont icon-weigouxuan" :class="[comifCheck(item)?'icon-yigouxuan':'']"></i>{{item.name}}</span>
+            </div>
+            <!-- <div class="flex details-result-cause-check" v-if="curId == 1">
                 <span v-for="(item,index) in checkData" :key="index" 
                 @click="handelCheck(item,index)" :class="{cur:index == active}">
                 <i class="iconfont icon-weigouxuan" :class="{'icon-yigouxuan':index == active}"></i>{{item.name}}</span>
@@ -47,7 +52,7 @@
             </div>
             <div class="flex details-result-cause-check" v-if="curId == 3">
                 <textarea placeholder="暂时不处理的原因" v-model="solution"></textarea>
-            </div>
+            </div> -->
         </div>
         <div class="flex details-result-cause">
             <div class="left">备注：</div>
@@ -100,8 +105,9 @@ export default {
       isActive: "",
       active: null,
       detailsData: [],
-      checkData: [{ name: "线路故障" }, { name: "元气损坏" }, { name: "其他" }],
-      checkDataNo: [{ name: "无法处理" }, { name: "下雨" }, { name: "其他" }],
+      checkData: [], // 选项列表
+      listData: [],
+      // checkDataNo: [{ name: "无法处理" }, { name: "下雨" }, { name: "其他" }],
       option: [
         { name: "已解决", id: 2 },
         { name: "未解决", id: 1 },
@@ -160,6 +166,8 @@ export default {
     // }
   },
   methods: {
+   
+
     /* API */
     getDataDetail() {
       this.service
@@ -173,15 +181,18 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
+          console.log('查看',res.data)
             this.detailsData = res.data.workorder;
+            this.checkData = res.data.solution_list
+            this.listData = this.detailsData.solution.split(',')
+          console.log(this.listData)
             if (this.detailsData.status == 0) {
               this.curOption = "";
             } else {
               this.curOption = this.detailsData.status;
-              this.status = this.detailsData.status;
-              this.curId = this.detailsData.status;
+              // this.status = this.detailsData.status;
+              // this.curId = this.detailsData.status;
             }
-            this.solution = this.detailsData.solution;
             this.desp = this.detailsData.desp;
             this.imgs = this.detailsData.imgs;
             this.imgs.forEach(item => {
@@ -266,9 +277,24 @@ export default {
       this.curId = event.target.value;
       this.status = event.target.value;
     },
-    handelCheck(item, index) {
-      this.active = index;
-      this.solution = item.name;
+    removeByValue(arr, val) {
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == val) {
+          arr.splice(i, 1);
+          break;
+        }
+      }
+    },
+    handelCheck(item) {
+      // this.active = index;
+      // this.solution = item.id;
+            if(this.listData.filter(items=>{
+              return item.id == items
+            }).length>0){
+              this.removeByValue(this.listData,item.id)
+            }else{
+        this.listData.push(item.id)
+            }
     },
     /* API */
     getSubmit() {
@@ -279,6 +305,7 @@ export default {
         return;
       }
       let list = [];
+      this.solution = this.listData.join(',')
       list.push("token=" + this.$store.getters.getToken);
       list.push("id=" + this.detailsData.id);
       list.push("solution=" + this.solution);
@@ -314,7 +341,24 @@ export default {
         params: { detailsData: this.detailsData }
         // params: { id: this.detailsData.id }
       });
-    }
+    },
+     comifCheck(item){
+
+if(this.listData.filter(items=>{
+return item.id == items
+}).length>0){
+       return true
+}else{
+  return false
+}
+       
+       
+    },
+
+  },computed:{
+    
+
+
   }
 };
 </script>
@@ -362,7 +406,7 @@ export default {
         height: auto !important;
         padding-left: 135 * @rpx;
         span {
-          display: inline-block;
+          cheak: inline-block;
           flex-wrap: wrap;
           line-height: 64 * @rpx;
           margin-right: 40 * @rpx;
