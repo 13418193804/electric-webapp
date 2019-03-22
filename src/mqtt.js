@@ -1,12 +1,12 @@
 import mqtt from "mqtt";
 import jschardet from "jschardet";
 import iconv from "iconv-lite";
-import { mqtt_url, getBaseUrl } from "./api/conf";
+import {  getBaseUrl, getMqttUrl } from "./api/conf";
 
 
 
 export const loginMQTT = (token, callback) => {
-    var mqttClient = mqtt.connect(mqtt_url);
+    var mqttClient = mqtt.connect(getMqttUrl());
     callback(mqttClient)
     mqttClient.on("connect", function () {
         // 发布主题

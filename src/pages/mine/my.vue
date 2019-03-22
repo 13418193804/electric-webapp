@@ -12,10 +12,11 @@
     </div> 
     <div class="mine-cinfigbox">
       <div>服务器地址：{{servicerData.servicer||''}}</div>
+      <div>推送地址：{{servicerData.mqtt_url||''}}</div>
       <!-- <div>&nbsp;&nbsp;&nbsp;推送地址：wwe.1874.97793</div> -->
-      <div>&nbsp;&nbsp;&nbsp;链接状态：
+      <div>链接状态：
         <span v-if="mqttClient&&mqttClient.connected"><i class="iconfont icon-iconfontdian1"></i>已链接</span>
-        <span v-else><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span class="mine-cinfigbox-reconnect" @click="reconnect">重新连接</span></span>
+        <span v-else><i class="iconfont icon-iconfontdian11"></i>链接已断开 <span class="mine-cinfigbox-reconnect" @click="reconnect(false)">重新连接</span></span>
       </div>
     </div>
     <div class="mine-operation">
@@ -45,17 +46,24 @@ export default {
     // 定义组件
   },
   created() {
+    
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
-    this.mqttClient = Vue.prototype.mqttClient;
+    // this.$nextTick(() => {
+      this.mqttClient = Vue.prototype.mqttClient;
+    // });
+
     if ((this.$store.getters.getToken || "") == "") {
       this.$router.replace("/login");
       return;
     }
+    
     this.getImgInfo();
     this.getServer();
+    // this.reconnect(true);
+ 
   },
   beforeCreate() {},
   methods: {
@@ -63,7 +71,11 @@ export default {
      * 断开链接2种可能。没有初始化或者关闭了频道接收
      */
     //重新链接
-    reconnect() {
+    reconnect(status=null) {
+
+      if (!status) {
+        this.$toast.loading("重连中...", 2000);
+      }
       if (Vue.prototype.mqttClient && Vue.prototype.mqttClient.connected) {
         Vue.prototype.mqttClient.reconnect();
       } else {
@@ -71,6 +83,14 @@ export default {
           Vue.prototype.mqttClient = mqttClient;
         });
       }
+
+      // this.$nextTick(() => {
+      //   this.$toast.hide();
+      //   if (!Vue.prototype.mqttClient || !Vue.prototype.mqttClient.connected) {
+      //     this.$toast.info("链接超时");
+      //   }
+      // });
+
       this.mqttClient = Vue.prototype.mqttClient;
     },
     // 事件处理方法

@@ -6,9 +6,10 @@
             <div>
                 <input type="text" v-model="ipForm.url" placeholder="服务器地址"> 
             </div>
-            <!-- <div>
-                <input type="text" v-model="ipForm.password"  placeholder="推送地址"> 
-            </div> -->
+            <div>
+                <input type="text" v-model="ipForm.mqtt_url"  placeholder="推送通知地址"> 
+            </div>
+             
         </div>
         <div class="loginCode">
             <div @click="handelConfig()">保存</div>
@@ -23,7 +24,7 @@ import { Dialog, Button, Toast } from "mand-mobile";
 import cheader from "../../components/header";
 import store from "../../store/index";
 import Vue from "vue";
-import { setBaseUrl, getBaseUrl } from "../../api/conf";
+import { setBaseUrl, getBaseUrl, setMqttUrl, getMqttUrl } from "../../api/conf";
 export default {
   data() {
     // 选项 数据
@@ -37,6 +38,7 @@ export default {
   },
   created() {
     this.ipForm.url = getBaseUrl();
+    this.ipForm.mqtt_url = getMqttUrl();
   },
   mounted() {
     store.state.bAuth = false;
@@ -52,12 +54,18 @@ export default {
         this.$toast.info("请输入服务器地址");
         return;
       }
+      if ((this.ipForm.mqtt_url || "") == "") {
+        this.$toast.info("请输入推送通知地址");
+        return;
+      }
 
       if ((this.$store.getters.getToken || "") == "") {
         setBaseUrl(this.ipForm.url);
+        setMqttUrl(this.ipForm.mqtt_url);
         this.$router.push({ name: "login" });
       } else {
         setBaseUrl(this.ipForm.url);
+        setMqttUrl(this.ipForm.mqtt_url);
         //立刻设置 不可请求成功后设置
         //修改那一刻接口已经请求不了了
         this.getFormIP();
@@ -71,11 +79,16 @@ export default {
           methods: "post",
           data: {
             token: this.$store.getters.getToken,
-            url: getBaseUrl()
+            url: getBaseUrl(),
+            mqtt_url: getMqttUrl(),
+            mqtt_port: 9000
           }
         })
         .then(res => {
           if (res.returnStatus) {
+            this.loginMQTT(this.$store.getters.getToken, mqttClient => {
+              Vue.prototype.mqttClient = mqttClient;
+            });
             this.$toast.succeed("配置成功", 2000, true);
             setTimeout(() => {
               if ((this.$store.getters.getToken || "") == "") {
