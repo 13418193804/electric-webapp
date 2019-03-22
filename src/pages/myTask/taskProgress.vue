@@ -190,7 +190,7 @@ export default {
               this.curOption = "";
             } else {
               this.curOption = this.detailsData.status;
-              // this.status = this.detailsData.status;
+              this.status = this.detailsData.status;
               // this.curId = this.detailsData.status;
             }
             this.desp = this.detailsData.desp;
@@ -246,8 +246,6 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-            // uri = Vue.prototype.baseImageUrl + res.data.img_path
-            // console.log('==',uri)
             uri = this.baseurl + res.data.img_path;
             this.urlimgs.push(uri);
             reader.readAsDataURL(img1);
@@ -286,15 +284,13 @@ export default {
       }
     },
     handelCheck(item) {
-      // this.active = index;
-      // this.solution = item.id;
-            if(this.listData.filter(items=>{
-              return item.id == items
-            }).length>0){
-              this.removeByValue(this.listData,item.id)
-            }else{
+      if(this.listData.filter(items=>{
+        return item.id == items
+      }).length>0){
+        this.removeByValue(this.listData,item.id)
+      }else{
         this.listData.push(item.id)
-            }
+      }
     },
     /* API */
     getSubmit() {
