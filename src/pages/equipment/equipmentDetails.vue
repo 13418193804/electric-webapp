@@ -121,15 +121,41 @@ export default {
   methods: {
     getCurrentPosition() {
       this.$toast.loading("加载定位中...");
-      getCurrentPosition((address,point) => {
+      getCurrentPosition((address, point) => {
         // alert(point.lng || "");
         // alert(point.lat || "");
         this.$toast.hide();
         this.$dialog.confirm({
-          content: `当前定位：${address.province||''}${address.city||''}${address.district||''}${address.street||''}${address.street_number||''}(${point.lng},${point.lat})`,
+          content: `当前定位：${address.province || ""}${address.city ||
+            ""}${address.district || ""}${address.street ||
+            ""}${address.street_number || ""}(${point.lng},${point.lat})`,
           confirmText: "确定",
           onConfirm: () => {
-            
+            this.service
+              .httpRequest({
+                url: "/aapi/modifygps",
+                methods: "post",
+                data: {
+            token: this.$store.getters.getToken,
+                  id: this.deviceId,
+                  longitude: point.lng,
+                  latitude: point.lat,
+                  location: `${address.province || ""}${address.city ||
+                    ""}${address.district || ""}${address.street ||
+                    ""}${address.street_number || ""}`
+                }
+              })
+              .then(res => {
+                if (res.returnStatus) {
+                  this.$toast.succeed("已更新", 2000, true);
+                  this.getDataList();
+                } else {
+                  this.$dialog.alert({
+                    content: res.msg,
+                    confirmText: "确定"
+                  });
+                }
+              });
           }
         });
       });

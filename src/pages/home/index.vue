@@ -61,17 +61,19 @@ export default {
   mounted() {
     if ((this.$store.getters.getToken || "") !== "") {
       this.getNumbel();
-    }
-    init([
+    }else{
+  init([
       {
         id: "canvas_circle",
-        data_arr: [0.8, 0.2]
+        data_arr: [1, 0]
       },
       {
         id: "canvas_circle1",
-        data_arr: [0.8, 0.8]
+        data_arr: [0, 1]
       }
     ]);
+    }
+  
   },
   methods: {
     // 事件处理方法
@@ -106,6 +108,17 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             this.numbelData = res.data.data;
+  init([
+      {
+        id: "canvas_circle",
+        data_arr: [res.data.data.online / (res.data.data.offline + res.data.data.online),res.data.data.offline / (res.data.data.offline + res.data.data.online)]
+      },
+      {
+        id: "canvas_circle1",
+        data_arr: [res.data.data.processed / (res.data.data.undisposed + res.data.data.processed),res.data.data.undisposed / (res.data.data.undisposed + res.data.data.processed)]
+      }
+    ]);
+
             if (!Vue.prototype.mqttClient) {
               //开启mqtt
               this.loginMQTT(this.$store.getters.getToken, mqttClient => {

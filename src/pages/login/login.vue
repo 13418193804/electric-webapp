@@ -26,7 +26,7 @@
 import { mapMutations } from "vuex";
 import store from "../../store/index";
 import Vue from "vue";
-import { getBaseUrl } from "../../api/conf";
+import { getBaseUrl, getMqttUrl } from "../../api/conf";
 export default {
   data() {
     // 选项 数据
@@ -54,8 +54,10 @@ export default {
       this.$router.push("/configIp");
     },
     goLogin() {
-      if ((getBaseUrl() || "") == "") {
-        this.$toast.info("请配置服务器");
+
+      console.log(getBaseUrl(),getMqttUrl())
+      if ((getBaseUrl() || "") == "" || (getMqttUrl() || "") == "") {
+        this.$toast.info("请配置服务器地址");
         return;
       }
 
@@ -123,7 +125,9 @@ export default {
               methods: "post",
               data: {
                 token: this.$store.getters.getToken,
-                url: getBaseUrl()
+                url: getBaseUrl(),
+                mqtt_url:getMqttUrl(),
+                mqtt_port:9000
               }
             })
             .then(res => {

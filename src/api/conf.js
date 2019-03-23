@@ -17,7 +17,7 @@
 // console.log('base///=', urlip)
 
 // http://onv.96ba.com:442
-
+// mqtt://120.78.135.69:9000
 export const base_url = ""
 export const setBaseUrl = (base_url) => {
     this.base_url = base_url
@@ -28,6 +28,15 @@ export const getBaseUrl = () => {
 }
 
 
+export const setMqttUrl = (mqtt_url) => {
+    this.mqtt_url = mqtt_url
+    localStorage.mqtt_url = mqtt_url
+}
 
-export const mqtt_url = "mqtt://120.78.135.69:9000"
+export const getMqttUrl = () => {
+    return this.mqtt_url || localStorage.mqtt_url
+}
+
+
+export const mqtt_url = ""
 
