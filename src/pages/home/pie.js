@@ -46,7 +46,7 @@ function G(id) {
         var text_arr = ["第一季度", "第二季度", ];  
        
 for(let i = 0 ; i < option.length;i++){
-    drawCircle(option[i].id, option[i].data_arr, ["#FFCC00",'#FF9934'], text_arr);  
+    drawCircle(option[i].id, option[i].data_arr, ["#FFCC00",'#FF9934','#c4932e'], text_arr);  
 }
 
     }  

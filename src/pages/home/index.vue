@@ -15,18 +15,18 @@
     </div>
     <div class="cartogram">
       <div class="flex catTop">
-          <div><i class="dot"></i>未处理任务 <span>{{numbelData.undisposed}}</span>条</div>
-          <div><i class="dot"></i>在线设备 <span>{{numbelData.online}}</span>台</div>
-          <div><i class="dot"></i>已处理任务 <span>{{numbelData.processed}}</span>条</div>
-          <div><i class="dot"></i>离线设备 <span>{{numbelData.offline}}</span>台</div>
-          <div><i class="dot"></i>处理中任务 <span>{{numbelData.processing}}</span>条</div>
+          <div><i class="dot" style="background-color:#FFCC00"></i>未处理任务 <span>{{numbelData.undisposed}}</span>条</div>
+          <div><i class="dot" style="background-color:#FFCC00"></i>在线设备 <span>{{numbelData.online}}</span>台</div>
+          <div><i class="dot" style="background-color:#FF9934"></i>处理中任务 <span>{{numbelData.processing}}</span>条</div>
+          <div><i class="dot" style="background-color:#FF9934"></i>离线设备 <span>{{numbelData.offline}}</span>台</div>
+          <div><i class="dot" style="background-color:#c4932e"></i>已处理任务 <span>{{numbelData.processed}}</span>条</div>
       </div>
       <div class="flex chat catTop ">
          <div>
-             <canvas id="canvas_circle" width="200" height="200"></canvas>  
+             <canvas id="canvas_circle1" width="200" height="200"></canvas>  
           </div>
          <div>
-             <canvas id="canvas_circle1" width="200" height="200"></canvas>  
+             <canvas id="canvas_circle" width="200" height="200"></canvas>  
           </div>
       </div>
     </div>
@@ -113,10 +113,14 @@ export default {
       {
         id: "canvas_circle",
         data_arr: [res.data.data.online / (res.data.data.offline + res.data.data.online),res.data.data.offline / (res.data.data.offline + res.data.data.online)]
-      },
+     },
       {
         id: "canvas_circle1",
-        data_arr: [res.data.data.processed / (res.data.data.undisposed + res.data.data.processed),res.data.data.undisposed / (res.data.data.undisposed + res.data.data.processed)]
+        data_arr: [
+          res.data.data.undisposed / (res.data.data.undisposed + res.data.data.processed + res.data.data.processing),
+          res.data.data.processing / (res.data.data.undisposed + res.data.data.processed + res.data.data.processing),
+          res.data.data.processed / (res.data.data.undisposed + res.data.data.processed + res.data.data.processing),
+          ]
       }
     ]);
 
