@@ -186,6 +186,7 @@ export default {
         type: this.teamperatureId,
         teamperature: this.teamperature //温度
       });
+      this.teamperatureModel= false
     },
     // 设置
     handelSet(item) {
