@@ -10,9 +10,17 @@
             <div class="left"><i class="icon"><img src="../../assets/02.png" alt="" class="A"></i>{{detailsData.type == 0 ?'系统自动派单':'手动派单'}}</div>
             <div class="right"> <span>{{detailsData.create_time}}</span></div>
         </div>
-        <div class="flex details-declare-list">
-            <div class="left">紧急：</div>
+        <div class="flex details-declare-list" v-if="detailsData.is_emergency">
+            <div class="left"><i class="icon"><img src="../../assets/01.png" alt=""></i>紧急</div>
             <div class="right"></div>
+        </div>
+        <div class="flex details-declare-list">
+            <div class="left">设备编号：</div>
+            <div class="right"> <span>{{detailsData.device_sn}}</span></div>
+        </div>
+        <div class="flex details-declare-list">
+            <div class="left">设备名称：</div>
+            <div class="right"> <span>{{detailsData.device_name}}</span></div>
         </div>
         <div class="flex details-declare-list">
             <div class="left"><i class="icon"><i class="iconfont icon-dizhi1"></i></i>地址：</div>

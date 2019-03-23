@@ -50,7 +50,7 @@
              <div class="Mdetails-form-list">
                 <div>领用备注：</div>
                 <div>
-                    <textarea style=""></textarea>
+                    <textarea style="" v-model="desp"></textarea>
                 </div>
             </div>
         </div>
@@ -90,6 +90,7 @@ export default {
       warehouseList: [], //当前展示的物料
       preMaterialList: [], //预选物料
       workorderId: null,
+      desp: '',
       keyword: ""
     };
   },
@@ -222,6 +223,9 @@ export default {
 
       if (this.workorderId) {
         list.push("workorder_id=" + this.workorderId);
+      }
+      if (this.desp) {
+        list.push("desp=" + this.desp);
       }
       let length = this.preMaterialList.filter(item => {
         if (item.getCount > 0) {

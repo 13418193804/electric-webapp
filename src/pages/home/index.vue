@@ -15,10 +15,11 @@
     </div>
     <div class="cartogram">
       <div class="flex catTop">
-          <div><i class="dot"></i>离线设备 <span>{{numbelData.offline}}</span>台</div>
           <div><i class="dot"></i>未处理任务 <span>{{numbelData.undisposed}}</span>条</div>
           <div><i class="dot"></i>在线设备 <span>{{numbelData.online}}</span>台</div>
           <div><i class="dot"></i>已处理任务 <span>{{numbelData.processed}}</span>条</div>
+          <div><i class="dot"></i>离线设备 <span>{{numbelData.offline}}</span>台</div>
+          <div><i class="dot"></i>处理中任务 <span>{{numbelData.processing}}</span>条</div>
       </div>
       <div class="flex chat catTop ">
          <div>
@@ -202,7 +203,7 @@ export default {
   background: #eee;
   .catTop {
     background: #ccc;
-    height: 100 * @rpx;
+    height: 150 * @rpx;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 0%;

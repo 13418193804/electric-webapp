@@ -18,7 +18,7 @@
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+list.amount+list.units+';'}}</span>
+                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+list.amount+list.units}}<span v-if="item.status_desp"> 备注:{{item.status_desp+';'}}</span></span>
                 </div>
                 <div class="flex material-list-operation">
                     <div>
@@ -265,6 +265,7 @@ export default {
 
             // this.active = active;
             this.appleyData = res.data.data;
+            console.log('wuliao', this.appleyData)
             res.data.data.forEach(item => {
               list.push(item);
             });

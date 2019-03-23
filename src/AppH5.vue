@@ -718,13 +718,13 @@ header {
         }
       }
       .left {
-        width: 145 * @rpx;
+        width: 155 * @rpx;
         padding-left: 10*@rpx;
         text-align: left;
         line-height: 30px;
       }
       .right {
-        width: 430 * @rpx;
+        width: 420 * @rpx;
         line-height: 30px;
       }
       &-swich {
