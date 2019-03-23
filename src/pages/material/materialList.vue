@@ -28,7 +28,6 @@
                 <div class="mb" v-for="(item,index) in warehouseList">
                  <div class="flex Mdetails-content-box-Mdetails">
                      <div>{{item.name}}</div>
-                     <!-- <div>98766789-K</div> -->
                  </div>
                  <div class="flex Mdetails-content-box-Mdetails">
                      <div>库存:</div>
@@ -42,9 +41,6 @@
               <div>关联任务单：{{workorderId||''}}</div>
               <div class="tag" v-if="this.$route.params.detailsData==undefined" @click="changeChecktask">选择任务单</div>
             </div>
-            <!-- <div class="Mdetails-form-list">
-                领用备注：76543456789
-            </div> -->
             <div class="Mdetails-form-list">
                 <div>申请物料：</div>
                 <div class="Mdetails-form-list-border">

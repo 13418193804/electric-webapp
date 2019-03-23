@@ -144,30 +144,8 @@ export default {
   mounted() {
     this.baseurl = getBaseUrl();
     this.getDataDetail();
-
-    // this.getDataList()
-
-    // if (this.$route.params.detailsData) {
-    //   this.detailsData = this.$route.params.detailsData;
-    //   if (this.detailsData.status == 0) {
-    //     this.curOption = "";
-    //   } else {
-    //     this.curOption = this.detailsData.status;
-    //     this.status = this.detailsData.status;
-    //     this.curId = this.detailsData.status;
-    //   }
-    //   this.solution = this.detailsData.solution;
-    //   this.desp = this.detailsData.desp;
-    //   this.imgs = this.detailsData.imgs;
-    //   this.imgs.forEach(item => {
-    //     let url = this.baseurl + item;
-    //     this.urlimgs.push(url);
-    //   });
-    // }
   },
   methods: {
-   
-
     /* API */
     getDataDetail() {
       this.service
@@ -191,7 +169,6 @@ export default {
             } else {
               this.curOption = this.detailsData.status;
               this.status = this.detailsData.status;
-              // this.curId = this.detailsData.status;
             }
             this.desp = this.detailsData.desp;
             this.imgs = this.detailsData.imgs;
@@ -292,6 +269,15 @@ export default {
         this.listData.push(item.id)
       }
     },
+    comifCheck(item){
+      if(this.listData.filter(items=>{
+        return item.id == items
+      }).length>0){
+            return true
+      }else{
+        return false
+      }
+    },
     /* API */
     getSubmit() {
       this.$toast.loading("加载中...");
@@ -337,24 +323,7 @@ export default {
         params: { detailsData: this.detailsData }
         // params: { id: this.detailsData.id }
       });
-    },
-     comifCheck(item){
-
-if(this.listData.filter(items=>{
-return item.id == items
-}).length>0){
-       return true
-}else{
-  return false
-}
-       
-       
-    },
-
-  },computed:{
-    
-
-
+    }
   }
 };
 </script>
