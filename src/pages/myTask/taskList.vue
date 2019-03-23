@@ -16,6 +16,8 @@
                         <li v-for="(item,index) in quoteData[active]" :key="index" class="scroll-view-list" @click="getDetails(item.id)">
                             <div>
                                 <p>{{item.create_time}}</p>
+                                <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
+                                <h4> 设备名称：<span>{{item.device_name}}</span></h4>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
                                 <span class="tag">{{quoteTypeEnum[item.type]}}</span>
                             </div>
@@ -213,17 +215,52 @@ export default {
         this.$refs.scrollView.finishRefresh();
       }, 2000);
     },
+    checkMessage() {
+      this.service
+        .httpRequest({
+          url: "/aapi/message",
+          methods: "post",
+          data: {
+            token: this.$store.getters.getToken,
+            id: item.workorder_id,
+            type: 1
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            console.log('已读')
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
+      });
+    },
     getDetails(id) {
-      this.setTaskId(id);
-      // this.$router.push({
-      //   name: "taskDetails",
-      //   query: {
-      //     id: id
-      //   }
-      // });
-
-      this.$router.push({
-        name: "taskDetails"
+      this.service
+        .httpRequest({
+          url: "/aapi/message",
+          methods: "post",
+          data: {
+            token: this.$store.getters.getToken,
+            id: id,
+            type: 1
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.setTaskId(id);
+            this.$router.push({
+              name: "taskDetails"
+            });
+            console.log('已读')
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
       });
     },
     getProgeess(id) {

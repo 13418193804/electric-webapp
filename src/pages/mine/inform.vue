@@ -94,12 +94,12 @@ export default {
           methods: "post",
           data: {
             token: this.$store.getters.getToken,
-            id: item.id
+            id: item.id,
+            type: 2
           }
         })
         .then(res => {
           if (res.returnStatus) {
-            console.log('成功')
             this.getDataList()
           } else {
             this.$dialog.alert({

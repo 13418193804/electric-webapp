@@ -49,16 +49,36 @@ export default {
       this.$router.push("/");
     },
     checkMessage(item) {
-      this.setTaskId(item.workorder_id);
-      if (item.status == 0 || item.status == 2) {
-        this.$router.push({
-          name: "taskDetails"
+      this.service
+        .httpRequest({
+          url: "/aapi/message",
+          methods: "post",
+          data: {
+            token: this.$store.getters.getToken,
+            id: item.workorder_id,
+            type: 1
+          }
+        })
+        .then(res => {
+          if (res.returnStatus) {
+            this.setTaskId(item.workorder_id);
+            if (item.status == 0 || item.status == 2) {
+              this.$router.push({
+                name: "taskDetails"
+              });
+            } else if (item.status == 1) {
+              this.$router.push({
+                name: "taskProgress"
+              });
+            }
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
+          }
         });
-      } else if (item.status == 1) {
-        this.$router.push({
-          name: "taskProgress"
-        });
-      }
+      
     },
     getInform() {
       this.$router.push({ name: "inform" });
