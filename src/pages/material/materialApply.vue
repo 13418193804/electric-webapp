@@ -527,6 +527,7 @@ export default {
         text-align: center;
         border-right: 1 * @rpx solid #999;
         padding: 5px 0;
+        word-break: break-all;
       }
       :nth-of-type(2) {
         width: 30%;
