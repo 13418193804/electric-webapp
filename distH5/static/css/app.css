@@ -694,13 +694,13 @@ header .back {
   text-align: center;
 }
 .details-declare-list .left {
-  width: 6.59091rem;
+  width: 7.04545rem;
   padding-left: 0.45455rem;
   text-align: left;
   line-height: 2.72727rem;
 }
 .details-declare-list .right {
-  width: 19.54545rem;
+  width: 19.09091rem;
   line-height: 2.72727rem;
 }
 .details-declare-list-swich {
@@ -1117,7 +1117,7 @@ textarea {
 }
 .cartogram .catTop {
   background: #ccc;
-  height: 4.54545rem;
+  height: 6.81818rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   -webkit-box-pack: justify;

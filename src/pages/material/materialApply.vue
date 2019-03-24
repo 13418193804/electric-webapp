@@ -18,8 +18,10 @@
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+list.amount+list.units}}<span v-if="item.status_desp"> 备注:{{item.status_desp+';'}}</span></span>
+                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+list.amount+list.units}}</span>
                 </div>
+
+                <span v-if="item.status_desp"> 备注:{{item.status_desp}}</span>
                 <div class="flex material-list-operation">
                     <div>
                         <span class="tag" v-if="item.status == 0" @click="confirmRevoke(item.id)">撤销</span>
@@ -34,17 +36,14 @@
                 <p>暂无数据</p>
             </div>
         </div>
-      
-
       </template>
-
     </better-scroll>
       
-        <!-- 物料备用 -->
-        <div class="scroll-view-list material" v-if="active == 1">
-          <div style="height:60px;"></div>
-          <div class="material-reserve">
+  
+
+  <div class="material" v-if="active == 1">
               <!-- 扫一扫 -->
+            <div class="material-box  flex  flex-align-center">
               <div class="flex material-top">
                   <div class="material-top-search">
                       <md-input-item
@@ -58,8 +57,12 @@
                       <div class="tag"  @click="getApply()">申请物料</div>
                   </div>
               </div>
+            </div>
 
-              <div>
+    <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" marginTop="200px" >
+      <template slot="list-content">
+        <!-- 物料申请 -->
+        <div class="scroll-view-list material taskNew" >
                 <div class="material-table" v-if="reserveData.length > 0">
                     <div class="flex material-table-box">
                         <div class="material-table-box-list">编号</div>
@@ -73,28 +76,24 @@
                         <div class="material-table-box-list">{{item.name}}</div>
                         <div class="material-table-box-list">{{item.units}}</div>
                         <div class="material-table-box-list">{{item.amount}}</div>
-                        <div class="material-table-box-list" @click="getPop(item)"><span>使用</span></div>
+                        <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)"><span>使用</span></div>
                     </div>
                 </div>
-                <div class="noneData" v-else>
-                    <i class="iconfont icon-zanwushuju"></i>
-                    <p>暂无数据</p>
-                </div>
-              </div>    
-              <!-- 列表 -->
-              <div class="material-reserve-table">
-                  <div class=""></div>
-              </div>
-          </div>
-          <!-- 弹窗 -->
-          <popup ref="popup" @getReserveData="getReserveData"></popup>
+            <div class="noneData" v-else>
+                <i class="iconfont icon-zanwushuju"></i>
+                <p>暂无数据</p>
+            </div>
+        </div>
+      </template>
+    </better-scroll>
         </div>
 
+          <!-- 弹窗 -->
+          <popup ref="popup" @getReserveData="getReserveData"></popup>
+
         <!-- 物料使用记录 -->
-        <div class="scroll-view-list material" v-if="active == 2">
-            <div style="height:60px;"></div>
-            <div class="material-reserve">
-              <!-- 扫一扫 -->
+        <div class="material" v-if="active == 2">
+            <div class="material-box  flex  flex-align-center">
               <div class="flex material-top">
                   <div class="material-top-search">
                       <md-input-item v-model="keyword"
@@ -108,36 +107,36 @@
                       <div class="tag">申请物料</div>
                   </div>
               </div>
-              <div>
-                <div class="material-table" v-if="materiallist.length > 0">
-                    <div class="flex material-table-box">
-                        <div class="material-table-box-list">编号</div>
-                        <div class="material-table-box-list">名称</div>
-                        <div class="material-table-box-list">单位</div>
-                        <div class="material-table-box-list">剩余数量</div>
-                        <div class="material-table-box-list">使用情况</div>
-                    </div>
-                    <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
-                        <div class="material-table-box-list">{{item.id}}</div>
-                        <div class="material-table-box-list">{{item.name}}</div>
-                        <div class="material-table-box-list">{{item.units}}</div>
-                        <div class="material-table-box-list">{{item.amount}}</div>
-                        <div class="material-table-box-list" @click="goTask(item)">{{item.is_wastage==1?'损耗':'查看工单'}}</div>
-                        <!-- wastageOrworkorder -->
-                    </div>
-                </div>    
-                <div class="noneData" v-else>
-                    <i class="iconfont icon-zanwushuju"></i>
-                    <p>暂无数据</p>
-                </div>   
-              </div>     
-              <!-- 物料列表 -->
-              <div class="material-reserve-table">
-                  <div class=""></div>
-              </div>
             </div>
+                
+            <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" marginTop="200px" >
+                  <template slot="list-content">
+                    <!-- 物料申请 -->
+                    <div class="scroll-view-list material taskNew" >
+                      <div class="material-table" v-if="materiallist.length > 0">
+                            <div class="flex material-table-box">
+                                <div class="material-table-box-list">编号</div>
+                                <div class="material-table-box-list">名称</div>
+                                <div class="material-table-box-list">单位</div>
+                                <div class="material-table-box-list">剩余数量</div>
+                                <div class="material-table-box-list">使用情况</div>
+                            </div>
+                            <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
+                                <div class="material-table-box-list">{{item.id}}</div>
+                                <div class="material-table-box-list">{{item.name}}</div>
+                                <div class="material-table-box-list">{{item.units}}</div>
+                                <div class="material-table-box-list">{{item.amount}}</div>
+                                <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)">{{item.is_wastage==1?'损耗':'查看工单'}}</div>
+                            </div>
+                        </div>    
+                        <div class="noneData" v-else>
+                            <i class="iconfont icon-zanwushuju"></i>
+                            <p>暂无数据</p>
+                        </div>   
+                    </div>
+                  </template>
+                </better-scroll>
         </div>
-
   </div>
 </template>
 
@@ -190,7 +189,15 @@ export default {
       // async data
       setTimeout(() => {
         this.pageindex += 1;
-        this.getDataList();
+        if (this.active === 0) {
+          this.getDataList();
+        }
+        if (this.active === 1) {
+          this.getReserveData(); //备用
+        }
+        if (this.active === 2) {
+          this.getMateriallist(); //使用记录
+        }
       }, 1000);
     },
     forceUpdate(status) {
@@ -223,9 +230,11 @@ export default {
         this.getDataList();
       }
       if (this.active === 1) {
+        this.reserveData = [];
         this.getReserveData(); //备用
       }
       if (this.active === 2) {
+        this.materiallist = [];
         this.getMateriallist(); //使用记录
       }
     },
@@ -265,7 +274,6 @@ export default {
 
             // this.active = active;
             this.appleyData = res.data.data;
-            console.log('wuliao', this.appleyData)
             res.data.data.forEach(item => {
               list.push(item);
             });
@@ -354,9 +362,12 @@ export default {
     /* 备用物料 */
     getReserveData(callback = null) {
       this.$toast.loading("加载中...");
+      let list = this.reserveData || [];
       let data = {
         token: this.$store.getters.getToken,
-        keyword: this.keyword
+        keyword: this.keyword,
+        pagesize: this.pagesize,
+        pageindex: this.pageindex
       };
       this.service
         .httpRequest({
@@ -370,7 +381,19 @@ export default {
             callback();
           }
           if (res.returnStatus) {
+            this.$nextTick(() => {
+              this.forceUpdate(true);
+            });
+            if (res.data.data.length !== this.pagesize) {
+              this.$nextTick(() => {
+                this.forceUpdate(false);
+              });
+            }
             this.reserveData = res.data.data;
+            res.data.data.forEach(item => {
+              list.push(item);
+            });
+            this.reserveData = list;
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -382,9 +405,12 @@ export default {
     //使用记录列表
     getMateriallist() {
       this.$toast.loading("加载中...");
+      let list = this.materiallist || [];
       let data = {
         token: this.$store.getters.getToken,
-        keyword: this.keyword
+        keyword: this.keyword,
+        pagesize: this.pagesize,
+        pageindex: this.pageindex
       };
       this.service
         .httpRequest({
@@ -395,7 +421,19 @@ export default {
         .then(res => {
           this.$toast.hide();
           if (res.returnStatus) {
+            this.$nextTick(() => {
+              this.forceUpdate(true);
+            });
+            if (res.data.data.length !== this.pagesize) {
+              this.$nextTick(() => {
+                this.forceUpdate(false);
+              });
+            }
             this.materiallist = res.data.data;
+            res.data.data.forEach(item => {
+              list.push(item);
+            });
+            this.materiallist = list;
           } else {
             this.$dialog.alert({
               content: res.msg,
@@ -483,12 +521,21 @@ export default {
       }
     }
   }
+  &-box {
+    position: absolute;
+    z-index: 20;
+    top: 80 * @rpx;
+    width: 100%;
+    height: 150 * @rpx;
+    background-color: #fff;
+  }
   // 扫一扫
   &-top {
     // width: 90%;
     margin: 0 * @rpx auto;
     height: 80 * @rpx;
     justify-content: space-between;
+    width: 100%;
     &-search {
       width: 75%;
       position: relative;
@@ -525,9 +572,9 @@ export default {
       border-left: 1 * @rpx solid #999;
       &-list {
         width: 20%;
-        text-align: center;
+        text-align: left;
         border-right: 1 * @rpx solid #999;
-        padding: 5px 0;
+        padding: 5px ;
         word-break: break-all;
       }
       :nth-of-type(2) {
