@@ -1,6 +1,12 @@
 <template>
   <div class="homePage">
-    <div class="flex flex-pack-center homeTitle"><img src="../../assets/onv.png" alt=""><h1>智能运维管理系统</h1> </div>
+    <div class="navigation flex   flex-pack-justify flex-align-center">
+      <div class="flex flex-pack-center homeTitle"><img src="../../assets/onv.png" alt=""><h1>智能运维管理系统</h1> </div>
+      <div class="navigation-icon">
+        <i class="iconfont icon-xuanxiang xuanxiang"></i>
+      </div>
+    </div>
+
     <div class="banner">
       <img src="../../assets/homebanner.png" alt="">
     </div>
@@ -235,5 +241,14 @@ export default {
 .chat {
   background: #eee !important;
   height: auto !important;
+}
+.xuanxiang{
+  font-size:24px!important;
+}
+.navigation{
+
+  &-icon{
+    padding: 10px;
+  }
 }
 </style>

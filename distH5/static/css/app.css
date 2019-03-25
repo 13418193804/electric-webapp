@@ -2009,12 +2009,21 @@ input:-ms-input-placeholder {
   float: right;
   width: 40%;
 }
+.material-box {
+  position: absolute;
+  z-index: 20;
+  top: 3.63636rem;
+  width: 100%;
+  height: 6.81818rem;
+  background-color: #fff;
+}
 .material-top {
   margin: 0 auto;
   height: 3.63636rem;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  width: 100%;
 }
 .material-top-search {
   width: 75%;
@@ -2052,9 +2061,9 @@ input:-ms-input-placeholder {
 }
 .material-table-box-list {
   width: 20%;
-  text-align: center;
+  text-align: left;
   border-right: 0.04545rem solid #999;
-  padding: 0.45455rem 0;
+  padding: 0.45455rem;
   word-break: break-all;
 }
 .material-table-box :nth-of-type(2) {
@@ -2543,6 +2552,10 @@ input:-ms-input-placeholder {
 .apply-prop {
   white-space: nowrap;
   width: 5.90909rem;
+}
+.temperature {
+  padding: 1.81818rem 1.81818rem 0.90909rem;
+  font-size: 1.45455rem;
 }
 
 @charset "utf-8";

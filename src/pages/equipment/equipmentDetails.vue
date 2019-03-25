@@ -20,15 +20,20 @@
     </div>
     <!--  --> 
     <div class="details-type" v-for="(item,index) in detailsData.state" :key="index">
-      <div class="details-type-titile" v-if="!item.teamperatureType"><h4>{{item.name}}</h4></div>
-      <div class="details-type-titile" v-if="item.teamperatureType"><h4>{{item.name}}：{{item.list[0].teamperature}}°</h4></div>
-      <div class="details-type-content"  v-if="!item.teamperatureType">
+      <div class="details-type-titile" v-if="!item.temperatureType"><h4>{{item.name}}</h4></div>
+      <div class="details-type-titile" v-if="item.temperatureType"><h4>{{item.name}}：{{item.temperature}}°</h4></div>
+      <div class="details-type-content"  v-if="!item.temperatureType">
+    
         <div class="details-type-content-list">
           <div class="details-type-content-list-item" v-for="(items,itemsIndex) in item.list[0]" :key="itemsIndex" @click="handelType(item.id,items,itemsIndex,item.list[0])">
             <span>{{itemsIndex}}</span>
             <i class="iconfont" :class="[items == 1?'icon-danxuanxuanzhong':'icon-danxuan-weixuan']"></i>
           </div>
         </div>
+       </div>
+       <div v-else class="temperature">
+          <span>预警高温：{{item.list[0].highest||0}}°</span>
+          <span>预警低温：{{item.list[0].lowest||0}}°</span>
        </div>
       <div class="details-type-set" @click="handelSet(item)">设置</div>
     </div>
@@ -69,11 +74,14 @@
     <!-- 温度弹窗 -->
             <md-landscape v-model="teamperatureModel" :mask-closable="true">
             <div class="apply">
-
               <div class="flex flex-pack-justify flex-align-center apply-list">
-              <div class="apply-prop">温度：</div>
-              <md-input-item ref="teamperature" v-model="teamperature"  type="textarea" :maxlength="10" placeholder="请输入设备温度"></md-input-item>
-</div>
+              <div class="apply-prop">预警高温：</div>
+                  <md-input-item ref="teamperature" v-model="highest"  type="textarea" :maxlength="10" placeholder="请输入设备温度"></md-input-item>
+              </div>
+                <div class="flex flex-pack-justify flex-align-center apply-list">
+                  <div class="apply-prop">预警低温：</div>
+                  <md-input-item ref="teamperature" v-model="lowest"  type="textarea" :maxlength="10" placeholder="请输入设备温度"></md-input-item>
+              </div>
                    <div class="footer-btn">
                     <button class="btn btn-blue" @click="doUpdateTeamperature()">确定</button>
                 </div>
@@ -104,7 +112,8 @@ export default {
       deviceUpdateList: [], //编辑修改时的对象列表[ {IO} , {温度} , {电源} ...]
       selectEnum: [1, 0],
       teamperatureModel: false,
-      teamperature: "",
+      highest: "",
+      lowest: "",
       teamperatureId: null
     };
   },
@@ -136,7 +145,7 @@ export default {
                 url: "/aapi/modifygps",
                 methods: "post",
                 data: {
-            token: this.$store.getters.getToken,
+                  token: this.$store.getters.getToken,
                   id: this.deviceId,
                   longitude: point.lng,
                   latitude: point.lat,
@@ -184,15 +193,17 @@ export default {
         token: this.$store.getters.getToken,
         id: this.deviceId,
         type: this.teamperatureId,
-        teamperature: this.teamperature //温度
+        highest: this.highest, //温度
+        lowest: this.lowest //温度
       });
-      this.teamperatureModel= false
+      this.teamperatureModel = false;
     },
     // 设置
     handelSet(item) {
-      if (item.teamperatureType) {
+      if (item.temperatureType) {
         this.teamperatureModel = true;
-        this.teamperature = item.list[0].teamperature;
+        this.highest = item.list[0].highest;
+        this.lowest = item.list[0].lowest;
         this.teamperatureId = item.id;
       } else {
         this.devicedetail(
@@ -250,7 +261,7 @@ export default {
             this.detailsData = res.data.device_info;
             this.detailsData.state = this.detailsData.state.map(item => {
               return Object.assign(item, {
-                teamperatureType: typeof item.list[0].teamperature == "string"
+                temperatureType: typeof item.temperature == "string"
               });
             });
 
@@ -375,5 +386,9 @@ export default {
     white-space: nowrap;
     width: 65px;
   }
+}
+.temperature {
+  padding: 40 * @rpx 40 * @rpx 20 * @rpx;
+  font-size: 16px;
 }
 </style>
