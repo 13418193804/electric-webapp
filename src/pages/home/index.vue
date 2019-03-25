@@ -102,6 +102,18 @@ export default {
     goMine() {
       this.$router.push({ name: "my" }); // 我的
     },
+    //关于
+    goAbout(){
+
+    },
+    //注销 
+    loginOut(){
+
+    },
+    //退出
+    checkBack(){
+
+    },
     /* API */
     getNumbel() {
       this.service
