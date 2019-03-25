@@ -22,6 +22,7 @@ import materialList from '../pages/material/materialList.vue'
 import equipment from '../pages/equipment/equipmentList.vue' //我的设备
 import equipmentDetails from '../pages/equipment/equipmentDetails.vue'
 import equimentRecord from '../pages/equipment/equimentRecord.vue'
+import about from '../pages/about/about.vue'
 
 // #0f91ef
 Vue.use(Router)
@@ -155,6 +156,12 @@ export default new Router({
     name: 'message',
     component: message,
     alias: '/pages/mine/message'
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: about,
+    alias: '/pages/about/about'
   },
   {
     path: '/test',

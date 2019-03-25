@@ -50,12 +50,15 @@
 <script>
 import { init } from "./pie.js";
 import Vue from "vue";
+import { setBaseUrl, setMqttUrl } from "../../api/conf.js";
+import { mapMutations } from "vuex";
 
 export default {
   data() {
     // 选项 数据
     return {
-      numbelData: []
+      numbelData: [],
+      ...mapMutations(["setUserInfo"])
     };
   },
   components: {
@@ -68,19 +71,18 @@ export default {
   mounted() {
     if ((this.$store.getters.getToken || "") !== "") {
       this.getNumbel();
-    }else{
-  init([
-      {
-        id: "canvas_circle",
-        data_arr: [1, 0]
-      },
-      {
-        id: "canvas_circle1",
-        data_arr: [0, 1]
-      }
-    ]);
+    } else {
+      init([
+        {
+          id: "canvas_circle",
+          data_arr: [1, 0]
+        },
+        {
+          id: "canvas_circle1",
+          data_arr: [0, 1]
+        }
+      ]);
     }
-  
   },
   methods: {
     // 事件处理方法
@@ -103,16 +105,41 @@ export default {
       this.$router.push({ name: "my" }); // 我的
     },
     //关于
-    goAbout(){
-
+    goAbout() {
+      this.$router.push("/about");
     },
-    //注销 
-    loginOut(){
-
+    //注销
+    loginOut() {
+      this.$dialog.confirm({
+        content: "注销登录将清除用户信息，是否继续?",
+        confirmText: "确定",
+        onConfirm: () => {
+          localStorage.clear();
+          sessionStorage.clear();
+          setBaseUrl("");
+          setMqttUrl("");
+          this.setUserInfo({
+            token: "",
+            username: ""
+          });
+          this.$router.push("/login");
+        }
+      });
     },
     //退出
-    checkBack(){
-
+    checkBack() {
+      this.$dialog.confirm({
+        content: "是否退出当前用户?",
+        confirmText: "确定",
+        onConfirm: () => {
+          localStorage.packageToken = "";
+          this.setUserInfo({
+            token: "",
+            username: ""
+          });
+          this.$router.push("/login");
+        }
+      });
     },
     /* API */
     getNumbel() {
@@ -127,20 +154,34 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             this.numbelData = res.data.data;
-  init([
-      {
-        id: "canvas_circle",
-        data_arr: [res.data.data.online / (res.data.data.offline + res.data.data.online),res.data.data.offline / (res.data.data.offline + res.data.data.online)]
-     },
-      {
-        id: "canvas_circle1",
-        data_arr: [
-          res.data.data.undisposed / (res.data.data.undisposed + res.data.data.processed + res.data.data.processing),
-          res.data.data.processing / (res.data.data.undisposed + res.data.data.processed + res.data.data.processing),
-          res.data.data.processed / (res.data.data.undisposed + res.data.data.processed + res.data.data.processing),
-          ]
-      }
-    ]);
+            init([
+              {
+                id: "canvas_circle",
+                data_arr: [
+                  res.data.data.online /
+                    (res.data.data.offline + res.data.data.online),
+                  res.data.data.offline /
+                    (res.data.data.offline + res.data.data.online)
+                ]
+              },
+              {
+                id: "canvas_circle1",
+                data_arr: [
+                  res.data.data.undisposed /
+                    (res.data.data.undisposed +
+                      res.data.data.processed +
+                      res.data.data.processing),
+                  res.data.data.processing /
+                    (res.data.data.undisposed +
+                      res.data.data.processed +
+                      res.data.data.processing),
+                  res.data.data.processed /
+                    (res.data.data.undisposed +
+                      res.data.data.processed +
+                      res.data.data.processing)
+                ]
+              }
+            ]);
 
             if (!Vue.prototype.mqttClient) {
               //开启mqtt
@@ -254,12 +295,11 @@ export default {
   background: #eee !important;
   height: auto !important;
 }
-.xuanxiang{
-  font-size:24px!important;
+.xuanxiang {
+  font-size: 24px !important;
 }
-.navigation{
-
-  &-icon{
+.navigation {
+  &-icon {
     padding: 10px;
   }
 }

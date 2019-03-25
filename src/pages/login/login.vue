@@ -33,7 +33,7 @@ export default {
     return {
       ...mapMutations(["setUserInfo"]),
       loginForm: {
-        token: "0d273991b2efdc04"
+        token: ""
       }
     };
   },
@@ -46,6 +46,9 @@ export default {
   mounted() {
     // 13418818167
     store.state.bAuth = false;
+    this.loginForm["username"] = localStorage.loginName || "";
+    this.loginForm = Object.assign({}, this.loginForm);
+    console.log(this.loginForm);
   },
   methods: {
     // 事件处理方法
@@ -54,8 +57,6 @@ export default {
       this.$router.push("/configIp");
     },
     goLogin() {
-
-      console.log(getBaseUrl(),getMqttUrl())
       if ((getBaseUrl() || "") == "" || (getMqttUrl() || "") == "") {
         this.$toast.info("请配置服务器地址");
         return;
@@ -97,6 +98,7 @@ export default {
             // 将用户token保存到vuex中
             localStorage.setItem("packageToken", res.data.token);
             localStorage.setItem("username", res.data.username || "");
+            localStorage.setItem("loginName", this.loginForm.username || "");
             this.setUserInfo({
               token: res.data.token,
               username: res.data.username || ""
@@ -126,8 +128,8 @@ export default {
               data: {
                 token: this.$store.getters.getToken,
                 url: getBaseUrl(),
-                mqtt_url:getMqttUrl(),
-                mqtt_port:9000
+                mqtt_url: getMqttUrl(),
+                mqtt_port: 9000
               }
             })
             .then(res => {
