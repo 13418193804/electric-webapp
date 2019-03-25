@@ -2,11 +2,18 @@
   <div class="homePage">
     <div class="navigation flex   flex-pack-justify flex-align-center">
       <div class="flex flex-pack-center homeTitle"><img src="../../assets/onv.png" alt=""><h1>智能运维管理系统</h1> </div>
-      <div class="navigation-icon">
+      <div class="navigation-icon" @click="openSelect()">
         <i class="iconfont icon-xuanxiang xuanxiang"></i>
       </div>
+      
     </div>
-
+    <div class="selectDown" v-show="isSelectDown">
+      <ul>
+        <li @click="loginOut()">注销登陆</li>
+        <li @click="goAbout()">关于</li>
+        <li @click="checkBack()">退出</li>
+      </ul>
+    </div>
     <div class="banner">
       <img src="../../assets/homebanner.png" alt="">
     </div>
@@ -58,6 +65,7 @@ export default {
     // 选项 数据
     return {
       numbelData: [],
+      isSelectDown: false,
       ...mapMutations(["setUserInfo"])
     };
   },
@@ -103,6 +111,9 @@ export default {
     },
     goMine() {
       this.$router.push({ name: "my" }); // 我的
+    },
+    openSelect(){
+      this.isSelectDown = !this.isSelectDown
     },
     //关于
     goAbout() {
@@ -301,6 +312,16 @@ export default {
 .navigation {
   &-icon {
     padding: 10px;
+  }
+}
+// select
+.selectDown{
+  width: 300 * @rpx;background:#4c4c4c;position: absolute;top:110*@rpx;
+  right: 0;border-radius:4px;
+  ul{
+    li{
+      line-height: 50 *@rpx;color: #fff;padding:20*@rpx;border-bottom: 1*@rpx solid #ddd;font-weight: bold;
+    }
   }
 }
 </style>
