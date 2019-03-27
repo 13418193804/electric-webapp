@@ -272,7 +272,7 @@ export default {
 }
 .cartogram {
   width: 80vw;
-  margin: 40 * @rpx auto 0;
+  margin: 40 * @rpx auto 0;margin-bottom: 95 * @rpx;
   // height: 600 * @rpx;
   background: #eee;
   .catTop {
@@ -281,6 +281,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 0%;
+    
     div {
       width: 50%;
       line-height: 50 * @rpx;
