@@ -390,6 +390,7 @@ export default {
               });
             }
             this.reserveData = res.data.data;
+            console.log('备用', res.data)
             res.data.data.forEach(item => {
               list.push(item);
             });

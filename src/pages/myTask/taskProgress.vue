@@ -48,6 +48,7 @@
                 @click="handelCheck(item,index)">
                 <i class="iconfont icon-weigouxuan" :class="[comifCheck(item)?'icon-yigouxuan':'']"></i>{{item.name}}</span>
             </div>
+            
             <!-- <div class="flex details-result-cause-check" v-if="curId == 1">
                 <span v-for="(item,index) in checkData" :key="index" 
                 @click="handelCheck(item,index)" :class="{cur:index == active}">
@@ -65,7 +66,7 @@
         <div class="flex details-result-cause">
             <div class="left">备注：</div>
             <div class="details-result-cause-remak">
-                <textarea v-model="desp"></textarea>
+                <textarea v-model="desp" maxlength="255" placeholder="请录入详细问题描述"></textarea>
             </div>
         </div>
         <div class="details-result-cause">
@@ -119,7 +120,7 @@ export default {
       option: [
         { name: "已解决", id: 2 },
         { name: "未解决", id: 1 },
-        { name: "暂停", id: 0 }
+        { name: "暂停", id: 1 }
       ],
       desp: "", // 备注
       curOption: "", //处理结果 option
@@ -405,13 +406,13 @@ export default {
         line-height: 24 * @rpx!important;
         height: 90 * @rpx!important;
         textarea {
-          width: 100%;
+          width: 93%;
           border: 1px solid #ddd;
           outline: none;
           height: 90 * @rpx;
           font-size: 24 * @rpx;
           padding: 5px 10px;
-          line-height: 24 * @rpx!important;
+          line-height: 44 * @rpx!important;
           resize: none;
         }
       }
