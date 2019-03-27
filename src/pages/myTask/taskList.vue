@@ -16,6 +16,7 @@
                         <li v-for="(item,index) in quoteData[active]" :key="index" class="scroll-view-list" @click="getDetails(item.id)">
                             <div>
                                 <p>{{item.create_time}}</p>
+                                <h4> 工单编号：<span>{{item.id}}</span></h4>
                                 <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
                                 <h4> 设备名称：<span>{{item.device_name}}</span></h4>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
@@ -36,6 +37,7 @@
                         <li v-for="(item,index) in quoteData[active] " :key="index" @click="getProgeess(item.id)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
+                                <h4> 工单编号：<span>{{item.id}}</span></h4>
                                 <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
                                 <h4> 设备名称：<span>{{item.device_name}}</span></h4>
                                 <h4> 报警：{{item.fault}}</h4>
@@ -56,6 +58,7 @@
                         <li v-for="(item,index) in  quoteData[active] " :key="index" @click="getEnd(item.id)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
+                                <h4> 工单编号：<span>{{item.id}}</span></h4>
                                 <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
                                 <h4> 设备名称：<span>{{item.device_name}}</span></h4>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
