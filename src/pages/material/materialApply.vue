@@ -72,7 +72,7 @@
                         <div class="material-table-box-list"></div>
                     </div>
                     <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
-                      <div class="material-table-box-list">{{item.id}}</div>
+                      <div class="material-table-box-list">{{item.power_id!== 0 ? item.power_id :item.material_id}}</div>
                         <div class="material-table-box-list">{{item.name}}</div>
                         <div class="material-table-box-list">{{item.units}}</div>
                         <div class="material-table-box-list">{{item.amount}}</div>
@@ -122,7 +122,7 @@
                                 <div class="material-table-box-list">使用情况</div>
                             </div>
                             <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
-                                <div class="material-table-box-list">{{item.id}}</div>
+                                <div class="material-table-box-list">{{item.power_id!== 0 ? item.power_id :item.material_id}}</div>
                                 <div class="material-table-box-list">{{item.name}}</div>
                                 <div class="material-table-box-list">{{item.units}}</div>
                                 <div class="material-table-box-list">{{item.amount}}</div>
