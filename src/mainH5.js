@@ -18,7 +18,6 @@ FastClick.attach(document.body)
 
 
 
-
 Vue.use(mandMobile)
 Vue.config.productionTip = false
 Vue.use(Vuex)
