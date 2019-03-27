@@ -56,7 +56,10 @@
                         <li v-for="(item,index) in  quoteData[active] " :key="index" @click="getEnd(item.id)">
                             <div>
                                 <p> 订单时间：{{item.create_time}}</p>
+                                <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
+                                <h4> 设备名称：<span>{{item.device_name}}</span></h4>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
+                                <h4 v-if="item.is_emergency"> <i class="icon"><img src="../../assets/01.png" alt=""></i>紧急</h4>
                                 <!-- <h4> 问题：<span>{{item.fault}}</span></h4> -->
                                 <h4> 备注：<span>{{item.desp}}</span></h4>
                                 <p> 最后一次更新时间：{{item.update_time}}</p>
