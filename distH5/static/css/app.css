@@ -1677,13 +1677,13 @@ input:-ms-input-placeholder {
   height: 4.09091rem !important;
 }
 .details-result-cause-remak textarea {
-  width: 100%;
+  width: 93%;
   border: 0.09091rem solid #ddd;
   outline: none;
   height: 4.09091rem;
   font-size: 1.09091rem;
   padding: 0.45455rem 0.90909rem;
-  line-height: 1.09091rem !important;
+  line-height: 2rem !important;
   resize: none;
 }
 .details-footer {
@@ -2578,6 +2578,9 @@ input:-ms-input-placeholder {
 .temperature {
   padding: 1.81818rem 1.81818rem 0.90909rem;
   font-size: 1.45455rem;
+}
+.bottom-btn {
+  margin-top: 1.36364rem;
 }
 
 @charset "utf-8";

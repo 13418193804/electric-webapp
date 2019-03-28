@@ -1,5 +1,6 @@
 <template>
   <div class="homePage">
+    <!-- <button onclick="resume()">resume</button> -->
     <div class="navigation flex   flex-pack-justify flex-align-center">
       <div class="flex flex-pack-center homeTitle"><img src="../../assets/onv.png" alt=""><h1>智能运维管理系统</h1> </div>
       <div class="navigation-icon" @click="openSelect()">
@@ -76,20 +77,22 @@ export default {
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
+  updated() {},
   mounted() {
     if ((this.$store.getters.getToken || "") !== "") {
       this.getNumbel();
     } else {
-      init([
-        {
-          id: "canvas_circle",
-          data_arr: [1, 0]
-        },
-        {
-          id: "canvas_circle1",
-          data_arr: [0, 1]
-        }
-      ]);
+      this.$router.push("/login");
+      // init([
+      //   {
+      //     id: "canvas_circle",
+      //     data_arr: [1, 0]
+      //   },
+      //   {
+      //     id: "canvas_circle1",
+      //     data_arr: [0, 1]
+      //   }
+      // ]);
     }
   },
   methods: {
@@ -112,8 +115,8 @@ export default {
     goMine() {
       this.$router.push({ name: "my" }); // 我的
     },
-    openSelect(){
-      this.isSelectDown = !this.isSelectDown
+    openSelect() {
+      this.isSelectDown = !this.isSelectDown;
     },
     //关于
     goAbout() {
@@ -272,7 +275,8 @@ export default {
 }
 .cartogram {
   width: 80vw;
-  margin: 40 * @rpx auto 0;margin-bottom: 95 * @rpx;
+  margin: 40 * @rpx auto 0;
+  margin-bottom: 95 * @rpx;
   // height: 600 * @rpx;
   background: #eee;
   .catTop {
@@ -281,7 +285,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 0%;
-    
+
     div {
       width: 50%;
       line-height: 50 * @rpx;
@@ -316,12 +320,20 @@ export default {
   }
 }
 // select
-.selectDown{
-  width: 300 * @rpx;background:#4c4c4c;position: absolute;top:110*@rpx;
-  right: 0;border-radius:4px;
-  ul{
-    li{
-      line-height: 50 *@rpx;color: #fff;padding:20*@rpx;border-bottom: 1*@rpx solid #ddd;font-weight: bold;
+.selectDown {
+  width: 300 * @rpx;
+  background: #4c4c4c;
+  position: absolute;
+  top: 110 * @rpx;
+  right: 0;
+  border-radius: 4px;
+  ul {
+    li {
+      line-height: 50 * @rpx;
+      color: #fff;
+      padding: 20 * @rpx;
+      border-bottom: 1 * @rpx solid #ddd;
+      font-weight: bold;
     }
   }
 }

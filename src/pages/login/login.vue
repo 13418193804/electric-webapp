@@ -1,5 +1,7 @@
 <template>
   <div class="loginBox">
+        <!-- <button onclick="resume()">resume</button> -->
+
     <div class="logoImg">
         <img src="../../assets/logo1.png" alt="">
     </div>
@@ -48,7 +50,6 @@ export default {
     store.state.bAuth = false;
     this.loginForm["username"] = localStorage.loginName || "";
     this.loginForm = Object.assign({}, this.loginForm);
-    console.log(this.loginForm);
   },
   methods: {
     // 事件处理方法

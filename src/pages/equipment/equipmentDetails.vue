@@ -82,8 +82,30 @@
                   <div class="apply-prop">预警低温：</div>
                   <md-input-item ref="teamperature" v-model="lowest"  type="textarea" :maxlength="10" placeholder="请输入设备温度"></md-input-item>
               </div>
-                   <div class="footer-btn">
+                   <div class="footer-btn bottom-btn">
                     <button class="btn btn-blue" @click="doUpdateTeamperature()">确定</button>
+                </div>
+            </div>
+            </md-landscape>
+
+
+               <!-- 温度弹窗 -->
+            <md-landscape v-model="locationModel" :mask-closable="true">
+            <div class="apply">
+              <div class="flex flex-pack-justify flex-align-center apply-list">
+              <div class="apply-prop">地址：</div>
+                  <md-input-item v-model="location"   type="textarea" :maxlength="70" placeholder="请输入设备详细地址"></md-input-item>
+              </div>
+              <div class="flex  flex-align-center apply-list">
+              
+              <div class="apply-prop">
+                  经纬度：
+              </div>
+              <div>{{point.lng}}，{{point.lat}}</div>
+              </div>
+              <div></div>
+                   <div class="footer-btn bottom-btn">
+                    <button class="btn btn-blue" @click="doupdateLocation()">确定</button>
                 </div>
             </div>
             </md-landscape>
@@ -114,7 +136,13 @@ export default {
       teamperatureModel: false,
       highest: "",
       lowest: "",
-      teamperatureId: null
+      teamperatureId: null,
+      location: "",
+      locationModel: false,
+      point: {
+        lng: "",
+        lat: ""
+      }
     };
   },
   name: "switch-demo",
@@ -134,40 +162,40 @@ export default {
         // alert(point.lng || "");
         // alert(point.lat || "");
         this.$toast.hide();
-        this.$dialog.confirm({
-          content: `当前定位：${address.province || ""}${address.city ||
-            ""}${address.district || ""}${address.street ||
-            ""}${address.street_number || ""}(${point.lng},${point.lat})`,
-          confirmText: "确定",
-          onConfirm: () => {
-            this.service
-              .httpRequest({
-                url: "/aapi/modifygps",
-                methods: "post",
-                data: {
-                  token: this.$store.getters.getToken,
-                  id: this.deviceId,
-                  longitude: point.lng,
-                  latitude: point.lat,
-                  location: `${address.province || ""}${address.city ||
-                    ""}${address.district || ""}${address.street ||
-                    ""}${address.street_number || ""}`
-                }
-              })
-              .then(res => {
-                if (res.returnStatus) {
-                  this.$toast.succeed("已更新", 2000, true);
-                  this.getDataList();
-                } else {
-                  this.$dialog.alert({
-                    content: res.msg,
-                    confirmText: "确定"
-                  });
-                }
-              });
+        this.locationModel = true;
+
+        this.location = `${address.province || ""}${address.city ||
+          ""}${address.district || ""}${address.street ||
+          ""}${address.street_number || ""}`;
+        // point.lng
+        this.point = point;
+      });
+    },
+    doupdateLocation() {
+      this.service
+        .httpRequest({
+          url: "/aapi/modifygps",
+          methods: "post",
+          data: {
+            token: this.$store.getters.getToken,
+            id: this.deviceId,
+            longitude: this.point.lng,
+            latitude: this.point.lat,
+            location: this.location
+          }
+        })
+        .then(res => {
+          this.locationModel = false;
+          if (res.returnStatus) {
+            this.$toast.succeed("已更新", 2000, true);
+            this.getDataList();
+          } else {
+            this.$dialog.alert({
+              content: res.msg,
+              confirmText: "确定"
+            });
           }
         });
-      });
     },
     // 事件处理方法
     leftClick() {
@@ -386,9 +414,13 @@ export default {
     white-space: nowrap;
     width: 65px;
   }
+
 }
 .temperature {
   padding: 40 * @rpx 40 * @rpx 20 * @rpx;
   font-size: 16px;
+}
+.bottom-btn{
+  margin-top: 30 * @rpx;
 }
 </style>
