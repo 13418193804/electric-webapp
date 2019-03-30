@@ -124,8 +124,7 @@ export default {
       // checkDataNo: [{ name: "无法处理" }, { name: "下雨" }, { name: "其他" }],
       option: [
         { name: "已解决", id: 2 },
-        { name: "未解决", id: 1 },
-        { name: "暂停", id: 1 }
+        { name: "未解决", id: 1 }
       ],
       desp: "", // 备注
       curOption: "", //处理结果 option
@@ -396,7 +395,7 @@ export default {
           outline: none;
           padding: 10 * @rpx 20 * @rpx;
           height: 100 * @rpx;
-          font-size: 24 * @rpx;
+          font-size: 24 * @rpx!important;
         }
         .cur {
           color: #409eff;
