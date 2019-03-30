@@ -9,8 +9,17 @@
       <template slot="list-content">
         <!-- 物料申请 -->
         <div class="scroll-view-list material taskNew" >
+            <div class="material-select">
+              <!-- <select name="" id="">
+                <option value="工单"></option>
+                <option value="工单"></option>
+              </select> -->
+              <select v-model="select">
+                  <option value="工单">工单</option>
+                  <option value="工单">思维</option>
+              </select>
+            </div>
             <div class="material-apply tag" @click="getApply()">申请物料</div>
-
             <div class="material-list" v-for="(item,index) in appleyData" :key="index" v-if="appleyData.length > 0">
                 <div class="flex flex-pack-justify material-list-dots">
                     <div>{{item.create_time}}</div>
@@ -496,11 +505,22 @@ export default {
   // padding: 5% 5% 5% 3%;
   width: 90%;
   margin: 0 auto;
-  padding: 5% 0;
+  padding: 7% 0 5%;
   &-apply {
     position: absolute;
     right: 35 * @rpx;
     top: -12 * @rpx;
+  }
+  &-select{
+    height: 60 * @rpx;position: absolute;left:0;top: -12 * @rpx;
+    select{
+      height: 60 * @rpx;width: 400 * @rpx;border: 1px solid #ddd;
+      background: #fff;
+      padding-left: 10 * @rpx;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
   }
   &-list {
     margin-bottom: 25 * @rpx;

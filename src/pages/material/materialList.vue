@@ -289,7 +289,7 @@ export default {
   // margin-bottom: 100 * @rpx;
   margin-bottom: 95 * @rpx;
   position: relative;
-  padding: 5% 5% 5% 3%;
+  padding: 6% 5% 5% 3%;
   &-apply {
     position: absolute;
     right: 35 * @rpx;
