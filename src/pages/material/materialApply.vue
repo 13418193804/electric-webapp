@@ -18,11 +18,7 @@
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-<<<<<<< HEAD
                     <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+'：'+list.amount+list.units}}；</span>
-=======
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+':'+list.amount+list.units}}</span>
->>>>>>> 9d92e6204c7ff3ae8811f5866a52736440e41a42
                 </div>
 
                 <span v-if="item.status_desp"> 备注:{{item.status_desp}}</span>
@@ -162,7 +158,7 @@ export default {
   },
   data() {
     return {
-            ...mapMutations(["setTaskId"]),
+      ...mapMutations(["setTaskId"]),
       pagesize: 10,
       pageindex: 1,
       active: 0,
@@ -386,6 +382,8 @@ export default {
           this.$toast.hide();
           if (callback) {
             callback();
+            this.reserveData = res.data.data;
+            return;
           }
           if (res.returnStatus) {
             this.$nextTick(() => {
@@ -396,8 +394,8 @@ export default {
                 this.forceUpdate(false);
               });
             }
+
             this.reserveData = res.data.data;
-            console.log('备用', res.data)
             res.data.data.forEach(item => {
               list.push(item);
             });
@@ -454,9 +452,9 @@ export default {
       if (item.is_wastage == 1) {
         return;
       }
-       this.setTaskId(item.id);
+      this.setTaskId(item.id);
       this.$router.push({
-        name: "taskDetails",
+        name: "taskDetails"
       });
     },
     search(index) {
@@ -580,7 +578,7 @@ export default {
         width: 20%;
         text-align: left;
         border-right: 1 * @rpx solid #999;
-        padding: 5px ;
+        padding: 5px;
         word-break: break-all;
       }
       :nth-of-type(2) {

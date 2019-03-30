@@ -172,11 +172,7 @@ export default {
           return (filter.getCount || 0) > 0;
         })
         .map(item => {
-<<<<<<< HEAD
           return `${item.name}：${item.getCount}${item.units}`;
-=======
-          return `${item.name+': '}${item.getCount}${item.units}`;
->>>>>>> 9d92e6204c7ff3ae8811f5866a52736440e41a42
         });
 
       return list.join("；");
@@ -468,11 +464,7 @@ export default {
       div {
         margin-bottom: 10px;
         textarea {
-<<<<<<< HEAD
           width: -webkit-fill-available;
-=======
-          width: 93%;
->>>>>>> 9d92e6204c7ff3ae8811f5866a52736440e41a42
           height: 60px;
           border: 1px solid #ddd;
           outline: none;
