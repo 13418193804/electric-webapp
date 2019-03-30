@@ -43,7 +43,12 @@
             </div>
         </div>
         <div class="details-result-cause">
+
+
+
+
           <div class="flex details-result-cause-check">
+            
                 <span v-for="(item,index) in checkData" :key="index" 
                 @click="handelCheck(item,index)">
                 <i class="iconfont icon-weigouxuan" :class="[comifCheck(item)?'icon-yigouxuan':'']"></i>{{item.name}}</span>

@@ -47,12 +47,13 @@
                     {{getPreMaterialListString()}}
                 </div>
             </div>
-             <div class="Mdetails-form-list">
+             <div class="Mdetails-form-list marginremark">
                 <div>领用备注：</div>
                 <div>
                     <textarea style="" v-model="desp"></textarea>
                 </div>
             </div>
+
         </div>
         <!-- <md-button type="default" @click="postMaterialwarehouse">申请物料</md-button> -->
         <!-- button -->
@@ -170,7 +171,7 @@ export default {
           return (filter.getCount || 0) > 0;
         })
         .map(item => {
-          return `${item.name}${item.getCount}${item.units}`;
+          return `${item.name}：${item.getCount}${item.units}`;
         });
 
       return list.join("；");
@@ -459,7 +460,7 @@ export default {
       div {
         margin-bottom: 10px;
         textarea {
-          width: 100%;
+          width: -webkit-fill-available;
           height: 60px;
           border: 1px solid #ddd;
           outline: none;
@@ -475,5 +476,8 @@ export default {
       }
     }
   }
+}
+.marginremark{
+      margin-bottom: 100px;
 }
 </style>

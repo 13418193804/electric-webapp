@@ -79,15 +79,19 @@ export default {
     getAdd() {
       if (this.nowNum < this.materialspareObject.amount) {
         this.nowNum += 1;
-      } else{
+      } else {
         this.$dialog.alert({
-          content:'已超出库存',
+          content: "已超出库存",
           confirmText: "确定"
         });
       }
     },
     //使用备用物料
     materialspare() {
+      if (this.wastage == 0 && (this.workorderId || "") == "") {
+        alert("请选择任务工单");
+        return;
+      }
       this.$toast.loading("加载中...");
       let data = {
         token: this.$store.getters.getToken,
@@ -173,18 +177,28 @@ export default {
       display: inline-block;
     }
   }
-  .selectDiv{
+  .selectDiv {
     position: relative;
-    select{
-      font-size: 28*@rpx;height: 50*@rpx;border: none; border: 1px solid #409eff;width: 100%;padding-left:10px;
-      outline: none;background: #fff;
+    select {
+      font-size: 28 * @rpx;
+      height: 50 * @rpx;
+      border: none;
+      border: 1px solid #409eff;
+      width: 100%;
+      padding-left: 10px;
+      outline: none;
+      background: #fff;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
     }
   }
-  .blockBlue{
-    position: absolute;right: 0;width: 40*@rpx;height:50*@rpx;background: #409eff;
+  .blockBlue {
+    position: absolute;
+    right: 0;
+    width: 40 * @rpx;
+    height: 50 * @rpx;
+    background: #409eff;
   }
 }
 </style>

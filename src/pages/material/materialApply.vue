@@ -14,11 +14,11 @@
             <div class="material-list" v-for="(item,index) in appleyData" :key="index" v-if="appleyData.length > 0">
                 <div class="flex flex-pack-justify material-list-dots">
                     <div>{{item.create_time}}</div>
-                    <div>物料申请单：<span>{{item.workorder_id}}</span></div>
+                    <div>物料申请单：<span>{{item.id}}</span></div>
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+list.amount+list.units}}</span>
+                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+'：'+list.amount+list.units}}；</span>
                 </div>
 
                 <span v-if="item.status_desp"> 备注:{{item.status_desp}}</span>
@@ -145,6 +145,8 @@ import cheader from "../../components/header";
 import popup from "./popUp";
 import { Dialog, Button, Toast } from "mand-mobile";
 import betterScroll from "../../components/better-scroll";
+import { mapMutations } from "vuex";
+
 export default {
   name: "landscape-demo",
   components: {
@@ -156,6 +158,7 @@ export default {
   },
   data() {
     return {
+            ...mapMutations(["setTaskId"]),
       pagesize: 10,
       pageindex: 1,
       active: 0,
@@ -447,11 +450,9 @@ export default {
       if (item.is_wastage == 1) {
         return;
       }
+       this.setTaskId(item.id);
       this.$router.push({
         name: "taskDetails",
-        query: {
-          id: item.id
-        }
       });
     },
     search(index) {

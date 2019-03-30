@@ -72,6 +72,7 @@ export default {
         //   content: "请选择任务单",
         //   confirmText: "确定"
         // });
+      alert("请选择任务工单");
         return;
       }
       this.$emit("confirm", this.selectId);
