@@ -19,6 +19,7 @@
         </div>
         <div class="flex Mdetails-content">
             <div class="Mdetails-content-box">
+                <div class="Mdetails-content-box-list type">物料类型</div>
                 <div class="Mdetails-content-box-list" v-for="(item,index) in warehouse" :key="index"
                     @click="handelLook(item,index)" :class="{cur:index == active}"
                 >{{item.type_name}}</div>
@@ -50,7 +51,7 @@
              <div class="Mdetails-form-list">
                 <div>领用备注：</div>
                 <div>
-                    <textarea style="" v-model="desp"></textarea>
+                    <textarea style="" v-model="desp" maxlength="255"></textarea>
                 </div>
             </div>
         </div>
@@ -170,7 +171,7 @@ export default {
           return (filter.getCount || 0) > 0;
         })
         .map(item => {
-          return `${item.name}${item.getCount}${item.units}`;
+          return `${item.name+': '}${item.getCount}${item.units}`;
         });
 
       return list.join("；");
@@ -280,9 +281,12 @@ export default {
 
 <style lang="less">
 @import "../../../static/css/common.less";
-
+.type{
+  background: #ddd;
+}
 .material {
-  // margin-top: 100 * @rpx;
+  // margin-bottom: 100 * @rpx;
+  margin-bottom: 95 * @rpx;
   position: relative;
   padding: 5% 5% 5% 3%;
   &-apply {
@@ -459,12 +463,12 @@ export default {
       div {
         margin-bottom: 10px;
         textarea {
-          width: 100%;
+          width: 93%;
           height: 60px;
           border: 1px solid #ddd;
           outline: none;
           padding: 10 * @rpx 20 * @rpx;
-          font-size: 24 * @rpx;
+          font-size: 24 * @rpx!important;
         }
       }
       &-border {

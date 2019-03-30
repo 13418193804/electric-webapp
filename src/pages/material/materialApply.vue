@@ -18,7 +18,7 @@
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+list.amount+list.units}}</span>
+                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+':'+list.amount+list.units}}</span>
                 </div>
 
                 <span v-if="item.status_desp"> 备注:{{item.status_desp}}</span>
@@ -343,7 +343,7 @@ export default {
         case 2:
           return "不予受理";
         case 3:
-          return "已经撤消";
+          return "已撤消";
         default:
           return "";
       }
