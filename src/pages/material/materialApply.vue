@@ -382,10 +382,12 @@ export default {
           this.$toast.hide();
           if (callback) {
             callback();
-            this.reserveData = res.data.data;
-            return;
           }
           if (res.returnStatus) {
+            if (callback) {
+              this.reserveData = res.data.data;
+              return;
+            }
             this.$nextTick(() => {
               this.forceUpdate(true);
             });
@@ -409,8 +411,9 @@ export default {
         });
     },
     //使用记录列表
-    getMateriallist() {
+    getMateriallist(callback = null) {
       this.$toast.loading("加载中...");
+
       let list = this.materiallist || [];
       let data = {
         token: this.$store.getters.getToken,
@@ -426,7 +429,15 @@ export default {
         })
         .then(res => {
           this.$toast.hide();
+          if (callback) {
+            callback();
+          }
           if (res.returnStatus) {
+            if (callback) {
+              this.materiallist = res.data.data;
+              return;
+            }
+
             this.$nextTick(() => {
               this.forceUpdate(true);
             });
@@ -461,11 +472,12 @@ export default {
       // if ((this.keyword || "") == "") {
       //   return;
       // }
+      this.pageindex = 1;
       if (index == 1) {
-        this.getReserveData();
+        this.getReserveData(() => {});
       }
       if (index == 2) {
-        this.getMateriallist();
+        this.getMateriallist(()=>{});
       }
     }
     /* end 
