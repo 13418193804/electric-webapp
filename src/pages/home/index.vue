@@ -25,7 +25,9 @@
         </div>
         <div @click="getEquipment()"><img src="../../assets/equipment.png" alt=""><h3>设备管理</h3></div>
         <div @click="getMaterial()"> <img src="../../assets/material.png" alt=""><h3>物料管理</h3></div>
-        <div @click="getMessage()"> <img src="../../assets/messge.png" alt=""><h3>消息</h3></div>
+        <div @click="getMessage()">
+          <div class="badge" v-if="message">{{message}}</div>
+           <img src="../../assets/messge.png" alt=""><h3>消息</h3></div>
     </div>
     <div class="cartogram">
       <div class="flex catTop">
@@ -67,6 +69,7 @@ export default {
     return {
       numbelData: [],
       isSelectDown: false,
+      message:0,
       ...mapMutations(["setUserInfo"])
     };
   },
@@ -168,6 +171,7 @@ export default {
         .then(res => {
           if (res.returnStatus) {
             this.numbelData = res.data.data;
+            this.message = res.data.data.message_not_read + res.data.data.news_not_read
             init([
               {
                 id: "canvas_circle",

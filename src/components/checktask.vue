@@ -21,7 +21,12 @@
                         <li v-for="(item,index) in taskList" :key="index" class="scroll-view-list" @click="doSelect(item.id)">
                             <div>
                                 <p :class="{'isSelect': selectId == item.id}">{{item.create_time}}</p>
-                                <h4 :class="{'isSelect': selectId == item.id}"> 报警：<span>{{item.fault}}</span></h4>
+<h4  :class="{'isSelect': selectId == item.id}"> 工单编号：<span>{{item.id}}</span></h4>
+                                <h4  :class="{'isSelect': selectId == item.id}"> 设备编号：<span>{{item.device_sn}}</span></h4>
+                                <h4  :class="{'isSelect': selectId == item.id}"> 设备名称：<span>{{item.device_name}}</span></h4>
+                                <h4  :class="{'isSelect': selectId == item.id}"> 设备位置：<span>{{item.location}}</span></h4>
+                                <h4  :class="{'isSelect': selectId == item.id}"> 报警：<span>{{item.fault}}</span></h4>                                                                                                                
+                                <h4  :class="{'isSelect': selectId == item.id}"> 状态：<span>{{statusEnum[item.status]}}</span></h4>
                                 <span class="tag">{{quoteTypeEnum[item.type]}}</span>
                             </div>
                         </li>
@@ -61,7 +66,15 @@ export default {
         0: "自动派单",
         1: "手动派单"
       },
-      selectId: null
+      selectId: null,
+      statusEnum: {
+        "0": "新任务",
+        0: "新任务",
+        "1": "处理中",
+        1: "处理中",
+        2: "处理完毕",
+        "2": "处理完毕"
+      }
     };
   },
   mounted() {},
@@ -72,7 +85,7 @@ export default {
         //   content: "请选择任务单",
         //   confirmText: "确定"
         // });
-      alert("请选择任务工单");
+        alert("请选择任务工单");
         return;
       }
       this.$emit("confirm", this.selectId);

@@ -19,6 +19,7 @@
                                 <h4> 工单编号：<span>{{item.id}}</span></h4>
                                 <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
                                 <h4> 设备名称：<span>{{item.device_name}}</span></h4>
+                                <h4> 设备位置：<span>{{item.location}}</span></h4>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
                                 <h4 v-if="item.is_emergency"> <i class="icon"><img src="../../assets/01.png" alt=""></i>紧急</h4>
                                 <span class="tag">{{quoteTypeEnum[item.type]}}</span>
@@ -40,6 +41,7 @@
                                 <h4> 工单编号：<span>{{item.id}}</span></h4>
                                 <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
                                 <h4> 设备名称：<span>{{item.device_name}}</span></h4>
+                                <h4> 设备位置：<span>{{item.location}}</span></h4>
                                 <h4> 报警：{{item.fault}}</h4>
                                 <h4 v-if="item.is_emergency"> <i class="icon"><img src="../../assets/01.png" alt=""></i>紧急</h4>
                                 <h4> 备注：<span>{{item.desp}}</span></h4>
@@ -61,6 +63,7 @@
                                 <h4> 工单编号：<span>{{item.id}}</span></h4>
                                 <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
                                 <h4> 设备名称：<span>{{item.device_name}}</span></h4>
+                                <h4> 设备位置：<span>{{item.location}}</span></h4>
                                 <h4> 报警：<span>{{item.fault}}</span></h4>
                                 <h4 v-if="item.is_emergency"> <i class="icon"><img src="../../assets/01.png" alt=""></i>紧急</h4>
                                 <!-- <h4> 问题：<span>{{item.fault}}</span></h4> -->

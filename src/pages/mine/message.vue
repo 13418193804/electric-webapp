@@ -9,7 +9,12 @@
         <div class="messages-content-box">
           <div class="messages-content-box-list" v-for="(item,index) in infoData" :key="index" @click="checkMessage(item)">
             <p :class="{'dots':item.is_read == 0}" >{{item.create_time}}</p>
-            <p>{{item.device_name}}:{{item.event}} ({{item.location}})</p>
+              <h4> 工单编号：<span>{{item.id}}</span></h4>
+                                <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
+                                <h4> 设备名称：<span>{{item.device_name}}</span></h4>
+                                <h4> 设备位置：<span>{{item.location}}</span></h4>
+                                <h4> 报警：<span>{{item.fault}}</span></h4>
+                                <h4> 状态：<span>{{statusEnum[item.status]}}</span></h4>
           </div>
         </div>
       </div>
@@ -26,10 +31,17 @@ export default {
     // 选项 数据
     return {
       ...mapMutations(["setTaskId"]),
-
       pagesize: 10,
       pageindex: 1,
-      infoData: []
+      infoData: [],
+      statusEnum: {
+        "0": "新任务",
+        0: "新任务",
+        "1": "处理中",
+        1: "处理中",
+        2: "处理完毕",
+        "2": "处理完毕"
+      }
     };
   },
   components: {
@@ -78,7 +90,6 @@ export default {
             });
           }
         });
-      
     },
     getInform() {
       this.$router.push({ name: "inform" });
@@ -135,6 +146,9 @@ export default {
       width: 90%;
       margin: 10 * @rpx auto;
       &-list {
+        margin-top: 10px;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 15px;
         position: relative;
         p {
           font-size: 24 * @rpx;
