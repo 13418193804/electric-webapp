@@ -18,6 +18,7 @@
             </div>
         </div>
         <div class="flex Mdetails-content">
+          
             <div class="Mdetails-content-box">
                 <div class="Mdetails-content-box-list type">物料类型</div>
                 <div class="Mdetails-content-box-list" v-for="(item,index) in warehouse" :key="index"
@@ -92,7 +93,7 @@ export default {
       warehouseList: [], //当前展示的物料
       preMaterialList: [], //预选物料
       workorderId: null,
-      desp: '',
+      desp: "",
       keyword: ""
     };
   },
@@ -282,7 +283,7 @@ export default {
 
 <style lang="less">
 @import "../../../static/css/common.less";
-.type{
+.type {
   background: #ddd;
 }
 .material {
@@ -481,7 +482,7 @@ export default {
     }
   }
 }
-.marginremark{
-      margin-bottom: 100px;
+.marginremark {
+  margin-bottom: 100px;
 }
 </style>
