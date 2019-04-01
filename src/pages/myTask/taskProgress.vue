@@ -122,10 +122,7 @@ export default {
       checkData: [], // 选项列表
       listData: [],
       // checkDataNo: [{ name: "无法处理" }, { name: "下雨" }, { name: "其他" }],
-      option: [
-        { name: "已解决", id: 2 },
-        { name: "未解决", id: 1 }
-      ],
+      option: [{ name: "已解决", id: 2 }, { name: "未解决", id: 1 }],
       desp: "", // 备注
       curOption: "", //处理结果 option
       status: "", // 维修状态
@@ -172,11 +169,11 @@ export default {
         })
         .then(res => {
           if (res.returnStatus) {
-          console.log('查看',res.data)
+            console.log("查看", res.data);
             this.detailsData = res.data.workorder;
-            this.checkData = res.data.solution_list
-            this.listData = this.detailsData.solution.split(',')
-          console.log(this.listData)
+            this.checkData = res.data.solution_list;
+            this.listData = this.detailsData.solution.split(",");
+            console.log(this.listData);
             if (this.detailsData.status == 0) {
               this.curOption = "";
             } else {
@@ -274,21 +271,25 @@ export default {
       }
     },
     handelCheck(item) {
-      if(this.listData.filter(items=>{
-        return item.id == items
-      }).length>0){
-        this.removeByValue(this.listData,item.id)
-      }else{
-        this.listData.push(item.id)
+      if (
+        this.listData.filter(items => {
+          return item.id == items;
+        }).length > 0
+      ) {
+        this.removeByValue(this.listData, item.id);
+      } else {
+        this.listData.push(item.id);
       }
     },
-    comifCheck(item){
-      if(this.listData.filter(items=>{
-        return item.id == items
-      }).length>0){
-            return true
-      }else{
-        return false
+    comifCheck(item) {
+      if (
+        this.listData.filter(items => {
+          return item.id == items;
+        }).length > 0
+      ) {
+        return true;
+      } else {
+        return false;
       }
     },
     /* API */
@@ -300,7 +301,7 @@ export default {
         return;
       }
       let list = [];
-      this.solution = this.listData.join(',')
+      this.solution = this.listData.join(",");
       list.push("token=" + this.$store.getters.getToken);
       list.push("id=" + this.detailsData.id);
       list.push("solution=" + this.solution);
@@ -383,6 +384,7 @@ export default {
       &-check {
         height: auto !important;
         padding-left: 135 * @rpx;
+        flex-wrap: wrap;
         span {
           cheak: inline-block;
           flex-wrap: wrap;

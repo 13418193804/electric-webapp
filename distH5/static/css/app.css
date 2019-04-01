@@ -1648,6 +1648,8 @@ input:-ms-input-placeholder {
 .details-result-cause-check {
   height: auto !important;
   padding-left: 6.13636rem;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 .details-result-cause-check span {
   cheak: inline-block;
