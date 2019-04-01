@@ -1847,6 +1847,17 @@ input:-ms-input-placeholder {
 }
 
 @charset "utf-8";
+.switchbox {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 20;
+  background-color: #fff;
+}
 .switch {
   width: 90%;
   margin: 1.81818rem auto;
@@ -1854,7 +1865,7 @@ input:-ms-input-placeholder {
 .switch div {
   width: 50%;
   text-align: center;
-  background: #409EFF;
+  background: #409eff;
   color: #fff;
   height: 3.63636rem;
   line-height: 3.63636rem;
@@ -1953,6 +1964,17 @@ input:-ms-input-placeholder {
 }
 
 @charset "utf-8";
+.switchbox {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 20;
+  background-color: #fff;
+}
 .switch {
   width: 90%;
   margin: 1.81818rem auto;

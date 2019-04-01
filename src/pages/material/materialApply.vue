@@ -38,8 +38,6 @@
       <template slot="list-content">
         <!-- 物料申请 -->
         <div class="scroll-view-list material taskNew" >
-          
-
 
             <div class="material-list" v-for="(item,index) in appleyData" :key="index" v-if="appleyData.length > 0">
                 <div class="flex flex-pack-justify material-list-dots">
@@ -51,6 +49,7 @@
                     <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+'：'+list.amount+list.units}}；</span>
                 </div>
 
+                <span v-if="item.desp">领用备注:{{item.desp}}</span>
                 <span v-if="item.status_desp"> 备注:{{item.status_desp}}</span>
                 <div class="flex material-list-operation">
                     <div>
@@ -96,15 +95,15 @@
         <div class="scroll-view-list material taskNew" >
                 <div class="material-table" v-if="reserveData.length > 0">
                     <div class="flex material-table-box">
-                        <div class="material-table-box-list">编号</div>
+                        <div class="material-table-box-list">申请编号</div>
                         <div class="material-table-box-list">名称</div>
                         <div class="material-table-box-list">单位</div>
                         <div class="material-table-box-list">剩余数量</div>
                         <div class="material-table-box-list"></div>
                     </div>
                     <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
-                      <div class="material-table-box-list">{{item.power_id!== 0 ? item.power_id :item.material_id}}</div>
-                        <div class="material-table-box-list">{{item.name}}</div>
+                      <div class="material-table-box-list">{{item.id}}</div>
+                        <div class="material-table-box-list">({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name}}</div>
                         <div class="material-table-box-list">{{item.units}}</div>
                         <div class="material-table-box-list">{{item.amount}}</div>
                         <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)"><span>使用</span></div>
@@ -146,18 +145,18 @@
                     <div class="scroll-view-list material taskNew" >
                       <div class="material-table" v-if="materiallist.length > 0">
                             <div class="flex material-table-box">
-                                <div class="material-table-box-list">编号</div>
+                                <div class="material-table-box-list">申请编号</div>
                                 <div class="material-table-box-list">名称</div>
                                 <div class="material-table-box-list">单位</div>
                                 <div class="material-table-box-list">剩余数量</div>
                                 <div class="material-table-box-list">使用情况</div>
                             </div>
                             <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
-                                <div class="material-table-box-list">{{item.power_id!== 0 ? item.power_id :item.material_id}}</div>
-                                <div class="material-table-box-list">{{item.name}}</div>
+                                <div class="material-table-box-list">{{item.id}}</div>
+                                <div class="material-table-box-list">({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name}}</div>
                                 <div class="material-table-box-list">{{item.units}}</div>
                                 <div class="material-table-box-list">{{item.amount}}</div>
-                                <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)">{{item.is_wastage==1?'损耗':'查看工单'}}</div>
+                                <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)">{{item.is_wastage==1?'损耗':`查看工单(${item.workorder_id})`}}</div>
                             </div>
                         </div>    
                         <div class="noneData" v-else>
@@ -354,7 +353,7 @@ export default {
               this.$toast.hide();
               if (res.returnStatus) {
                 Toast({ content: "已撤销" });
-                this.getDataList();
+                this.getDataList(()=>{});
               } else {
                 this.$dialog.alert({
                   content: res.msg,
@@ -503,7 +502,7 @@ export default {
       if (item.is_wastage == 1) {
         return;
       }
-      this.setTaskId(item.id);
+      this.setTaskId(item.workorder_id);
       this.$router.push({
         name: "taskDetails"
       });
