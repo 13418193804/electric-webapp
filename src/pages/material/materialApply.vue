@@ -29,9 +29,7 @@
                       ></md-input-item>
                       <div class="material-top-search-icon" @click="search(0)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
-                  <div class="material-top-button">
-                      <div class="tag"  @click="getApply()">申请物料</div>
-                  </div>
+                 
               </div>
             </div>
     <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" marginTop="200px" >
@@ -133,9 +131,7 @@
                       ></md-input-item>
                       <div class="material-top-search-icon" @click="search(2)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
-                  <div class="material-top-button">
-                      <div class="tag">申请物料</div>
-                  </div>
+                  
               </div>
             </div>
                 
@@ -148,7 +144,8 @@
                                 <div class="material-table-box-list">申请编号</div>
                                 <div class="material-table-box-list">名称</div>
                                 <div class="material-table-box-list">单位</div>
-                                <div class="material-table-box-list">剩余数量</div>
+                                <div class="material-table-box-list">领用数量</div>
+                                <div class="material-table-box-list">物料来源</div>
                                 <div class="material-table-box-list">使用情况</div>
                             </div>
                             <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
@@ -156,6 +153,7 @@
                                 <div class="material-table-box-list">({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name}}</div>
                                 <div class="material-table-box-list">{{item.units}}</div>
                                 <div class="material-table-box-list">{{item.amount}}</div>
+                                <div class="material-table-box-list">{{item.is_spare==0?'直接领取':'备用领取'}}</div>
                                 <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)">{{item.is_wastage==1?'损耗':`查看工单(${item.workorder_id})`}}</div>
                             </div>
                         </div>    
@@ -486,6 +484,7 @@ export default {
               });
             }
             this.materiallist = res.data.data;
+            console.log(this.materiallist)
             res.data.data.forEach(item => {
               list.push(item);
             });

@@ -386,7 +386,7 @@ export default {
         padding-left: 135 * @rpx;
         flex-wrap: wrap;
         span {
-          cheak: inline-block;
+          display: inline-block;
           flex-wrap: wrap;
           line-height: 64 * @rpx;
           margin-right: 40 * @rpx;

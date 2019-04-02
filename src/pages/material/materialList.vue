@@ -20,10 +20,13 @@
         <div class="flex Mdetails-content">
           
             <div class="Mdetails-content-box">
-                <div class="Mdetails-content-box-list type">物料类型</div>
-                <div class="Mdetails-content-box-list" v-for="(item,index) in warehouse" :key="index"
-                    @click="handelLook(item,index)" :class="{cur:index == active}"
-                >{{item.type_name}}</div>
+                <div class="type">物料类型</div>
+                <div class="Mdetails-content-box-scroll">
+                  <div class="Mdetails-content-box-scroll-list" v-for="(item,index) in warehouse" :key="index"
+                      @click="handelLook(item,index)" :class="{cur:index == active}"
+                  >{{item.type_name}}</div>
+                </div>
+                
             </div>
              <div class="Mdetails-content-box">
 
@@ -284,7 +287,8 @@ export default {
 <style lang="less">
 @import "../../../static/css/common.less";
 .type {
-  background: #ddd;
+  background: #ddd;position: absolute;top: -1px;left: 0;
+  width:100%;border: 1px solid #ddd;line-height: 30px;
 }
 .material {
   // margin-bottom: 100 * @rpx;
@@ -422,33 +426,39 @@ export default {
   }
   &-content {
     margin: 40 * @rpx 0 30 * @rpx;
+    
     &-box {
       border: 1px solid #ddd;
       width: 70%;
-      height: 400 * @rpx;
-      overflow: auto;
-      &-list {
-        line-height: 30px;
-        border-bottom: 1px solid #ddd;
-      }
-      &-Mdetails {
-        margin-bottom: 5px;
-        div {
-          line-height: 20px;
-          img {
-            width: 15px;
-            height: 15px;
-            vertical-align: middle;
-          }
+      position: relative;
+      padding-top: 30px;
+      &-scroll{
+        height: 400 * @rpx;
+        overflow: auto;
+        &-list {
+          line-height: 30px;
+          border-bottom: 1px solid #ddd;
         }
       }
-      .cur {
-        background: #4699ff;
-        color: #fff;
-      }
-      &-list:last-child {
-        border-bottom: none;
-      }
+        &-Mdetails {
+          margin-bottom: 5px;
+          div {
+            line-height: 20px;
+            img {
+              width: 15px;
+              height: 15px;
+              vertical-align: middle;
+            }
+          }
+        }
+        .cur {
+          background: #4699ff;
+          color: #fff;
+        }
+        &-list:last-child {
+          border-bottom: none;
+        }
+      
     }
     &-box:nth-of-type(1) {
       width: 30%;
