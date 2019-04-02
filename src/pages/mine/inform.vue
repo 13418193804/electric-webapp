@@ -195,7 +195,7 @@ export default {
       &-list {
         position: relative;
         p {
-          font-size: 24 * @rpx;
+          font-size: 26 * @rpx;
           padding-left: 20 * @rpx;
           line-height: 24px;
         }

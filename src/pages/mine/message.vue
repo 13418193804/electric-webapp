@@ -14,13 +14,13 @@
           <div class="messages-content-box">
             <div class="messages-content-box-list" v-for="(item,index) in infoData" :key="index" @click="checkMessage(item)">
               <p :class="{'dots':item.is_read == 0}" >{{item.create_time}}</p>
-                <h4> 消息编号：<span>{{item.id}}</span></h4>
-                <h4> 工单编号：<span>{{item.workorder_id}}</span></h4>
-                                  <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
-                                  <h4> 设备名称：<span>{{item.device_name}}</span></h4>
-                                  <h4> 设备位置：<span>{{item.location}}</span></h4>
-                                  <h4> 报警：<span>{{item.event}}</span></h4>
-                                  <h4> 状态：<span>{{statusEnum[item.status]}}</span></h4>
+              <h4> 消息编号：<span>{{item.id}}</span></h4>
+              <h4> 工单编号：<span>{{item.workorder_id}}</span></h4>
+              <h4> 设备编号：<span>{{item.device_sn}}</span></h4>
+              <h4> 设备名称：<span>{{item.device_name}}</span></h4>
+              <h4> 设备位置：<span>{{item.location}}</span></h4>
+              <h4> 报警：<span>{{item.event}}</span></h4>
+              <h4> 状态：<span>{{statusEnum[item.status]}}</span></h4>
             </div>
           </div>
         </div>
@@ -197,8 +197,8 @@ export default {
         border-bottom: 1px solid #e5e5e5;
         padding-bottom: 15px;
         position: relative;
-        p {
-          font-size: 24 * @rpx;
+        p,h4 {
+          font-size: 26 * @rpx;
           padding-left: 20 * @rpx;
           line-height: 24px;
         }

@@ -13,14 +13,14 @@
     <div class="material-box  flex  flex-align-center">
               <div class="flex flex-align-center material-top">
                   <div class="material-select">
-              <select v-model="keyword_status">
-                  <option value="">全部</option>
-                  <option value="0">待审核</option>
-                  <option value="1">通过</option>
-                  <option value="2">未通过</option>
-                  <option value="3">撤销</option>
-              </select>
-            </div>
+                    <select v-model="keyword_status">
+                        <option value="">全部</option>
+                        <option value="0">待审核</option>
+                        <option value="1">通过</option>
+                        <option value="2">未通过</option>
+                        <option value="3">撤销</option>
+                    </select>
+                  </div>
                   <div class="material-top-search boxWidth" >
                       <md-input-item
                       ref="input0" v-model="keyword"
@@ -551,13 +551,14 @@ export default {
     select {
       font-size: 16px;
       height: 60 * @rpx;
-      width: 120 * @rpx;
+      width: 180 * @rpx;
       border: 1px solid #ddd;
       background: #fff;
       padding-left: 10 * @rpx;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+      outline: none;
     }
   }
   &-list {
@@ -620,7 +621,7 @@ export default {
       .md-input-item .md-input-item-control .md-input-item-input {
         border: 1px solid #eee;
         border-radius: 5px;
-        height: 35px;
+        height: 70 * @rpx;;
         padding-left: 10px;
       }
       &-icon {
