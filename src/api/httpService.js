@@ -2,6 +2,7 @@
 import { base_url, getBaseUrl } from "./conf"
 import axios from 'axios'
 import querystring from 'querystring';
+import Vue from 'vue';
 axios.defaults.timeout = 6000;
 const requestGet = (option = {}) => {
   return axios.get(
@@ -15,6 +16,9 @@ const requestGet = (option = {}) => {
         data: res.data
       }
     } else if (res.data.status === '08' || res.data.status === '02') {
+      if (Vue.prototype.mqttClient) {
+        Vue.prototype.mqttClient.end()
+      }
       window.myvue.$toast.info(res.data.msg)
       window.myvue.$router.replace('/login')
       localStorage.removeItem("packageToken");
@@ -56,6 +60,9 @@ const requestPost = (option = {}) => {
         data: res.data
       }
     } else if (res.data.status === '08' || res.data.status === '02') {
+      if (Vue.prototype.mqttClient) {
+        Vue.prototype.mqttClient.end()
+      }
       window.myvue.$toast.info(res.data.msg)
       window.myvue.$router.replace('/login')
       localStorage.removeItem("packageToken");

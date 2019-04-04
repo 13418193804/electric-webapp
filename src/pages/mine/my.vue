@@ -46,24 +46,21 @@ export default {
     // 定义组件
   },
   created() {
-    
     // 生命周期函数
     // console.log('homeroot', this.$root, this.$root.$mp)
   },
   mounted() {
     // this.$nextTick(() => {
-      this.mqttClient = Vue.prototype.mqttClient;
+    this.mqttClient = Vue.prototype.mqttClient;
     // });
-
     if ((this.$store.getters.getToken || "") == "") {
       this.$router.replace("/login");
       return;
     }
-    
+
     this.getImgInfo();
     this.getServer();
     // this.reconnect(true);
- 
   },
   beforeCreate() {},
   methods: {
@@ -71,8 +68,7 @@ export default {
      * 断开链接2种可能。没有初始化或者关闭了频道接收
      */
     //重新链接
-    reconnect(status=null) {
-
+    reconnect(status = null) {
       if (!status) {
         this.$toast.loading("重连中...", 2000);
       }

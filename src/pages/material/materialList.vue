@@ -294,7 +294,7 @@ export default {
   // margin-bottom: 100 * @rpx;
   margin-bottom: 95 * @rpx;
   position: relative;
-  padding: 6% 5% 5% 3%;
+  
   &-apply {
     position: absolute;
     right: 35 * @rpx;
@@ -369,37 +369,38 @@ export default {
     }
   }
   // table
-  &-table {
-    width: 90%;
-    margin: 20 * @rpx auto 0;
-    &-box {
-      border-top: 1 * @rpx solid #999;
-      border-left: 1 * @rpx solid #999;
-      &-list {
-        width: 20%;
-        text-align: center;
-        border-right: 1 * @rpx solid #999;
-        padding: 5px 0;
-      }
-      :nth-of-type(2) {
-        width: 30%;
-      }
-      :nth-of-type(3) {
-        width: 15%;
-      }
-      :nth-of-type(5) {
-        span {
-          display: inline-bloack;
-          color: #fff;
-          font-size: 24 * @rpx;
-          padding: 5 * @rpx;
-          background: #4699ff;
-          border-radius: 4px;
-          padding: 3px 6px;
-        }
-      }
-    }
-  }
+  // &-table {
+  //   width: 90%;
+  //   margin: 20 * @rpx auto 0;
+  //   &-box {
+  //     border-top: 1 * @rpx solid #999;
+  //     border-left: 1 * @rpx solid #999;
+  //     &-list {
+  //       width: 20%;
+  //       text-align: center;
+  //       border-right: 1 * @rpx solid #999;
+  //       padding: 5px 0;
+  //     }
+  //     :nth-of-type(2) {
+  //       width: 30%;
+  //     }
+  //     :nth-of-type(3) {
+  //       width: 15%;
+  //     }
+  //     :nth-of-type(5) {
+  //       span {
+  //         display: inline-bloack;
+  //         color: #fff;
+  //         font-size: 24 * @rpx;
+  //         padding: 5 * @rpx;
+  //         background: #4699ff;
+  //         border-radius: 4px;
+  //         padding: 3px 6px;
+  //       }
+  //     }
+  //   }
+  // }
+
 }
 
 .Mdetails {

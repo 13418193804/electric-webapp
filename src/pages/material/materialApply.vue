@@ -4,15 +4,12 @@
     <ul class="flex taskTabs">
       <li v-for="(item,index) in tabs" :key="index" :class="{titilebCur:index == active}" @click="handelClick(index)">{{item.titile}}</li>
     </ul>
-    
 
-           
-
-
-          <div class="material" v-if="active == 0">
+   <div class="material" v-if="active == 0">
     <div class="material-box  flex  flex-align-center">
-              <div class="flex flex-align-center material-top">
-                  <div class="material-select">
+              <div class="flex  material-top1">
+                 
+                  <div class="material-select flex  flex-align-center">
                     <select v-model="keyword_status">
                         <option value="">全部</option>
                         <option value="0">待审核</option>
@@ -21,13 +18,13 @@
                         <option value="3">撤销</option>
                     </select>
                   </div>
-                  <div class="material-top-search boxWidth" >
+                  <div class="material-top1-search boxWidth" >
                       <md-input-item
                       ref="input0" v-model="keyword"
                       type="textarea"
                       :maxlength="200"
                       ></md-input-item>
-                      <div class="material-top-search-icon" @click="search(0)"><i class="iconfont icon-sousuo"></i></div>
+                      <div class="material-top1-search-icon" @click="search(0)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
                  
               </div>
@@ -47,8 +44,8 @@
                     <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+'：'+list.amount+list.units}}；</span>
                 </div>
 
-                <span v-if="item.desp">领用备注:{{item.desp}}</span>
-                <span v-if="item.status_desp"> 备注:{{item.status_desp}}</span>
+                <div v-if="item.desp">领用备注:{{item.desp}}</div>
+                <div v-if="item.status_desp"> 备注:{{item.status_desp}}</div>
                 <div class="flex material-list-operation">
                     <div>
                         <span class="tag" v-if="item.status == 0" @click="confirmRevoke(item.id)">撤销</span>
@@ -72,16 +69,16 @@
   <div class="material" v-if="active == 1">
               <!-- 扫一扫 -->
             <div class="material-box  flex  flex-align-center">
-              <div class="flex material-top">
-                  <div class="material-top-search">
+              <div class="flex material-top1">
+                  <div class="material-top1-search">
                       <md-input-item
                       ref="input0" v-model="keyword"
                       type="textarea"
                       :maxlength="200"
                       ></md-input-item>
-                      <div class="material-top-search-icon" @click="search(1)"><i class="iconfont icon-sousuo"></i></div>
+                      <div class="material-top1-search-icon" @click="search(1)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
-                  <div class="material-top-button">
+                  <div class="material-top1-button">
                       <div class="tag"  @click="getApply()">申请物料</div>
                   </div>
               </div>
@@ -93,18 +90,18 @@
         <div class="scroll-view-list material taskNew" >
                 <div class="material-table" v-if="reserveData.length > 0">
                     <div class="flex material-table-box">
-                        <div class="material-table-box-list">申请编号</div>
-                        <div class="material-table-box-list">名称</div>
-                        <div class="material-table-box-list">单位</div>
-                        <div class="material-table-box-list">剩余数量</div>
-                        <div class="material-table-box-list"></div>
+                        <div class="material-table-box-list">编号</div>
+                        <div class="material-table-box-list" style="width:60%;">物料</div>
+                     
+                        <div class="material-table-box-list" style="width:25%;"></div>
                     </div>
                     <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
-                      <div class="material-table-box-list">{{item.id}}</div>
-                        <div class="material-table-box-list">({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name}}</div>
-                        <div class="material-table-box-list">{{item.units}}</div>
-                        <div class="material-table-box-list">{{item.amount}}</div>
-                        <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)"><span>使用</span></div>
+                      <div class="material-table-box-list">{{item.material_order_id}}</div>
+                        <div class="material-table-box-list" style="width:60%;">
+                                    ({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name+'：'+item.amount+item.units}}
+                                    <div >领用备注:{{item.desp}}</div>
+                          </div>
+                        <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)" style="width:25%;"><span>使用</span></div>
                     </div>
                 </div>
             <div class="noneData" v-else>
@@ -122,14 +119,14 @@
         <!-- 物料使用记录 -->
         <div class="material" v-if="active == 2">
             <div class="material-box  flex  flex-align-center">
-              <div class="flex material-top">
-                  <div class="material-top-search">
+              <div class="flex material-top1">
+                  <div class="material-top1-search">
                       <md-input-item v-model="keyword"
                       ref="input0"
                       type="textarea"
                       :maxlength="200"
                       ></md-input-item>
-                      <div class="material-top-search-icon" @click="search(2)"><i class="iconfont icon-sousuo"></i></div>
+                      <div class="material-top1-search-icon" @click="search(2)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
                   
               </div>
@@ -139,7 +136,7 @@
                   <template slot="list-content">
                     <!-- 物料申请 -->
                     <div class="scroll-view-list material taskNew" >
-                      <div class="material-table" v-if="materiallist.length > 0">
+                      <!-- <div class="material-table"  v-if="materiallist.length > 0">
                             <div class="flex material-table-box">
                                 <div class="material-table-box-list">申请编号</div>
                                 <div class="material-table-box-list">名称</div>
@@ -155,6 +152,29 @@
                                 <div class="material-table-box-list">{{item.amount}}</div>
                                 <div class="material-table-box-list">{{item.is_spare==0?'直接领取':'备用领取'}}</div>
                                 <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)">{{item.is_wastage==1?'损耗':`查看工单(${item.workorder_id})`}}</div>
+                            </div>
+                        </div>     -->
+                         <div class="material-table"  v-if="materiallist.length > 0">
+                            <div class="flex material-table-box">
+                                <div class="material-table-box-list">编号</div>
+                                <div class="material-table-box-list"  style="width:60%;">物料</div>
+                                <!-- <div class="material-table-box-list">单位</div>
+                                <div class="material-table-box-list">领用数量</div>
+                                <div class="material-table-box-list">物料来源</div> -->
+                                <div class="material-table-box-list" style="width:30%;"></div>
+                            </div>
+                            <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
+                                <div class="material-table-box-list">{{item.material_order_id}}</div>
+                                <div class="material-table-box-list" style="width:60%;">
+                                     <div>
+                                          ({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name+'：'+item.amount+item.units}}
+                                      <div >领用备注:{{item.desp}}</div>
+                                      <div >使用情况:{{item.is_spare==0?'直接领取':'备用领取'}}</div>
+                                    </div>
+                                  </div>
+                                <!-- <div class="material-table-box-list">{{item.units}}</div>
+                                <div class="material-table-box-list">{{item.amount}}</div> -->
+                                <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)" style="width:30%;">{{item.is_wastage==1?'损耗':`查看工单(${item.workorder_id})`}}</div>
                             </div>
                         </div>    
                         <div class="noneData" v-else>
@@ -351,7 +371,7 @@ export default {
               this.$toast.hide();
               if (res.returnStatus) {
                 Toast({ content: "已撤销" });
-                this.getDataList(()=>{});
+                this.getDataList(() => {});
               } else {
                 this.$dialog.alert({
                   content: res.msg,
@@ -484,7 +504,7 @@ export default {
               });
             }
             this.materiallist = res.data.data;
-            console.log(this.materiallist)
+            console.log(this.materiallist);
             res.data.data.forEach(item => {
               list.push(item);
             });
@@ -512,7 +532,7 @@ export default {
       // }
       this.pageindex = 1;
       if (index == 0) {
-        this.getDataList(()=>{});
+        this.getDataList(() => {});
       }
       if (index == 1) {
         this.getReserveData(() => {});
@@ -532,22 +552,23 @@ export default {
 <style lang="less" scope>
 @import "../../../static/css/common.less";
 .boxWidth {
-  width: 60% !important;
+  flex: 1;
+  margin-left: 22px;
 }
 .material {
   // margin-top: 100 * @rpx;
   position: relative;
-  // padding: 5% 5% 5% 3%;
-  width: 90%;
+  padding: 5% 5% 5% 5%;
+  // width: 90%;
   margin: 0 auto;
-  padding: 7% 0 5%;
+  // padding-top: 7%;
+  // padding: 7% 0 0 0;
   &-apply {
     position: absolute;
     right: 35 * @rpx;
     top: -12 * @rpx;
   }
   &-select {
-    height: 60 * @rpx;
     select {
       font-size: 16px;
       height: 60 * @rpx;
@@ -562,7 +583,8 @@ export default {
     }
   }
   &-list {
-    margin-bottom: 25 * @rpx;
+    width: 90%;
+    margin: 0 auto 25 * @rpx;
     div {
       margin-bottom: 15 * @rpx;
       flex-wrap: wrap;
@@ -598,6 +620,7 @@ export default {
   }
   &-box {
     position: absolute;
+    left: 0;
     z-index: 20;
     top: 80 * @rpx;
     width: 100%;
@@ -605,12 +628,12 @@ export default {
     background-color: #fff;
   }
   // 扫一扫
-  &-top {
+  &-top1 {
     // width: 90%;
     margin: 0 * @rpx auto;
     height: 80 * @rpx;
     justify-content: space-between;
-    width: 100%;
+    width: 90%;
     &-search {
       width: 75%;
       position: relative;
@@ -621,7 +644,7 @@ export default {
       .md-input-item .md-input-item-control .md-input-item-input {
         border: 1px solid #eee;
         border-radius: 5px;
-        height: 70 * @rpx;;
+        height: 70 * @rpx;
         padding-left: 10px;
       }
       &-icon {
@@ -642,7 +665,7 @@ export default {
   }
   // table
   &-table {
-    width: 100%;
+    // width: 90%;
     margin-top: 20 * @rpx;
     &-box {
       border-top: 1 * @rpx solid #999;
@@ -655,12 +678,12 @@ export default {
         word-break: break-all;
       }
       :nth-of-type(2) {
-        width: 30%;
+        // width: 60%;
       }
       :nth-of-type(3) {
-        width: 15%;
+        // width: 30%;
       }
-      :nth-of-type(5) {
+      :nth-of-type(3) {
         span {
           display: inline-bloack;
           color: #fff;

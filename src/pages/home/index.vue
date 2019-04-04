@@ -82,6 +82,7 @@ export default {
   },
   updated() {},
   mounted() {
+
     if ((this.$store.getters.getToken || "") !== "") {
       this.getNumbel();
     } else {
@@ -135,6 +136,7 @@ export default {
           sessionStorage.clear();
           setBaseUrl("");
           setMqttUrl("");
+           Vue.prototype.mqttClient.end()
           this.setUserInfo({
             token: "",
             username: ""
@@ -150,6 +152,7 @@ export default {
         confirmText: "确定",
         onConfirm: () => {
           localStorage.packageToken = "";
+           Vue.prototype.mqttClient.end()
           this.setUserInfo({
             token: "",
             username: ""

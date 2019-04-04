@@ -1,7 +1,7 @@
 import mqtt from "mqtt";
 import jschardet from "jschardet";
 import iconv from "iconv-lite";
-import {  getBaseUrl, getMqttUrl } from "./api/conf";
+import { getBaseUrl, getMqttUrl } from "./api/conf";
 
 
 
@@ -27,7 +27,7 @@ export const loginMQTT = (token, callback) => {
     mqttClient.on("message", (topic, message) => {
         // console.log(message);
         let obj = JSON.parse(iconv.decode(Uint8ArrayToString(message), 'utf8'))
-        console.log(obj)
+    
         if (obj.teyp == 1) {
             sendMessage(
                 obj.location,
