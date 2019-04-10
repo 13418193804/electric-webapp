@@ -26,7 +26,9 @@
                       ></md-input-item>
                       <div class="material-top1-search-icon" @click="search(0)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
-                 
+                  <div class="material-top1-button">
+                      <div class="tag"  @click="getApply()">申请物料</div>
+                  </div>
               </div>
             </div>
     <better-scroll ref="betterScroll" @onPullingUp="onPullingUp" marginTop="200px" >
@@ -41,7 +43,7 @@
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+'：'+list.amount+list.units}}；</span>
+                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{item.id+'：'+list.name+'：'+list.amount+list.units+'-'+list.units}}；</span>
                 </div>
 
                 <div v-if="item.desp">领用备注:{{item.desp}}</div>
@@ -78,9 +80,9 @@
                       ></md-input-item>
                       <div class="material-top1-search-icon" @click="search(1)"><i class="iconfont icon-sousuo"></i></div>
                   </div>
-                  <div class="material-top1-button">
+                  <!-- <div class="material-top1-button">
                       <div class="tag"  @click="getApply()">申请物料</div>
-                  </div>
+                  </div> -->
               </div>
             </div>
 
@@ -92,7 +94,7 @@
                     <div class="flex material-table-box">
                         <div class="material-table-box-list">编号</div>
                         <div class="material-table-box-list" style="width:60%;">物料</div>
-                     
+                        <div class="material-table-box-list" style="width:30%;">物料类型</div>
                         <div class="material-table-box-list" style="width:25%;"></div>
                     </div>
                     <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
@@ -101,6 +103,7 @@
                                     ({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name+'：'+item.amount+item.units}}
                                     <div >领用备注:{{item.desp}}</div>
                           </div>
+                        <div class="material-table-box-list" style="width:30%;">{{item.material_order_id}}</div>
                         <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)" style="width:25%;"><span>使用</span></div>
                     </div>
                 </div>
@@ -558,7 +561,7 @@ export default {
 .material {
   // margin-top: 100 * @rpx;
   position: relative;
-  padding: 5% 5% 5% 5%;
+  padding: 5% 3%;
   // width: 90%;
   margin: 0 auto;
   // padding-top: 7%;
@@ -583,7 +586,7 @@ export default {
     }
   }
   &-list {
-    width: 90%;
+    width: 100%;
     margin: 0 auto 25 * @rpx;
     div {
       margin-bottom: 15 * @rpx;
@@ -633,7 +636,7 @@ export default {
     margin: 0 * @rpx auto;
     height: 80 * @rpx;
     justify-content: space-between;
-    width: 90%;
+    width: 95%;
     &-search {
       width: 75%;
       position: relative;
@@ -658,6 +661,7 @@ export default {
       }
     }
     &-button {
+      margin-left: 10 * @rpx;
       display: flex;
       align-items: center;
       // padding-top: 15 * @rpx;
@@ -669,13 +673,15 @@ export default {
     margin-top: 20 * @rpx;
     &-box {
       border-top: 1 * @rpx solid #999;
-      border-left: 1 * @rpx solid #999;
-      &-list {
+        &-list {
         width: 20%;
         text-align: left;
         border-right: 1 * @rpx solid #999;
         padding: 5px;
         word-break: break-all;
+        &:nth-of-type(1){
+          border-left: 1 * @rpx solid #999;
+        }
       }
       :nth-of-type(2) {
         // width: 60%;
@@ -683,7 +689,7 @@ export default {
       :nth-of-type(3) {
         // width: 30%;
       }
-      :nth-of-type(3) {
+      :nth-of-type(4) {
         span {
           display: inline-bloack;
           color: #fff;
