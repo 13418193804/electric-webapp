@@ -139,7 +139,7 @@ export default {
         callback(res);
       });
     },
-    getAdd(row) {
+    getAdd(row,typeName) {
       this.getIdx(row.id, idx => {
         if (idx != null) {
           let getCount = this.preMaterialList[idx].getCount || 0;
@@ -153,7 +153,9 @@ export default {
             });
           }
         } else {
-          this.preMaterialList.push(Object.assign(row, { getCount: 1 }));
+
+
+          this.preMaterialList.push(Object.assign(row, { getCount: 1,typeName:this.warehouse[this.active].type_name }));
         }
         this.preMaterialList.push();
       });
@@ -176,7 +178,8 @@ export default {
           return (filter.getCount || 0) > 0;
         })
         .map(item => {
-          return `${item.id}:${item.name}：${item.getCount}${item.units}`;
+          console.log(item)
+          return `（${item.typeName}）${item.name}：${item.getCount}${item.units}`;
         });
 
       return list.join("；");

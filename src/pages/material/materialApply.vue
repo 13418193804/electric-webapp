@@ -100,7 +100,7 @@
                     <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
                       <div class="material-table-box-list">{{item.material_order_id}}</div>
                         <div class="material-table-box-list" style="width:60%;">
-                                    ({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name+'：'+item.amount+item.units}}
+                                  （{{item.type}}）{{item.name+'：'+item.amount+item.units}}
                                     <div >领用备注:{{item.desp}}</div>
                           </div>
                         <div class="material-table-box-list" style="width:30%;">{{item.material_order_id}}</div>
@@ -170,14 +170,17 @@
                                 <div class="material-table-box-list">{{item.material_order_id}}</div>
                                 <div class="material-table-box-list" style="width:60%;">
                                      <div>
-                                          ({{item.power_id!== 0 ? item.power_id :item.material_id}}){{item.name+'：'+item.amount+item.units}}
+                                          （{{item.type}}）{{item.name+'：'+item.amount+item.units}}
                                       <div >领用备注:{{item.desp}}</div>
                                       <div >使用情况:{{item.is_spare==0?'直接领取':'备用领取'}}</div>
                                     </div>
                                   </div>
                                 <!-- <div class="material-table-box-list">{{item.units}}</div>
                                 <div class="material-table-box-list">{{item.amount}}</div> -->
-                                <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)" style="width:30%;">{{item.is_wastage==1?'损耗':`查看工单(${item.workorder_id})`}}</div>
+                                <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)" style="width:30%;">
+                                  {{item.is_wastage==1?'损耗':''}}
+                                  {{item.is_wastage==0&&item.workorder_id!=0?`查看工单(${item.workorder_id})`:''}}
+                                  </div>
                             </div>
                         </div>    
                         <div class="noneData" v-else>
@@ -330,6 +333,7 @@ export default {
             this.$nextTick(() => {
               this.forceUpdate(true);
             });
+      
             if (res.data.data.length !== this.pagesize) {
               this.$nextTick(() => {
                 this.forceUpdate(false);
@@ -521,7 +525,8 @@ export default {
         });
     },
     goTask(item) {
-      if (item.is_wastage == 1) {
+      console.log(item);
+      if (item.is_wastage == 1 || item.workorder_id == 0) {
         return;
       }
       this.setTaskId(item.workorder_id);
@@ -673,13 +678,13 @@ export default {
     margin-top: 20 * @rpx;
     &-box {
       border-top: 1 * @rpx solid #999;
-        &-list {
+      &-list {
         width: 20%;
         text-align: left;
         border-right: 1 * @rpx solid #999;
         padding: 5px;
         word-break: break-all;
-        &:nth-of-type(1){
+        &:nth-of-type(1) {
           border-left: 1 * @rpx solid #999;
         }
       }
