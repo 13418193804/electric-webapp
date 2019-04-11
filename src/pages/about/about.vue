@@ -26,7 +26,7 @@ export default {
     // 选项 数据
     return {
       option: [
-        { title: "版本号", content: "1.0.3" },
+        { title: "版本号", content: "1.0.5" },
         { title: "客服电话", content: "0755-33376606" },
         { title: "官网", content: "http://www.onv.com.cn/" }
       ]

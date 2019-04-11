@@ -41,7 +41,7 @@
                 </div>
                 <div>关联任务单：<span>{{item.workorder_id == '0' ?'':item.workorder_id}}</span></div>
                 <div class="flex material-list-btn">
-                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">{{list.name+'：'+list.amount+list.units}}；</span>
+                    <span  v-for="(list,listIndex) in item.lists" :key="listIndex">（{{list.type}}）{{list.name+'：'+list.amount+list.units}}；</span>
                 </div>
 
                 <div v-if="item.desp">领用备注:{{item.desp}}</div>
@@ -576,10 +576,10 @@ export default {
       border: 1px solid #ddd;
       background: #fff;
       padding-left: 10 * @rpx;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      outline: none;
+      // -webkit-appearance: none;
+      // -moz-appearance: none;
+      // appearance: none;
+      // outline: none;
     }
   }
   &-list {

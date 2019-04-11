@@ -209,7 +209,7 @@ export default {
             } else {
               this.warehouse = res.data.data.warehouse;
             }
-
+            this.warehouseList = [];
             if (this.warehouse.length > 0) {
               this.handelLook(this.warehouse[0], 0);
             }
@@ -287,14 +287,19 @@ export default {
 <style lang="less">
 @import "../../../static/css/common.less";
 .type {
-  background: #ddd;position: absolute;top: -1px;left: 0;
-  width:100%;border: 1px solid #ddd;line-height: 30px;
+  background: #ddd;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  line-height: 30px;
 }
 .material {
   // margin-bottom: 100 * @rpx;
   margin-bottom: 95 * @rpx;
   position: relative;
-  
+
   &-apply {
     position: absolute;
     right: 35 * @rpx;
@@ -400,7 +405,6 @@ export default {
   //     }
   //   }
   // }
-
 }
 
 .Mdetails {
@@ -427,13 +431,13 @@ export default {
   }
   &-content {
     margin: 40 * @rpx 0 30 * @rpx;
-    
+
     &-box {
       border: 1px solid #ddd;
       width: 70%;
       position: relative;
       padding-top: 30px;
-      &-scroll{
+      &-scroll {
         height: 400 * @rpx;
         overflow: auto;
         &-list {
@@ -441,25 +445,24 @@ export default {
           border-bottom: 1px solid #ddd;
         }
       }
-        &-Mdetails {
-          margin-bottom: 5px;
-          div {
-            line-height: 20px;
-            img {
-              width: 15px;
-              height: 15px;
-              vertical-align: middle;
-            }
+      &-Mdetails {
+        margin-bottom: 5px;
+        div {
+          line-height: 20px;
+          img {
+            width: 15px;
+            height: 15px;
+            vertical-align: middle;
           }
         }
-        .cur {
-          background: #4699ff;
-          color: #fff;
-        }
-        &-list:last-child {
-          border-bottom: none;
-        }
-      
+      }
+      .cur {
+        background: #4699ff;
+        color: #fff;
+      }
+      &-list:last-child {
+        border-bottom: none;
+      }
     }
     &-box:nth-of-type(1) {
       width: 30%;

@@ -426,7 +426,7 @@ export default {
   }
   &-footer {
     width: 100%;
-    margin-top: 30 * @rpx;
+    margin-top: 40 * @rpx 0;
     &-btn {
       border-radius: 50px;
       background: #4699ff;

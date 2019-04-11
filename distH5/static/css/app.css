@@ -1690,7 +1690,7 @@ input:-ms-input-placeholder {
 }
 .details-footer {
   width: 100%;
-  margin-top: 1.36364rem;
+  margin-top: 1.81818rem 0;
 }
 .details-footer-btn {
   border-radius: 4.54545rem;
@@ -2035,10 +2035,6 @@ input:-ms-input-placeholder {
   border: 0.09091rem solid #ddd;
   background: #fff;
   padding-left: 0.45455rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
 }
 .material-list {
   width: 90%;
