@@ -176,7 +176,7 @@ export default {
           return (filter.getCount || 0) > 0;
         })
         .map(item => {
-          return `${item.name}：${item.getCount}${item.units}`;
+          return `${item.id}:${item.name}：${item.getCount}${item.units}`;
         });
 
       return list.join("；");
@@ -208,6 +208,7 @@ export default {
               this.warehouse = power_box.concat(res.data.data.warehouse);
             } else {
               this.warehouse = res.data.data.warehouse;
+              this.warehouseList = []
             }
             this.warehouseList = [];
             if (this.warehouse.length > 0) {
