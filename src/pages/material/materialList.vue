@@ -472,9 +472,14 @@ export default {
       width: 30%;
       margin-right: 3%;
       text-align: center;
+      // height: 400 * @rpx;
+      // overflow: auto;
+      
     }
     &-box:nth-of-type(2) {
       padding: 20 * @rpx 30 * @rpx;
+      height: 460 * @rpx;
+      overflow: auto;
     }
   }
   &-form {
