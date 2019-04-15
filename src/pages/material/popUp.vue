@@ -4,7 +4,7 @@
        <!-- <md-button @click.native="showNoMask=true">点击蒙层关闭</md-button> -->
         <md-landscape v-model="showNoMask" :mask-closable="true">
             <div class="apply">
-                <div class="apply-list">物料编码：{{materialspareObject.id}}</div>
+                <!-- <div class="apply-list">物料编码：{{materialspareObject.id}}</div> -->
                 <div class="apply-list">物料名称：{{materialspareObject.name}}</div>
                 <div class="apply-list">物料单位：{{materialspareObject.units}}</div>
                 <div class="flex apply-list">

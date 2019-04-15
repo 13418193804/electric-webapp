@@ -93,18 +93,22 @@
                 <div class="material-table" v-if="reserveData.length > 0">
                     <div class="flex material-table-box">
                         <div class="material-table-box-list">编号</div>
-                        <div class="material-table-box-list" style="width:60%;">物料</div>
-                        <div class="material-table-box-list" style="width:30%;">物料类型</div>
-                        <div class="material-table-box-list" style="width:25%;"></div>
+                        <div class="material-table-box-list" style="width:30%;">类型</div>
+                        <div class="material-table-box-list" style="width:40%;">物料</div>
+                        <div class="material-table-box-list" style="width:15%;">数量</div>
+                        <div class="material-table-box-list" style="width:15%;">单位</div>
+                        <div class="material-table-box-list" style="width:20%;"></div>
                     </div>
                     <div class="flex material-table-box" v-if="reserveData.length > 0" v-for="(item,index) in reserveData" :key="index">
                       <div class="material-table-box-list">{{item.material_order_id}}</div>
-                        <div class="material-table-box-list" style="width:60%;">
-                                  （{{item.type}}）{{item.name+'：'+item.amount+item.units}}
+                        <div class="material-table-box-list" style="width:30%;">{{item.type}}</div>
+                           <div class="material-table-box-list" style="width:40%;">
+                                  {{item.name}} 
                                     <div >领用备注:{{item.desp}}</div>
                           </div>
-                        <div class="material-table-box-list" style="width:30%;">{{item.material_order_id}}</div>
-                        <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)" style="width:25%;"><span>使用</span></div>
+                        <div class="material-table-box-list" style="width:15%;"> {{item.amount}}</div>
+                        <div class="material-table-box-list" style="width:15%;"> {{item.units}}</div>
+                        <div class="material-table-box-list  flex  flex-align-center flex-pack-center" @click="getPop(item)" style="width:20%;"><span>使用</span></div>
                     </div>
                 </div>
             <div class="noneData" v-else>
@@ -160,21 +164,29 @@
                          <div class="material-table"  v-if="materiallist.length > 0">
                             <div class="flex material-table-box">
                                 <div class="material-table-box-list">编号</div>
-                                <div class="material-table-box-list"  style="width:60%;">物料</div>
+                                <div class="material-table-box-list" style="width:30%;">类型</div>
+                                <div class="material-table-box-list"  style="width:40%;">物料</div>
+                                 <div class="material-table-box-list" style="width:15%;">数量</div>
+                                <div class="material-table-box-list" style="width:15%;">单位</div>
                                 <!-- <div class="material-table-box-list">单位</div>
-                                <div class="material-table-box-list">领用数量</div>
+                                <div class="material-table-box-list">数量</div>
                                 <div class="material-table-box-list">物料来源</div> -->
+                            
                                 <div class="material-table-box-list" style="width:30%;"></div>
                             </div>
                             <div class="flex material-table-box" v-for="(item,index) in materiallist" :key="index">
                                 <div class="material-table-box-list">{{item.material_order_id}}</div>
-                                <div class="material-table-box-list" style="width:60%;">
+                        <div class="material-table-box-list" style="width:30%;">{{item.type}}</div>
+  <div class="material-table-box-list" style= "width:40%;">
                                      <div>
-                                          （{{item.type}}）{{item.name+'：'+item.amount+item.units}}
+                                         {{item.name}}
                                       <div >领用备注:{{item.desp}}</div>
                                       <div >使用情况:{{item.is_spare==0?'直接领取':'备用领取'}}</div>
                                     </div>
                                   </div>
+                                <div class="material-table-box-list" style="width:15%;"> {{item.amount}}</div>
+                                <div class="material-table-box-list" style="width:15%;"> {{item.units}}</div>
+                              
                                 <!-- <div class="material-table-box-list">{{item.units}}</div>
                                 <div class="material-table-box-list">{{item.amount}}</div> -->
                                 <div class="material-table-box-list flex  flex-align-center flex-pack-center" @click="goTask(item)" style="width:30%;">
@@ -333,7 +345,7 @@ export default {
             this.$nextTick(() => {
               this.forceUpdate(true);
             });
-      
+
             if (res.data.data.length !== this.pagesize) {
               this.$nextTick(() => {
                 this.forceUpdate(false);
@@ -694,7 +706,7 @@ export default {
       :nth-of-type(3) {
         // width: 30%;
       }
-      :nth-of-type(4) {
+      :nth-of-type(6) {
         span {
           display: inline-bloack;
           color: #fff;
